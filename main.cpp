@@ -1,11 +1,31 @@
 #include "mainwindow.h"
-
+#include <QScreen>
 #include <QApplication>
-
+#include <iostream>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.show();
+
+    // get list of screens
+    QList<QScreen *> screens = QGuiApplication::screens();
+
+    // if there is a screen that has portrait aspect ratio (ideally 9:16), open on that window
+    int screen = 0;
+    std::cout << "screens: " << screens.size() << "\n"; // log amount of screens in terminal
+    for (int x = 0; x < screens.size(); x++)
+    {
+        std::cout << x << ": " << screens[x]->availableSize().width() << "x" << screens[x]->availableSize().height() << "\n"; // log screen size in terminal
+        if (screens[x]->availableSize().width() < screens[x]->availableSize().height())
+        {
+            screen = x;
+            break; // this will use the first portrait monitor if multiple are present
+        }
+    }
+    std::cout << "using screen: " << screen << "\n";
+    //w.setWindowFlag(Qt::FramelessWindowHint); // set window to be borderless
+    w.move(screens[screen]->availableGeometry().center()); // set screen
+    w.showFullScreen();
+
     return a.exec();
 }
