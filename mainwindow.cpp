@@ -33,4 +33,6 @@ void MainWindow::resizeEvent(QResizeEvent*)
     }
     // center widget
     ui->menuBox->move((wh[0] / 2) - (ui->menuBox->width() / 2), (wh[1] / 2) - (ui->menuBox->height() / 2));
+    // set layout to same size as frame
+    ui->verticalLayoutWidget->setGeometry(0, 0, ui->menuBox->width(), ui->menuBox->height());
 }
