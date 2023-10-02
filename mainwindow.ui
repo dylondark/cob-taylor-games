@@ -20,7 +20,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="menuBox">
+   <widget class="QFrame" name="canvas">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -48,7 +48,7 @@ border: 4px solid red;
        <height>1221</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="menuLayout">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>

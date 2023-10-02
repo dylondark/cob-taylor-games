@@ -24,15 +24,15 @@ void MainWindow::resizeEvent(QResizeEvent*)
     if (ratio >= _9BY16)
     {
         // aspect is wider or equal to 9:16
-        ui->menuBox->setFixedSize(wh[1] * _9BY16, wh[1]);
+        ui->canvas->setFixedSize(wh[1] * _9BY16, wh[1]);
     }
     else
     {
         // aspect is narrower than 9:16
-        ui->menuBox->setFixedSize(wh[0], wh[0] / _9BY16);
+        ui->canvas->setFixedSize(wh[0], wh[0] / _9BY16);
     }
     // center widget
-    ui->menuBox->move((wh[0] / 2) - (ui->menuBox->width() / 2), (wh[1] / 2) - (ui->menuBox->height() / 2));
+    ui->canvas->move((wh[0] / 2) - (ui->canvas->width() / 2), (wh[1] / 2) - (ui->canvas->height() / 2));
     // set layout to same size as frame
-    ui->verticalLayoutWidget->setGeometry(0, 0, ui->menuBox->width(), ui->menuBox->height());
+    ui->verticalLayoutWidget->setGeometry(0, 0, ui->canvas->width(), ui->canvas->height());
 }
