@@ -58,6 +58,9 @@ background-color: rgba(0, 0, 0, 50);
           <pointsize>60</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true">border: 4px solid black;</string>
+        </property>
         <property name="text">
          <string>TITLE</string>
         </property>
@@ -75,6 +78,9 @@ background-color: rgba(0, 0, 0, 50);
          <font>
           <pointsize>60</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 4px solid black;</string>
         </property>
         <property name="text">
          <string>LEADERBOARD</string>
