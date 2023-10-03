@@ -47,7 +47,7 @@ background-color: rgba(0, 0, 0, 50);
        <height>1221</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="menuLayout">
+     <layout class="QVBoxLayout" name="menuLayout" stretch="1,2,3">
       <property name="spacing">
        <number>15</number>
       </property>
