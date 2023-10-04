@@ -6,7 +6,7 @@ This is the program for one of the two touchscreens in the UA Taylor Institute v
   - https://www.qt.io/download
 -  Then click Download Open Source, after clicking Download Open Source scroll down and locate Download the Qt Online Installer. Then, choose which installer you need.
 -  After downloading the installer, you may or may not need to create an account to log in, then follow the next step on the screen.
--  In the select components window, choose qt design studio 4.3.0,  and qt 6.5.3
+-  In the select components window, choose qt design studio 4.3.0, and qt 6.5 (check for the latest version)
 -  Then follow the next couple of steps to start installing and wait, then you’re done. 
 
 ## Development Info + Plans
