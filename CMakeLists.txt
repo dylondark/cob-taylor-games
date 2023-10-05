@@ -23,6 +23,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(cob-taylor-games
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        bgwidget.h bgwidget.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET cob-taylor-games APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
