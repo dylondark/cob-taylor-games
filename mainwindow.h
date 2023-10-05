@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "bgwidget.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,5 +20,6 @@ public:
 private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);
+    bgWidget *background;
 };
 #endif // MAINWINDOW_H

@@ -6,6 +6,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // create background widget
+    bgWidget *background = new bgWidget();
+    background->show();
+    background->stackUnder(ui->canvas);
 }
 
 MainWindow::~MainWindow()
@@ -35,4 +40,6 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->canvas->move((wh[0] / 2) - (ui->canvas->width() / 2), (wh[1] / 2) - (ui->canvas->height() / 2));
     // set layout to same size as frame
     ui->verticalLayoutWidget->setGeometry(0, 0, ui->canvas->width(), ui->canvas->height());
+    // set background over entire window
+    background->setGeometry(0, 0, wh[0], wh[1]);
 }
