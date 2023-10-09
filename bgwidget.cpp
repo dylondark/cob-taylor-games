@@ -4,3 +4,8 @@ bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent)
 {
 
 }
+
+bgWidget::~bgWidget()
+{
+
+}
