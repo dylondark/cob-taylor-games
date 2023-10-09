@@ -2,13 +2,13 @@
 #define BGWIDGET_H
 
 #include <QWidget>
-#include <QtOpenGLWidgets/QOpenGLWidget>
+#include <QOpenGLWidget>
 
 class bgWidget : public QOpenGLWidget
 {
 
 public:
-    bgWidget();
+    bgWidget(QWidget*);
     ~bgWidget();
 
 public slots:

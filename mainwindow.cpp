@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // create background widget
-    bgWidget *background = new bgWidget();
+    bgWidget *background = new bgWidget(this);
     background->show();
     background->stackUnder(ui->canvas);
 }
