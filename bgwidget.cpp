@@ -16,5 +16,10 @@ void bgWidget::paintEvent(QPaintEvent *event)
     QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.fillRect(rect(), Qt::GlobalColor::blue);
+
+    QRadialGradient bgGrad(width() / 2, height() / 2, width());
+    bgGrad.setColorAt(0.0, QColor(200, 200, 200));
+    bgGrad.setColorAt(1.0, QColor(100, 100, 100));
+
+    painter.fillRect(rect(), bgGrad);
 }
