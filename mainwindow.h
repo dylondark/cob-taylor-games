@@ -20,6 +20,5 @@ public:
 private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);
-    bgWidget *background;
 };
 #endif // MAINWINDOW_H
