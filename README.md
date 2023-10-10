@@ -31,3 +31,5 @@ There will be 6 games. Currently we have the following ideas:
 - Chess with Zippy pieces
 - UA trivia
 - "Guess the logo"
+- Zippy hopper
+- UA Pong??
