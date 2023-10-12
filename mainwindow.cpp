@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,6 +8,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->background->lower(); // send background to back
+
+    // create timer that will update the background object
+    QTimer *bgUpdate = new QTimer(this);
+    connect(bgUpdate, &QTimer::timeout, ui->background, &bgWidget::animate);
+    const int FPS = 60; // how many times to update the background per second
+    bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
 }
 
 MainWindow::~MainWindow()
