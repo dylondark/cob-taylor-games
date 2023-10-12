@@ -11,6 +11,11 @@ bgWidget::~bgWidget()
 
 }
 
+void bgWidget::animate() // called by bgUpdate timer in mainwindow ctor
+{
+    update(); // this will call paintEvent to update the frame
+}
+
 void bgWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter;
