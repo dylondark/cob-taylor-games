@@ -17,9 +17,10 @@ void bgWidget::paintEvent(QPaintEvent *event)
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QRadialGradient bgGrad(width() / 2, height() / 2, width());
-    bgGrad.setColorAt(0.0, QColor(200, 200, 200));
-    bgGrad.setColorAt(1.0, QColor(100, 100, 100));
+    QLinearGradient bgGrad(500, 500, 1000, 1000);
+    bgGrad.setSpread(QGradient::ReflectSpread);
+    bgGrad.setColorAt(0, QColor(86, 136, 255)); // blue
+    bgGrad.setColorAt(1, QColor(255, 177, 86)); // gold
 
     painter.fillRect(rect(), bgGrad);
 }
