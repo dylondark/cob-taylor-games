@@ -2,34 +2,41 @@
 #include <QPainter>
 #include <iostream>
 
-bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), STATE_MS(5), LOOP_SECONDS(5), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_WIDTH(500)
+bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), LOOP_SECONDS(5), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_WIDTH(500)
 {
-    loopState = new QTimer(this);
-    loopState->setTimerType(Qt::TimerType::PreciseTimer);
-    connect(loopState, &QTimer::timeout, this, &bgWidget::updateTime);
-    loopState->start(STATE_MS);
+
 }
 
 bgWidget::~bgWidget()
 {
-    delete loopState;
+
+}
+
+void bgWidget::setFrameInterval(int ms)
+{
+    frameInterval = ms;
 }
 
 void bgWidget::animate() // called by bgUpdate timer in mainwindow ctor
 {
-    update(); // this will call paintEvent to update the frame
-}
-
-void bgWidget::updateTime()
-{
-    elapsed += STATE_MS;
-    // reset elapsed when it has exceeded the time limit specified in LOOP_SECONDS
-    if (elapsed >= LOOP_MS)
-        elapsed = 0;
+    repaint(); // this will call paintEvent to update the frame
 }
 
 void bgWidget::paintEvent(QPaintEvent *event)
 {
+    // this block of code as well as frameInterval exists in order to (ideally) decouple the speed of the animation from the framerate.
+    // the state of the animation will be determined by the state of elapsed.
+    // elapsed should track how many milliseconds have passed since the last loop reset,
+    // and it will be reset every time it exceeds the time limit for the loop specified in LOOP_SECONDS.
+    // if frameInterval is the same as the interval period specified in the timer that calls this function,
+    // then the speed of the animation should never change when you change the framerate/timer interval.
+    // although this can break down if you set the framerate too high/the interval too low due to the precision of timers being inconsistent at really low intervals.
+    // 60fps is probably the highest you would ever need and it works fine, at least on linux.
+    elapsed += frameInterval;
+    // reset elapsed when it has exceeded the time limit specified in LOOP_SECONDS
+    if (elapsed >= LOOP_MS)
+        elapsed = 0;
+
     QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);

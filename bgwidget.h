@@ -11,20 +11,17 @@ class bgWidget : public QOpenGLWidget
 public:
     bgWidget(QWidget*);
     ~bgWidget();
+    void setFrameInterval(int);
 
 public slots:
     void animate();
-
-private slots:
-    void updateTime();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
     int elapsed = 0;
-    QTimer *loopState;
-    const int STATE_MS; // how many milliseconds between updating the state of the background
+    int frameInterval = 17; // this value should be the same as the interval (in milliseconds) of the timer (bgUpdate in mainwindow) that is repainting this object
     const int LOOP_SECONDS; // the duration in seconds of the loop
     const int LOOP_MS; // the duration in milliseconds of the loop (calculated from LOOP_SECONDS)
     const int GRADIENT_WIDTH; // the width in pixels of the gradient
