@@ -49,9 +49,20 @@ void bgWidget::paintEvent(QPaintEvent *event)
 
     QLinearGradient bgGrad(pos, pos, pos + height(), pos + height());
     bgGrad.setSpread(QGradient::ReflectSpread);
-    bgGrad.setColorAt(0, QColor(86, 136, 255)); // blue
-    bgGrad.setColorAt(1, QColor(255, 177, 86)); // gold
+    // define colors for the gradient in this array
+    static const QColor colors[] = {QColor(0x3f51b1), QColor(0x5a55ae), QColor(0x7b5fac), QColor(0x8f6aae), QColor(0xa86aa4), QColor(0xcc6b8e), QColor(0xf18271), QColor(0xf3a469), QColor(0xf7c978)};
+    //static const QColor colors[] = {Qt::yellow, Qt::blue, Qt::red, Qt::white, Qt::green}; // good pallete for testing
+    setGradientColors(bgGrad, colors, sizeof(colors) / sizeof(colors[0]));
 
     painter.fillRect(rect(), bgGrad);
     painter.end();
+}
+
+// takes a gradient byref and an array of colors and equally spaces the colors onto the gradient
+void bgWidget::setGradientColors(QLinearGradient& gradient, const QColor colors[], int size)
+{
+    int index = 0;
+    const double INTERVAL = (1.0 / (size - 1));
+    for (double count = 0.0; count <= 1.0; count += INTERVAL)
+        gradient.setColorAt(count, colors[index++]);
 }
