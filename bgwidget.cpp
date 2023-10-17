@@ -2,7 +2,7 @@
 #include <QPainter>
 #include <iostream>
 
-bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), LOOP_SECONDS(5), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_LOOPS(2)
+bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), LOOP_SECONDS(60), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_LOOPS(2)
 {
 
 }
