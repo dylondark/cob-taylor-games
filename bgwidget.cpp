@@ -4,7 +4,10 @@
 
 bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), LOOP_SECONDS(60), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_LOOPS(2)
 {
-
+    // these are using local paths which may or may not work for everyone. this will almost certainly be temporary
+    pictures.push_back(QPixmap("../cob-taylor-games/projecticons/controller1.png"));
+    pictures.push_back(QPixmap("../cob-taylor-games/projecticons/aroo1.png"));
+    pictures.push_back(QPixmap("../cob-taylor-games/projecticons/seal1.png"));
 }
 
 bgWidget::~bgWidget()

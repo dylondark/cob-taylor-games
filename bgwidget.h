@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QOpenGLWidget>
 #include <QTimer>
+#include <QPixmap>
+#include <vector>
 
 class bgWidget : public QOpenGLWidget
 {
@@ -26,6 +28,7 @@ private:
     const int LOOP_MS; // the duration in milliseconds of the loop (calculated from LOOP_SECONDS)
     const int GRADIENT_LOOPS; // the amount of times the gradient will repeat in one loop of the animation. affects the speed of the gradient scroll
     void setGradientColors(QLinearGradient&, const QColor[], int);
+    std::vector<QPixmap> pictures; // contains qpixmaps containing all the images to use for the background
 
 };
 
