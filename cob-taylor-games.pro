@@ -5,8 +5,7 @@
 TEMPLATE = app
 TARGET = cob-taylor-games
 INCLUDEPATH += .
-QT += widgets opengl openglwidgets
-
+QT += widgets opengl openglwidgets core
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -16,6 +15,6 @@ QT += widgets opengl openglwidgets
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += mainwindow.h
+HEADERS += bgwidget.h mainwindow.h
 FORMS += mainwindow.ui
-SOURCES += main.cpp mainwindow.cpp
+SOURCES += bgwidget.cpp main.cpp mainwindow.cpp

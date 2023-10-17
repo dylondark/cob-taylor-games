@@ -107,8 +107,8 @@ background-color: rgba(0, 0, 0, 50);
       </item>
       <item>
        <layout class="QGridLayout" name="buttonGrid">
-        <item row="1" column="0">
-         <widget class="QPushButton" name="btnGame3">
+        <item row="2" column="1">
+         <widget class="QPushButton" name="btnGame6">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -116,20 +116,7 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Game 3</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="btnGame1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Game 1</string>
+           <string>Game 6</string>
           </property>
          </widget>
         </item>
@@ -146,8 +133,8 @@ background-color: rgba(0, 0, 0, 50);
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="btnGame2">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="btnGame1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -155,7 +142,20 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Game 2</string>
+           <string>Game 1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="btnGame3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Game 3</string>
           </property>
          </widget>
         </item>
@@ -172,8 +172,8 @@ background-color: rgba(0, 0, 0, 50);
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="btnGame6">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btnGame2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -181,7 +181,7 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Game 6</string>
+           <string>Game 2</string>
           </property>
          </widget>
         </item>
@@ -190,8 +190,25 @@ background-color: rgba(0, 0, 0, 50);
      </layout>
     </widget>
    </widget>
+   <widget class="bgWidget" name="background">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>1260</y>
+      <width>300</width>
+      <height>200</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>bgWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>bgwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

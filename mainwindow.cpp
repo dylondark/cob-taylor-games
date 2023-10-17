@@ -1,11 +1,20 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->background->lower(); // send background to back
+
+    // create timer that will update the background object
+    QTimer *bgUpdate = new QTimer(this);
+    connect(bgUpdate, &QTimer::timeout, ui->background, &bgWidget::animate);
+    const int FPS = 60; // how many times to update the background per second
+    bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
+    ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
 }
 
 MainWindow::~MainWindow()
@@ -35,4 +44,6 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->canvas->move((wh[0] / 2) - (ui->canvas->width() / 2), (wh[1] / 2) - (ui->canvas->height() / 2));
     // set layout to same size as frame
     ui->verticalLayoutWidget->setGeometry(0, 0, ui->canvas->width(), ui->canvas->height());
+    // set background over entire window
+    ui->background->setGeometry(0, 0, wh[0], wh[1]);
 }
