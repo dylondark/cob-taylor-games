@@ -2,6 +2,12 @@
 This is the program for one of the two touchscreens in the UA Taylor Institute video wall. It contains some minigames relating to The University of Akron, Taylor Institute, and marketing. This project is coded in C++ using the Qt 6 GUI library. It is currently intended to run on a portrait touchscreen at 2160x3840 resolution.
 
 ## Setup
+-  To install qt creator on your desktop, locate qt.io/downloads in your browser or by clicking the link below.
+  - https://www.qt.io/download
+-  Then click Download Open Source, after clicking Download Open Source scroll down and locate Download the Qt Online Installer. Then, choose which installer you need.
+-  After downloading the installer, you may or may not need to create an account to log in, then follow the next step on the screen.
+-  In the select components window, choose qt design studio 4.3.0, and qt 6.5 (check for the latest version)
+-  Then follow the next couple of steps to start installing and wait, then you’re done. 
 
 ## Development Info + Plans
 - Window has a QFrame "canvas" that is coded to always appear portrait. It is named that because it is intended to be the "canvas" for the application and all widgets except for the background should be children of it.
@@ -25,3 +31,5 @@ There will be 6 games. Currently we have the following ideas:
 - Chess with Zippy pieces
 - UA trivia
 - "Guess the logo"
+- Zippy hopper
+- UA Pong??
