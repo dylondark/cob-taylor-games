@@ -49,20 +49,25 @@ void bgWidget::paintEvent(QPaintEvent *event)
     // we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
     // the elapsed variable will determine where in this range we want to place the gradient on the current frame
     static const int GRADIENT_LOOP_MS = LOOP_MS / GRADIENT_LOOPS; // the millisecond limit for one loop of the gradient
-    double percentElapsed = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
+    double gradientPercentElapsed = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
     // if/when elapsed becomes greater than GRADIENT_LOOP_MS it will go over 100% and get set to a pos off screen which will still reflect and look proper
-    int pos = (((double)height() * 2) * percentElapsed) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
+    int gradientPos = (((double)height() * 2) * gradientPercentElapsed) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
 
     // set up the gradient
-    QLinearGradient bgGrad(pos, pos, pos + height(), pos + height());
+    QLinearGradient bgGrad(gradientPos, gradientPos, gradientPos + height(), gradientPos + height());
     bgGrad.setSpread(QGradient::ReflectSpread);
     // define colors for the gradient in this array
     static const QColor colors[] = {QColor(0x3f51b1), QColor(0x5a55ae), QColor(0x7b5fac), QColor(0x8f6aae), QColor(0xa86aa4), QColor(0xcc6b8e), QColor(0xf18271), QColor(0xf3a469), QColor(0xf7c978)};
     //static const QColor colors[] = {Qt::yellow, Qt::blue, Qt::red, Qt::white, Qt::green}; // good pallete for testing
     setGradientColors(bgGrad, colors, sizeof(colors) / sizeof(colors[0]));
+    painter.fillRect(rect(), bgGrad); // paint gradient onto the widget
 
-    // paint onto the widget
-    painter.fillRect(rect(), bgGrad);
+    // image operations
+    static const int imageDim = height() / 8; // width and height of the images, must scale with screen size
+    double percentElapsed = (double)elapsed / ((double)LOOP_MS);
+    int pos = ((double)height() * percentElapsed) + 0.5;
+    painter.drawPixmap(pos, pos, imageDim, imageDim, pictures[1]); // paint the image
+
     painter.end();
 }
 
