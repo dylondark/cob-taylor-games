@@ -37,9 +37,10 @@ void bgWidget::paintEvent(QPaintEvent *event)
     if (elapsed >= LOOP_MS)
         elapsed = 0;
 
+    // set up the painter object (this will paint the animation onto the widget)
     QPainter painter;
     painter.begin(this);
-    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::Antialiasing); // use antialiasing if possible
 
     // we want to go from the top left corner (0,0) down to the bottom right corner (this.height(), this.height()) multiple times per loop
     // we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
@@ -49,6 +50,7 @@ void bgWidget::paintEvent(QPaintEvent *event)
     // if/when elapsed becomes greater than GRADIENT_LOOP_MS it will go over 100% and get set to a pos off screen which will still reflect and look proper
     int pos = (((double)height() * 2) * percentElapsed) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
 
+    // set up the gradient
     QLinearGradient bgGrad(pos, pos, pos + height(), pos + height());
     bgGrad.setSpread(QGradient::ReflectSpread);
     // define colors for the gradient in this array
@@ -56,6 +58,7 @@ void bgWidget::paintEvent(QPaintEvent *event)
     //static const QColor colors[] = {Qt::yellow, Qt::blue, Qt::red, Qt::white, Qt::green}; // good pallete for testing
     setGradientColors(bgGrad, colors, sizeof(colors) / sizeof(colors[0]));
 
+    // paint onto the widget
     painter.fillRect(rect(), bgGrad);
     painter.end();
 }
