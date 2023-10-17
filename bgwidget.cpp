@@ -2,7 +2,7 @@
 #include <QPainter>
 #include <iostream>
 
-bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), LOOP_SECONDS(5), LOOP_MS(LOOP_SECONDS * 1000)
+bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), LOOP_SECONDS(5), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_LOOPS(2)
 {
 
 }
@@ -41,10 +41,12 @@ void bgWidget::paintEvent(QPaintEvent *event)
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    // we want to go from the top left corner (0,0) down to the bottom right corner (this.height(), this.height()) twice per loop
+    // we want to go from the top left corner (0,0) down to the bottom right corner (this.height(), this.height()) multiple times per loop
     // we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
     // the elapsed variable will determine where in this range we want to place the gradient on the current frame
-    double percentElapsed = (double)elapsed / (double)LOOP_MS; // we do this by turning elapsed into a percentage of LOOP_MS. from 0% (0) to 100% (LOOP_MS)
+    static const int GRADIENT_LOOP_MS = LOOP_MS / GRADIENT_LOOPS; // the millisecond limit for one loop of the gradient
+    double percentElapsed = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
+    // if/when elapsed becomes greater than GRADIENT_LOOP_MS it will go over 100% and get set to a pos off screen which will still reflect and look proper
     int pos = (((double)height() * 2) * percentElapsed) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
 
     QLinearGradient bgGrad(pos, pos, pos + height(), pos + height());
