@@ -15,6 +15,8 @@ QT += widgets opengl openglwidgets core
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += bgwidget.h mainwindow.h
+HEADERS += bgwidget.h mainwindow.h \
+    imgqueue.h
 FORMS += mainwindow.ui
-SOURCES += bgwidget.cpp main.cpp mainwindow.cpp
+SOURCES += bgwidget.cpp main.cpp mainwindow.cpp \
+    imgqueue.cpp
