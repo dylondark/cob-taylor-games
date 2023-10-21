@@ -52,7 +52,7 @@ void imgQueue::shift()
     queueNode* removeNode;
     queueNode* previousNode = head;
     // we can cheat a little bit (and maybe optimize) since we know the length of the list and it never changes
-    for (int x = 0; x < LENGTH - 1; x++)
+    for (int x = 0; x < LENGTH - 2; x++)
         previousNode = previousNode->next;
     removeNode = previousNode->next;
     // remove from queue
