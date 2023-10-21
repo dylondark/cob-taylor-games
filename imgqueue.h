@@ -21,7 +21,6 @@ public:
     QPixmap operator[](int) const;
     QPixmap next();
     int getLength() const;
-    bool isRand() const;
 };
 
 #endif // IMGQUEUE_H
