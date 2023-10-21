@@ -14,12 +14,13 @@ imgQueue::imgQueue(vector<QPixmap> imglist) : LENGTH(imglist.size()), IMGLIST(im
 
     // populate this list randomly
     head = new queueNode{IMGLIST[rand() % LENGTH], nullptr};
-    queueNode* nodePtr = head->next;
+    queueNode* nodePtr = head;
     for (int x = 0; x < LENGTH - 1; x++)
-    {
-        nodePtr = new queueNode{IMGLIST[rand() % LENGTH], nullptr};
+    {   
+        nodePtr->next = new queueNode{IMGLIST[rand() % LENGTH], nullptr};
         nodePtr = nodePtr->next;
     }
+    nextPtr = head; // init nextptr after head
 }
 
 // destructor, must delete all elements in queue from memory
