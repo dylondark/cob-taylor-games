@@ -4,10 +4,7 @@
 
 bgWidget::bgWidget(QWidget* parent) : QOpenGLWidget(parent), LOOP_SECONDS(60), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_LOOPS(2)
 {
-    // these are using local paths which may or may not work for everyone. this will almost certainly be temporary
-    pictures.push_back(QPixmap("../cob-taylor-games/projecticons/controller1.png"));
-    pictures.push_back(QPixmap("../cob-taylor-games/projecticons/aroo1.png"));
-    pictures.push_back(QPixmap("../cob-taylor-games/projecticons/seal1.png"));
+
 }
 
 bgWidget::~bgWidget()
@@ -64,9 +61,18 @@ void bgWidget::paintEvent(QPaintEvent *event)
 
     // image operations
     static const int imageDim = height() / 8; // width and height of the images, must scale with screen size
-    double percentElapsed = (double)elapsed / ((double)LOOP_MS);
-    int pos = ((double)height() * percentElapsed) + 0.5;
-    painter.drawPixmap(pos, pos, imageDim, imageDim, pictures[1]); // paint the image
+    double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
+    int pos = (((double)height() / queue.getLength()) * percentElapsed) + 0.5;
+
+    // draw each image in queue
+    for (int x = 0; x < queue.getLength(); x++)
+    {
+        painter.drawPixmap(pos + (x * ((double)height() / queue.getLength())), pos + (x * ((double)height() / queue.getLength())), imageDim, imageDim, queue.next()); // paint the image
+    }
+
+    // shift when the last element has moved offscreen
+    if (percentElapsed == 0.0)
+        queue.shift();
 
     painter.end();
 }
