@@ -60,9 +60,9 @@ void bgWidget::paintEvent(QPaintEvent *event)
     painter.fillRect(rect(), bgGrad); // paint gradient onto the widget
 
     // image operations
-    static const int imageDim = height() / 8; // width and height of the images, must scale with screen size
+    static const int imageDim = height() / 12; // width and height of the images, must scale with screen size
     double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
-    int pos = (((double)height() / queue.getLength()) * percentElapsed) + 0.5;
+    int pos = ((((double)height() + imageDim) / queue.getLength()) * percentElapsed) - imageDim + 0.5;
 
     // shift when the last element has moved offscreen
         if (percentElapsed == 0.0)
@@ -71,7 +71,7 @@ void bgWidget::paintEvent(QPaintEvent *event)
     // draw each image in queue
     for (int x = 0; x < queue.getLength(); x++)
     {
-        painter.drawPixmap(pos + (x * ((double)height() / queue.getLength())), pos + (x * ((double)height() / queue.getLength())), imageDim, imageDim, queue.next()); // paint the image
+        painter.drawPixmap(pos + (x * (((double)height() + imageDim) / queue.getLength())), pos + (x * (((double)height() + imageDim) / queue.getLength())), imageDim, imageDim, queue.next()); // paint the image
     }
 
     painter.end();
