@@ -38,7 +38,7 @@ void bgWidget::paintEvent(QPaintEvent *event)
         elapsed = 0;
 
     // set up the painter object (this will paint the animation onto the widget)
-    QPainter painter;
+    static QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing); // use antialiasing if possible
 
