@@ -46,9 +46,9 @@ void bgWidget::paintEvent(QPaintEvent *event)
     // we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
     // the elapsed variable will determine where in this range we want to place the gradient on the current frame
     static const int GRADIENT_LOOP_MS = LOOP_MS / GRADIENT_LOOPS; // the millisecond limit for one loop of the gradient
-    double gradientPercentElapsed = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
+    const double gradientPercentElapsed = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
     // if/when elapsed becomes greater than GRADIENT_LOOP_MS it will go over 100% and get set to a pos off screen which will still reflect and look proper
-    int gradientPos = (((double)height() * 2) * gradientPercentElapsed) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
+    const int gradientPos = (((double)height() * 2) * gradientPercentElapsed) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
 
     // set up the gradient
     QLinearGradient bgGrad(gradientPos, gradientPos, gradientPos + height(), gradientPos + height());
@@ -61,9 +61,9 @@ void bgWidget::paintEvent(QPaintEvent *event)
 
     // image operations
     static const int imageDim = height() / 20; // width and height of the images, must scale with screen size
-    int range = ((double)height() + imageDim) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
-    double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
-    int pos = (range * percentElapsed) - imageDim + 0.5;
+    const int range = ((double)height() + imageDim) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
+    const double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
+    const int pos = (range * percentElapsed) - imageDim + 0.5;
     // shift when the last element has moved offscreen
         if (percentElapsed == 0.0)
         queue.shift();
