@@ -61,17 +61,16 @@ void bgWidget::paintEvent(QPaintEvent *event)
 
     // image operations
     static const int imageDim = height() / 20; // width and height of the images, must scale with screen size
+    int range = ((double)height() + imageDim) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
     double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
-    int pos = ((((double)height() + imageDim) / queue.getLength()) * percentElapsed) - imageDim + 0.5;
-
+    int pos = (range * percentElapsed) - imageDim + 0.5;
     // shift when the last element has moved offscreen
         if (percentElapsed == 0.0)
         queue.shift();
-
     // draw each image in queue
     for (int x = 0; x < queue.getLength(); x++)
     {
-        painter.drawPixmap(pos + (x * (((double)height() + imageDim) / queue.getLength())), pos + (x * (((double)height() + imageDim) / queue.getLength())), imageDim, imageDim, queue.next()); // paint the image
+        painter.drawPixmap(pos + (x * range), pos + (x * range), imageDim, imageDim, queue.next()); // paint the image
     }
 
     painter.end();
