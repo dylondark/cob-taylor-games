@@ -115,6 +115,9 @@ background-color: rgba(0, 0, 0, 50);
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border: 4px solid black;</string>
+          </property>
           <property name="text">
            <string>Game 6</string>
           </property>
@@ -127,6 +130,9 @@ background-color: rgba(0, 0, 0, 50);
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 4px solid black;</string>
           </property>
           <property name="text">
            <string>Game 4</string>
@@ -141,6 +147,9 @@ background-color: rgba(0, 0, 0, 50);
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border: 4px solid black;</string>
+          </property>
           <property name="text">
            <string>Game 1</string>
           </property>
@@ -153,6 +162,9 @@ background-color: rgba(0, 0, 0, 50);
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 4px solid black;</string>
           </property>
           <property name="text">
            <string>Game 3</string>
@@ -167,6 +179,9 @@ background-color: rgba(0, 0, 0, 50);
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border: 4px solid black;</string>
+          </property>
           <property name="text">
            <string>Game 5</string>
           </property>
@@ -179,6 +194,9 @@ background-color: rgba(0, 0, 0, 50);
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 4px solid black;</string>
           </property>
           <property name="text">
            <string>Game 2</string>
