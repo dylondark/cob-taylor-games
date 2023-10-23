@@ -42,6 +42,14 @@ void bgWidget::paintEvent(QPaintEvent *event)
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing); // use antialiasing if possible
 
+    paintGradient(painter);
+    paintImages(painter);
+
+    painter.end();
+}
+
+void bgWidget::paintGradient(QPainter& painter)
+{
     // we want to go from the top left corner (0,0) down to the bottom right corner (this.height(), this.height()) multiple times per loop
     // we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
     // the elapsed variable will determine where in this range we want to place the gradient on the current frame
@@ -58,8 +66,10 @@ void bgWidget::paintEvent(QPaintEvent *event)
     //static const QColor colors[] = {Qt::yellow, Qt::blue, Qt::red, Qt::white, Qt::green}; // good pallete for testing
     setGradientColors(bgGrad, colors, sizeof(colors) / sizeof(colors[0]));
     painter.fillRect(rect(), bgGrad); // paint gradient onto the widget
+}
 
-    // image operations
+void bgWidget::paintImages(QPainter& painter)
+{
     static const int imageDim = height() / 20; // width and height of the images, must scale with screen size
     const int range = ((double)height() + imageDim) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
     const double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
@@ -78,8 +88,6 @@ void bgWidget::paintEvent(QPaintEvent *event)
             painter.drawPixmap(pos + (y * range) + offset, pos + (y * range), imageDim, imageDim, queue.next()); // paint the image
         }
     }
-
-    painter.end();
 }
 
 // takes a gradient byref and an array of colors and equally spaces the colors onto the gradient
