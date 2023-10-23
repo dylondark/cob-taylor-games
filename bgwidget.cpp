@@ -60,7 +60,7 @@ void bgWidget::paintEvent(QPaintEvent *event)
     painter.fillRect(rect(), bgGrad); // paint gradient onto the widget
 
     // image operations
-    static const int imageDim = height() / 12; // width and height of the images, must scale with screen size
+    static const int imageDim = height() / 20; // width and height of the images, must scale with screen size
     double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
     int pos = ((((double)height() + imageDim) / queue.getLength()) * percentElapsed) - imageDim + 0.5;
 
