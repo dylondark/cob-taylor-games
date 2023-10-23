@@ -54,38 +54,38 @@ void bgWidget::paintGradient(QPainter& painter)
     // we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
     // the elapsed variable will determine where in this range we want to place the gradient on the current frame
     static const int GRADIENT_LOOP_MS = LOOP_MS / GRADIENT_LOOPS; // the millisecond limit for one loop of the gradient
-    const double gradientPercentElapsed = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
+    const double PERCENT_ELAPSED = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
     // if/when elapsed becomes greater than GRADIENT_LOOP_MS it will go over 100% and get set to a pos off screen which will still reflect and look proper
-    const int gradientPos = (((double)height() * 2) * gradientPercentElapsed) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
+    const int POS = (((double)height() * 2) * PERCENT_ELAPSED) + 0.5; // add 0.5 for accurate rounding (otherwise compiler will round down)
 
     // set up the gradient
-    QLinearGradient bgGrad(gradientPos, gradientPos, gradientPos + height(), gradientPos + height());
+    QLinearGradient bgGrad(POS, POS, POS + height(), POS + height());
     bgGrad.setSpread(QGradient::ReflectSpread);
     // define colors for the gradient in this array
-    static const QColor colors[] = {QColor(0x3f51b1), QColor(0x5a55ae), QColor(0x7b5fac), QColor(0x8f6aae), QColor(0xa86aa4), QColor(0xcc6b8e), QColor(0xf18271), QColor(0xf3a469), QColor(0xf7c978)};
-    //static const QColor colors[] = {Qt::yellow, Qt::blue, Qt::red, Qt::white, Qt::green}; // good pallete for testing
-    setGradientColors(bgGrad, colors, sizeof(colors) / sizeof(colors[0]));
+    static const QColor COLORS[] = {QColor(0x3f51b1), QColor(0x5a55ae), QColor(0x7b5fac), QColor(0x8f6aae), QColor(0xa86aa4), QColor(0xcc6b8e), QColor(0xf18271), QColor(0xf3a469), QColor(0xf7c978)};
+    //static const QColor COLORS[] = {Qt::yellow, Qt::blue, Qt::red, Qt::white, Qt::green}; // good pallete for testing
+    setGradientColors(bgGrad, COLORS, sizeof(COLORS) / sizeof(COLORS[0]));
     painter.fillRect(rect(), bgGrad); // paint gradient onto the widget
 }
 
 void bgWidget::paintImages(QPainter& painter)
 {
-    static const int imageDim = height() / 20; // width and height of the images, must scale with screen size
-    const int range = ((double)height() + imageDim) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
-    const double percentElapsed = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
-    const int pos = (range * percentElapsed) - imageDim + 0.5;
-    static const int imageRows = 12; // how many "rows" of images will be drawn
+    static const int IMAGE_DIM = height() / 20; // width and height of the images, must scale with screen size
+    const int RANGE = ((double)height() + IMAGE_DIM) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
+    const double PERCENT_ELAPSED = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
+    const int POS = (RANGE * PERCENT_ELAPSED) - IMAGE_DIM + 0.5;
+    static const int IMAGE_ROWS = 12; // how many "rows" of images will be drawn
     // shift when the last element has moved offscreen
-    if (percentElapsed == 0.0)
+    if (PERCENT_ELAPSED == 0.0)
         queue.shift();
     // draw each image in queue
     int offset;
-    for (int x = 0; x < imageRows; x++)
+    for (int x = 0; x < IMAGE_ROWS; x++)
     {
-        offset = (((width() * 3) / imageRows) * x) - (width() * 2); // draw lines from -(width() * 2) to width()
+        offset = (((width() * 3) / IMAGE_ROWS) * x) - (width() * 2); // draw lines from -(width() * 2) to width()
         for (int y = 0; y < queue.getLength(); y++)
         {
-            painter.drawPixmap(pos + (y * range) + offset, pos + (y * range), imageDim, imageDim, queue.next()); // paint the image
+            painter.drawPixmap(POS + (y * RANGE) + offset, POS + (y * RANGE), IMAGE_DIM, IMAGE_DIM, queue.next()); // paint the image
         }
     }
 }
