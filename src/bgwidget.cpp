@@ -73,11 +73,14 @@ void bgWidget::paintImages(QPainter& painter)
     static const int IMAGE_DIM = height() / 20; // width and height of the images, must scale with screen size
     const int RANGE = ((double)height() + IMAGE_DIM) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
     const double PERCENT_ELAPSED = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
+    static double lastElapsed = 0.0;
     const int POS = (RANGE * PERCENT_ELAPSED) - IMAGE_DIM + 0.5;
     static const int IMAGE_ROWS = 12; // how many "rows" of images will be drawn
     // shift when the last element has moved offscreen
-    if (PERCENT_ELAPSED == 0.0)
+    // we detect this by checking if PERCENT_ELAPSED is less than it was the last time this func was called
+    if (PERCENT_ELAPSED < lastElapsed)
         queue.shift();
+    lastElapsed = PERCENT_ELAPSED;
     // draw each image in queue
     int offset;
     for (int x = 0; x < IMAGE_ROWS; x++)
