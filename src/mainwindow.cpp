@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // create timer that will update the background object
     QTimer *bgUpdate = new QTimer(this);
+    bgUpdate->setTimerType(Qt::PreciseTimer); // precise timer could potentially improve frametimes
     connect(bgUpdate, &QTimer::timeout, ui->background, &bgWidget::animate);
     const int FPS = 60; // how many times to update the background per second
     bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
