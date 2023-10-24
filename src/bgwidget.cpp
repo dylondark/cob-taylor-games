@@ -76,8 +76,9 @@ void bgWidget::paintImages(QPainter& painter)
 {
     const int IMAGE_DIM = height() / 20; // width and height of the images, must scale with screen size
     queue.imageDim = IMAGE_DIM; // ensure new images in the queue will scale to this size as well
-    const int RANGE = ((double)height() + IMAGE_DIM) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
-    const double PERCENT_ELAPSED = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
+    static const int QUEUE_LENGTH = queue.getLength();
+    const int RANGE = ((double)height() + IMAGE_DIM) / QUEUE_LENGTH + 0.5; // this is the distance that each individual image will travel
+    const double PERCENT_ELAPSED = std::fmod(((double)elapsed / ((double)LOOP_MS / QUEUE_LENGTH)), 1); // percentage needs to go from 0 to 1 length times
     static double lastElapsed = 0.0;
     const int POS = (RANGE * PERCENT_ELAPSED) - IMAGE_DIM + 0.5;
     static const int IMAGE_ROWS = 12; // how many "rows" of images will be drawn
@@ -91,7 +92,7 @@ void bgWidget::paintImages(QPainter& painter)
     for (int x = 0; x < IMAGE_ROWS; x++)
     {
         offset = (((width() * 3) / IMAGE_ROWS) * x) - (width() * 2); // draw lines from -(width() * 2) to width()
-        for (int y = 0; y < queue.getLength(); y++)
+        for (int y = 0; y < QUEUE_LENGTH; y++)
         {
             painter.drawPixmap(POS + (y * RANGE) + offset, POS + (y * RANGE), IMAGE_DIM, IMAGE_DIM, queue.next()); // paint the image
         }
