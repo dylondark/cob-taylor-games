@@ -16,7 +16,7 @@ imgQueue::imgQueue(vector<QPixmap> imglist) : LENGTH(imglist.size()), IMGLIST(im
     head = new queueNode{IMGLIST[rand() % LENGTH], nullptr};
     queueNode* nodePtr = head;
     for (int x = 0; x < LENGTH - 1; x++)
-    {   
+    {
         nodePtr->next = new queueNode{IMGLIST[rand() % LENGTH], nullptr};
         nodePtr = nodePtr->next;
     }
@@ -61,7 +61,17 @@ void imgQueue::shift()
 
     // add new element to back of queue
     srand(time(0)); // init rng with current time
-    queueNode* newNode = new queueNode{IMGLIST[rand() % LENGTH], head};
+    /*
+     * these images will be inserted with nice bilinear scaling based on the current value of imageDim so they wont look pixelated.
+     * the reason it is being done here and nowhere else is because it provides a compromise between being fast and being dynamic.
+     * if we set imagedim to a fixed value in the ctor and inserted all the values scaled with that, it would be super fast since
+     * wed only ever need to scale them once, but it wouldnt be dynamic at all because the images would always be the same size regardless
+     * of the size of bgwidget. likewise, if we scale the images on every frame it would be immediately responsive to changes in the size
+     * of bgwidget, but it would be unacceptably slow since we would be scaling so many images so many times per second.
+     * with this implementation only one image is scaled and its only done every time there is a shift.
+     * this is why the first batch of images on program start still look pixelized.
+    */
+    queueNode* newNode = new queueNode{IMGLIST[rand() % LENGTH].scaled(imageDim, imageDim, Qt::KeepAspectRatio, Qt::SmoothTransformation), head};
     head = newNode;
 
     nextPtr = head; // reset nextPtr

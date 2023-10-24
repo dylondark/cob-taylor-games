@@ -21,6 +21,7 @@ public:
     QPixmap operator[](int) const;
     QPixmap next();
     int getLength() const;
+    int imageDim = 3840 / 20;
 };
 
 #endif // IMGQUEUE_H

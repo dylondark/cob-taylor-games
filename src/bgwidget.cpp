@@ -71,6 +71,7 @@ void bgWidget::paintGradient(QPainter& painter)
 void bgWidget::paintImages(QPainter& painter)
 {
     static const int IMAGE_DIM = height() / 20; // width and height of the images, must scale with screen size
+    queue.imageDim = IMAGE_DIM; // ensure new images in the queue will scale to this size as well
     const int RANGE = ((double)height() + IMAGE_DIM) / queue.getLength() + 0.5; // this is the distance that each individual image will travel
     const double PERCENT_ELAPSED = std::fmod(((double)elapsed / ((double)LOOP_MS / queue.getLength())), 1); // percentage needs to go from 0 to 1 length times
     static double lastElapsed = 0.0;
