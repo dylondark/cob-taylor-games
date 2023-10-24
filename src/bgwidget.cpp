@@ -24,14 +24,16 @@ void bgWidget::animate() // called by bgUpdate timer in mainwindow ctor
 
 void bgWidget::paintEvent(QPaintEvent *event)
 {
-    // this block of code as well as frameInterval exists in order to (ideally) decouple the speed of the animation from the framerate.
-    // the state of the animation will be determined by the state of elapsed.
-    // elapsed should track how many milliseconds have passed since the last loop reset,
-    // and it will be reset every time it exceeds the time limit for the loop specified in LOOP_SECONDS.
-    // if frameInterval is the same as the interval period specified in the timer that calls this function,
-    // then the speed of the animation should never change when you change the framerate/timer interval.
-    // although this can break down if you set the framerate too high/the interval too low due to the precision of timers being inconsistent at really low intervals.
-    // 60fps is probably the highest you would ever need and it works fine, at least on linux.
+    /*
+     * this block of code as well as frameInterval exists in order to (ideally) decouple the speed of the animation from the framerate.
+     * the state of the animation will be determined by the state of elapsed.
+     * elapsed should track how many milliseconds have passed since the last loop reset,
+     * and it will be reset every time it exceeds the time limit for the loop specified in LOOP_SECONDS.
+     * if frameInterval is the same as the interval period specified in the timer that calls this function,
+     * then the speed of the animation should never change when you change the framerate/timer interval.
+     * although this can break down if you set the framerate too high/the interval too low due to the precision of timers being inconsistent at really low intervals.
+     * 60fps is probably the highest you would ever need and it works fine, at least on linux.
+    */
     elapsed += frameInterval;
     // reset elapsed when it has exceeded the time limit specified in LOOP_SECONDS
     if (elapsed >= LOOP_MS)
@@ -50,9 +52,11 @@ void bgWidget::paintEvent(QPaintEvent *event)
 
 void bgWidget::paintGradient(QPainter& painter)
 {
-    // we want to go from the top left corner (0,0) down to the bottom right corner (this.height(), this.height()) multiple times per loop
-    // we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
-    // the elapsed variable will determine where in this range we want to place the gradient on the current frame
+    /*
+     * we want to go from the top left corner (0,0) down to the bottom right corner (this.height(), this.height()) multiple times per loop
+     * we are only using the height of the widget because we are constrained by height and using width could change the angle of the gradient
+     * the elapsed variable will determine where in this range we want to place the gradient on the current frame
+    */
     static const int GRADIENT_LOOP_MS = LOOP_MS / GRADIENT_LOOPS; // the millisecond limit for one loop of the gradient
     const double PERCENT_ELAPSED = (double)elapsed / ((double)GRADIENT_LOOP_MS); // elapsed becomes a percentage of GRADIENT_LOOP_MS
     // if/when elapsed becomes greater than GRADIENT_LOOP_MS it will go over 100% and get set to a pos off screen which will still reflect and look proper
