@@ -35,7 +35,7 @@
     <property name="styleSheet">
      <string notr="true">QFrame#canvas
 {
-background-color: rgba(0, 0, 0, 50);
+background-color: rgba(0, 0, 0, 0);
 }</string>
     </property>
     <widget class="QWidget" name="verticalLayoutWidget">
@@ -55,13 +55,13 @@ background-color: rgba(0, 0, 0, 50);
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
       <property name="leftMargin">
-       <number>15</number>
+       <number>30</number>
       </property>
       <property name="topMargin">
        <number>15</number>
       </property>
       <property name="rightMargin">
-       <number>15</number>
+       <number>30</number>
       </property>
       <property name="bottomMargin">
        <number>15</number>
@@ -95,7 +95,10 @@ background-color: rgba(0, 0, 0, 50);
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 4px solid black;</string>
+         <string notr="true">border: 4px solid black;
+border-radius: 50px;
+background-color: rgba(255, 255, 255, 150);
+</string>
         </property>
         <property name="text">
          <string>LEADERBOARD</string>
@@ -103,10 +106,31 @@ background-color: rgba(0, 0, 0, 50);
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
        </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="buttonGrid">
+        <property name="leftMargin">
+         <number>75</number>
+        </property>
+        <property name="topMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>75</number>
+        </property>
+        <property name="bottomMargin">
+         <number>20</number>
+        </property>
+        <property name="horizontalSpacing">
+         <number>150</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>30</number>
+        </property>
         <item row="2" column="1">
          <widget class="QPushButton" name="btnGame6">
           <property name="sizePolicy">
@@ -116,7 +140,9 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;</string>
+           <string notr="true">border: 4px solid black;
+background-color: rgba(255, 255, 255, 150);
+border-radius: 50px;</string>
           </property>
           <property name="text">
            <string>Game 6</string>
@@ -132,7 +158,9 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;</string>
+           <string notr="true">border: 4px solid black;
+background-color: rgba(255, 255, 255, 150);
+border-radius: 50px;</string>
           </property>
           <property name="text">
            <string>Game 4</string>
@@ -148,7 +176,9 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;</string>
+           <string notr="true">border: 4px solid black;
+border-radius: 50px;
+background-color: rgba(255, 255, 255, 150);</string>
           </property>
           <property name="text">
            <string/>
@@ -164,7 +194,9 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;</string>
+           <string notr="true">border: 4px solid black;
+background-color: rgba(255, 255, 255, 150);
+border-radius: 50px;</string>
           </property>
           <property name="text">
            <string>Game 3</string>
@@ -180,7 +212,9 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;</string>
+           <string notr="true">border: 4px solid black;
+background-color: rgba(255, 255, 255, 150);
+border-radius: 50px;</string>
           </property>
           <property name="text">
            <string>Game 5</string>
@@ -196,7 +230,9 @@ background-color: rgba(0, 0, 0, 50);
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;</string>
+           <string notr="true">border: 4px solid black;
+background-color: rgba(255, 255, 255, 150);
+border-radius: 50px;</string>
           </property>
           <property name="text">
            <string>Game 2</string>
