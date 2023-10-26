@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QTimer>
+#include <QPixmap>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -47,4 +48,7 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->verticalLayoutWidget->setGeometry(0, 0, ui->canvas->width(), ui->canvas->height());
     // set background over entire window
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
+
+    // scale and reapply title image
+    ui->lblTitle->setPixmap(QPixmap("../cob-taylor-games/Logos-Buttons/title.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }

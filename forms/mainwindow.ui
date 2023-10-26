@@ -74,7 +74,7 @@ background-color: rgba(0, 0, 0, 50);
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 4px solid black;</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>TITLE</string>
