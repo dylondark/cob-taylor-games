@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QTimer>
 #include <QPixmap>
+#include <QIcon>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -51,4 +52,8 @@ void MainWindow::resizeEvent(QResizeEvent*)
 
     // scale and reapply title image
     ui->lblTitle->setPixmap(QPixmap("../cob-taylor-games/Logos-Buttons/title.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    // apply button images
+    ui->btnGame1->setIcon(QIcon(QPixmap("../cob-taylor-games/Logos-Buttons/trivia.png").scaled(ui->btnGame1->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    ui->btnGame1->setIconSize(ui->btnGame1->size());
 }
