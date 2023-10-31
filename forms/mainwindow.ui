@@ -36,6 +36,12 @@
      <string notr="true">QFrame#canvas
 {
 background-color: rgba(0, 0, 0, 0);
+}
+QPushButton, QLabel#leaderboardPlaceholder
+{
+border: 4px solid black;
+border-radius: 50px;
+background-color: rgba(255, 255, 255, 150);
 }</string>
     </property>
     <widget class="QWidget" name="verticalLayoutWidget">
@@ -95,10 +101,7 @@ background-color: rgba(0, 0, 0, 0);
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 4px solid black;
-border-radius: 50px;
-background-color: rgba(255, 255, 255, 150);
-</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>LEADERBOARD</string>
@@ -137,9 +140,7 @@ background-color: rgba(255, 255, 255, 150);
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;
-background-color: rgba(255, 255, 255, 150);
-border-radius: 50px;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Game 6</string>
@@ -155,9 +156,7 @@ border-radius: 50px;</string>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;
-background-color: rgba(255, 255, 255, 150);
-border-radius: 50px;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Game 4</string>
@@ -173,9 +172,7 @@ border-radius: 50px;</string>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;
-border-radius: 50px;
-background-color: rgba(255, 255, 255, 150);</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string/>
@@ -191,9 +188,7 @@ background-color: rgba(255, 255, 255, 150);</string>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;
-background-color: rgba(255, 255, 255, 150);
-border-radius: 50px;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Game 3</string>
@@ -209,9 +204,7 @@ border-radius: 50px;</string>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;
-background-color: rgba(255, 255, 255, 150);
-border-radius: 50px;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Game 5</string>
@@ -227,9 +220,7 @@ border-radius: 50px;</string>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 4px solid black;
-background-color: rgba(255, 255, 255, 150);
-border-radius: 50px;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Game 2</string>
