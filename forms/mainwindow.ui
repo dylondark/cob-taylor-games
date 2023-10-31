@@ -41,8 +41,8 @@ background-color: rgba(0, 0, 0, 0);
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>9</x>
-       <y>9</y>
+       <x>10</x>
+       <y>10</y>
        <width>701</width>
        <height>1221</height>
       </rect>
@@ -114,21 +114,18 @@ background-color: rgba(255, 255, 255, 150);
       <item>
        <layout class="QGridLayout" name="buttonGrid">
         <property name="leftMargin">
-         <number>75</number>
+         <number>0</number>
         </property>
         <property name="topMargin">
          <number>20</number>
         </property>
         <property name="rightMargin">
-         <number>75</number>
+         <number>0</number>
         </property>
         <property name="bottomMargin">
          <number>20</number>
         </property>
-        <property name="horizontalSpacing">
-         <number>150</number>
-        </property>
-        <property name="verticalSpacing">
+        <property name="spacing">
          <number>30</number>
         </property>
         <item row="2" column="1">
