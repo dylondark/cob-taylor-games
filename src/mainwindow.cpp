@@ -51,9 +51,9 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
 
     // scale and reapply title image
-    ui->lblTitle->setPixmap(QPixmap("../cob-taylor-games/Logos-Buttons/title.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->lblTitle->setPixmap(QPixmap(":/menu/Logos-Buttons/title.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     // apply button images
-    ui->btnGame1->setIcon(QIcon(QPixmap("../cob-taylor-games/Logos-Buttons/trivia.png").scaled(ui->btnGame1->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    ui->btnGame1->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/trivia.png").scaled(ui->btnGame1->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame1->setIconSize(ui->btnGame1->size());
 }

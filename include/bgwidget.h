@@ -32,13 +32,13 @@ private:
     void paintImages(QPainter&);
     void setGradientColors(QLinearGradient&, const QColor[], int);
     std::vector<QPixmap> pictures = // contains qpixmaps containing all the images to use for the background
-        {QPixmap("../cob-taylor-games/projecticons/controller1.png"),
-        QPixmap("../cob-taylor-games/projecticons/controller3.png"),
-        QPixmap("../cob-taylor-games/projecticons/aroo1.png"),
-        QPixmap("../cob-taylor-games/projecticons/z4.png"),
-        QPixmap("../cob-taylor-games/projecticons/roo1.png"),
-        QPixmap("../cob-taylor-games/projecticons/zippy2.png"),
-        QPixmap("../cob-taylor-games/projecticons/seal1.png")};
+        {QPixmap(":/background/projecticons/controller1.png"),
+        QPixmap(":/background/projecticons/controller3.png"),
+        QPixmap(":/background/projecticons/aroo1.png"),
+        QPixmap(":/background/projecticons/z4.png"),
+        QPixmap(":/background/projecticons/roo1.png"),
+        QPixmap(":/background/projecticons/zippy2.png"),
+        QPixmap(":/background/projecticons/seal1.png")};
     imgQueue queue = imgQueue(pictures);
 };
 
