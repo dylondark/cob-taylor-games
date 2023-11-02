@@ -28,3 +28,6 @@ SOURCES += \
     imgqueue.cpp \
     main.cpp \
     mainwindow.cpp
+
+RESOURCES += \
+    resources.qrc

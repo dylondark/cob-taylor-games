@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/menu">
+        <file>Logos-Buttons/title.png</file>
+        <file>Logos-Buttons/trivia.png</file>
+    </qresource>
+    <qresource prefix="/background">
+        <file>projecticons/controller1.png</file>
+        <file>projecticons/controller3.png</file>
+        <file>projecticons/aroo1.png</file>
+        <file>projecticons/z4.png</file>
+        <file>projecticons/roo1.png</file>
+        <file>projecticons/zippy2.png</file>
+        <file>projecticons/seal1.png</file>
+    </qresource>
+</RCC>
