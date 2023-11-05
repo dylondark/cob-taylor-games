@@ -123,9 +123,9 @@ background-color: rgba(255, 255, 255, 150);
            <enum>QLayout::SetDefaultConstraint</enum>
           </property>
           <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>TextLabel</string>
+           <widget class="QListWidget" name="listWidget">
+            <property name="styleSheet">
+             <string notr="true">background-color: transparent;</string>
             </property>
            </widget>
           </item>
