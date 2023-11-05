@@ -37,7 +37,7 @@
 {
 background-color: rgba(0, 0, 0, 0);
 }
-QPushButton, QLabel#leaderboardPlaceholder
+QPushButton, QFrame#leaderboardFrame
 {
 border: 4px solid black;
 border-radius: 25px;
@@ -94,23 +94,12 @@ background-color: rgba(255, 255, 255, 150);
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="leaderboardPlaceholder">
-        <property name="font">
-         <font>
-          <pointsize>60</pointsize>
-         </font>
+       <widget class="QFrame" name="leaderboardFrame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>LEADERBOARD</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="margin">
-         <number>0</number>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
         </property>
        </widget>
       </item>
