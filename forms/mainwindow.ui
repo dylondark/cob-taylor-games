@@ -95,6 +95,14 @@ background-color: rgba(255, 255, 255, 150);
       </item>
       <item>
        <widget class="QFrame" name="leaderboardFrame">
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	background-color: transparent;
+	border-width: 1px;
+	border-radius: 0px;
+}</string>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -123,6 +131,9 @@ background-color: rgba(255, 255, 255, 150);
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QPushButton" name="pushButton_2">
               <property name="sizePolicy">
