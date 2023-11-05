@@ -37,7 +37,7 @@
 {
 background-color: rgba(0, 0, 0, 0);
 }
-QPushButton, QFrame#leaderboardFrame
+QPushButton, QFrame#lbFrame
 {
 border: 4px solid black;
 border-radius: 25px;
@@ -94,7 +94,7 @@ background-color: rgba(255, 255, 255, 150);
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="leaderboardFrame">
+       <widget class="QFrame" name="lbFrame">
         <property name="styleSheet">
          <string notr="true">QPushButton
 {
@@ -118,24 +118,24 @@ background-color: rgba(255, 255, 255, 150);
            <height>371</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout" stretch="4,1">
+         <layout class="QVBoxLayout" name="lbVertLayout" stretch="4,1">
           <property name="sizeConstraint">
            <enum>QLayout::SetDefaultConstraint</enum>
           </property>
           <item>
-           <widget class="QListWidget" name="listWidget">
+           <widget class="QListWidget" name="lbValuesValues">
             <property name="styleSheet">
              <string notr="true">background-color: transparent;</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <layout class="QHBoxLayout" name="lbHorLayout">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="lbGame2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -148,7 +148,7 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="lbGame1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -161,7 +161,7 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="lbGame3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -174,7 +174,7 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="lbGame4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -187,7 +187,7 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="lbGame5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -200,7 +200,7 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_6">
+             <widget class="QPushButton" name="lbGame6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
