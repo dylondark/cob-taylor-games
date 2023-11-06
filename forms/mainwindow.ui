@@ -118,7 +118,7 @@ background-color: rgba(255, 255, 255, 150);
            <height>391</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="lbVertLayout" stretch="0,4,0,1">
+         <layout class="QVBoxLayout" name="lbVertLayout" stretch="0,0,4,0,1">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -141,6 +141,31 @@ background-color: rgba(255, 255, 255, 150);
            </widget>
           </item>
           <item>
+           <widget class="QWidget" name="lbVerSpacer1" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>4</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>4</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: black;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QListWidget" name="lbValuesValues">
             <property name="styleSheet">
              <string notr="true">background-color: transparent;</string>
@@ -148,7 +173,7 @@ background-color: rgba(255, 255, 255, 150);
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="lbVerSpacer" native="true">
+           <widget class="QWidget" name="lbVerSpacer2" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
