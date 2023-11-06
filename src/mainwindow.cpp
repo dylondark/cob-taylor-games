@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     const int FPS = 60; // how many times to update the background per second
     bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
+
+    ui->lbFrame->setLayout(ui->lbVertLayout);
 }
 
 MainWindow::~MainWindow()
