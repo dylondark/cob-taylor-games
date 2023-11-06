@@ -99,7 +99,7 @@ background-color: rgba(255, 255, 255, 150);
          <string notr="true">QPushButton
 {
 	background-color: transparent;
-	border-width: 1px;
+	border-width: 0px;
 	border-radius: 0px;
 }</string>
         </property>
@@ -118,7 +118,10 @@ background-color: rgba(255, 255, 255, 150);
            <height>391</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="lbVertLayout" stretch="4,1">
+         <layout class="QVBoxLayout" name="lbVertLayout" stretch="4,0,1">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <property name="sizeConstraint">
            <enum>QLayout::SetDefaultConstraint</enum>
           </property>
@@ -126,6 +129,31 @@ background-color: rgba(255, 255, 255, 150);
            <widget class="QListWidget" name="lbValuesValues">
             <property name="styleSheet">
              <string notr="true">background-color: transparent;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="lbVerSpacer" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>4</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>4</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: black;</string>
             </property>
            </widget>
           </item>
@@ -148,6 +176,25 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
+             <widget class="QWidget" name="lbHorSpacer1" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>4</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>4</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: black;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="lbGame1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -157,6 +204,25 @@ background-color: rgba(255, 255, 255, 150);
               </property>
               <property name="text">
                <string>PushButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="lbHorSpacer2" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>4</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>4</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: black;</string>
               </property>
              </widget>
             </item>
@@ -174,6 +240,25 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
+             <widget class="QWidget" name="lbHorSpacer3" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>4</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>4</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: black;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="lbGame4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -187,6 +272,25 @@ background-color: rgba(255, 255, 255, 150);
              </widget>
             </item>
             <item>
+             <widget class="QWidget" name="lbHorSpacer4" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>4</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>4</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: black;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="lbGame5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -196,6 +300,25 @@ background-color: rgba(255, 255, 255, 150);
               </property>
               <property name="text">
                <string>PushButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="lbHorSpacer5" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>4</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>4</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: black;</string>
               </property>
              </widget>
             </item>
