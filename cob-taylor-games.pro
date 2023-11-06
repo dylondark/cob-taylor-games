@@ -21,13 +21,15 @@ INCLUDEPATH += ./include ./src ./forms
 HEADERS += \
     bgwidget.h \
     imgqueue.h \
-    mainwindow.h
+    mainwindow.h \
+    leaderboardhandler.h
 FORMS += mainwindow.ui
 SOURCES += \
     bgwidget.cpp \
     imgqueue.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    leaderboardhandler.cpp
 
 RESOURCES += \
     resources.qrc
