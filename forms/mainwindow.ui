@@ -171,7 +171,7 @@ background-color: rgba(255, 255, 255, 150);
                </sizepolicy>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>UA Trivia</string>
               </property>
              </widget>
             </item>
@@ -203,7 +203,7 @@ background-color: rgba(255, 255, 255, 150);
                </sizepolicy>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>Guess the Logo</string>
               </property>
              </widget>
             </item>
@@ -235,7 +235,7 @@ background-color: rgba(255, 255, 255, 150);
                </sizepolicy>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>Checkers</string>
               </property>
              </widget>
             </item>
@@ -267,7 +267,7 @@ background-color: rgba(255, 255, 255, 150);
                </sizepolicy>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>Zippy Hopper</string>
               </property>
              </widget>
             </item>
@@ -299,7 +299,7 @@ background-color: rgba(255, 255, 255, 150);
                </sizepolicy>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>Pong</string>
               </property>
              </widget>
             </item>
@@ -331,7 +331,7 @@ background-color: rgba(255, 255, 255, 150);
                </sizepolicy>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>Tetris</string>
               </property>
              </widget>
             </item>
