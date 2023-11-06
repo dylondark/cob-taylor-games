@@ -166,10 +166,12 @@ background-color: rgba(255, 255, 255, 150);
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="lbValues">
+           <widget class="QStackedWidget" name="lbValues">
             <property name="styleSheet">
              <string notr="true">background-color: transparent;</string>
             </property>
+            <widget class="QWidget" name="page"/>
+            <widget class="QWidget" name="page_2"/>
            </widget>
           </item>
           <item>
