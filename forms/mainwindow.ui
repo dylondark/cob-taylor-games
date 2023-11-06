@@ -112,10 +112,10 @@ background-color: rgba(255, 255, 255, 150);
         <widget class="QWidget" name="verticalLayoutWidget_2">
          <property name="geometry">
           <rect>
-           <x>9</x>
-           <y>9</y>
-           <width>621</width>
-           <height>371</height>
+           <x>-1</x>
+           <y>-1</y>
+           <width>641</width>
+           <height>391</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="lbVertLayout" stretch="4,1">
