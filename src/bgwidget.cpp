@@ -81,7 +81,7 @@ void bgWidget::paintImages(QPainter& painter)
     const double PERCENT_ELAPSED = std::fmod(((double)elapsed / ((double)LOOP_MS / QUEUE_LENGTH)), 1); // percentage needs to go from 0 to 1 length times
     static double lastElapsed = 0.0;
     const int POS = (RANGE * PERCENT_ELAPSED) - IMAGE_DIM + 0.5;
-    static const int IMAGE_ROWS = 12; // how many "rows" of images will be drawn
+    static const int IMAGE_ROWS = 9; // how many "rows" of images will be drawn
     // shift when the last element has moved offscreen
     // we detect this by checking if PERCENT_ELAPSED is less than it was the last time this func was called
     if (PERCENT_ELAPSED < lastElapsed)
