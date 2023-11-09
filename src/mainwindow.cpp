@@ -60,15 +60,15 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->btnGame1->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/trivia.png").scaled(ui->btnGame1->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame1->setIconSize(ui->btnGame1->size());
     // guess the logo
-    ui->btnGame2->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/guessthelogo.png").scaled(ui->btnGame2->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    ui->btnGame2->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/GuessTheLogoNEW.png").scaled(ui->btnGame2->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame2->setIconSize(ui->btnGame2->size());
     // coming soon
-    ui->btnGame3->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame3->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    ui->btnGame3->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/ComingSoon2.png").scaled(ui->btnGame3->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame3->setIconSize(ui->btnGame3->size());
-    ui->btnGame4->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame4->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    ui->btnGame4->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/ComingSoon2.png").scaled(ui->btnGame4->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame4->setIconSize(ui->btnGame4->size());
-    ui->btnGame5->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame5->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    ui->btnGame5->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/ComingSoon2.png").scaled(ui->btnGame5->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame5->setIconSize(ui->btnGame5->size());
-    ui->btnGame6->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame6->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    ui->btnGame6->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/ComingSoon2.png").scaled(ui->btnGame6->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame6->setIconSize(ui->btnGame6->size());
 }

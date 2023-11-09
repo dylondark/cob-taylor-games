@@ -4,6 +4,8 @@
         <file>Logos-Buttons/trivia.png</file>
         <file>Logos-Buttons/comingsoon.png</file>
         <file>Logos-Buttons/guessthelogo.png</file>
+        <file>Logos-Buttons/ComingSoon2.png</file>
+        <file>Logos-Buttons/GuessTheLogoNEW.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>projecticons/controller1.png</file>
