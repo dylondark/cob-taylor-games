@@ -3,6 +3,8 @@
 #include <QTimer>
 #include <QPixmap>
 #include <QIcon>
+#include <QQuickWidget>
+#include <QStackedLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->background->lower(); // send background to back
+
+    ui->canvas->setLayout(new QStackedLayout());
 
     // create timer that will update the background object
     QTimer *bgUpdate = new QTimer(this);
@@ -20,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
 
     ui->lbFrame->setLayout(ui->lbVertLayout);
+
+    showQML(QUrl("qrc:/qml/qml/TrivaGame.qml")); // define the QML file to show here
 }
 
 MainWindow::~MainWindow()
@@ -71,4 +77,12 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->btnGame5->setIconSize(ui->btnGame5->size());
     ui->btnGame6->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame6->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame6->setIconSize(ui->btnGame6->size());
+}
+
+// precursor to what will eventually be the showGame function
+void MainWindow::showQML(QUrl url)
+{
+    QQuickWidget* game = new QQuickWidget(url, this);
+    game->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    ui->canvas->layout()->addWidget(game);
 }
