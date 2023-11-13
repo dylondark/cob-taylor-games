@@ -3,6 +3,7 @@
 #include <QTimer>
 #include <QPixmap>
 #include <QIcon>
+#include <QListWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,6 +21,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
 
     ui->lbFrame->setLayout(ui->lbVertLayout);
+
+    // set the layouts for the leaderboard pages
+    ui->lbPage1->setLayout(new QVBoxLayout());
+    ui->lbPage2->setLayout(new QVBoxLayout());
+    ui->lbPage3->setLayout(new QVBoxLayout());
+    ui->lbPage4->setLayout(new QVBoxLayout());
+    ui->lbPage5->setLayout(new QVBoxLayout());
+    ui->lbPage6->setLayout(new QVBoxLayout());
+    // create the listwidgets for leaderboard
+    ui->lbPage1->layout()->addWidget(new QListWidget());
+    ui->lbPage2->layout()->addWidget(new QListWidget());
+    ui->lbPage3->layout()->addWidget(new QListWidget());
+    ui->lbPage4->layout()->addWidget(new QListWidget());
+    ui->lbPage5->layout()->addWidget(new QListWidget());
+    ui->lbPage6->layout()->addWidget(new QListWidget());
+    // add test item to first page
+    ((QListWidget*)ui->lbPage1->children()[1])->addItem("test");
 }
 
 MainWindow::~MainWindow()
