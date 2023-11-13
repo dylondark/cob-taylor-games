@@ -20,5 +20,6 @@ public:
 private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);
+    void initLeaderboard();
 };
 #endif // MAINWINDOW_H

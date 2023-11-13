@@ -22,22 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->lbFrame->setLayout(ui->lbVertLayout);
 
-    // set the layouts for the leaderboard pages
-    ui->lbPage1->setLayout(new QVBoxLayout());
-    ui->lbPage2->setLayout(new QVBoxLayout());
-    ui->lbPage3->setLayout(new QVBoxLayout());
-    ui->lbPage4->setLayout(new QVBoxLayout());
-    ui->lbPage5->setLayout(new QVBoxLayout());
-    ui->lbPage6->setLayout(new QVBoxLayout());
-    // create the listwidgets for leaderboard
-    ui->lbPage1->layout()->addWidget(new QListWidget());
-    ui->lbPage2->layout()->addWidget(new QListWidget());
-    ui->lbPage3->layout()->addWidget(new QListWidget());
-    ui->lbPage4->layout()->addWidget(new QListWidget());
-    ui->lbPage5->layout()->addWidget(new QListWidget());
-    ui->lbPage6->layout()->addWidget(new QListWidget());
-    // add test item to first page
-    ((QListWidget*)ui->lbPage1->children()[1])->addItem("test");
+    initLeaderboard();
 }
 
 MainWindow::~MainWindow()
@@ -89,4 +74,24 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->btnGame5->setIconSize(ui->btnGame5->size());
     ui->btnGame6->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame6->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame6->setIconSize(ui->btnGame6->size());
+}
+
+void MainWindow::initLeaderboard()
+{
+    // set the layouts for the leaderboard pages
+    ui->lbPage1->setLayout(new QVBoxLayout());
+    ui->lbPage2->setLayout(new QVBoxLayout());
+    ui->lbPage3->setLayout(new QVBoxLayout());
+    ui->lbPage4->setLayout(new QVBoxLayout());
+    ui->lbPage5->setLayout(new QVBoxLayout());
+    ui->lbPage6->setLayout(new QVBoxLayout());
+    // create the listwidgets for leaderboard
+    ui->lbPage1->layout()->addWidget(new QListWidget());
+    ui->lbPage2->layout()->addWidget(new QListWidget());
+    ui->lbPage3->layout()->addWidget(new QListWidget());
+    ui->lbPage4->layout()->addWidget(new QListWidget());
+    ui->lbPage5->layout()->addWidget(new QListWidget());
+    ui->lbPage6->layout()->addWidget(new QListWidget());
+    // add test item to first page
+    ((QListWidget*)ui->lbPage1->children()[1])->addItem("test");
 }
