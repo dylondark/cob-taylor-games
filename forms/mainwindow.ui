@@ -170,8 +170,12 @@ background-color: rgba(255, 255, 255, 150);
             <property name="styleSheet">
              <string notr="true">background-color: transparent;</string>
             </property>
-            <widget class="QWidget" name="page"/>
-            <widget class="QWidget" name="page_2"/>
+            <widget class="QWidget" name="lbPage1"/>
+            <widget class="QWidget" name="lbPage3"/>
+            <widget class="QWidget" name="lbPage4"/>
+            <widget class="QWidget" name="lbPage5"/>
+            <widget class="QWidget" name="lbPage6"/>
+            <widget class="QWidget" name="lbPage2"/>
            </widget>
           </item>
           <item>
