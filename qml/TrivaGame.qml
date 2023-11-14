@@ -18,55 +18,64 @@ Item {
 
 
 
+
             Label {
-                id: label1
+                id: lblTitle
                 width: 2160
                 height: 275
                 color: "#000000"
-                text: qsTr("Test 2")
+                text: qsTr("Akron Trivia")
                 horizontalAlignment: Text.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.fillWidth: true
                 font.family: "Times New Roman"
-                font.pointSize: 200
-                Layout.preferredHeight: 275
-                Layout.preferredWidth: 2160
-                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                Layout.fillHeight: false
+                font.pointSize: 50
+                Layout.preferredHeight: -1
+                Layout.preferredWidth: -1
+                Layout.fillHeight: true
+                Layout.verticalStretchFactor: 1
             }
             Label {
-                id: label
+                id: lblQuestionText
                 width: 2152
                 height: 498
                 color: "#000000"
-                text: "Test"
+                text: "Question"
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                font.pointSize: 200
+                Layout.preferredHeight: -1
+                Layout.preferredWidth: -1
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                font.pointSize: 50
                 font.family: "Times New Roman"
                 scale: 1
+                Layout.verticalStretchFactor: 3
             }
 
             GridLayout {
                 id: gridLayout
                 width: 2160
                 height: 1109
-                anchors.bottom: parent.bottom
-                Layout.preferredHeight: 960
-                Layout.preferredWidth: 2160
+                Layout.preferredHeight: -1
+                Layout.preferredWidth: -1
                 layoutDirection: Qt.LeftToRight
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                Layout.fillHeight: false
-                Layout.fillWidth: false
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 rows: 2
                 columns: 2
                 anchors.bottomMargin: 0
+                Layout.verticalStretchFactor: 3
 
                 Button {
-                    id: button1
+                    id: btn1
                     width: 1040
                     height: 450
                     text: qsTr("Button")
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     icon.color: "#ff0000"
                     icon.height: 1000
                     icon.width: 1000
@@ -74,30 +83,34 @@ Item {
                     font.pointSize: 400
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    Layout.preferredHeight: 450
-                    Layout.preferredWidth: 1040
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
                 }
 
                 Button {
-                    id: button2
+                    id: btn2
                     width: 1040
                     height: 450
                     text: qsTr("Button")
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     icon.color: "#0000ff"
                     icon.height: 1000
                     icon.width: 1000
                     icon.source: "../projecticons/aroo1.png"
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    Layout.preferredHeight: 450
-                    Layout.preferredWidth: 1040
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
                 }
 
                 Button {
-                    id: button3
+                    id: btn3
                     width: 1040
                     height: 450
                     text: qsTr("Button")
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     icon.color: "#00ff00"
                     icon.height: 1000
                     icon.width: 1000
@@ -105,23 +118,25 @@ Item {
                     highlighted: false
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    Layout.preferredHeight: 450
-                    Layout.preferredWidth: 1040
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
                 }
 
                 Button {
-                    id: button4
+                    id: btn4
                     width: 1040
                     height: 450
                     text: qsTr("Button")
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     icon.color: "#ffff00"
                     icon.height: 1000
                     icon.width: 1000
                     icon.source: "../projecticons/aroo1.png"
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    Layout.preferredHeight: 450
-                    Layout.preferredWidth: 1040
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
                 }
             }
         }
