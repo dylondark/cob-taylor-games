@@ -104,36 +104,36 @@ void MainWindow::initLeaderboard()
 // ua trivia
 void MainWindow::on_lbGame1_pressed()
 {
-
+    ui->lbValues->setCurrentIndex(0);
 }
 
 // guess the logo
 void MainWindow::on_lbGame2_pressed()
 {
-
+    ui->lbValues->setCurrentIndex(1);
 }
 
 // checkers
 void MainWindow::on_lbGame3_pressed()
 {
-
+    ui->lbValues->setCurrentIndex(2);
 }
 
 // zippy hopper
 void MainWindow::on_lbGame4_pressed()
 {
-
+    ui->lbValues->setCurrentIndex(3);
 }
 
 // pong
 void MainWindow::on_lbGame5_pressed()
 {
-
+    ui->lbValues->setCurrentIndex(4);
 }
 
 // tetris
 void MainWindow::on_lbGame6_pressed()
 {
-
+    ui->lbValues->setCurrentIndex(5);
 }
 
