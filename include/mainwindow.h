@@ -17,6 +17,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_lbGame1_pressed(); // ua trivia
+    void on_lbGame2_pressed(); // guess the logo
+    void on_lbGame3_pressed(); // checkers
+    void on_lbGame4_pressed(); // zippy hopper
+    void on_lbGame5_pressed(); // pong
+    void on_lbGame6_pressed(); // tetris
+
 private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);

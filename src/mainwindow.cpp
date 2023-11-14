@@ -95,3 +95,40 @@ void MainWindow::initLeaderboard()
     // add test item to first page
     ((QListWidget*)ui->lbPage1->children()[1])->addItem("test");
 }
+
+// ua trivia
+void MainWindow::on_lbGame1_pressed()
+{
+
+}
+
+// guess the logo
+void MainWindow::on_lbGame2_pressed()
+{
+
+}
+
+// checkers
+void MainWindow::on_lbGame3_pressed()
+{
+
+}
+
+// zippy hopper
+void MainWindow::on_lbGame4_pressed()
+{
+
+}
+
+// pong
+void MainWindow::on_lbGame5_pressed()
+{
+
+}
+
+// tetris
+void MainWindow::on_lbGame6_pressed()
+{
+
+}
+
