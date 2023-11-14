@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include "bgwidget.h"
-
+#include <QPushButton>
+#include <QFont>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,5 +30,7 @@ private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);
     void initLeaderboard();
+    void setActiveLBButton(QPushButton*);
+    QFont lbFont;
 };
 #endif // MAINWINDOW_H

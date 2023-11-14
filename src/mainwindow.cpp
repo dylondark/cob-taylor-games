@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->background->lower(); // send background to back
+    lbFont = ui->lbGame1->font(); // get the font for lbGame1 set in the designer
+    setActiveLBButton(ui->lbGame1);
 
     // create timer that will update the background object
     QTimer *bgUpdate = new QTimer(this);
@@ -105,35 +107,58 @@ void MainWindow::initLeaderboard()
 void MainWindow::on_lbGame1_pressed()
 {
     ui->lbValues->setCurrentIndex(0);
+    setActiveLBButton(ui->lbGame1);
 }
 
 // guess the logo
 void MainWindow::on_lbGame2_pressed()
 {
     ui->lbValues->setCurrentIndex(1);
+    setActiveLBButton(ui->lbGame2);
 }
 
 // checkers
 void MainWindow::on_lbGame3_pressed()
 {
     ui->lbValues->setCurrentIndex(2);
+    setActiveLBButton(ui->lbGame3);
 }
 
 // zippy hopper
 void MainWindow::on_lbGame4_pressed()
 {
     ui->lbValues->setCurrentIndex(3);
+    setActiveLBButton(ui->lbGame4);
 }
 
 // pong
 void MainWindow::on_lbGame5_pressed()
 {
     ui->lbValues->setCurrentIndex(4);
+    setActiveLBButton(ui->lbGame5);
 }
 
 // tetris
 void MainWindow::on_lbGame6_pressed()
 {
     ui->lbValues->setCurrentIndex(5);
+    setActiveLBButton(ui->lbGame6);
 }
 
+// sets bold and underline for only the specified button, removes for any others
+void MainWindow::setActiveLBButton(QPushButton* btn)
+{
+    // apply to all buttons
+    ui->lbGame1->setFont(lbFont);
+    ui->lbGame2->setFont(lbFont);
+    ui->lbGame3->setFont(lbFont);
+    ui->lbGame4->setFont(lbFont);
+    ui->lbGame5->setFont(lbFont);
+    ui->lbGame6->setFont(lbFont);
+
+    // apply underline and bold and set to specified button
+    QFont activeFont = lbFont;
+    activeFont.setBold(true);
+    activeFont.setUnderline(true);
+    btn->setFont(activeFont);
+}
