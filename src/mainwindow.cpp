@@ -93,7 +93,12 @@ void MainWindow::initLeaderboard()
     ui->lbPage5->layout()->addWidget(new QListWidget());
     ui->lbPage6->layout()->addWidget(new QListWidget());
     // add test item to first page
-    ((QListWidget*)ui->lbPage1->children()[1])->addItem("test");
+    ((QListWidget*)ui->lbPage1->children()[1])->addItem("ua trivia");
+    ((QListWidget*)ui->lbPage2->children()[1])->addItem("guess the logo");
+    ((QListWidget*)ui->lbPage3->children()[1])->addItem("checkers");
+    ((QListWidget*)ui->lbPage4->children()[1])->addItem("zippy hopper");
+    ((QListWidget*)ui->lbPage5->children()[1])->addItem("pong");
+    ((QListWidget*)ui->lbPage6->children()[1])->addItem("tetris");
 }
 
 // ua trivia
