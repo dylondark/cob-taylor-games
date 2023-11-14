@@ -80,27 +80,20 @@ void MainWindow::resizeEvent(QResizeEvent*)
 
 void MainWindow::initLeaderboard()
 {
-    // set the layouts for the leaderboard pages
-    ui->lbPage1->setLayout(new QVBoxLayout());
-    ui->lbPage2->setLayout(new QVBoxLayout());
-    ui->lbPage3->setLayout(new QVBoxLayout());
-    ui->lbPage4->setLayout(new QVBoxLayout());
-    ui->lbPage5->setLayout(new QVBoxLayout());
-    ui->lbPage6->setLayout(new QVBoxLayout());
-    // create the listwidgets for leaderboard
-    ui->lbPage1->layout()->addWidget(new QListWidget());
-    ui->lbPage2->layout()->addWidget(new QListWidget());
-    ui->lbPage3->layout()->addWidget(new QListWidget());
-    ui->lbPage4->layout()->addWidget(new QListWidget());
-    ui->lbPage5->layout()->addWidget(new QListWidget());
-    ui->lbPage6->layout()->addWidget(new QListWidget());
-    // add test item to first page
-    ((QListWidget*)ui->lbPage1->children()[1])->addItem("ua trivia");
-    ((QListWidget*)ui->lbPage2->children()[1])->addItem("guess the logo");
-    ((QListWidget*)ui->lbPage3->children()[1])->addItem("checkers");
-    ((QListWidget*)ui->lbPage4->children()[1])->addItem("zippy hopper");
-    ((QListWidget*)ui->lbPage5->children()[1])->addItem("pong");
-    ((QListWidget*)ui->lbPage6->children()[1])->addItem("tetris");
+    QWidget* pages[] = {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6};
+
+    // set the layouts for the leaderboard pages and add listwidgets
+    for (auto page : pages)
+    {
+        // set layout and add widget in the layout
+        page->setLayout(new QVBoxLayout());
+        page->layout()->addWidget(new QListWidget());
+        // set properties for the widget
+        ((QListWidget*)page->children()[1])->setIconSize(QSize(100, 100));
+        ((QListWidget*)page->children()[1])->setStyleSheet("font: 50px;");
+        // add test item
+        ((QListWidget*)page->children()[1])->addItem(new QListWidgetItem(QIcon(QString(":/background/projecticons/roo1.png")), page->objectName()));
+    }
 }
 
 // ua trivia
