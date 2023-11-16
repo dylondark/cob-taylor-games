@@ -41,7 +41,7 @@ Item {
                 id: image
                 width: 50
                 height: 50
-                source: "qrc:/background/projecticons/aroo1.png"
+                source: "qrc:/background/projecticons/controller1.png"
                 fillMode: Image.PreserveAspectFit
                 Layout.fillHeight: true
                 Layout.fillWidth: true
