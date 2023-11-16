@@ -75,8 +75,7 @@ Item {
                     icon.height: 100
                     icon.width: 100
                     icon.source: "qrc:/background/projecticons/aroo1.png"
-                    font.pointSize: 400
-                    display: AbstractButton.IconOnly
+                    display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
@@ -93,7 +92,7 @@ Item {
                     icon.height: 100
                     icon.width: 100
                     icon.source: "qrc:/background/projecticons/aroo1.png"
-                    display: AbstractButton.IconOnly
+                    display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
@@ -111,7 +110,7 @@ Item {
                     icon.width: 100
                     icon.source: "qrc:/background/projecticons/aroo1.png"
                     highlighted: false
-                    display: AbstractButton.IconOnly
+                    display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
@@ -128,7 +127,7 @@ Item {
                     icon.height: 100
                     icon.width: 100
                     icon.source: "qrc:/background/projecticons/aroo1.png"
-                    display: AbstractButton.IconOnly
+                    display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
