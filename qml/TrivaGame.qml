@@ -26,6 +26,7 @@ Item {
                 color: "#000000"
                 text: qsTr("Akron Trivia")
                 horizontalAlignment: Text.AlignHCenter
+                font.styleName: "Bold Italic"
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.fillWidth: true
                 font.family: "Times New Roman"
@@ -33,24 +34,17 @@ Item {
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
                 Layout.fillHeight: true
-                Layout.verticalStretchFactor: 1
+                Layout.verticalStretchFactor: 3
             }
-            Label {
-                id: lblQuestionText
-                width: 2152
-                height: 498
-                color: "#000000"
-                text: "Question"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+
+            Image {
+                id: image
+                width: 50
+                height: 50
+                source: "qrc:/background/projecticons/aroo1.png"
+                fillMode: Image.PreserveAspectFit
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                Layout.preferredHeight: -1
-                Layout.preferredWidth: -1
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                font.pointSize: 50
-                font.family: "Times New Roman"
-                scale: 1
                 Layout.verticalStretchFactor: 3
             }
 
@@ -74,12 +68,13 @@ Item {
                     width: 1040
                     height: 450
                     text: qsTr("Button")
+                    flat: false
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     icon.color: "#ff0000"
-                    icon.height: 1000
-                    icon.width: 1000
-                    icon.source: "../projecticons/aroo1.png"
+                    icon.height: 100
+                    icon.width: 100
+                    icon.source: "qrc:/background/projecticons/aroo1.png"
                     font.pointSize: 400
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -95,9 +90,9 @@ Item {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     icon.color: "#0000ff"
-                    icon.height: 1000
-                    icon.width: 1000
-                    icon.source: "../projecticons/aroo1.png"
+                    icon.height: 100
+                    icon.width: 100
+                    icon.source: "qrc:/background/projecticons/aroo1.png"
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
@@ -112,9 +107,9 @@ Item {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     icon.color: "#00ff00"
-                    icon.height: 1000
-                    icon.width: 1000
-                    icon.source: "../projecticons/aroo1.png"
+                    icon.height: 100
+                    icon.width: 100
+                    icon.source: "qrc:/background/projecticons/aroo1.png"
                     highlighted: false
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -130,15 +125,16 @@ Item {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     icon.color: "#ffff00"
-                    icon.height: 1000
-                    icon.width: 1000
-                    icon.source: "../projecticons/aroo1.png"
+                    icon.height: 100
+                    icon.width: 100
+                    icon.source: "qrc:/background/projecticons/aroo1.png"
                     display: AbstractButton.IconOnly
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
                 }
             }
+
         }
     }
 
