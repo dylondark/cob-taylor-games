@@ -25,6 +25,9 @@ void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int
 
 void LeaderboardHandler::loadScores(game selectedGame)
 {
+    // TODO: if this function fails it needs to end the program and notify the user with a dialog window or something.
+    // if this fails and the program continues it could overwrite the scores with nothing, causing data loss.
+
     std::ifstream file(FILEPATH + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
 
     if (!file.is_open()) {
