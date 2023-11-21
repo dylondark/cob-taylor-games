@@ -4,6 +4,8 @@ import QtQuick.Layouts
 
 Item {
     id: item1
+    width: 2160
+    height: 3840
     Rectangle {
         id: rectangle
         visible: true
@@ -16,9 +18,6 @@ Item {
             layoutDirection: Qt.LeftToRight
             spacing: 1
 
-
-
-
             Label {
                 id: lblTitle
                 width: 2160
@@ -26,6 +25,7 @@ Item {
                 color: "#000000"
                 text: qsTr("Akron Trivia")
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 font.styleName: "Bold Italic"
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.fillWidth: true
