@@ -33,6 +33,6 @@ private:
     void initLeaderboard();
     void setActiveLBButton(QPushButton*);
     QFont lbFont;
-    LeaderboardHandler lbHandler;
+    LeaderboardHandler* lbHandler;
 };
 #endif // MAINWINDOW_H

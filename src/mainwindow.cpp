@@ -7,9 +7,10 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow), lbHandler(ui->lbValues)
+    , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    lbHandler = new LeaderboardHandler(ui->lbValues); // init lbhandler
     ui->background->lower(); // send background to back
     lbFont = ui->lbGame1->font(); // get the font for lbGame1 set in the designer
     setActiveLBButton(ui->lbGame1);
@@ -30,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete lbHandler;
 }
 
 // called on window resize (also at program start)
