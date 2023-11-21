@@ -7,7 +7,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), lbHandler(ui->lbValues)
 {
     ui->setupUi(this);
     ui->background->lower(); // send background to back

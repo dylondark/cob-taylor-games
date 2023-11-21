@@ -5,6 +5,7 @@
 #include "bgwidget.h"
 #include <QPushButton>
 #include <QFont>
+#include "leaderboardhandler.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,5 +33,6 @@ private:
     void initLeaderboard();
     void setActiveLBButton(QPushButton*);
     QFont lbFont;
+    LeaderboardHandler lbHandler;
 };
 #endif // MAINWINDOW_H
