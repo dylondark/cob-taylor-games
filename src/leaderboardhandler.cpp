@@ -75,3 +75,9 @@ void LeaderboardHandler::writeScores() {
         writeScores(static_cast<game>(i));
     }
 }
+
+void LeaderboardHandler::refreshlb(game selectedGame)
+{
+    QListWidget* list = (QListWidget*)(lbObj->widget(selectedGame)->children()[1]);
+    list->addItem("hello from leaderboardhandler");
+}

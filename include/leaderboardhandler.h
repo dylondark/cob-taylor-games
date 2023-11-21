@@ -1,6 +1,7 @@
 #ifndef LEADERBOARDHANDLER_H
 #define LEADERBOARDHANDLER_H
 #include <QStackedWidget>
+#include <QListWidget>
 
 class LeaderboardHandler
 {
