@@ -25,7 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->lbFrame->setLayout(ui->lbVertLayout);
 
+    // leaderboard ops
     initLeaderboard();
+    lbHandler->loadScores();
+    lbHandler->refreshlb();
 }
 
 MainWindow::~MainWindow()
@@ -93,8 +96,6 @@ void MainWindow::initLeaderboard()
         // set properties for the widget
         ((QListWidget*)page->children()[1])->setIconSize(QSize(100, 100));
         ((QListWidget*)page->children()[1])->setStyleSheet("font: 50px;");
-        // add test item
-        ((QListWidget*)page->children()[1])->addItem(new QListWidgetItem(QIcon(QString(":/background/projecticons/roo1.png")), page->objectName()));
     }
 }
 

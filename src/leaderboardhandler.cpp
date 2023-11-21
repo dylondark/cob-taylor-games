@@ -79,7 +79,17 @@ void LeaderboardHandler::writeScores() {
 void LeaderboardHandler::refreshlb(game selectedGame)
 {
     QListWidget* list = (QListWidget*)(lbObj->widget(selectedGame)->children()[1]);
-    list->addItem("hello from leaderboardhandler");
+    for (const auto &item : scoreLists[selectedGame])
+    {
+        // build string
+        QString listItemTxt;
+        listItemTxt.append(item.first);
+        listItemTxt.append(" - ");
+        listItemTxt.append((std::to_string(item.second)));
+
+        // add to list
+        list->addItem(listItemTxt);
+    }
 }
 
 void LeaderboardHandler::refreshlb()
