@@ -12,6 +12,17 @@ LeaderboardHandler:: ~LeaderboardHandler()
     //Destructor implementation here
 }
 
+void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int score)
+{
+    // check if a score for this player already exists
+    if (scoreLists[selectedGame].find(playerName) == scoreLists[selectedGame].end())
+        // it does not exist already, add it
+        scoreLists[selectedGame][playerName] = score;
+    else if (scoreLists[selectedGame][playerName] < score)
+        // it does exist, so only add it if the new score is higher
+        scoreLists[selectedGame][playerName] = score;
+}
+
 void LeaderboardHandler::loadScores(game selectedGame)
 {
     std::ifstream file(FILEPATH + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
