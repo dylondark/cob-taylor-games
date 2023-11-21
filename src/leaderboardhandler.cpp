@@ -81,3 +81,10 @@ void LeaderboardHandler::refreshlb(game selectedGame)
     QListWidget* list = (QListWidget*)(lbObj->widget(selectedGame)->children()[1]);
     list->addItem("hello from leaderboardhandler");
 }
+
+void LeaderboardHandler::refreshlb()
+{
+    for (int i = 0; i < 6; ++i) {
+        refreshlb(static_cast<game>(i));
+    }
+}
