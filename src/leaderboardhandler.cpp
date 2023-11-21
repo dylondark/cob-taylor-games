@@ -9,7 +9,7 @@ LeaderboardHandler:: LeaderboardHandler(QStackedWidget* lbObj)
 
 LeaderboardHandler:: ~LeaderboardHandler()
 {
-    //Destructor implementation here
+    delete lbObj;
 }
 
 void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int score)
