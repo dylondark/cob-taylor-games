@@ -21,6 +21,7 @@ INCLUDEPATH += ./include ./src ./forms
 HEADERS += \
     bgwidget.h \
     imgqueue.h \
+    leaderboardtools.h \
     mainwindow.h \
     leaderboardhandler.h
 FORMS += mainwindow.ui
