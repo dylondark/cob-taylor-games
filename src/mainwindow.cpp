@@ -4,6 +4,7 @@
 #include <QPixmap>
 #include <QIcon>
 #include <QListWidget>
+#include "leaderboardtools.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // leaderboard ops
     initLeaderboard();
-    lbHandler->loadScores();
+    LeaderboardTools::genRandScores(lbHandler, 20);
     lbHandler->refreshlb();
 }
 
