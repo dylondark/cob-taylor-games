@@ -1,4 +1,5 @@
 #include "leaderboardhandler.h"
+#include <QPainter>
 #include <fstream>
 #include <iostream>
 
@@ -79,6 +80,7 @@ void LeaderboardHandler::writeScores() {
 void LeaderboardHandler::refreshlb(game selectedGame)
 {
     QListWidget* list = (QListWidget*)(lbObj->widget(selectedGame)->children()[1]);
+    int place = 1;
     for (const auto &item : scoreLists[selectedGame])
     {
         // build string
@@ -87,8 +89,13 @@ void LeaderboardHandler::refreshlb(game selectedGame)
         listItemTxt.append(" - ");
         listItemTxt.append((std::to_string(item.second)));
 
+        // create listwidgetitem
+        QListWidgetItem* lsitem = new QListWidgetItem(list);
+        lsitem->setIcon(genNumIcon(place++));
+        lsitem->setText(listItemTxt);
+
         // add to list
-        list->addItem(listItemTxt);
+        list->addItem(lsitem);
     }
 }
 
@@ -97,4 +104,17 @@ void LeaderboardHandler::refreshlb()
     for (int i = 0; i < 6; ++i) {
         refreshlb(static_cast<game>(i));
     }
+}
+
+QIcon LeaderboardHandler::genNumIcon(int num)
+{
+    QPixmap pix(100, 100);
+    pix.fill(Qt::transparent); // required or else strange things happen to the pixmap...
+    QPainter painter(&pix);
+
+    painter.setFont(QFont("1UP!", 60));
+    painter.drawText(25, 90, QString(std::to_string(num).c_str()));
+
+    painter.end();
+    return QIcon(pix);
 }

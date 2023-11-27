@@ -24,6 +24,7 @@ private:
     // however im not totally sure what it would look like or if it even necessary to be its own function yet
     const std::string FILEPATH = "./datafiles/"; // path where the data files can be found. currently it is a folder inside wherever the executable is named "datafiles"
     const std::string FILENAMES[6] = {"trivia.txt", "guessthelogo.txt", "checkers.txt", "hopper.txt", "pong.txt", "tetris.txt"}; // names of the datafiles
+    QIcon genNumIcon(int num); // generates an icon containing a number for the leaderboard image
 };
 
 #endif // LEADERBOARDHANDLER_H
