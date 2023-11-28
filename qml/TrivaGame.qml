@@ -20,8 +20,6 @@ Item {
 
             Label {
                 id: lblTitle
-                width: 2160
-                height: 275
                 color: "#000000"
                 text: qsTr("Akron Trivia")
                 horizontalAlignment: Text.AlignHCenter
@@ -34,18 +32,19 @@ Item {
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
                 Layout.fillHeight: true
-                Layout.verticalStretchFactor: 3
+                Layout.verticalStretchFactor: 1
+                scale: Math.min(item1.width / 2160, item1.height / 3840)
             }
 
             Image {
                 id: image
                 width: 50
                 height: 50
-                source: "qrc:/background/projecticons/controller1.png"
+                source: "qrc:/background/projecticons/controller3.png"
                 fillMode: Image.PreserveAspectFit
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                Layout.verticalStretchFactor: 3
+                Layout.verticalStretchFactor: 1
             }
 
             GridLayout {
@@ -61,7 +60,7 @@ Item {
                 rows: 2
                 columns: 2
                 anchors.bottomMargin: 0
-                Layout.verticalStretchFactor: 3
+                Layout.verticalStretchFactor: 1
 
                 Button {
                     id: btn1
