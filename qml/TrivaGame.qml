@@ -66,14 +66,17 @@ Item {
                     id: btn1
                     width: 1040
                     height: 450
-                    text: qsTr("Button")
+                    Text  {
+                        id: btn1txt
+                        text: "button1"
+                        anchors.centerIn: parent
+                        font.pointSize: 18
+                        scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
+                    }
+
                     flat: false
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    icon.color: "#ff0000"
-                    icon.height: 100
-                    icon.width: 100
-                    icon.source: "qrc:/background/projecticons/aroo1.png"
                     display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
@@ -84,13 +87,15 @@ Item {
                     id: btn2
                     width: 1040
                     height: 450
-                    text: qsTr("Button")
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    icon.color: "#0000ff"
-                    icon.height: 100
-                    icon.width: 100
-                    icon.source: "qrc:/background/projecticons/aroo1.png"
+                    Text  {
+                        id: btn2txt
+                        text: "button2"
+                        anchors.centerIn: parent
+                        font.pointSize: 18
+                        scale: Math.min(btn2.width / width / 5, btn2.height / height / 5)
+                    }
                     display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
@@ -101,14 +106,15 @@ Item {
                     id: btn3
                     width: 1040
                     height: 450
-                    text: qsTr("Button")
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    icon.color: "#00ff00"
-                    icon.height: 100
-                    icon.width: 100
-                    icon.source: "qrc:/background/projecticons/aroo1.png"
-                    highlighted: false
+                    Text  {
+                        id: btn3txt
+                        text: "button3"
+                        anchors.centerIn: parent
+                        font.pointSize: 18
+                        scale: Math.min(btn3.width / width / 5, btn3.height / height / 5)
+                    }
                     display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
@@ -119,13 +125,15 @@ Item {
                     id: btn4
                     width: 1040
                     height: 450
-                    text: qsTr("Button")
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    icon.color: "#ffff00"
-                    icon.height: 100
-                    icon.width: 100
-                    icon.source: "qrc:/background/projecticons/aroo1.png"
+                    Text  {
+                        id: btn4txt
+                        text: "button4"
+                        anchors.centerIn: parent
+                        font.pointSize: 18
+                        scale: Math.min(btn4.width / width / 5, btn4.height / height / 5)
+                    }
                     display: AbstractButton.TextBesideIcon
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.preferredHeight: -1
