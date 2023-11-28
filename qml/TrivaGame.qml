@@ -37,19 +37,17 @@ Item {
 
             Image {
                 id: image
-                width: 50
-                height: 50
-                source: "qrc:/background/projecticons/controller3.png"
+                source: "qrc:/game/gameassets/trivia/testimage.png"
                 fillMode: Image.PreserveAspectFit
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                Layout.preferredHeight: -1
+                Layout.preferredWidth: -1
                 Layout.verticalStretchFactor: 1
             }
 
             GridLayout {
                 id: gridLayout
-                width: 2160
-                height: 1109
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
                 layoutDirection: Qt.LeftToRight

@@ -17,4 +17,7 @@
     <qresource prefix="/qml">
         <file>qml/TrivaGame.qml</file>
     </qresource>
+    <qresource prefix="/game">
+        <file>gameassets/trivia/testimage.png</file>
+    </qresource>
 </RCC>
