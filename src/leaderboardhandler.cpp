@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <fstream>
 #include <iostream>
+#include <cmath>
 
 LeaderboardHandler:: LeaderboardHandler(QStackedWidget* lbObj)
 {
@@ -112,8 +113,11 @@ QIcon LeaderboardHandler::genNumIcon(int num)
     pix.fill(Qt::transparent); // required or else strange things happen to the pixmap...
     QPainter painter(&pix);
 
-    painter.setFont(QFont("1UP!", 60));
-    painter.drawText(25, 90, QString(std::to_string(num).c_str()));
+    // funny oneliner to calculate scale values
+    int digits = num > 0 ? (int) log10 ((double) num) + 1 : 1, lPos = 10, dPos = 90 / (1 + (0.18 * (digits - 1))), size = 60 / (1 + (0.7 * (digits - 1)));
+
+    painter.setFont(QFont("1UP!", size));
+    painter.drawText(lPos, dPos, QString(std::to_string(num).c_str()));
 
     painter.end();
     return QIcon(pix);
