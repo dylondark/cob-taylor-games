@@ -9,8 +9,6 @@ struct imgQueue::queueNode
 // constructor, populates the queue linked list with all images in imglist and sets length to length of imglist
 imgQueue::imgQueue(vector<QPixmap> imglist) : LENGTH(imglist.size()), IMGLIST(imglist)
 {
-    // init rng with current time
-    srand(time(0));
 
     // populate this list randomly
     head = new queueNode{IMGLIST[rand() % LENGTH], nullptr};
@@ -60,7 +58,6 @@ void imgQueue::shift()
     delete removeNode;
 
     // add new element to back of queue
-    srand(time(0)); // init rng with current time
     /*
      * these images will be inserted with nice bilinear scaling based on the current value of imageDim so they wont look pixelated.
      * the reason it is being done here and nowhere else is because it provides a compromise between being fast and being dynamic.
