@@ -21,7 +21,7 @@ Item {
             Label {
                 id: lblTitle
                 color: "#000000"
-                text: qsTr("Akron Trivia")
+                text: qsTr("question")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.styleName: "Bold"
@@ -67,7 +67,7 @@ Item {
                     height: 450
                     Text  {
                         id: btn1txt
-                        text: "button1"
+                        text: "answer1"
                         anchors.centerIn: parent
                         font.pointSize: 18
                         scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
@@ -90,7 +90,7 @@ Item {
                     Layout.fillWidth: true
                     Text  {
                         id: btn2txt
-                        text: "button2"
+                        text: "answer2"
                         anchors.centerIn: parent
                         font.pointSize: 18
                         scale: Math.min(btn2.width / width / 5, btn2.height / height / 5)
@@ -109,7 +109,7 @@ Item {
                     Layout.fillWidth: true
                     Text  {
                         id: btn3txt
-                        text: "button3"
+                        text: "answer3"
                         anchors.centerIn: parent
                         font.pointSize: 18
                         scale: Math.min(btn3.width / width / 5, btn3.height / height / 5)
@@ -128,7 +128,7 @@ Item {
                     Layout.fillWidth: true
                     Text  {
                         id: btn4txt
-                        text: "button4"
+                        text: "answer4"
                         anchors.centerIn: parent
                         font.pointSize: 18
                         scale: Math.min(btn4.width / width / 5, btn4.height / height / 5)
