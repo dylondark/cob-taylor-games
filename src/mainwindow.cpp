@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // leaderboard ops
     initLeaderboard();
-    LeaderboardTools::genRandScores(lbHandler, 20);
+    LeaderboardTools::genRandScores(lbHandler, 999);
     lbHandler->refreshlb();
 }
 
