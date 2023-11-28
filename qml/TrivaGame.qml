@@ -24,11 +24,10 @@ Item {
                 text: qsTr("Akron Trivia")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.styleName: "Bold Italic"
+                font.styleName: "Bold"
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.fillWidth: true
-                font.family: "Times New Roman"
-                font.pointSize: 50
+                font.pointSize: 72
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
                 Layout.fillHeight: true
