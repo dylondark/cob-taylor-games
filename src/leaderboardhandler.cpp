@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <cmath>
+#include <set>
 
 LeaderboardHandler:: LeaderboardHandler(QStackedWidget* lbObj)
 {
@@ -78,11 +79,27 @@ void LeaderboardHandler::writeScores() {
     }
 }
 
+struct LeaderboardHandler::sortcomp
+{
+    template <typename T>
+    bool operator()(const T& l, const T& r) const
+    {
+        if (l.second != r.second) {
+            return l.second < r.second;
+        }
+        return l.first < r.first;
+    }
+};
+
 void LeaderboardHandler::refreshlb(game selectedGame)
 {
     QListWidget* list = (QListWidget*)(lbObj->widget(selectedGame)->children()[1]);
     int place = 1;
-    for (const auto &item : scoreLists[selectedGame])
+
+    // sort the map into this set
+    std::set<std::pair<std::string, int>, sortcomp> sortset(scoreLists[selectedGame].begin(), scoreLists[selectedGame].end());
+
+    for (const auto &item : sortset)
     {
         // build string
         QString listItemTxt;

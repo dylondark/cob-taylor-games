@@ -20,8 +20,7 @@ public:
 private:
     QStackedWidget* lbObj; // ptr to the stack widget containing all the "pages" of the leaderboard
     std::map<std::string, int> scoreLists[6]; // 6 maps holding scores for the 6 games. key is their playername, int is their high score
-    // a function for sorting scores high to low may be a good idea since the scores will need to be sorted when being placed in the leaderboard
-    // however im not totally sure what it would look like or if it even necessary to be its own function yet
+    struct sortcomp; // used for map sort
     const std::string FILEPATH = "./datafiles/"; // path where the data files can be found. currently it is a folder inside wherever the executable is named "datafiles"
     const std::string FILENAMES[6] = {"trivia.txt", "guessthelogo.txt", "checkers.txt", "hopper.txt", "pong.txt", "tetris.txt"}; // names of the datafiles
     QIcon genNumIcon(int num); // generates an icon containing a number for the leaderboard image
