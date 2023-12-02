@@ -99,13 +99,13 @@ void LeaderboardHandler::refreshlb(game selectedGame)
     // sort the map into this set
     std::set<std::pair<std::string, int>, sortcomp> sortset(scoreLists[selectedGame].begin(), scoreLists[selectedGame].end());
 
-    for (const auto &item : sortset)
+    for (auto item = sortset.crbegin(); item != sortset.crend(); item++)
     {
         // build string
         QString listItemTxt;
-        listItemTxt.append(item.first);
+        listItemTxt.append(item->first);
         listItemTxt.append(" - ");
-        listItemTxt.append((std::to_string(item.second)));
+        listItemTxt.append((std::to_string(item->second)));
 
         // create listwidgetitem
         QListWidgetItem* lsitem = new QListWidgetItem(list);
