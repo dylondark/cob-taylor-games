@@ -31,8 +31,11 @@ private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);
     void initLeaderboard();
+    void scaleLeaderboard(int);
+    std::vector<QWidget*> lbPages; // vector containing pointers to all leaderboard page objs. c++ will not let me use an array ptr for inexplicable reasons
     void setActiveLBButton(QPushButton*);
     QFont lbFont;
     LeaderboardHandler* lbHandler;
+    const int targetW = 2160, targetH = 3840; // target res for the application, 2160x3840
 };
 #endif // MAINWINDOW_H

@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lbFrame->setLayout(ui->lbVertLayout);
 
     // leaderboard ops
+    lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6}); // fill lbPages. very important.
     initLeaderboard();
     LeaderboardTools::genRandScores(lbHandler, 999);
     lbHandler->refreshlb();
@@ -82,21 +83,35 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->btnGame5->setIconSize(ui->btnGame5->size());
     ui->btnGame6->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame6->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame6->setIconSize(ui->btnGame6->size());
+
+    scaleLeaderboard(wh[1]);
 }
 
 void MainWindow::initLeaderboard()
 {
-    QWidget* pages[] = {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6};
-
     // set the layouts for the leaderboard pages and add listwidgets
-    for (auto page : pages)
+    for (auto page : lbPages)
     {
         // set layout and add widget in the layout
         page->setLayout(new QVBoxLayout());
         page->layout()->addWidget(new QListWidget());
+    }
+}
+
+void MainWindow::scaleLeaderboard(int height)
+{
+    // calculate scaling values
+    const int iconSize = 100 * ((double)height / targetH), fontSize = iconSize / 2; // I HATE INTEGER DIVISION I HATE INTEGER DIVISION
+    // assemble font stylesheet str
+    QString fontSheet("font: ");
+    fontSheet.append(std::to_string(fontSize));
+    fontSheet.append("px;");
+
+    for (auto page : lbPages)
+    {
         // set properties for the widget
-        ((QListWidget*)page->children()[1])->setIconSize(QSize(100, 100));
-        ((QListWidget*)page->children()[1])->setStyleSheet("font: 50px;");
+        ((QListWidget*)page->children()[1])->setIconSize(QSize(iconSize, iconSize));
+        ((QListWidget*)page->children()[1])->setStyleSheet(fontSheet);
     }
 }
 
