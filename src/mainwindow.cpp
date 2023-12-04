@@ -100,19 +100,25 @@ void MainWindow::initLeaderboard()
 
 void MainWindow::scaleLeaderboard(int height)
 {
+    // number of times i have wasted hours trying to solve a problem in this particular function because i overlooked something extremely simple: 2
+
     // calculate scaling values
     const int iconSize = 100 * ((double)height / targetH), fontSize = iconSize / 2; // I HATE INTEGER DIVISION I HATE INTEGER DIVISION
     // assemble font stylesheet str
-    QString fontSheet("font: ");
+    QString fontSheet("\n QListWidget, QPushButton { font: "); // widget classes have to be specified manually because they just couldnt make it easy and let you exclude widgets from a class
     fontSheet.append(std::to_string(fontSize));
-    fontSheet.append("px;");
+    fontSheet.append("px; } \n");
+    // title font needs to be larger from the rest and bold
+    QString titleSheet("\n QLabel#lbLabel  { font: 700 "); // 700 means bold i guess?
+    titleSheet.append(std::to_string(fontSize * 2));
+    titleSheet.append("px; } \n");
+    QString buttonSheet("\n QPushButton {	background-color: transparent;	border-width: 0px;	border-radius: 0px; } \n");
 
+    ui->lbFrame->setStyleSheet(titleSheet + fontSheet + buttonSheet);
+
+    // scale leaderboard icons
     for (auto page : lbPages)
-    {
-        // set properties for the widget
         ((QListWidget*)page->children()[1])->setIconSize(QSize(iconSize, iconSize));
-        ((QListWidget*)page->children()[1])->setStyleSheet(fontSheet);
-    }
 }
 
 // ua trivia

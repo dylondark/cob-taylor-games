@@ -130,6 +130,7 @@ background-color: rgba(255, 255, 255, 150);
             <property name="font">
              <font>
               <pointsize>30</pointsize>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
