@@ -84,7 +84,32 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->btnGame6->setIcon(QIcon(QPixmap(":/menu/Logos-Buttons/comingsoon.png").scaled(ui->btnGame6->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     ui->btnGame6->setIconSize(ui->btnGame6->size());
 
+    scaleMenu(wh[1]);
     scaleLeaderboard(wh[1]);
+}
+
+void MainWindow::scaleMenu(int height)
+{
+    // calculate scaling values
+    const int borderWidth = 12 * ((double)height / targetH), curveWidth = 72 * ((double)height / targetH);
+
+    QString sheet("QFrame#canvas { background-color: rgba(0, 0, 0, 0); } QPushButton, QFrame#lbFrame { border: ");
+    sheet.append(std::to_string(borderWidth));
+    sheet.append("px solid black; border-radius: ");
+    sheet.append(std::to_string(curveWidth));
+    sheet.append("px; background-color: rgba(255, 255, 255, 150);}");
+
+    // apply to canvas
+    ui->canvas->setStyleSheet(sheet);
+
+    // apply to leaderboard spacers
+    ui->lbHorSpacer1->setMinimumWidth(borderWidth);
+    ui->lbHorSpacer2->setMinimumWidth(borderWidth);
+    ui->lbHorSpacer3->setMinimumWidth(borderWidth);
+    ui->lbHorSpacer4->setMinimumWidth(borderWidth);
+    ui->lbHorSpacer5->setMinimumWidth(borderWidth);
+    ui->lbVerSpacer1->setMinimumHeight(borderWidth);
+    ui->lbVerSpacer2->setMinimumHeight(borderWidth);
 }
 
 void MainWindow::initLeaderboard()
