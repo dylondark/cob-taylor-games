@@ -155,6 +155,7 @@ void MainWindow::on_lbGame1_pressed()
 {
     ui->lbValues->setCurrentIndex(0);
     setActiveLBButton(ui->lbGame1);
+    returnLBPagesToTop();
 }
 
 // guess the logo
@@ -162,6 +163,7 @@ void MainWindow::on_lbGame2_pressed()
 {
     ui->lbValues->setCurrentIndex(1);
     setActiveLBButton(ui->lbGame2);
+    returnLBPagesToTop();
 }
 
 // checkers
@@ -169,6 +171,7 @@ void MainWindow::on_lbGame3_pressed()
 {
     ui->lbValues->setCurrentIndex(2);
     setActiveLBButton(ui->lbGame3);
+    returnLBPagesToTop();
 }
 
 // zippy hopper
@@ -176,6 +179,7 @@ void MainWindow::on_lbGame4_pressed()
 {
     ui->lbValues->setCurrentIndex(3);
     setActiveLBButton(ui->lbGame4);
+    returnLBPagesToTop();
 }
 
 // pong
@@ -183,6 +187,7 @@ void MainWindow::on_lbGame5_pressed()
 {
     ui->lbValues->setCurrentIndex(4);
     setActiveLBButton(ui->lbGame5);
+    returnLBPagesToTop();
 }
 
 // tetris
@@ -190,6 +195,7 @@ void MainWindow::on_lbGame6_pressed()
 {
     ui->lbValues->setCurrentIndex(5);
     setActiveLBButton(ui->lbGame6);
+    returnLBPagesToTop();
 }
 
 // sets bold and underline for only the specified button, removes for any others
@@ -208,4 +214,13 @@ void MainWindow::setActiveLBButton(QPushButton* btn)
     activeFont.setBold(true);
     activeFont.setUnderline(true);
     btn->setFont(activeFont);
+}
+
+void MainWindow::returnLBPagesToTop()
+{
+    for (auto page : lbPages)
+    {
+        QListWidget* listwidget = (QListWidget*)(page->children()[1]);
+        listwidget->scrollToItem(listwidget->item(0));
+    }
 }
