@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <QTimer>
 #include <QPixmap>
+#include <QTimer>
 #include <QIcon>
 #include <QListWidget>
 #include "leaderboardtools.h"
@@ -23,6 +23,12 @@ MainWindow::MainWindow(QWidget *parent)
     const int FPS = 60; // how many times to update the background per second
     bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
+
+    // create timer to switch leaderboard pages
+    lbSwitchTimer = new QTimer(this);
+    connect(lbSwitchTimer, &QTimer::timeout, this, &MainWindow::switchLB);
+    const int lbSwitchInterval = 5; // seconds
+    lbSwitchTimer->start(lbSwitchInterval * 1000);
 
     ui->lbFrame->setLayout(ui->lbVertLayout);
 
@@ -222,5 +228,31 @@ void MainWindow::returnLBPagesToTop()
     {
         QListWidget* listwidget = (QListWidget*)(page->children()[1]);
         listwidget->scrollToItem(listwidget->item(0));
+    }
+}
+
+void MainWindow::switchLB()
+{
+    // wouldve liked to do this with a for loop and a function ptr array but c++ was like nah bro
+    switch (ui->lbValues->currentIndex())
+    {
+    case 0:
+        on_lbGame2_pressed();
+        break;
+    case 1:
+        on_lbGame3_pressed();
+        break;
+    case 2:
+        on_lbGame4_pressed();
+        break;
+    case 3:
+        on_lbGame5_pressed();
+        break;
+    case 4:
+        on_lbGame6_pressed();
+        break;
+    case 5:
+        on_lbGame1_pressed();
+        break;
     }
 }

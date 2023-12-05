@@ -26,6 +26,7 @@ private slots:
     void on_lbGame4_pressed(); // zippy hopper
     void on_lbGame5_pressed(); // pong
     void on_lbGame6_pressed(); // tetris
+    void switchLB();
 
 private:
     Ui::MainWindow *ui;
@@ -39,5 +40,6 @@ private:
     QFont lbFont;
     LeaderboardHandler* lbHandler;
     const int targetW = 2160, targetH = 3840; // target res for the application, 2160x3840
+    QTimer* lbSwitchTimer;
 };
 #endif // MAINWINDOW_H
