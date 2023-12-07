@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
     // create timer to switch leaderboard pages
     lbSwitchTimer = new QTimer(this);
     connect(lbSwitchTimer, &QTimer::timeout, this, &MainWindow::switchLB);
-    const int lbSwitchInterval = 5; // seconds
     lbSwitchTimer->start(lbSwitchInterval * 1000);
 
     ui->lbFrame->setLayout(ui->lbVertLayout);
@@ -233,6 +232,8 @@ void MainWindow::returnLBPagesToTop()
 
 void MainWindow::switchLB()
 {
+    lbSwitchTimer->setInterval(lbSwitchInterval * 1000);
+
     // wouldve liked to do this with a for loop and a function ptr array but c++ was like nah bro
     switch (ui->lbValues->currentIndex())
     {
@@ -255,4 +256,11 @@ void MainWindow::switchLB()
         on_lbGame1_pressed();
         break;
     }
+}
+
+// TODO: this is not triggered by dynamically added widgets (so like almost all the leaderboard widgets), so a better way of doing this is required
+void MainWindow::mousePressEvent(QMouseEvent* event)
+{
+    lbSwitchTimer->stop();
+    lbSwitchTimer->start(lbSwitchInterval * 2000); // wait double the interval before resuming
 }

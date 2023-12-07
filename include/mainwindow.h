@@ -19,6 +19,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+    void mousePressEvent(QMouseEvent*) override;
+
 private slots:
     void on_lbGame1_pressed(); // ua trivia
     void on_lbGame2_pressed(); // guess the logo
@@ -40,6 +43,7 @@ private:
     QFont lbFont;
     LeaderboardHandler* lbHandler;
     const int targetW = 2160, targetH = 3840; // target res for the application, 2160x3840
+    const int lbSwitchInterval = 5; // seconds, to be used for lbSwitchTimer interval
     QTimer* lbSwitchTimer;
 };
 #endif // MAINWINDOW_H
