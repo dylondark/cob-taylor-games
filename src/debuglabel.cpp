@@ -11,5 +11,7 @@ void DebugLabel::update()
     txt.append(BUILD_INFO_BRANCH);
     txt.append(" #");
     txt.append(BUILD_INFO_COMMIT);
+    txt.append(", ");
+    txt.append(BUILD_INFO_DATE);
     setText(txt);
 }
