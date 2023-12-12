@@ -21,6 +21,7 @@ INCLUDEPATH += ./include ./src ./forms
 HEADERS += \
     bgwidget.h \
     imgqueue.h \
+    debuglabel.h \
     leaderboardtools.h \
     mainwindow.h \
     leaderboardhandler.h \
@@ -29,6 +30,7 @@ FORMS += mainwindow.ui
 SOURCES += \
     bgwidget.cpp \
     imgqueue.cpp \
+    debuglabel.cpp \
     main.cpp \
     mainwindow.cpp \
     leaderboardhandler.cpp \
