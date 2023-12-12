@@ -23,14 +23,16 @@ HEADERS += \
     imgqueue.h \
     leaderboardtools.h \
     mainwindow.h \
-    leaderboardhandler.h
+    leaderboardhandler.h \
+    clickdetector.h
 FORMS += mainwindow.ui
 SOURCES += \
     bgwidget.cpp \
     imgqueue.cpp \
     main.cpp \
     mainwindow.cpp \
-    leaderboardhandler.cpp
+    leaderboardhandler.cpp \
+    clickdetector.cpp
 
 RESOURCES += \
     resources.qrc

@@ -5,6 +5,7 @@
 #include <QIcon>
 #include <QListWidget>
 #include "leaderboardtools.h"
+#include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -119,12 +120,26 @@ void MainWindow::scaleMenu(int height)
 
 void MainWindow::initLeaderboard()
 {
+    // init click detection
+    lbDetector = new ClickDetector();
+    connect(lbDetector, &ClickDetector::clickDetected, this, &MainWindow::lbClicked);
+    QPushButton* lbButtons[] = {ui->lbGame1, ui->lbGame2, ui->lbGame3, ui->lbGame4, ui->lbGame5, ui->lbGame6};
+    // add detector to all buttons
+    for (auto button : lbButtons)
+        button->installEventFilter(lbDetector);
+    // add detector to lbframe
+    ui->lbFrame->installEventFilter(lbDetector);
+
     // set the layouts for the leaderboard pages and add listwidgets
     for (auto page : lbPages)
     {
         // set layout and add widget in the layout
         page->setLayout(new QVBoxLayout());
-        page->layout()->addWidget(new QListWidget());
+        QListWidget* newList = new QListWidget();
+        page->layout()->addWidget(newList);
+        // click detection
+        connect(newList, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
+        newList->verticalScrollBar()->installEventFilter(lbDetector);
     }
 }
 
@@ -175,6 +190,7 @@ void MainWindow::on_lbGame2_pressed()
 void MainWindow::on_lbGame3_pressed()
 {
     ui->lbValues->setCurrentIndex(2);
+
     setActiveLBButton(ui->lbGame3);
     returnLBPagesToTop();
 }
@@ -258,8 +274,7 @@ void MainWindow::switchLB()
     }
 }
 
-// TODO: this is not triggered by dynamically added widgets (so like almost all the leaderboard widgets), so a better way of doing this is required
-void MainWindow::mousePressEvent(QMouseEvent* event)
+void MainWindow::lbClicked()
 {
     lbSwitchTimer->stop();
     lbSwitchTimer->start(lbSwitchInterval * 2000); // wait double the interval before resuming

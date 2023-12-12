@@ -5,6 +5,7 @@
 #include "bgwidget.h"
 #include <QPushButton>
 #include <QFont>
+#include "clickdetector.h"
 #include "leaderboardhandler.h"
 
 QT_BEGIN_NAMESPACE
@@ -19,9 +20,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-protected:
-    void mousePressEvent(QMouseEvent*) override;
-
 private slots:
     void on_lbGame1_pressed(); // ua trivia
     void on_lbGame2_pressed(); // guess the logo
@@ -30,6 +28,7 @@ private slots:
     void on_lbGame5_pressed(); // pong
     void on_lbGame6_pressed(); // tetris
     void switchLB();
+    void lbClicked();
 
 private:
     Ui::MainWindow *ui;
@@ -45,5 +44,6 @@ private:
     const int targetW = 2160, targetH = 3840; // target res for the application, 2160x3840
     const int lbSwitchInterval = 5; // seconds, to be used for lbSwitchTimer interval
     QTimer* lbSwitchTimer;
+    ClickDetector* lbDetector;
 };
 #endif // MAINWINDOW_H
