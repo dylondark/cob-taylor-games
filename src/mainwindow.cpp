@@ -37,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     initLeaderboard();
     LeaderboardTools::genRandScores(lbHandler, 30);
     lbHandler->refreshlb();
+
+    // setup debuglabel
+    ui->lblDebug->update();
 }
 
 MainWindow::~MainWindow()
@@ -92,6 +95,8 @@ void MainWindow::resizeEvent(QResizeEvent*)
 
     scaleMenu(wh[1]);
     scaleLeaderboard(wh[1]);
+
+    ui->lblDebug->setGeometry(5, wh[1] - 20, ui->canvas->width(), ui->lblDebug->height());
 }
 
 void MainWindow::scaleMenu(int height)

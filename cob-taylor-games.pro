@@ -38,3 +38,11 @@ SOURCES += \
 
 RESOURCES += \
     resources.qrc
+
+GIT_PATH=$$system(which git)
+!isEmpty(GIT_PATH) {
+    BUILD_COMMIT=$$system($$GIT_PATH rev-parse --short HEAD)
+    BUILD_BRANCH=$$system($$GIT_PATH rev-parse --abbrev-ref HEAD)
+}
+
+DEFINES += "BUILD_INFO_COMMIT=\"\\\"$$BUILD_COMMIT\\\"\"" "BUILD_INFO_BRANCH=\"\\\"$$BUILD_BRANCH\\\"\""

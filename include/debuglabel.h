@@ -7,9 +7,9 @@
 
 class DebugLabel : public QLabel
 {
-    Q_OBJECT
+
 public:
-    DebugLabel();
+    DebugLabel(QWidget*);
 
 public slots:
     void update();
