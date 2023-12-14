@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     titleClickTimer = new QTimer(this);
     titleClickTimer->setSingleShot(true);
     connect(titleClickTimer, &QTimer::timeout, this, &MainWindow::titleClickTimeout);
+    ui->lblDebug->hide(); // hide the debug label by default
 }
 
 MainWindow::~MainWindow()
