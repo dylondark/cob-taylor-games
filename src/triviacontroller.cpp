@@ -1,17 +1,28 @@
 #include "triviacontroller.h"
 #include <random>
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 TriviaController::TriviaController() {}
 
-/* TriviaController::question TriviaController::loadQuestions()
+void TriviaController::loadQuestions()
 {
-    question questions;
-
-    // Copy file writing code from leadscores in leaderboardhandler
-
-    return questions;
-} */
+    std::ifstream file(questionPath);
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        question currentQuestion;
+        iss >> currentQuestion.question;
+        iss >> currentQuestion.ans1;
+        iss >> currentQuestion.ans2;
+        iss >> currentQuestion.ans3;
+        iss >> currentQuestion.ans4;
+        questionVec.push_back(currentQuestion);
+    }
+    file.close();
+}
 
 TriviaController::question TriviaController::getQuestion()
 {
@@ -45,32 +56,3 @@ TriviaController::question TriviaController::getQuestion()
     return questionVec[index];
 }
 
-/* TriviaController::question TriviaController::loadAnswers()
-{
-    question answers;
-
-    // Same as above
-
-    return answers;
-} */
-
-TriviaController::question TriviaController::getAnswer()
-{
-    // Use the C++ standard library's random device and generator to generate random indices
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-
-    // Create a vector to store the indices of the questionVec vector
-    static std::vector<int> indices(answerVec.size());
-    static int i = 0;
-
-    // Generate the random index
-    std::uniform_int_distribution<> dist(0, indices.size() - 1);
-    int index = indices[dist(gen)];
-
-    // Remove the chosen index from the indices vector
-    indices.erase(indices.begin() + i);
-
-    // Return the randomly selected answer object
-    return answerVec[index];
-}
