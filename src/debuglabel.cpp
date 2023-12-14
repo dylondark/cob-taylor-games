@@ -9,8 +9,10 @@ DebugLabel::DebugLabel(QWidget* parent) : QLabel(parent)
 
 void DebugLabel::update(int wh[])
 {
-    // declare string & build info
-    QString txt("Build: ");
+    QString txt("You've found the debug!");
+
+    // get build build info
+    txt.append(" Build: ");
     txt.append(BUILD_INFO_BRANCH);
     txt.append(" #");
     txt.append(BUILD_INFO_COMMIT);
