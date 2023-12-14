@@ -93,7 +93,7 @@ void MainWindow::resizeEvent(QResizeEvent*)
     scaleMenu(wh[1]);
     scaleLeaderboard(wh[1]);
 
-    ui->lblDebug->setGeometry(5, wh[1] - 20, ui->canvas->width(), ui->lblDebug->height());
+    ui->lblDebug->setGeometry(5, wh[1] - 20, wh[0], ui->lblDebug->height());
     ui->lblDebug->update(wh);
 }
 
