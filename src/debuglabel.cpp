@@ -1,5 +1,6 @@
 #include "debuglabel.h"
 #include <QtSystemDetection>
+#include <QOpenGLContext>
 
 DebugLabel::DebugLabel(QWidget* parent) : QLabel(parent)
 {
@@ -38,6 +39,10 @@ void DebugLabel::update(int wh[])
     txt.append(std::to_string(wh[0]));
     txt.append("x");
     txt.append(std::to_string(wh[1]));
+
+    // get opengl info
+    txt.append(" OGL Info: ");
+    txt.append(glGetString(GL_VERSION));
 
     setText(txt);
 }
