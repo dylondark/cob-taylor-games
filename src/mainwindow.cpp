@@ -37,6 +37,15 @@ MainWindow::MainWindow(QWidget *parent)
     initLeaderboard();
     LeaderboardTools::genRandScores(lbHandler, 30);
     lbHandler->refreshlb();
+
+    // install a clickdetector to title for activating the debug label
+    ClickDetector* titleDetector = new ClickDetector;
+    ui->lblTitle->installEventFilter(titleDetector);
+    connect(titleDetector, &ClickDetector::clickDetected, this, &MainWindow::titleClicked);
+    // title click timer
+    titleClickTimer = new QTimer(this);
+    titleClickTimer->setSingleShot(true);
+    connect(titleClickTimer, &QTimer::timeout, this, &MainWindow::titleClickTimeout);
 }
 
 MainWindow::~MainWindow()
@@ -281,4 +290,21 @@ void MainWindow::lbClicked()
 {
     lbSwitchTimer->stop();
     lbSwitchTimer->start(lbSwitchInterval * 2000); // wait double the interval before resuming
+}
+
+void MainWindow::titleClicked()
+{
+    titleClickTimer->stop();
+    titleClickTimer->start(2000); // 2 seconds for click timeout
+    titleClicks++;
+}
+
+void MainWindow::titleClickTimeout()
+{
+    if (titleClicks >= 5)
+    {
+        // toggle the debug label
+        ui->lblDebug->isHidden() ? ui->lblDebug->show() : ui->lblDebug->hide();
+    }
+    titleClicks = 0;
 }

@@ -29,6 +29,8 @@ private slots:
     void on_lbGame6_pressed(); // tetris
     void switchLB();
     void lbClicked();
+    void titleClicked();
+    void titleClickTimeout();
 
 private:
     Ui::MainWindow *ui;
@@ -44,6 +46,8 @@ private:
     const int targetW = 2160, targetH = 3840; // target res for the application, 2160x3840
     const int lbSwitchInterval = 5; // seconds, to be used for lbSwitchTimer interval
     QTimer* lbSwitchTimer;
+    QTimer* titleClickTimer;
+    int titleClicks = 0;
     ClickDetector* lbDetector;
 };
 #endif // MAINWINDOW_H
