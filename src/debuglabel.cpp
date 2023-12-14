@@ -6,7 +6,7 @@ DebugLabel::DebugLabel(QWidget* parent) : QLabel(parent)
 
 }
 
-void DebugLabel::update()
+void DebugLabel::update(int wh[])
 {
     // declare string & build info
     QString txt("Build: ");
@@ -32,6 +32,12 @@ void DebugLabel::update()
 #else
     txt.append("Unknown");
 #endif
+
+    // get resolution
+    txt.append(" Res: ");
+    txt.append(std::to_string(wh[0]));
+    txt.append("x");
+    txt.append(std::to_string(wh[1]));
 
     setText(txt);
 }

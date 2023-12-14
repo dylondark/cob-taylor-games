@@ -10,9 +10,7 @@ class DebugLabel : public QLabel
 
 public:
     DebugLabel(QWidget*);
-
-public slots:
-    void update();
+    void update(int[]);
 };
 
 #endif // DEBUGLABEL_H
