@@ -93,14 +93,19 @@ struct LeaderboardHandler::sortcomp
 
 void LeaderboardHandler::refreshlb(game selectedGame)
 {
-    QListWidget* list = (QListWidget*)(lbObj->widget(selectedGame)->children()[1]);
+    QListWidget* list[] = {(QListWidget*)(lbObj->widget(selectedGame)->children()[1]), (QListWidget*)(lbObj->widget(selectedGame)->children()[2]), (QListWidget*)(lbObj->widget(selectedGame)->children()[3])};
     int place = 1;
 
     // sort the map into this set
     std::set<std::pair<std::string, int>, sortcomp> sortset(scoreLists[selectedGame].begin(), scoreLists[selectedGame].end());
 
-    for (auto item = sortset.crbegin(); item != sortset.crend(); item++)
+    auto item = sortset.crbegin();
+    if (item == sortset.crend()) { return; } // do nothing if no items
+    int itemIndex;
+    for (int count = 0; count < MAX_ENTRIES; count++)
     {
+        itemIndex = count / (MAX_ENTRIES / 3);
+
         // build string
         QString listItemTxt;
         listItemTxt.append(item->first);
@@ -108,12 +113,15 @@ void LeaderboardHandler::refreshlb(game selectedGame)
         listItemTxt.append((std::to_string(item->second)));
 
         // create listwidgetitem
-        QListWidgetItem* lsitem = new QListWidgetItem(list);
+        QListWidgetItem* lsitem = new QListWidgetItem(list[itemIndex]);
         lsitem->setIcon(genNumIcon(place++));
         lsitem->setText(listItemTxt);
 
         // add to list
-        list->addItem(lsitem);
+        list[itemIndex]->addItem(lsitem);
+
+        if (++item == sortset.crend())
+            break;
     }
 }
 

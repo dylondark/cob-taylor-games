@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     // leaderboard ops
     lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6}); // fill lbPages. very important.
     initLeaderboard();
-    LeaderboardTools::genRandScores(lbHandler, 30);
+    LeaderboardTools::genRandScores(lbHandler, 24);
     lbHandler->refreshlb();
 
     // install a clickdetector to title for activating the debug label
@@ -153,12 +153,20 @@ void MainWindow::initLeaderboard()
     for (auto page : lbPages)
     {
         // set layout and add widget in the layout
-        page->setLayout(new QVBoxLayout());
-        QListWidget* newList = new QListWidget();
-        page->layout()->addWidget(newList);
+        page->setLayout(new QHBoxLayout());
+        QListWidget* newList1 = new QListWidget();
+        page->layout()->addWidget(newList1);
+        QListWidget* newList2 = new QListWidget();
+        page->layout()->addWidget(newList2);
+        QListWidget* newList3 = new QListWidget();
+        page->layout()->addWidget(newList3);
         // click detection
-        connect(newList, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
-        newList->verticalScrollBar()->installEventFilter(lbDetector);
+        connect(newList1, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
+        newList1->verticalScrollBar()->installEventFilter(lbDetector);
+        connect(newList2, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
+        newList2->verticalScrollBar()->installEventFilter(lbDetector);
+        connect(newList3, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
+        newList3->verticalScrollBar()->installEventFilter(lbDetector);
     }
 }
 
