@@ -96,6 +96,10 @@ void LeaderboardHandler::refreshlb(game selectedGame)
     QListWidget* list[] = {(QListWidget*)(lbObj->widget(selectedGame)->children()[1]), (QListWidget*)(lbObj->widget(selectedGame)->children()[2]), (QListWidget*)(lbObj->widget(selectedGame)->children()[3])};
     int place = 1;
 
+    // clear current lists
+    for (auto listitem : list)
+        listitem->clear();
+
     // sort the map into this set
     std::set<std::pair<std::string, int>, sortcomp> sortset(scoreLists[selectedGame].begin(), scoreLists[selectedGame].end());
 
