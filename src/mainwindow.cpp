@@ -14,10 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     ui->background->lower(); // send background to back
-    lbFont = ui->lbGame1->font(); // get the font for lbGame1 set in the designer
-    setActiveLBButton(ui->lbGame1);
 
     // create timer that will update the background object
     QTimer *bgUpdate = new QTimer(this);
@@ -27,17 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
 
-    // create timer to switch leaderboard pages
-    lbSwitchTimer = new QTimer(this);
-    connect(lbSwitchTimer, &QTimer::timeout, this, &MainWindow::switchLB);
-    lbSwitchTimer->start(lbSwitchInterval * 1000);
-
-    ui->lbFrame->setLayout(ui->lbVertLayout);
-
-    // leaderboard ops
     initLeaderboard();
-    lbHandler->loadScores();
-    lbHandler->refreshlb();
 
     initDebug();
 
@@ -136,6 +123,20 @@ void MainWindow::initLeaderboard()
     // fill lbPages
     lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6});
 
+    // create timer to switch leaderboard pages
+    lbSwitchTimer = new QTimer(this);
+    connect(lbSwitchTimer, &QTimer::timeout, this, &MainWindow::switchLB);
+    lbSwitchTimer->start(lbSwitchInterval * 1000);
+
+    // set layout for lbframe
+    ui->lbFrame->setLayout(ui->lbVertLayout);
+
+    // get the font for lbGame1 set in the designer
+    lbFont = ui->lbGame1->font();
+
+    // switch leaderboard to page 1
+    setActiveLBButton(ui->lbGame1);
+
     // init click detection
     lbDetector = new ClickDetector();
     connect(lbDetector, &ClickDetector::clickDetected, this, &MainWindow::lbClicked);
@@ -165,6 +166,10 @@ void MainWindow::initLeaderboard()
         connect(newList3, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
         newList3->verticalScrollBar()->installEventFilter(lbDetector);
     }
+
+    // load and display!
+    lbHandler->loadScores();
+    lbHandler->refreshlb();
 }
 
 void MainWindow::scaleLeaderboard(int height)
