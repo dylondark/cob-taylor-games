@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    lbHandler = new LeaderboardHandler(ui->lbValues); // init lbhandler
+
     ui->background->lower(); // send background to back
     lbFont = ui->lbGame1->font(); // get the font for lbGame1 set in the designer
     setActiveLBButton(ui->lbGame1);
@@ -35,7 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lbFrame->setLayout(ui->lbVertLayout);
 
     // leaderboard ops
-    lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6}); // fill lbPages. very important.
     initLeaderboard();
     lbHandler->loadScores();
     lbHandler->refreshlb();
@@ -139,6 +138,12 @@ void MainWindow::scaleMenu(int height)
 
 void MainWindow::initLeaderboard()
 {
+    // init leaderboardhandler
+    lbHandler = new LeaderboardHandler(ui->lbValues);
+
+    // fill lbPages
+    lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6});
+
     // init click detection
     lbDetector = new ClickDetector();
     connect(lbDetector, &ClickDetector::clickDetected, this, &MainWindow::lbClicked);
