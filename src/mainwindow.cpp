@@ -35,23 +35,22 @@ void MainWindow::resizeEvent(QResizeEvent*)
 {
     // get current size of window
     int wh[2] = {this->size().width(), this->size().height()};
-    // constrain by height if aspect ratio is wider than 9:16, width if narrower
-    double ratio = (double)wh[0] / (double)wh[1];
+
+    // canvas scaling
+    double ratio = (double)wh[0] / (double)wh[1]; // constrain by height if aspect ratio is wider than 9:16, width if narrower
     const double _9BY16 = 9.0 / 16.0; // should be 0.5625
     if (ratio >= _9BY16)
-    {
         // aspect is wider or equal to 9:16
         ui->canvas->setFixedSize(wh[1] * _9BY16, wh[1]);
-    }
     else
-    {
         // aspect is narrower than 9:16
         ui->canvas->setFixedSize(wh[0], wh[0] / _9BY16);
-    }
-    // center widget
+    // center canvas
     ui->canvas->move((wh[0] / 2) - (ui->canvas->width() / 2), (wh[1] / 2) - (ui->canvas->height() / 2));
-    // set layout to same size as frame
+
+    // set layout to same size as canvas
     ui->verticalLayoutWidget->setGeometry(0, 0, ui->canvas->width(), ui->canvas->height());
+
     // set background over entire window
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
 
@@ -66,9 +65,11 @@ void MainWindow::resizeEvent(QResizeEvent*)
     setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ComingSoon2.png");
     setBtnIcon(ui->btnGame6, ":/menu/Logos-Buttons/ComingSoon2.png");
 
+    // scale functions
     scaleMenu(wh[1]);
     scaleLeaderboard(wh[1]);
 
+    // debug label
     ui->lblDebug->setGeometry(5, wh[1] - 20, wh[0], ui->lblDebug->height());
     ui->lblDebug->update(wh);
 }
