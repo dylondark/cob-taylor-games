@@ -172,7 +172,9 @@ background-color: rgba(255, 255, 255, 150);
           <item>
            <widget class="QStackedWidget" name="lbValues">
             <property name="styleSheet">
-             <string notr="true">background-color: transparent;</string>
+             <string notr="true">background-color: transparent;
+selection-background-color: transparent;
+selection-color: black;</string>
             </property>
             <property name="currentIndex">
              <number>0</number>
