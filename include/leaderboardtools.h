@@ -43,6 +43,24 @@ void genRandScores(LeaderboardHandler* lbh, int entries)
         genRandScores(lbh, static_cast<LeaderboardHandler::game>(i), entries);
     }
 }
+
+// generates nicer test scores than genRandScores. more suitable for creating test files
+void genTestScores(LeaderboardHandler* lbh, LeaderboardHandler::game game, int entries)
+{
+    static const std::string GAME_STR[] = {"TRVA", "GTL", "CKRS", "ZHOP", "PONG", "TTRS"};
+    for (int x = 0; x < entries; x++)
+    {
+        lbh->addScore(game, GAME_STR[game] + std::to_string(x + 1), rand() % 1000);
+    }
+}
+
+// gentestscores for all games
+void genTestScores(LeaderboardHandler* lbh, int entries)
+{
+    for (int i = 0; i < 6; ++i) {
+        genTestScores(lbh, static_cast<LeaderboardHandler::game>(i), entries);
+    }
+}
 }
 
 #endif // LEADERBOARDTOOLS_H
