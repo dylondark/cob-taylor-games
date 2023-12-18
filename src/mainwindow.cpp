@@ -202,7 +202,7 @@ void MainWindow::scaleLeaderboard(int height)
     // number of times i have wasted hours trying to solve a problem in this particular function because i overlooked something extremely simple: 2
 
     // calculate scaling values
-    const int iconSize = 90 * ((double)height / targetH), fontSize = iconSize / 2, scrollSize = iconSize; // I HATE INTEGER DIVISION I HATE INTEGER DIVISION
+    const int iconSize = 95 * ((double)height / targetH), fontSize = iconSize / 2, scrollSize = iconSize; // I HATE INTEGER DIVISION I HATE INTEGER DIVISION
     // assemble font stylesheet str
     QString fontSheet("\n QListWidget, QPushButton { font: "); // widget classes have to be specified manually because they just couldnt make it easy and let you exclude widgets from a class
     fontSheet.append(std::to_string(fontSize));
