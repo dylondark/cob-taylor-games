@@ -24,6 +24,93 @@ MainWindow::MainWindow(QWidget *parent)
     connect(closeShortcut, &QShortcut::activated, this, &MainWindow::closeKeyDetected);
 }
 
+void MainWindow::initLeaderboard()
+{
+    // init leaderboardhandler
+    lbHandler = new LeaderboardHandler(ui->lbValues);
+
+    // fill lbPages
+    lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6});
+
+    // create timer to switch leaderboard pages
+    lbSwitchTimer = new QTimer(this);
+    connect(lbSwitchTimer, &QTimer::timeout, this, &MainWindow::switchLB);
+    lbSwitchTimer->start(lbSwitchInterval * 1000);
+
+    // set layout for lbframe
+    ui->lbFrame->setLayout(ui->lbVertLayout);
+
+    // get the font for lbGame1 set in the designer
+    lbFont = ui->lbGame1->font();
+
+    // switch leaderboard to page 1
+    setActiveLBButton(ui->lbGame1);
+
+    // init click detection
+    lbDetector = new ClickDetector();
+    connect(lbDetector, &ClickDetector::clickDetected, this, &MainWindow::lbClicked);
+    QPushButton* lbButtons[] = {ui->lbGame1, ui->lbGame2, ui->lbGame3, ui->lbGame4, ui->lbGame5, ui->lbGame6};
+    // add detector to all buttons
+    for (auto button : lbButtons)
+        button->installEventFilter(lbDetector);
+    // add detector to lbframe
+    ui->lbFrame->installEventFilter(lbDetector);
+
+    // set the layouts for the leaderboard pages and add listwidgets
+    for (auto page : lbPages)
+    {
+        // set layout and add widget in the layout
+        page->setLayout(new QHBoxLayout());
+        QListWidget* newList1 = new QListWidget();
+        page->layout()->addWidget(newList1);
+        QListWidget* newList2 = new QListWidget();
+        page->layout()->addWidget(newList2);
+        QListWidget* newList3 = new QListWidget();
+        page->layout()->addWidget(newList3);
+        // click detection
+        connect(newList1, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
+        newList1->verticalScrollBar()->installEventFilter(lbDetector);
+        connect(newList2, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
+        newList2->verticalScrollBar()->installEventFilter(lbDetector);
+        connect(newList3, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
+        newList3->verticalScrollBar()->installEventFilter(lbDetector);
+    }
+
+    // load and display!
+    lbHandler->loadScores();
+    lbHandler->refreshlb();
+}
+
+// debug label init operations
+void MainWindow::initDebug()
+{
+    // install a clickdetector to title for activating the debug label
+    ClickDetector* titleDetector = new ClickDetector;
+    ui->lblTitle->installEventFilter(titleDetector);
+    connect(titleDetector, &ClickDetector::clickDetected, this, &MainWindow::titleClicked);
+
+    // title click timer
+    titleClickTimer = new QTimer(this);
+    titleClickTimer->setSingleShot(true);
+    connect(titleClickTimer, &QTimer::timeout, this, &MainWindow::titleClickTimeout);
+    ui->lblDebug->hide(); // hide the debug label by default
+}
+
+// background widget init operations
+void MainWindow::initbg()
+{
+    // send background to back
+    ui->background->lower();
+
+    // create timer that will update the background object
+    QTimer *bgUpdate = new QTimer(this);
+    bgUpdate->setTimerType(Qt::PreciseTimer); // precise timer could potentially improve frametimes
+    connect(bgUpdate, &QTimer::timeout, ui->background, &bgWidget::animate);
+    const int FPS = 60; // how many times to update the background per second
+    bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
+    ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -104,63 +191,6 @@ void MainWindow::scaleMenu(int height)
     ui->lbVerSpacer2->setMinimumHeight(borderWidth);
 }
 
-void MainWindow::initLeaderboard()
-{
-    // init leaderboardhandler
-    lbHandler = new LeaderboardHandler(ui->lbValues);
-
-    // fill lbPages
-    lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6});
-
-    // create timer to switch leaderboard pages
-    lbSwitchTimer = new QTimer(this);
-    connect(lbSwitchTimer, &QTimer::timeout, this, &MainWindow::switchLB);
-    lbSwitchTimer->start(lbSwitchInterval * 1000);
-
-    // set layout for lbframe
-    ui->lbFrame->setLayout(ui->lbVertLayout);
-
-    // get the font for lbGame1 set in the designer
-    lbFont = ui->lbGame1->font();
-
-    // switch leaderboard to page 1
-    setActiveLBButton(ui->lbGame1);
-
-    // init click detection
-    lbDetector = new ClickDetector();
-    connect(lbDetector, &ClickDetector::clickDetected, this, &MainWindow::lbClicked);
-    QPushButton* lbButtons[] = {ui->lbGame1, ui->lbGame2, ui->lbGame3, ui->lbGame4, ui->lbGame5, ui->lbGame6};
-    // add detector to all buttons
-    for (auto button : lbButtons)
-        button->installEventFilter(lbDetector);
-    // add detector to lbframe
-    ui->lbFrame->installEventFilter(lbDetector);
-
-    // set the layouts for the leaderboard pages and add listwidgets
-    for (auto page : lbPages)
-    {
-        // set layout and add widget in the layout
-        page->setLayout(new QHBoxLayout());
-        QListWidget* newList1 = new QListWidget();
-        page->layout()->addWidget(newList1);
-        QListWidget* newList2 = new QListWidget();
-        page->layout()->addWidget(newList2);
-        QListWidget* newList3 = new QListWidget();
-        page->layout()->addWidget(newList3);
-        // click detection
-        connect(newList1, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
-        newList1->verticalScrollBar()->installEventFilter(lbDetector);
-        connect(newList2, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
-        newList2->verticalScrollBar()->installEventFilter(lbDetector);
-        connect(newList3, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
-        newList3->verticalScrollBar()->installEventFilter(lbDetector);
-    }
-
-    // load and display!
-    lbHandler->loadScores();
-    lbHandler->refreshlb();
-}
-
 void MainWindow::scaleLeaderboard(int height)
 {
     // number of times i have wasted hours trying to solve a problem in this particular function because i overlooked something extremely simple: 2
@@ -190,36 +220,6 @@ void MainWindow::scaleLeaderboard(int height)
         ((QListWidget*)page->children()[2])->setIconSize(QSize(iconSize, iconSize));
         ((QListWidget*)page->children()[3])->setIconSize(QSize(iconSize, iconSize));
     }
-}
-
-// debug label init operations
-void MainWindow::initDebug()
-{
-    // install a clickdetector to title for activating the debug label
-    ClickDetector* titleDetector = new ClickDetector;
-    ui->lblTitle->installEventFilter(titleDetector);
-    connect(titleDetector, &ClickDetector::clickDetected, this, &MainWindow::titleClicked);
-
-    // title click timer
-    titleClickTimer = new QTimer(this);
-    titleClickTimer->setSingleShot(true);
-    connect(titleClickTimer, &QTimer::timeout, this, &MainWindow::titleClickTimeout);
-    ui->lblDebug->hide(); // hide the debug label by default
-}
-
-// background widget init operations
-void MainWindow::initbg()
-{
-    // send background to back
-    ui->background->lower();
-
-    // create timer that will update the background object
-    QTimer *bgUpdate = new QTimer(this);
-    bgUpdate->setTimerType(Qt::PreciseTimer); // precise timer could potentially improve frametimes
-    connect(bgUpdate, &QTimer::timeout, ui->background, &bgWidget::animate);
-    const int FPS = 60; // how many times to update the background per second
-    bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
-    ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
 }
 
 // ua trivia
