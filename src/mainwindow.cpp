@@ -6,6 +6,8 @@
 #include <QListWidget>
 #include "leaderboardtools.h"
 #include <QScrollBar>
+#include <QShortcut>
+#include <QKeySequence>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -47,6 +49,10 @@ MainWindow::MainWindow(QWidget *parent)
     titleClickTimer->setSingleShot(true);
     connect(titleClickTimer, &QTimer::timeout, this, &MainWindow::titleClickTimeout);
     ui->lblDebug->hide(); // hide the debug label by default
+
+    // install close shortcut ctrl+q
+    QShortcut* closeShortcut = new QShortcut(QKeySequence("ctrl+q"), this);
+    connect(closeShortcut, &QShortcut::activated, this, &MainWindow::closeKeyDetected);
 }
 
 MainWindow::~MainWindow()
@@ -308,4 +314,9 @@ void MainWindow::titleClickTimeout()
         ui->lblDebug->isHidden() ? ui->lblDebug->show() : ui->lblDebug->hide();
     }
     titleClicks = 0;
+}
+
+void MainWindow::closeKeyDetected()
+{
+    this->close();
 }

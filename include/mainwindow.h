@@ -31,6 +31,7 @@ private slots:
     void lbClicked();
     void titleClicked();
     void titleClickTimeout();
+    void closeKeyDetected();
 
 private:
     Ui::MainWindow *ui;
