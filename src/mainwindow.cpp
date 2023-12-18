@@ -39,15 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     lbHandler->loadScores();
     lbHandler->refreshlb();
 
-    // install a clickdetector to title for activating the debug label
-    ClickDetector* titleDetector = new ClickDetector;
-    ui->lblTitle->installEventFilter(titleDetector);
-    connect(titleDetector, &ClickDetector::clickDetected, this, &MainWindow::titleClicked);
-    // title click timer
-    titleClickTimer = new QTimer(this);
-    titleClickTimer->setSingleShot(true);
-    connect(titleClickTimer, &QTimer::timeout, this, &MainWindow::titleClickTimeout);
-    ui->lblDebug->hide(); // hide the debug label by default
+    initDebug();
 
     // install close shortcut ctrl+q
     QShortcut* closeShortcut = new QShortcut(QKeySequence("ctrl+q"), this);
@@ -204,6 +196,21 @@ void MainWindow::scaleLeaderboard(int height)
         ((QListWidget*)page->children()[2])->setIconSize(QSize(iconSize, iconSize));
         ((QListWidget*)page->children()[3])->setIconSize(QSize(iconSize, iconSize));
     }
+}
+
+// debug label init operations
+void MainWindow::initDebug()
+{
+    // install a clickdetector to title for activating the debug label
+    ClickDetector* titleDetector = new ClickDetector;
+    ui->lblTitle->installEventFilter(titleDetector);
+    connect(titleDetector, &ClickDetector::clickDetected, this, &MainWindow::titleClicked);
+
+    // title click timer
+    titleClickTimer = new QTimer(this);
+    titleClickTimer->setSingleShot(true);
+    connect(titleClickTimer, &QTimer::timeout, this, &MainWindow::titleClickTimeout);
+    ui->lblDebug->hide(); // hide the debug label by default
 }
 
 // ua trivia
