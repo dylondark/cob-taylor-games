@@ -41,6 +41,7 @@ private:
     void initLeaderboard();
     void scaleLeaderboard(int);
     void scaleMenu(int);
+    void setBtnIcon(QPushButton*, std::string);
     void returnLBPagesToTop();
     std::vector<QWidget*> lbPages; // vector containing pointers to all leaderboard page objs. c++ will not let me use an array ptr for inexplicable reasons
     void setActiveLBButton(QPushButton*);
