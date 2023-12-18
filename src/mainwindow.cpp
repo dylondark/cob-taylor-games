@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     // leaderboard ops
     lbPages.insert(lbPages.end(), {ui->lbPage1, ui->lbPage2, ui->lbPage3, ui->lbPage4, ui->lbPage5, ui->lbPage6}); // fill lbPages. very important.
     initLeaderboard();
-    LeaderboardTools::genRandScores(lbHandler, 24);
+    lbHandler->loadScores();
     lbHandler->refreshlb();
 
     // install a clickdetector to title for activating the debug label
