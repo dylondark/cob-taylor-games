@@ -170,7 +170,8 @@ void MainWindow::setBtnIcon(QPushButton* btn, std::string iconpath)
 void MainWindow::scaleMenu(int height)
 {
     // calculate scaling values
-    const int borderWidth = 12 * ((double)height / targetH), curveWidth = 72 * ((double)height / targetH);
+    const double hScale = ((double)height / targetH);
+    const int borderWidth = 12 * hScale, curveWidth = 72 * hScale;
 
     QString sheet("QFrame#canvas { background-color: rgba(0, 0, 0, 0); } QPushButton, QFrame#lbFrame { border: ");
     sheet.append(std::to_string(borderWidth));
@@ -189,6 +190,11 @@ void MainWindow::scaleMenu(int height)
     ui->lbHorSpacer5->setMinimumWidth(borderWidth);
     ui->lbVerSpacer1->setMinimumHeight(borderWidth);
     ui->lbVerSpacer2->setMinimumHeight(borderWidth);
+
+    // scale layout margins
+    ui->buttonGrid->setContentsMargins(0, 40 * hScale, 0, 40 * hScale);
+    ui->buttonGrid->setSpacing(60 * hScale);
+    ui->menuLayout->setContentsMargins(60 * hScale, 30 * hScale, 60 * hScale, 30 * hScale);
 }
 
 void MainWindow::scaleLeaderboard(int height)
