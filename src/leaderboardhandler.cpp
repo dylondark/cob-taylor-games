@@ -100,7 +100,11 @@ void LeaderboardHandler::refreshlb(game selectedGame)
     std::set<std::pair<std::string, int>, sortcomp> sortset(scoreLists[selectedGame].begin(), scoreLists[selectedGame].end());
 
     auto item = sortset.crbegin();
-    if (item == sortset.crend()) { return; } // do nothing if no items
+    if (item == sortset.crend())
+    {
+        list[0]->addItem("No scores yet...");
+        return;
+    }
     int itemIndex;
     for (int count = 0; count < MAX_ENTRIES; count++)
     {
