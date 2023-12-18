@@ -36,6 +36,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);
+    void initbg();
     void initDebug();
     void initLeaderboard();
     void scaleLeaderboard(int);
