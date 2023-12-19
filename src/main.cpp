@@ -2,10 +2,14 @@
 #include <QScreen>
 #include <QApplication>
 #include <iostream>
+#include <QQuickWindow>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+
+    // set qtquick to use OpenGL (Fixes mac)
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 
     // get list of screens
     QList<QScreen *> screens = QGuiApplication::screens();

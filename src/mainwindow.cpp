@@ -8,6 +8,8 @@
 #include <QScrollBar>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QQuickWidget>
+#include <QStackedLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     // install close shortcut ctrl+q
     QShortcut* closeShortcut = new QShortcut(QKeySequence("ctrl+q"), this);
     connect(closeShortcut, &QShortcut::activated, this, &MainWindow::closeKeyDetected);
+      
+    showQML(QUrl("qrc:/qml/qml/TrivaGame.qml")); // define the QML file to show here
 }
 
 void MainWindow::initLeaderboard()
@@ -101,6 +105,8 @@ void MainWindow::initbg()
 {
     // send background to back
     ui->background->lower();
+
+    ui->canvas->setLayout(new QStackedLayout());
 
     // create timer that will update the background object
     QTimer *bgUpdate = new QTimer(this);
@@ -357,4 +363,12 @@ void MainWindow::titleClickTimeout()
 void MainWindow::closeKeyDetected()
 {
     this->close();
+}
+
+// precursor to what will eventually be the showGame function
+void MainWindow::showQML(QUrl url)
+{
+    QQuickWidget* game = new QQuickWidget(url, this);
+    game->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    ui->canvas->layout()->addWidget(game);
 }

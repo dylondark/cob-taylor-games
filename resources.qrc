@@ -16,4 +16,10 @@
         <file>projecticons/zippy2.png</file>
         <file>projecticons/seal1.png</file>
     </qresource>
+    <qresource prefix="/qml">
+        <file>qml/TrivaGame.qml</file>
+    </qresource>
+    <qresource prefix="/game">
+        <file>gameassets/trivia/testimage.png</file>
+    </qresource>
 </RCC>
