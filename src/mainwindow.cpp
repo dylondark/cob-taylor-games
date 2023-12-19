@@ -24,8 +24,6 @@ MainWindow::MainWindow(QWidget *parent)
     // install close shortcut ctrl+q
     QShortcut* closeShortcut = new QShortcut(QKeySequence("ctrl+q"), this);
     connect(closeShortcut, &QShortcut::activated, this, &MainWindow::closeKeyDetected);
-      
-    showQML(QUrl("qrc:/qml/qml/TrivaGame.qml")); // define the QML file to show here
 }
 
 void MainWindow::initLeaderboard()
@@ -372,3 +370,9 @@ void MainWindow::showQML(QUrl url)
     game->setResizeMode(QQuickWidget::SizeRootObjectToView);
     ui->canvas->layout()->addWidget(game);
 }
+
+void MainWindow::on_btnGame1_clicked()
+{
+    showQML(QUrl("qrc:/qml/qml/TrivaGame.qml"));
+}
+
