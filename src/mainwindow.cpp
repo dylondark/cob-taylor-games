@@ -203,7 +203,7 @@ void MainWindow::scaleLeaderboard(int height)
 
     // calculate scaling values
     const double hScale = (double)height / targetH;
-    const int iconSize = 90 * hScale, fontSize = iconSize / 2, scrollSize = iconSize; // I HATE INTEGER DIVISION I HATE INTEGER DIVISION
+    const int iconSize = 90 * hScale, fontSize = iconSize / 2; // I HATE INTEGER DIVISION I HATE INTEGER DIVISION
     // assemble font stylesheet str
     QString fontSheet("\n QListWidget, QPushButton { font: "); // widget classes have to be specified manually because they just couldnt make it easy and let you exclude widgets from a class
     fontSheet.append(std::to_string(fontSize));
@@ -213,12 +213,9 @@ void MainWindow::scaleLeaderboard(int height)
     titleSheet.append(std::to_string(fontSize * 2));
     titleSheet.append("px; } \n");
     QString buttonSheet("\n QPushButton {	background-color: transparent;	border-width: 0px;	border-radius: 0px; } \n");
-    QString scrollSheet("\n QScrollBar { width: ");
-    scrollSheet.append(std::to_string(scrollSize));
-    scrollSheet.append("px; } \n");
+    QString scrollSheet("\n QScrollBar { width: 0px; }"); // hide scroll bars
 
     ui->lbFrame->setStyleSheet(titleSheet + fontSheet + buttonSheet + scrollSheet);
-    // TODO: try to make scroll icons larger
 
     // scale leaderboard icons
     for (auto page : lbPages)
