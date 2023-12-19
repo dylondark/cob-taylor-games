@@ -28,14 +28,19 @@ void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int
 
 void LeaderboardHandler::loadScores(game selectedGame)
 {
-    // TODO: if this function fails it needs to end the program and notify the user with a dialog window or something.
-    // if this fails and the program continues it could overwrite the scores with nothing, causing data loss.
-
     std::ifstream file(FILEPATH + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
 
     if (!file.is_open()) {
-        std::cerr << "Error opening file: " << FILENAMES[selectedGame] << std::endl;
-        return;
+        std::cerr << "Error opening file: " << FILENAMES[selectedGame] << std::endl <<
+            "Please ensure that this file is present, not corrupt, and has sufficient read/write permissions." << std::endl;
+        std::terminate();
+        /*
+         * this failing must end the program because if the program fails to read in a file and continues to save back to that file,
+         * it could overwrite the data in that file causing data loss, assuming the file is even writable, which if it isnt then it will cause further error anyway.
+         * putting terminate() here is (hopefully) going to be a temporary solution. i would like to have some organized exception system that
+         * can notify the user with a nice dialog window or something, but i just tried for 2 hours to implement that and it seems to be biting off more
+         * than i can chew at the moment, so this is a reminder to (hopefully) come back and implement that at some point!
+         */
     }
 
     scoreLists[selectedGame].clear(); // Clear existing scores
