@@ -25,7 +25,7 @@ HEADERS += \
     leaderboardtools.h \
     mainwindow.h \
     leaderboardhandler.h \
-    clickdetector.h
+    clickdetector.h \
     triviacontroller.h
 FORMS += mainwindow.ui
 SOURCES += \
