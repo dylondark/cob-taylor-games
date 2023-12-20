@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // set default application font
+    QApplication::setFont(QFont("Open Sans"));
+
     initbg();
     initLeaderboard();
     initDebug();
