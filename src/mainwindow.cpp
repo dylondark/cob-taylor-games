@@ -377,6 +377,6 @@ void MainWindow::showQML(QUrl url)
 
 void MainWindow::on_btnGame1_clicked()
 {
-    showQML(QUrl("qrc:/qml/qml/TrivaGame.qml"));
+    showQML(QUrl("qrc:/qml/qml/TriviaGame.qml"));
 }
 

@@ -17,7 +17,7 @@
         <file>projecticons/seal1.png</file>
     </qresource>
     <qresource prefix="/qml">
-        <file>qml/TrivaGame.qml</file>
+        <file>qml/TriviaGame.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
