@@ -7,10 +7,13 @@
 #include <QFont>
 #include "clickdetector.h"
 #include "leaderboardhandler.h"
+#include "utilities.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+using Utilities::game;
 
 class MainWindow : public QMainWindow
 {
@@ -54,6 +57,6 @@ private:
     QTimer* titleClickTimer;
     int titleClicks = 0;
     ClickDetector* lbDetector;
-    void showQML(QUrl);
+    void showQML(Utilities::game);
 };
 #endif // MAINWINDOW_H

@@ -368,15 +368,15 @@ void MainWindow::closeKeyDetected()
 }
 
 // precursor to what will eventually be the showGame function
-void MainWindow::showQML(QUrl url)
+void MainWindow::showQML(game game)
 {
-    QQuickWidget* game = new QQuickWidget(url, this);
-    game->setResizeMode(QQuickWidget::SizeRootObjectToView);
-    ui->canvas->layout()->addWidget(game);
+    QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+    gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    ui->canvas->layout()->addWidget(gameWidget);
 }
 
 void MainWindow::on_btnGame1_clicked()
 {
-    showQML(QUrl("qrc:/qml/qml/TriviaGame.qml"));
+    showQML(game::Trivia);
 }
 
