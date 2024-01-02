@@ -2,9 +2,11 @@
 #include <QScreen>
 #include <QApplication>
 #include <iostream>
+#include <QStyleFactory>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setStyle(QStyleFactory::create("Fusion")); // setting fusion qstyle should make the application look the same regardless of os
     MainWindow w;
 
     // get list of screens
