@@ -22,6 +22,7 @@ HEADERS += \
     bgwidget.h \
     imgqueue.h \
     debuglabel.h \
+    utilities.h \
     leaderboardtools.h \
     mainwindow.h \
     leaderboardhandler.h \

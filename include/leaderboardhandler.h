@@ -2,13 +2,15 @@
 #define LEADERBOARDHANDLER_H
 #include <QStackedWidget>
 #include <QListWidget>
+#include "utilities.h"
+
+using Utilities::game;
 
 class LeaderboardHandler
 {
 public:
     LeaderboardHandler(QStackedWidget* lbObj);
     ~LeaderboardHandler();
-    enum game {Trivia = 0, GuessTheLogo = 1, Checkers = 2, Hopper = 3, Pong = 4, Tetris = 5};
     void addScore(game, std::string, int); // add score to memory buffer
     void loadScores(game); // load scores from file into memory buffer for specified game
     void loadScores(); // calls loadScores(game) for all games
