@@ -35,15 +35,21 @@ Item {
                 scale: Math.min(item1.width / 2160, item1.height / 3840)
             }
 
-            Image {
-                id: image
-                source: "qrc:/game/gameassets/trivia/testimage.png"
-                fillMode: Image.PreserveAspectFit
+            Rectangle {
+                id: imagerect
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
-                Layout.verticalStretchFactor: 1
+                Layout.verticalStretchFactor: 2
+                color: "transparent"
+                Image {
+                    width: imagerect.width
+                    height: imagerect.height
+                    source: "qrc:/game/gameassets/trivia/testimage.png"
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                }
             }
 
             GridLayout {
@@ -57,7 +63,7 @@ Item {
                 rows: 2
                 columns: 2
                 anchors.bottomMargin: 0
-                Layout.verticalStretchFactor: 1
+                Layout.verticalStretchFactor: 2
 
                 Button {
                     id: btn1
