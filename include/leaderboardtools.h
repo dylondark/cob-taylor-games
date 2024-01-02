@@ -1,6 +1,7 @@
 #ifndef LEADERBOARDTOOLS_H
 #define LEADERBOARDTOOLS_H
 #include "leaderboardhandler.h"
+#include "utilities.h"
 
 namespace
 {
@@ -27,7 +28,7 @@ std::string randStr(const int len) {
 namespace LeaderboardTools
 {
 // generate leaderboard scores with a certain number of entries filled with random scores
-void genRandScores(LeaderboardHandler* lbh, LeaderboardHandler::game game, int entries)
+void genRandScores(LeaderboardHandler* lbh, Utilities::game game, int entries)
 {
     //srand(time(0));
     for (int x = 0; x < entries; x++)
@@ -40,12 +41,12 @@ void genRandScores(LeaderboardHandler* lbh, LeaderboardHandler::game game, int e
 void genRandScores(LeaderboardHandler* lbh, int entries)
 {
     for (int i = 0; i < 6; ++i) {
-        genRandScores(lbh, static_cast<LeaderboardHandler::game>(i), entries);
+        genRandScores(lbh, static_cast<Utilities::game>(i), entries);
     }
 }
 
 // generates nicer test scores than genRandScores. more suitable for creating test files
-void genTestScores(LeaderboardHandler* lbh, LeaderboardHandler::game game, int entries)
+void genTestScores(LeaderboardHandler* lbh, Utilities::game game, int entries)
 {
     static const std::string GAME_STR[] = {"TRVA", "GTL", "CKRS", "ZHOP", "PONG", "TTRS"};
     for (int x = 0; x < entries; x++)
@@ -58,7 +59,7 @@ void genTestScores(LeaderboardHandler* lbh, LeaderboardHandler::game game, int e
 void genTestScores(LeaderboardHandler* lbh, int entries)
 {
     for (int i = 0; i < 6; ++i) {
-        genTestScores(lbh, static_cast<LeaderboardHandler::game>(i), entries);
+        genTestScores(lbh, static_cast<Utilities::game>(i), entries);
     }
 }
 }
