@@ -129,15 +129,17 @@ background-color: rgba(255, 255, 255, 150);
            <widget class="QLabel" name="lbLabel">
             <property name="font">
              <font>
+              <family>The Next Font</family>
               <pointsize>30</pointsize>
-              <bold>true</bold>
+              <bold>false</bold>
+              <kerning>true</kerning>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">letter-spacing: 3px;</string>
             </property>
             <property name="text">
-             <string>Leaderboard</string>
+             <string>LEADERBOARD</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -225,6 +227,12 @@ selection-color: black;</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="font">
+               <font>
+                <family>The Next Font</family>
+                <bold>false</bold>
+               </font>
+              </property>
               <property name="text">
                <string>UA Trivia</string>
               </property>
@@ -257,8 +265,15 @@ selection-color: black;</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="font">
+               <font>
+                <family>The Next Font</family>
+                <bold>false</bold>
+               </font>
+              </property>
               <property name="text">
-               <string>Guess the Logo</string>
+               <string>Guess the 
+Logo</string>
               </property>
              </widget>
             </item>
@@ -288,6 +303,12 @@ selection-color: black;</string>
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>The Next Font</family>
+                <bold>false</bold>
+               </font>
               </property>
               <property name="text">
                <string>Checkers</string>
@@ -321,8 +342,15 @@ selection-color: black;</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="font">
+               <font>
+                <family>The Next Font</family>
+                <bold>false</bold>
+               </font>
+              </property>
               <property name="text">
-               <string>Zippy Hopper</string>
+               <string>Zippy
+Hopper</string>
               </property>
              </widget>
             </item>
@@ -352,6 +380,12 @@ selection-color: black;</string>
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>The Next Font</family>
+                <bold>false</bold>
+               </font>
               </property>
               <property name="text">
                <string>Pong</string>
@@ -384,6 +418,12 @@ selection-color: black;</string>
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>The Next Font</family>
+                <bold>false</bold>
+               </font>
               </property>
               <property name="text">
                <string>Tetris</string>
