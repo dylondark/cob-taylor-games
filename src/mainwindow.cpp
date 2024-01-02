@@ -371,6 +371,10 @@ void MainWindow::showGame(game game)
     QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
     gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     ui->canvas->layout()->addWidget(gameWidget);
+
+    // stop menu timers, for performance
+    titleClickTimer->stop();
+    bgUpdateTimer->stop();
 }
 
 void MainWindow::on_btnGame1_clicked()
