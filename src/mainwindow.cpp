@@ -110,11 +110,10 @@ void MainWindow::initbg()
     ui->canvas->setLayout(new QStackedLayout());
 
     // create timer that will update the background object
-    QTimer *bgUpdate = new QTimer(this);
-    bgUpdate->setTimerType(Qt::PreciseTimer); // precise timer could potentially improve frametimes
-    connect(bgUpdate, &QTimer::timeout, ui->background, &bgWidget::animate);
-    const int FPS = 60; // how many times to update the background per second
-    bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
+    bgUpdateTimer = new QTimer(this);
+    bgUpdateTimer->setTimerType(Qt::PreciseTimer); // precise timer could potentially improve frametimes
+    connect(bgUpdateTimer, &QTimer::timeout, ui->background, &bgWidget::animate);
+    bgUpdateTimer->start(1000 / FPS); // this takes milliseconds per frame
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
 }
 

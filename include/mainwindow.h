@@ -53,8 +53,10 @@ private:
     LeaderboardHandler* lbHandler;
     const int targetW = 2160, targetH = 3840; // target res for the application, 2160x3840
     const int lbSwitchInterval = 5; // seconds, to be used for lbSwitchTimer interval
+    const int FPS = 60; // how many times to update the background per second
     QTimer* lbSwitchTimer;
     QTimer* titleClickTimer;
+    QTimer* bgUpdateTimer;
     int titleClicks = 0;
     ClickDetector* lbDetector;
     void showGame(Utilities::game);
