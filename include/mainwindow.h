@@ -57,6 +57,6 @@ private:
     QTimer* titleClickTimer;
     int titleClicks = 0;
     ClickDetector* lbDetector;
-    void showQML(Utilities::game);
+    void showGame(Utilities::game);
 };
 #endif // MAINWINDOW_H

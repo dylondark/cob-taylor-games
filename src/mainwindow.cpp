@@ -367,8 +367,7 @@ void MainWindow::closeKeyDetected()
     this->close();
 }
 
-// precursor to what will eventually be the showGame function
-void MainWindow::showQML(game game)
+void MainWindow::showGame(game game)
 {
     QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
     gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
@@ -377,6 +376,6 @@ void MainWindow::showQML(game game)
 
 void MainWindow::on_btnGame1_clicked()
 {
-    showQML(game::Trivia);
+    showGame(game::Trivia);
 }
 
