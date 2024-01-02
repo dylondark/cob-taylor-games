@@ -3,11 +3,15 @@
 #include <QApplication>
 #include <iostream>
 #include <QStyleFactory>
+#include <QQuickWindow>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setStyle(QStyleFactory::create("Fusion")); // setting fusion qstyle should make the application look the same regardless of os
     MainWindow w;
+
+    // set qtquick to use OpenGL (Fixes mac)
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 
     // get list of screens
     QList<QScreen *> screens = QGuiApplication::screens();

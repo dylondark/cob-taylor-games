@@ -32,6 +32,7 @@ private slots:
     void titleClicked();
     void titleClickTimeout();
     void closeKeyDetected();
+    void on_btnGame1_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -53,5 +54,6 @@ private:
     QTimer* titleClickTimer;
     int titleClicks = 0;
     ClickDetector* lbDetector;
+    void showQML(QUrl);
 };
 #endif // MAINWINDOW_H
