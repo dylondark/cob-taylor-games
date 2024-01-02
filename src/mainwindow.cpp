@@ -282,17 +282,18 @@ void MainWindow::on_lbGame6_pressed()
 // sets bold and underline for only the specified button, removes for any others
 void MainWindow::setActiveLBButton(QPushButton* btn)
 {
-    // apply to all buttons
-    ui->lbGame1->setFont(lbFont);
-    ui->lbGame2->setFont(lbFont);
-    ui->lbGame3->setFont(lbFont);
-    ui->lbGame4->setFont(lbFont);
-    ui->lbGame5->setFont(lbFont);
-    ui->lbGame6->setFont(lbFont);
+    QPushButton* lbBtns[] = {ui->lbGame1, ui->lbGame2, ui->lbGame3, ui->lbGame4, ui->lbGame5, ui->lbGame6};
+
+    // clear all buttons
+    for (auto cbtn : lbBtns)
+    {
+        cbtn->setFont(lbFont);
+        cbtn->setStyleSheet("");
+    }
 
     // apply underline and bold and set to specified button
     QFont activeFont = lbFont;
-    activeFont.setBold(true);
+    btn->setStyleSheet("font: bold;"); // button stylesheets must be manipulated to add bold since it doesnt work when you set it in the font for some reason
     activeFont.setUnderline(true);
     btn->setFont(activeFont);
 }
