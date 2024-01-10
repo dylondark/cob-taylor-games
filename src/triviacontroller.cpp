@@ -5,10 +5,9 @@
 #include <iostream>
 #include <sstream>
 
-TriviaController::TriviaController() {}
-
-void TriviaController::loadQuestions()
+TriviaController::TriviaController()
 {
+    // load question data from files, package into question structs and store in questionVec
     std::ifstream file(questionPath);
     std::string line;
     while (std::getline(file, line)) {

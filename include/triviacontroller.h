@@ -20,7 +20,6 @@ private:
         string question;
         string ans1, ans2, ans3, ans4;
     };
-    void loadQuestions(); // loads questions from the file specified by questionPath into questionVec
     const string questionPath = "./gamefiles/triviaquestions.txt";
     vector<question> questionVec; // vector containing the question structs, to be populated by loadQuestions
     question getQuestion(); // returns a random question obj with NO REPEATS. may need some fail condition if this is called when there are no original questions left
