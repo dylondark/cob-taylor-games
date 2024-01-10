@@ -18,6 +18,7 @@ TriviaController::TriviaController()
         iss >> currentQuestion.ans2;
         iss >> currentQuestion.ans3;
         iss >> currentQuestion.ans4;
+        iss >> currentQuestion.img; // images will be dynamically loaded when the question is displayed, this will be appended onto imgPath
         questionVec.push_back(currentQuestion);
     }
     file.close();
