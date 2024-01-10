@@ -10,6 +10,8 @@
 #include <QKeySequence>
 #include <QQuickWidget>
 #include <QStackedLayout>
+#include <QQmlContext>
+#include <triviacontroller.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -369,6 +371,7 @@ void MainWindow::closeKeyDetected()
 void MainWindow::showGame(game game)
 {
     QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+    gameWidget->rootContext()->setContextProperty("controller", new TriviaController()); // temporary, for trivia game. will need better decision logic for inserting correct object for all games
     gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     ui->canvas->layout()->addWidget(gameWidget);
 
