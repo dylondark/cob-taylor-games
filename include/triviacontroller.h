@@ -2,15 +2,17 @@
 #define TRIVIACONTROLLER_H
 
 #include <QObject>
+#include <QtQml/qqmlregistration.h>
 
 // documentation for using c++ with QML can be found at
-// https://doc.qt.io/qt-6/qtqml-cppintegration-contextproperties.html
+// https://doc.qt.io/qt-6/qtqml-cppintegration-definetypes.html
 
 using std::string;
 using std::vector;
 class TriviaController : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 public:
     TriviaController();
 

@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     initbg();
     initLeaderboard();
     initDebug();
+    initQML();
 
     // install close shortcut ctrl+q
     QShortcut* closeShortcut = new QShortcut(QKeySequence("ctrl+q"), this);
@@ -117,6 +118,14 @@ void MainWindow::initbg()
     connect(bgUpdateTimer, &QTimer::timeout, ui->background, &bgWidget::animate);
     bgUpdateTimer->start(1000 / FPS); // this takes milliseconds per frame
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
+}
+
+void MainWindow::initQML()
+{
+    // all qml controller classes must be "registered" as qml types so they can be instantiated and accessed in the qml files.
+    // use "import QMLControllers"
+    qmlRegisterType<TriviaController>("QMLControllers", 1, 0, "TriviaController");
+    // all qml controllers will eventually be registered here
 }
 
 MainWindow::~MainWindow()
@@ -371,7 +380,6 @@ void MainWindow::closeKeyDetected()
 void MainWindow::showGame(game game)
 {
     QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
-    gameWidget->rootContext()->setContextProperty("controller", new TriviaController()); // temporary, for trivia game. will need better decision logic for inserting correct object for all games
     gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     ui->canvas->layout()->addWidget(gameWidget);
 

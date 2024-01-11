@@ -4,8 +4,7 @@
 
 TEMPLATE = app
 TARGET = cob-taylor-games
-INCLUDEPATH += .
-QT += widgets opengl openglwidgets core quickwidgets
+QT += widgets opengl openglwidgets core quickwidgets qml
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.

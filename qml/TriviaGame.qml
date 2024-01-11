@@ -1,11 +1,17 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQml
+import QMLControllers
 
 Item {
     id: root
     width: 2160
     height: 3840
+
+    TriviaController {
+    }
+
 
     Rectangle {
         id: gameBase

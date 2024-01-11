@@ -43,6 +43,7 @@ private:
     void initbg();
     void initDebug();
     void initLeaderboard();
+    void initQML();
     void scaleLeaderboard(int);
     void scaleMenu(int);
     void setBtnIcon(QPushButton*, std::string);
