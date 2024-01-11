@@ -1,35 +1,30 @@
 # cob-taylor-games
-This is the program for one of the two touchscreens in the UA Taylor Institute video wall. It contains some minigames relating to The University of Akron, Taylor Institute, and marketing. This project is coded in C++ using the Qt 6 GUI library. It is currently intended to run on a portrait touchscreen at 2160x3840 resolution.
+This is the program for one of the two touchscreens in the UA Taylor Institute video wall. It contains some minigames relating to The University of Akron, Taylor Institute, and marketing. This project is coded in C++ and QML using the Qt 6 GUI library and the Qt Creator IDE.
 
-## Setup
--  To install qt creator on your desktop, locate qt.io/downloads in your browser or by clicking the link below.
-  - https://www.qt.io/download
+<img src="https://github.com/dylondark/cob-taylor-games/assets/126813495/ade5947c-e088-4633-8e2c-b0dea4e4354c" width="400">
+
+## Games List
+There are/will be 6 minigames:
+-  UA Trivia
+-  Guess the Logo
+-  Checkers
+-  Zippy Hopper
+-  Pong
+-  Tetris
+
+## Dev Setup
+### Qt
+Qt runs on Windows, Mac, and Linux. Therefore you can use any for development (although Linux will be the most accurate, see Target System Information).
+-  To install qt creator on your desktop, go to https://www.qt.io/download
 -  Then click Download Open Source, after clicking Download Open Source scroll down and locate Download the Qt Online Installer. Then, choose which installer you need.
 -  After downloading the installer, you may or may not need to create an account to log in, then follow the next step on the screen.
--  In the select components window, choose qt design studio 4.3.0, and qt 6.5 (check for the latest version)
--  Then follow the next couple of steps to start installing and wait, then you’re done. 
+-  In the select components window, choose whatever latest version of Qt 6.
+-  Then follow the next couple of steps to start installing and wait, then you’re done.
+### Project Dependencies
+-  Make sure to install all fonts in "projectfonts" folder
 
-## Development Info + Plans
-- Window has a QFrame "canvas" that is coded to always appear portrait. It is named that because it is intended to be the "canvas" for the application and all widgets except for the background should be children of it.
-  - Canvas should have something like 50% transparency so the background can be seen.
-- Behind canvas will be a background widget covering the entire window. This can be just an image but I would like to try out fancy scrolling graphics with an OpenGL widget.
-- In canvas is a vertical layout "menuLayout" containing the menu widgets.
-  - lblTitle should contain a title image and is displayed at the top of the menu.
-  - leaderboardPlaceholder is a placeholder widget for the leaderboard. Not sure what widget type to use for the leaderboard yet. Probably going to be a list or table widget. Or it could even be a QQuickWidget to make it even fancier.
-  - Buttons will either be customized with stylesheets or have images on them.
-- Currently I am thinking that the games should be implemented entirely in QQuickWidgets with QML/QtQuick because QML can apparently do graphics and animation easier than QtWidgets.
-  - Ideally each game will be its own QQuickWidget. To my understanding this should allow the games to be basically standalone objects that can be easily manipulated by the program.
-  - Thinking some class/object should be used to control which game is active (being shown on the canvas) or if none are active it will instead show the menu. This object could also control the state of the games.
-    - For example, if user clicks game button 1 it will call controlObject.game1() which will create the game1 QQuickWidget and show it on the canvas above the menu.
-    - Then when the user clicks the back button or the game times out it will call controlObject.backToMenu() which will destroy the current game widget, returning to the menu.
-- There should also be a system that monitors for inactivity. This system should probably interact with the aforementioned control object to manage the state of the program.
-  - For instance, calling backToMenu() after a certain period of inactivity.
-- Games will most likely store high scores and other data in text files. This could be utilized by the leaderboard.
-
-## Game Plans
-There will be 6 games. Currently we have the following ideas:
-- Chess with Zippy pieces
-- UA trivia
-- "Guess the logo"
-- Zippy hopper
-- UA Pong??
+## Deployment
+### Target System Information
+This program is meant to run on a PC box connected to one of the touchscreens in the Taylor institute. The touchscreen resolution is **3840x2160 (portrait 4K)** and the box is running **Debian Linux 12**. Note that this is just the environment that the program is intended to run in, but it can run with other resolutions/operating systems for development. 
+### Deploying on Target System
+Instructions coming soon!
