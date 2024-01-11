@@ -25,6 +25,6 @@ Qt runs on Windows, Mac, and Linux. Therefore you can use any for development (a
 
 ## Deployment
 ### Target System Information
-This program is meant to run on a PC box connected to one of the touchscreens in the Taylor institute. The touchscreen resolution is **3840x2160 (portrait 4K)** and the box is running **Debian Linux 12**. Note that this is just the environment that the program is intended to run in, but it can run with other resolutions/operating systems for development. 
+This program is meant to run on a PC box connected to one of the touchscreens in the Taylor institute. The touchscreen resolution is **2160x3840 (portrait 4K)** and the box is running **Debian Linux 12**. Note that this is just the environment that the program is intended to run in, but it can run with other resolutions/operating systems for development. 
 ### Deploying on Target System
 Instructions coming soon!
