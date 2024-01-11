@@ -10,6 +10,7 @@ Item {
     height: 3840
 
     TriviaController {
+        id: controller
     }
 
 
@@ -89,6 +90,8 @@ Item {
                         text: "answer1"
                         scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
                     }
+
+                    onClicked: questionLabel.text = controller.getQuestion().question
                 }
 
                 Button {

@@ -13,18 +13,25 @@ TriviaController::TriviaController()
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         question currentQuestion;
-        iss >> currentQuestion.question;
-        iss >> currentQuestion.ans1;
-        iss >> currentQuestion.ans2;
-        iss >> currentQuestion.ans3;
-        iss >> currentQuestion.ans4;
-        iss >> currentQuestion.img; // images will be dynamically loaded when the question is displayed, this will be appended onto imgPath
+        string temp;
+        iss >> temp;
+        currentQuestion.m_question = QString(temp.c_str());
+        iss >> temp;
+        currentQuestion.m_ans1 = QString(temp.c_str());
+        iss >> temp;
+        currentQuestion.m_ans2 = QString(temp.c_str());
+        iss >> temp;
+        currentQuestion.m_ans3 = QString(temp.c_str());
+        iss >> temp;
+        currentQuestion.m_ans4 = QString(temp.c_str());
+        iss >> temp;
+        currentQuestion.m_img = QString(temp.c_str()); // images will be dynamically loaded when the question is displayed, this will be appended onto imgPath
         questionVec.push_back(currentQuestion);
     }
     file.close();
 }
 
-TriviaController::question TriviaController::getQuestion()
+question TriviaController::getQuestion()
 {
     // Use the C++ standard library's random device and generator to generate random indices
     static std::random_device rd;
