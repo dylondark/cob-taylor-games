@@ -10,7 +10,7 @@
 using std::string;
 using std::vector;
 
-struct question
+struct Question
 {
     Q_GADGET
 public:
@@ -18,6 +18,11 @@ public:
     QString m_ans1, m_ans2, m_ans3, m_ans4;
     QString m_img;
     Q_PROPERTY(QString question MEMBER m_question)
+    Q_PROPERTY(QString ans1 MEMBER m_ans1)
+    Q_PROPERTY(QString ans2 MEMBER m_ans2)
+    Q_PROPERTY(QString ans3 MEMBER m_ans3)
+    Q_PROPERTY(QString ans4 MEMBER m_ans4)
+    Q_PROPERTY(QString img MEMBER m_img)
 };
 
 class TriviaController : public QObject
@@ -26,13 +31,15 @@ class TriviaController : public QObject
     QML_ELEMENT
 public:
     TriviaController();
-    Q_INVOKABLE question getQuestion(); // returns a random question obj with NO REPEATS. may need some fail condition if this is called when there are no original questions left
+    Q_INVOKABLE Question getQuestion(); // retrieves the current question stored in currentQuestion
+    Q_INVOKABLE void randQuestion(); // gets the next random question and stores in currentQuestion
 
 private:
     const string questionPath = "./gamefiles/trivia/triviaquestions.txt";
     const string imgPath = "./gamefiles/trivia/images/";
-    vector<question> questionVec; // vector containing the question structs, to be populated by loadQuestions
+    vector<Question> questionVec; // vector containing the question structs, to be populated by loadQuestions
     vector<int> questionNums;
+    Question currentQuestion;
 };
 
 #endif // TRIVIACONTROLLER_H

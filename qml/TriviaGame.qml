@@ -13,7 +13,6 @@ Item {
         id: controller
     }
 
-
     Rectangle {
         id: gameBase
         visible: true
@@ -53,6 +52,7 @@ Item {
                 color: "transparent"
 
                 Image {
+                    id: questionImage
                     width: imageRect.width
                     height: imageRect.height
                     source: "qrc:/game/gameassets/trivia/testimage.png"
@@ -91,7 +91,15 @@ Item {
                         scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
                     }
 
-                    onClicked: questionLabel.text = controller.getQuestion().question
+                    onClicked:
+                    {
+                        controller.randQuestion()
+                        questionLabel.text = controller.getQuestion().question
+                        answer1Txt.text = controller.getQuestion().ans1
+                        answer2Txt.text = controller.getQuestion().ans2
+                        answer3Txt.text = controller.getQuestion().ans3
+                        answer4Txt.text = controller.getQuestion().ans4
+                    }
                 }
 
                 Button {

@@ -12,21 +12,20 @@ TriviaController::TriviaController()
     std::string line;
     while (std::getline(file, line)) {
         std::istringstream iss(line);
-        question currentQuestion;
+        Question current;
         string temp;
         iss >> temp;
-        currentQuestion.m_question = QString(temp.c_str());
+        current.m_question = QString(temp.c_str());
         iss >> temp;
-        currentQuestion.m_ans1 = QString(temp.c_str());
+        current.m_ans1 = QString(temp.c_str());
         iss >> temp;
-        currentQuestion.m_ans2 = QString(temp.c_str());
+        current.m_ans2 = QString(temp.c_str());
         iss >> temp;
-        currentQuestion.m_ans3 = QString(temp.c_str());
+        current.m_ans3 = QString(temp.c_str());
         iss >> temp;
-        currentQuestion.m_ans4 = QString(temp.c_str());
-        iss >> temp;
-        currentQuestion.m_img = QString(temp.c_str()); // images will be dynamically loaded when the question is displayed, this will be appended onto imgPath
-        questionVec.push_back(currentQuestion);
+        current.m_ans4 = QString(temp.c_str());
+        // images will also need to be done. later...
+        questionVec.push_back(current);
     }
     file.close();
 
@@ -41,11 +40,15 @@ TriviaController::TriviaController()
      * every time we need to get a new question. see getQuestion() */
 }
 
-question TriviaController::getQuestion()
+void TriviaController::randQuestion()
 {
     static int index = 0;
     if (index >= questionNums.size())
         index = 0; // exceeding the amount of questions in questionVec will just loop back to the beginning. in the final game this should probably end the game or at least randomize the questions again
-    return questionVec[questionNums[index++]];
+    currentQuestion = questionVec[questionNums[index++]];
 }
 
+Question TriviaController::getQuestion()
+{
+    return currentQuestion;
+}
