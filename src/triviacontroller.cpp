@@ -29,37 +29,23 @@ TriviaController::TriviaController()
         questionVec.push_back(currentQuestion);
     }
     file.close();
+
+    // populate and randomize questionNums
+    for (int x = 0; x < questionVec.size(); x++)
+        questionNums.push_back(x);
+    std::shuffle(questionNums.begin(), questionNums.end(), std::default_random_engine{ std::random_device{}() });
+    /* questions must be shown to the player in random order with no repeats,
+     * and the question order must be different every time the game is played (this object is constructed).
+     * the simplest way i figured to do this would be to create a vector of numbers 0 to questionVec.size() - 1 (questionNum)
+     * to use as the index for questionVec and randomly shuffle this vector. then iterate through this vector as the index
+     * every time we need to get a new question. see getQuestion() */
 }
 
 question TriviaController::getQuestion()
 {
-    // Use the C++ standard library's random device and generator to generate random indices
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-
-    // Create a vector to store the indices of the questionVec vector
-    static std::vector<int> indices(questionVec.size());
-    static int i = 0;
-
-    // Generate the random index
-    std::uniform_int_distribution<> dist(0, indices.size() - 1);
-    int index = indices[dist(gen)];
-
-    // Remove the chosen index from the indices vector
-    indices.erase(indices.begin() + i);
-
-    // If all the indices have been used, regenerate them
-    if (i >= indices.size())
-    {
-        indices.clear();
-        for (int j = 0; j < questionVec.size(); ++j)
-        {
-            indices.push_back(j);
-        }
-        i = 0;
-    }
-
-    // Return the randomly selected question object
-    return questionVec[index];
+    static int index = 0;
+    if (index >= questionNums.size())
+        index = 0; // exceeding the amount of questions in questionVec will just loop back to the beginning. in the final game this should probably end the game or at least randomize the questions again
+    return questionVec[questionNums[index++]];
 }
 

@@ -32,6 +32,7 @@ private:
     const string questionPath = "./gamefiles/trivia/triviaquestions.txt";
     const string imgPath = "./gamefiles/trivia/images/";
     vector<question> questionVec; // vector containing the question structs, to be populated by loadQuestions
+    vector<int> questionNums;
 };
 
 #endif // TRIVIACONTROLLER_H
