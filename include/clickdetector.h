@@ -3,6 +3,11 @@
 
 #include <QObject>
 
+/* ClickDetector class
+ *
+ * This class provides a way to detect if a widget has been clicked. It gets installed onto a widget with installEventFilter()
+ * and the clickDetected() signal can be connected to a slot to monitor clicks on that widget.
+ */
 class ClickDetector : public QObject
 {
     Q_OBJECT

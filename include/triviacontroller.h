@@ -25,6 +25,12 @@ public:
     Q_PROPERTY(QString img MEMBER m_img)
 };
 
+/* TriviaController
+ *
+ * This class is the controller class for the Trivia game. It is instantiated as an object in the QML file for the game and used in the QML.
+ * Anything more than basic ui logic is located here. Specifically, this class loads the trivia question data from the filesystem, and
+ * it contains methods that can be used within QML to obtain that question data in random order.
+ */
 class TriviaController : public QObject
 {
     Q_OBJECT
