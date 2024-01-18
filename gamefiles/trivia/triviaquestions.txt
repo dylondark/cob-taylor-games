@@ -1,5 +1,28 @@
-"question1", "ans1-1", "ans1-2", "ans1-3", "ans1-4", "img1"
-"question2", "ans2-1", "ans2-2", "ans2-3", "ans2-4", "img2"
-"question3", "ans3-1", "ans3-2", "ans3-3", "ans3-4", "img3"
-"question4", "ans4-1", "ans4-2", "ans4-3", "ans4-4", "img4"
-"question5", "ans5-1", "ans5-2", "ans5-3", "ans5-4", "img5"
+(“What year was the University of Akron founded?”, “1870”  {“1909”, “1870”, “1886”, “1901”})
+(“What is the official mascot of the University of Akron?”,  “Zippy the Kangaroo” { “Zippy the Kangaroo”, “Zipper the Zebra”, “Zappy the Koala”, “Zingo the Kangaroo”})
+(“Who was the founder and first president of the University of Akron?”, “John R. Bucthel” { “Everett L. Rexford”, “George F. Zook”, “Sullivan H. McCollester”, “John R. Bucthel”})
+(“In what year did the University of Akron become a public university?”, “1967” { “1970”, “1870”, “1967”, “1931”})
+(“What are the official colors of the University of Akron?”, “Blue and Gold” { “Blue and Gold”, “Blue and White”, “Red and Blue”, “Yellow and White”})
+( “What is the name of the library at the University of Akron?”, “Bierce Library” { “Sanglam Library”, “Bierce Library”, “King Library”, “Timken Science Library”})
+(“What is the name of the basketball arena at the University of Akron?”, “James A. Rhodes” { “James A. Rhodes”, “Lebron James Arena”, “Akron Hoops Dome”, “James A. Stadium”})
+(“The University of Akron is known for its strong programs in which field of engineering?”, “Polymer Science and Polmymer engineering” {“Computer Science”, “Polymer Science and plastics engineering”, “Civil Engineering”, “Computer Engineering”})
+(“What is the name of the honors program at the University of Akron?”, “Williams Honor’s College” {“Williams Honors Scholarship”, “Buchtel Honors Program”, “Summit Scholars Initiative”, “Merit Honors Program”})
+(“What is the nickname given to the student section at the University of Akron's sporting events?”, “Ak Rowdies” {“Roo Rumble”, “Zippy’s Zealots”, “Akron Fanatics”, “Ak Rowdies”})
+(“What is the nickname of the University of Akron's marching band?”, “Ohio’s Pride” {“Ohio’s Pride”, “Zippy’s Pride”, “Marching Aces”, “The Marching Roos”})
+(“In what year did the University of Akron adopt the nickname "Zips" for its athletic teams?”, “1950” {“1940”, “1909”, “1950”, “1899”})
+(“What is the name of the recreation center on the University of Akron's campus?”, “Student Recreation and Wellness center” {“Student Recreation and Wellness center”, “Student Fitness Center”, “Roo Wellness Hub”, “Recreation and Activity Center”})
+(“Which famous astronaut and senator attended the University of Akron?”, “John Glenn” {“Chiaki Mukai”, “Kalpana Chawla”, “John Glenn”, “Neil Armstrong”})
+(“The University of Akron's eSports program competes in which collegiate eSports league?”, “ESC” {“ESC”, “NACE”, “EGF”, “MAC”})
+(“What is the name of the University of Akron's official fight song?”, “The Akron Blue and Gold” {“Victory Anthem”, “Roo Spirit March”, “Zippy’s Triumph”, “The Akron Blue and Gold”})
+(“What is the name of the annual fundraising campaign at the University of Akron that supports student scholarships and programs?”, “Making a Difference scholarship campaign” {“Making a Difference scholarship campaign”, “ZipsGiving”, “Student Impact Fund”, “Future Scholars Drive”})
+(“The University of Akron's College of Polymer Science and Polymer Engineering is often ranked among the top programs globally. In what year was this college established?”, “1988” {“1980”, “1962”, “1993”, “1988”})
+(“What was the University of Akron name before it changed?”, “Buchtel College” {Municipal University of Akron”, Buchtel College”, “Akron University”, “Summit Technical College”})
+(“Which former international soccer player and coach, known for his time with the U.S. Men's National Team, is an alumnus of the University of Akron?”, “DeAndre Yedlin” {“Landon Donovan”, “Steve Zakuani”, “DeAndre Yedlin”, “Mark McKenzie”})
+(“What is the name of the university's radio station, providing a platform for student involvement in broadcasting?”, “WZIP Radio” {“Z-FM”, “Roo Radio”, “Akron Airwaves”, “WZIP Radio”})
+(“In 1899, What happened in Buchtel hall?”, “Burned Down” {“Contructed”, “Demolished”, “Burned Down”, “Renovated”})
+(“Who is the founder of the Chemistry Department, who began teaching the world’s first college courses in rubber chemistry?”, “Charles M. Knight” {“Charles Darwin”, “Charles M. Knight”, “Herman Mark”, “Hezzleton E. Simmons”})
+(“Which president visited UA in 1997?”, “Bill Clinton” {“Bill Clinton”, “George H. W. Bush”, “Ronald Reagan”, “Jimmy Carter”})
+(“What is the name of the entrepreneurship program at the University of Akron that helps students develop their business ideas and ventures?”, “Fitzgerald Institute for Entrepreneurial Studies” {“Fitzgerald Institute for Entrepreneurial Studies”, “Akron Innovate”, “Startup Hub”, “Venture Forge”})
+(“What year was the College of Business established at the University of Akron?”, “1953” {“1940”, “1953”, “1950”, “1949”})
+(“Who is the current dean of the College of Business?”, “RJ Nemer” {“RJ Nemer”, “James B. Thompson”, “Debmalya Mukherjee”, “Katie Willis”})
+(“What is the official accreditation body for the College of Business at the University of Akron?”, “AACSB” {“ACBSP”, “NEASC”, “AACSB”, “IACBE”})
