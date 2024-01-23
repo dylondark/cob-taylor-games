@@ -26,7 +26,8 @@ HEADERS += \
     mainwindow.h \
     leaderboardhandler.h \
     clickdetector.h \
-    triviacontroller.h
+    triviacontroller.h \
+    rapidcsv.h
 FORMS += mainwindow.ui
 SOURCES += \
     bgwidget.cpp \
