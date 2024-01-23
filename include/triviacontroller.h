@@ -15,9 +15,11 @@ struct Question
     Q_GADGET
 public:
     QString m_question;
+    int m_correct; // number of correct question 1-4
     QString m_ans1, m_ans2, m_ans3, m_ans4;
     QString m_img;
     Q_PROPERTY(QString question MEMBER m_question)
+    Q_PROPERTY(int correct MEMBER m_correct);
     Q_PROPERTY(QString ans1 MEMBER m_ans1)
     Q_PROPERTY(QString ans2 MEMBER m_ans2)
     Q_PROPERTY(QString ans3 MEMBER m_ans3)
