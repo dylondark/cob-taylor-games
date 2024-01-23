@@ -2,32 +2,41 @@
 #include <random>
 #include <algorithm>
 #include <fstream>
-#include <iostream>
-#include <sstream>
+#include <cstring>
+#include "rapidcsv.h"
 
 TriviaController::TriviaController()
 {
     // load question data from files, package into question structs and store in questionVec
-    std::ifstream file(questionPath);
-    std::string line;
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        Question current;
-        string temp;
-        iss >> temp;
-        current.m_question = QString(temp.c_str());
-        iss >> temp;
-        current.m_ans1 = QString(temp.c_str());
-        iss >> temp;
-        current.m_ans2 = QString(temp.c_str());
-        iss >> temp;
-        current.m_ans3 = QString(temp.c_str());
-        iss >> temp;
-        current.m_ans4 = QString(temp.c_str());
-        // images will also need to be done. later...
+    // trivia datafile must be csv with lines consisting of string, int, string, string, string, string, string
+    // all strings must be enclosed in quotation marks
+    Question current;
+    std::string strTemp;
+    rapidcsv::Document file(questionPath);
+    for (unsigned x = 0; x < file.GetRowCount(); x++)
+    {
+        strTemp = file.GetCell<string>(0, x);
+        current.m_question = QString(strTemp.c_str());
+
+        current.m_correct = file.GetCell<int>(1, x);
+
+        strTemp = file.GetCell<string>(2, x);
+        current.m_ans1 = QString(strTemp.c_str());
+
+        strTemp = file.GetCell<string>(3, x);
+        current.m_ans2 = QString(strTemp.c_str());
+
+        strTemp = file.GetCell<string>(4, x);
+        current.m_ans3 = QString(strTemp.c_str());
+
+        strTemp = file.GetCell<string>(5, x);
+        current.m_ans4 = QString(strTemp.c_str());
+
+        strTemp = file.GetCell<string>(6, x);
+        current.m_img = QString(strTemp.c_str());
+
         questionVec.push_back(current);
     }
-    file.close();
 
     // populate and randomize questionNums
     for (int x = 0; x < questionVec.size(); x++)
