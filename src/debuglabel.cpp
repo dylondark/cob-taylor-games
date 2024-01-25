@@ -43,8 +43,10 @@ void DebugLabel::update(int wh[])
     txt.append(std::to_string(wh[1]));
 
     // get opengl info
+#ifndef Q_OS_WINDOWS // fix for windows at some point??
     txt.append(" OGL Info: ");
     txt.append(glGetString(GL_VERSION));
 
     setText(txt);
+#endif
 }
