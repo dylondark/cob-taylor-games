@@ -28,9 +28,9 @@ void DebugLabel::update(int wh[])
         txt.append("Wayland");
     else
         txt.append("X11");
-#elif Q_OS_WINDOWS
+#elif defined Q_OS_WIN
     txt.append("Windows");
-#elif Q_OS_MAC
+#elif defined Q_OS_MAC
     txt.append("MacOS");
 #else
     txt.append("Unknown");
