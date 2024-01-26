@@ -99,6 +99,7 @@ Item {
                         answer2Txt.text = controller.getQuestion().ans2
                         answer3Txt.text = controller.getQuestion().ans3
                         answer4Txt.text = controller.getQuestion().ans4
+                        questionImage.source = controller.getQuestion().img
                     }
                 }
 
