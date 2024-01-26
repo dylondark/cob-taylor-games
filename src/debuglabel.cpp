@@ -28,9 +28,9 @@ void DebugLabel::update(int wh[])
         txt.append("Wayland");
     else
         txt.append("X11");
-#elif Q_OS_WINDOWS
+#elif defined Q_OS_WINDOWS
     txt.append("Windows");
-#elif Q_OS_MAC
+#elif defined Q_OS_MAC
     txt.append("MacOS");
 #else
     txt.append("Unknown");
@@ -43,8 +43,10 @@ void DebugLabel::update(int wh[])
     txt.append(std::to_string(wh[1]));
 
     // get opengl info
+#ifndef Q_OS_WINDOWS // fix for windows at some point??
     txt.append(" OGL Info: ");
     txt.append(glGetString(GL_VERSION));
 
     setText(txt);
+#endif
 }
