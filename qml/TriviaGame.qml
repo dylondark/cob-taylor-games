@@ -19,6 +19,16 @@ Item {
         color: "#004c9d"
         anchors.fill: parent
 
+        function newQuestion() {
+            controller.randQuestion()
+            questionLabel.text = controller.getQuestion().question
+            answer1Txt.text = controller.getQuestion().ans1
+            answer2Txt.text = controller.getQuestion().ans2
+            answer3Txt.text = controller.getQuestion().ans3
+            answer4Txt.text = controller.getQuestion().ans4
+            questionImage.source = controller.getQuestion().img
+        }
+
         ColumnLayout {
             id: gameLayout
             anchors.fill: parent
@@ -91,16 +101,7 @@ Item {
                         scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
                     }
 
-                    onClicked:
-                    {
-                        controller.randQuestion()
-                        questionLabel.text = controller.getQuestion().question
-                        answer1Txt.text = controller.getQuestion().ans1
-                        answer2Txt.text = controller.getQuestion().ans2
-                        answer3Txt.text = controller.getQuestion().ans3
-                        answer4Txt.text = controller.getQuestion().ans4
-                        questionImage.source = controller.getQuestion().img
-                    }
+                    onClicked: gameBase.newQuestion()
                 }
 
                 Button {
@@ -119,6 +120,8 @@ Item {
                         text: "answer2"
                         scale: Math.min(btn2.width / width / 5, btn2.height / height / 5)
                     }
+
+                    onClicked: gameBase.newQuestion()
                 }
 
                 Button {
@@ -137,6 +140,8 @@ Item {
                         text: "answer3"
                         scale: Math.min(btn3.width / width / 5, btn3.height / height / 5)
                     } 
+
+                    onClicked: gameBase.newQuestion()
                 }
 
                 Button {
@@ -155,6 +160,8 @@ Item {
                         text: "answer4"
                         scale: Math.min(btn4.width / width / 5, btn4.height / height / 5)
                     }
+
+                    onClicked: gameBase.newQuestion()
                 }
             }
         }
