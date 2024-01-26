@@ -126,9 +126,15 @@ Item {
                     Text  {
                         id: answer1Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer1"
-                        scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer1Btn.width / (gameBase.height / 3840)
+                        height: answer1Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
                     }
 
                     onClicked: gameBase.newQuestion(1)
@@ -146,9 +152,15 @@ Item {
                     Text  {
                         id: answer2Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer2"
-                        scale: Math.min(btn2.width / width / 5, btn2.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer2Btn.width / (gameBase.height / 3840)
+                        height: answer2Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
                     }
 
                     onClicked: gameBase.newQuestion(2)
@@ -166,9 +178,15 @@ Item {
                     Text  {
                         id: answer3Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer3"
-                        scale: Math.min(btn3.width / width / 5, btn3.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer3Btn.width / (gameBase.height / 3840)
+                        height: answer3Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
                     } 
 
                     onClicked: gameBase.newQuestion(3)
@@ -186,9 +204,15 @@ Item {
                     Text  {
                         id: answer4Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer4"
-                        scale: Math.min(btn4.width / width / 5, btn4.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer4Btn.width / (gameBase.height / 3840)
+                        height: answer4Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
                     }
 
                     onClicked: gameBase.newQuestion(4)
