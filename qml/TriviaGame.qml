@@ -19,14 +19,44 @@ Item {
         color: "#004c9d"
         anchors.fill: parent
 
-        function newQuestion() {
-            controller.randQuestion()
-            questionLabel.text = controller.getQuestion().question
-            answer1Txt.text = controller.getQuestion().ans1
-            answer2Txt.text = controller.getQuestion().ans2
-            answer3Txt.text = controller.getQuestion().ans3
-            answer4Txt.text = controller.getQuestion().ans4
-            questionImage.source = controller.getQuestion().img
+        Component.onCompleted: questionOps(); // get the first question on startup
+
+        Timer {
+            id: timer
+            // cb: callback to a function we want to run afterward
+            // delayTime: milliseconds to wait
+            function setTimeout(cb, delayTime) {
+                timer.interval = delayTime;
+                timer.repeat = false;
+                timer.triggered.connect(cb);
+                timer.triggered.connect(function release () {
+                    timer.triggered.disconnect(cb);
+                    timer.triggered.disconnect(release);
+                });
+                timer.start();
+            }
+        }
+
+        function newQuestion(button: int) {
+            if (controller.getQuestion().correct == button) {
+                // correct answer
+                questionLabel.text = qsTr("Correct!")
+            }
+            else {
+                // incorrect answer
+                questionLabel.text = qsTr("Incorrect!")
+            }
+            timer.setTimeout(function(){ questionOps(); }, 3000);
+        }
+
+        function questionOps() {
+            controller.randQuestion();
+            questionLabel.text = controller.getQuestion().question;
+            answer1Txt.text = controller.getQuestion().ans1;
+            answer2Txt.text = controller.getQuestion().ans2;
+            answer3Txt.text = controller.getQuestion().ans3;
+            answer4Txt.text = controller.getQuestion().ans4;
+            questionImage.source = controller.getQuestion().img;
         }
 
         ColumnLayout {
@@ -101,7 +131,7 @@ Item {
                         scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
                     }
 
-                    onClicked: gameBase.newQuestion()
+                    onClicked: gameBase.newQuestion(1)
                 }
 
                 Button {
@@ -121,7 +151,7 @@ Item {
                         scale: Math.min(btn2.width / width / 5, btn2.height / height / 5)
                     }
 
-                    onClicked: gameBase.newQuestion()
+                    onClicked: gameBase.newQuestion(2)
                 }
 
                 Button {
@@ -141,7 +171,7 @@ Item {
                         scale: Math.min(btn3.width / width / 5, btn3.height / height / 5)
                     } 
 
-                    onClicked: gameBase.newQuestion()
+                    onClicked: gameBase.newQuestion(3)
                 }
 
                 Button {
@@ -161,7 +191,7 @@ Item {
                         scale: Math.min(btn4.width / width / 5, btn4.height / height / 5)
                     }
 
-                    onClicked: gameBase.newQuestion()
+                    onClicked: gameBase.newQuestion(4)
                 }
             }
         }
