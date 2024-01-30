@@ -65,21 +65,30 @@ Item {
             layoutDirection: Qt.LeftToRight
             spacing: 1
 
-            Label {
-                id: questionLabel
+            Rectangle {
+                id: questionLabelBase
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                color: "transparent"
                 Layout.verticalStretchFactor: 1
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                color: "#000000"
-                text: qsTr("question")
-                font.styleName: "Bold"
-                font.pointSize: 72
-                scale: Math.min(gameBase.width / 2160, gameBase.height / 3840)
+
+                Label {
+                    id: questionLabel
+                    width: questionLabelBase.width / (gameBase.height / 3840)
+                    height: questionLabelBase.height / (gameBase.height / 3840)
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color: "#000000"
+                    text: qsTr("question")
+                    font.styleName: "Bold"
+                    font.pointSize: 72
+                    scale: Math.min(gameBase.width / 2160, gameBase.height / 3840)
+                    wrapMode: Text.WordWrap
+                    fontSizeMode: Text.VerticalFit
+                }
             }
 
             Rectangle {
