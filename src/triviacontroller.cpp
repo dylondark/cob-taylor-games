@@ -38,7 +38,7 @@ TriviaController::TriviaController()
         current.m_ans4 = QString(strTemp.c_str());
 
         strTemp = file.GetCell<string>(6, x);
-        current.m_img = QString((filepath + imgPath).c_str()).append(strTemp.c_str());
+        current.m_img = QString(("file:")).append(filepath + imgPath).append(strTemp.c_str());
 
         questionVec.push_back(current);
     }
