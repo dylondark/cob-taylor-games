@@ -20,6 +20,7 @@ Item {
         anchors.fill: parent
 
         Component.onCompleted: questionOps(); // get the first question on startup
+        property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
 
         Timer {
             id: timer
@@ -38,15 +39,18 @@ Item {
         }
 
         function newQuestion(button: int) {
-            if (controller.getQuestion().correct == button) {
-                // correct answer
-                questionLabel.text = qsTr("Correct!")
+            if (!lock) {
+                lock = true;
+                if (controller.getQuestion().correct == button) {
+                    // correct answer
+                    questionLabel.text = qsTr("Correct!")
+                }
+                else {
+                    // incorrect answer
+                    questionLabel.text = qsTr("Incorrect!")
+                }
+                timer.setTimeout(function(){ questionOps(); }, 3000);
             }
-            else {
-                // incorrect answer
-                questionLabel.text = qsTr("Incorrect!")
-            }
-            timer.setTimeout(function(){ questionOps(); }, 3000);
         }
 
         function questionOps() {
@@ -57,6 +61,7 @@ Item {
             answer3Txt.text = controller.getQuestion().ans3;
             answer4Txt.text = controller.getQuestion().ans4;
             questionImage.source = controller.getQuestion().img;
+            lock = false;
         }
 
         ColumnLayout {
