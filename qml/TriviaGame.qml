@@ -21,6 +21,7 @@ Item {
 
         Component.onCompleted: questionOps(); // get the first question on startup
         property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
+        property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
 
         Timer {
             id: timer
@@ -38,9 +39,12 @@ Item {
             }
         }
 
+        PropertyAnimation {id: correctAnim; properties: "color"; to: "green"; duration: 100}
+
         function newQuestion(button: int) {
             if (!lock) {
                 lock = true;
+
                 if (controller.getQuestion().correct == button) {
                     // correct answer
                     questionLabel.text = qsTr("Correct!")
@@ -49,6 +53,10 @@ Item {
                     // incorrect answer
                     questionLabel.text = qsTr("Incorrect!")
                 }
+
+                correctAnim.target = buttons[controller.getQuestion().correct - 1];
+                correctAnim.start();
+
                 timer.setTimeout(function(){ questionOps(); }, 3000);
             }
         }
@@ -62,6 +70,12 @@ Item {
             answer4Txt.text = controller.getQuestion().ans4;
             questionImage.source = controller.getQuestion().img;
             lock = false;
+
+            // reset colors
+            answer1Bg.color = "white";
+            answer2Bg.color = "white";
+            answer3Bg.color = "white";
+            answer4Bg.color = "white";
         }
 
         ColumnLayout {
@@ -152,6 +166,11 @@ Item {
                     }
 
                     onClicked: gameBase.newQuestion(1)
+
+                    background: Rectangle {
+                        id: answer1Bg
+                        color: "white"
+                    }
                 }
 
                 Button {
@@ -178,6 +197,11 @@ Item {
                     }
 
                     onClicked: gameBase.newQuestion(2)
+
+                    background: Rectangle {
+                        id: answer2Bg
+                        color: "white"
+                    }
                 }
 
                 Button {
@@ -204,6 +228,11 @@ Item {
                     } 
 
                     onClicked: gameBase.newQuestion(3)
+
+                    background: Rectangle {
+                        id: answer3Bg
+                        color: "white"
+                    }
                 }
 
                 Button {
@@ -230,6 +259,11 @@ Item {
                     }
 
                     onClicked: gameBase.newQuestion(4)
+
+                    background: Rectangle {
+                        id: answer4Bg
+                        color: "white"
+                    }
                 }
             }
         }
