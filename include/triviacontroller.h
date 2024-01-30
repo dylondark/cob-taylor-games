@@ -43,7 +43,8 @@ public:
     Q_INVOKABLE void randQuestion(); // gets the next random question and stores in currentQuestion
 
 private:
-    const string questionPath = "./gamefiles/trivia/triviaquestions.csv";
+    string filepath = ".";
+    const string questionPath = "/gamefiles/trivia/triviaquestions.csv";
     const string imgPath = "file:gamefiles/trivia/images/";
     vector<Question> questionVec; // vector containing the question structs, to be populated by loadQuestions
     vector<int> questionNums;
