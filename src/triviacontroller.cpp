@@ -4,15 +4,20 @@
 #include <fstream>
 #include <cstring>
 #include "rapidcsv.h"
-
+#include <QApplication>
 TriviaController::TriviaController()
 {
+    if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
+    {
+        filepath = QApplication:: arguments().at(2).toStdString();
+    }
+
     // load question data from files, package into question structs and store in questionVec
     // trivia datafile must be csv with lines consisting of string, int, string, string, string, string, string
     // all strings must be enclosed in quotation marks
     Question current;
     std::string strTemp;
-    rapidcsv::Document file(questionPath);
+    rapidcsv::Document file(filepath + questionPath);
     for (unsigned x = 0; x < file.GetRowCount(); x++)
     {
         strTemp = file.GetCell<string>(0, x);
@@ -33,7 +38,7 @@ TriviaController::TriviaController()
         current.m_ans4 = QString(strTemp.c_str());
 
         strTemp = file.GetCell<string>(6, x);
-        current.m_img = QString(strTemp.c_str());
+        current.m_img = QString(("file:")).append(filepath + imgPath).append(strTemp.c_str());
 
         questionVec.push_back(current);
     }

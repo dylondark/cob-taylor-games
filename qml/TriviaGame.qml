@@ -19,27 +19,95 @@ Item {
         color: "#004c9d"
         anchors.fill: parent
 
+        Component.onCompleted: questionOps(); // get the first question on startup
+        property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
+        property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
+
+        Timer {
+            id: timer
+            // cb: callback to a function we want to run afterward
+            // delayTime: milliseconds to wait
+            function setTimeout(cb, delayTime) {
+                timer.interval = delayTime;
+                timer.repeat = false;
+                timer.triggered.connect(cb);
+                timer.triggered.connect(function release () {
+                    timer.triggered.disconnect(cb);
+                    timer.triggered.disconnect(release);
+                });
+                timer.start();
+            }
+        }
+
+        PropertyAnimation {id: correctAnim; properties: "color"; to: "green"; duration: 100}
+
+        function newQuestion(button: int) {
+            if (!lock) {
+                lock = true;
+
+                if (controller.getQuestion().correct == button) {
+                    // correct answer
+                    questionLabel.text = qsTr("Correct!")
+                }
+                else {
+                    // incorrect answer
+                    questionLabel.text = qsTr("Incorrect!")
+                }
+
+                correctAnim.target = buttons[controller.getQuestion().correct - 1];
+                correctAnim.start();
+
+                timer.setTimeout(function(){ questionOps(); }, 3000);
+            }
+        }
+
+        function questionOps() {
+            controller.randQuestion();
+            questionLabel.text = controller.getQuestion().question;
+            answer1Txt.text = controller.getQuestion().ans1;
+            answer2Txt.text = controller.getQuestion().ans2;
+            answer3Txt.text = controller.getQuestion().ans3;
+            answer4Txt.text = controller.getQuestion().ans4;
+            questionImage.source = controller.getQuestion().img;
+            lock = false;
+
+            // reset colors
+            answer1Bg.color = "white";
+            answer2Bg.color = "white";
+            answer3Bg.color = "white";
+            answer4Bg.color = "white";
+        }
+
         ColumnLayout {
             id: gameLayout
             anchors.fill: parent
             layoutDirection: Qt.LeftToRight
             spacing: 1
 
-            Label {
-                id: questionLabel
+            Rectangle {
+                id: questionLabelBase
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                color: "transparent"
                 Layout.verticalStretchFactor: 1
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                color: "#000000"
-                text: qsTr("question")
-                font.styleName: "Bold"
-                font.pointSize: 72
-                scale: Math.min(gameBase.width / 2160, gameBase.height / 3840)
+
+                Label {
+                    id: questionLabel
+                    width: questionLabelBase.width / (gameBase.height / 3840)
+                    height: questionLabelBase.height / (gameBase.height / 3840)
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color: "#000000"
+                    text: qsTr("question")
+                    font.styleName: "Bold"
+                    font.pointSize: 72
+                    scale: Math.min(gameBase.width / 2160, gameBase.height / 3840)
+                    wrapMode: Text.WordWrap
+                    fontSizeMode: Text.VerticalFit
+                }
             }
 
             Rectangle {
@@ -86,19 +154,22 @@ Item {
                     Text  {
                         id: answer1Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer1"
-                        scale: Math.min(btn1.width / width / 5, btn1.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer1Btn.width / (gameBase.height / 3840)
+                        height: answer1Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
                     }
 
-                    onClicked:
-                    {
-                        controller.randQuestion()
-                        questionLabel.text = controller.getQuestion().question
-                        answer1Txt.text = controller.getQuestion().ans1
-                        answer2Txt.text = controller.getQuestion().ans2
-                        answer3Txt.text = controller.getQuestion().ans3
-                        answer4Txt.text = controller.getQuestion().ans4
+                    onClicked: gameBase.newQuestion(1)
+
+                    background: Rectangle {
+                        id: answer1Bg
+                        color: "white"
                     }
                 }
 
@@ -114,9 +185,22 @@ Item {
                     Text  {
                         id: answer2Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer2"
-                        scale: Math.min(btn2.width / width / 5, btn2.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer2Btn.width / (gameBase.height / 3840)
+                        height: answer2Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
+                    }
+
+                    onClicked: gameBase.newQuestion(2)
+
+                    background: Rectangle {
+                        id: answer2Bg
+                        color: "white"
                     }
                 }
 
@@ -132,10 +216,23 @@ Item {
                     Text  {
                         id: answer3Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer3"
-                        scale: Math.min(btn3.width / width / 5, btn3.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer3Btn.width / (gameBase.height / 3840)
+                        height: answer3Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
                     } 
+
+                    onClicked: gameBase.newQuestion(3)
+
+                    background: Rectangle {
+                        id: answer3Bg
+                        color: "white"
+                    }
                 }
 
                 Button {
@@ -150,9 +247,22 @@ Item {
                     Text  {
                         id: answer4Txt
                         anchors.centerIn: parent
-                        font.pointSize: 18
+                        font.pointSize: 48
                         text: "answer4"
-                        scale: Math.min(btn4.width / width / 5, btn4.height / height / 5)
+                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
+                        width: answer4Btn.width / (gameBase.height / 3840)
+                        height: answer4Btn.height / (gameBase.height / 3840)
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.VerticalFit
+                    }
+
+                    onClicked: gameBase.newQuestion(4)
+
+                    background: Rectangle {
+                        id: answer4Bg
+                        color: "white"
                     }
                 }
             }
