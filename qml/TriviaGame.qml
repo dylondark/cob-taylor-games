@@ -96,8 +96,9 @@ Item {
         ColumnLayout {
             id: gameLayout
             anchors.fill: parent
+            anchors.margins: 60 * (gameBase.height / 3840)
             layoutDirection: Qt.LeftToRight
-            spacing: 1
+            spacing: 60 * (gameBase.height / 3840)
 
             Rectangle {
                 id: questionLabelBase
