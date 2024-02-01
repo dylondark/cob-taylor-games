@@ -9,6 +9,8 @@ Item {
     width: 2160
     height: 3840
 
+    property real scaleFactor: height / 3840
+
     TriviaController {
         id: controller
     }
@@ -96,9 +98,9 @@ Item {
         ColumnLayout {
             id: gameLayout
             anchors.fill: parent
-            anchors.margins: 60 * (gameBase.height / 3840)
+            anchors.margins: 60 * root.scaleFactor
             layoutDirection: Qt.LeftToRight
-            spacing: 60 * (gameBase.height / 3840)
+            spacing: 60 * root.scaleFactor
 
             Rectangle {
                 id: questionLabelBase
@@ -111,8 +113,8 @@ Item {
 
                 Label {
                     id: questionLabel
-                    width: questionLabelBase.width / (gameBase.height / 3840)
-                    height: questionLabelBase.height / (gameBase.height / 3840)
+                    width: questionLabelBase.width / root.scaleFactor
+                    height: questionLabelBase.height / root.scaleFactor
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -120,7 +122,7 @@ Item {
                     text: qsTr("question")
                     font.styleName: "Bold"
                     font.pointSize: 72
-                    scale: Math.min(gameBase.width / 2160, gameBase.height / 3840)
+                    scale: root.scaleFactor
                     wrapMode: Text.WordWrap
                     fontSizeMode: Text.VerticalFit
                 }
@@ -172,9 +174,9 @@ Item {
                         anchors.centerIn: parent
                         font.pointSize: 48
                         text: "answer1"
-                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
-                        width: answer1Btn.width / (gameBase.height / 3840)
-                        height: answer1Btn.height / (gameBase.height / 3840)
+                        scale: root.scaleFactor
+                        width: answer1Btn.width / root.scaleFactor
+                        height: answer1Btn.height / root.scaleFactor
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
@@ -203,9 +205,9 @@ Item {
                         anchors.centerIn: parent
                         font.pointSize: 48
                         text: "answer2"
-                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
-                        width: answer2Btn.width / (gameBase.height / 3840)
-                        height: answer2Btn.height / (gameBase.height / 3840)
+                        scale: root.scaleFactor
+                        width: answer2Btn.width / root.scaleFactor
+                        height: answer2Btn.height / root.scaleFactor
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
@@ -234,9 +236,9 @@ Item {
                         anchors.centerIn: parent
                         font.pointSize: 48
                         text: "answer3"
-                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
-                        width: answer3Btn.width / (gameBase.height / 3840)
-                        height: answer3Btn.height / (gameBase.height / 3840)
+                        scale: root.scaleFactor
+                        width: answer3Btn.width / root.scaleFactor
+                        height: answer3Btn.height / root.scaleFactor
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
@@ -265,9 +267,9 @@ Item {
                         anchors.centerIn: parent
                         font.pointSize: 48
                         text: "answer4"
-                        scale: Math.min(gameBase.height / 3840, gameBase.height / 3840)
-                        width: answer4Btn.width / (gameBase.height / 3840)
-                        height: answer4Btn.height / (gameBase.height / 3840)
+                        scale: root.scaleFactor
+                        width: answer4Btn.width / root.scaleFactor
+                        height: answer4Btn.height / root.scaleFactor
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
