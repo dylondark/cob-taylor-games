@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQml
+import Qt5Compat.GraphicalEffects
 import QMLControllers
 
 Item {
@@ -125,6 +126,16 @@ Item {
                     scale: root.scaleFactor
                     wrapMode: Text.WordWrap
                     fontSizeMode: Text.VerticalFit
+
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        horizontalOffset: 2
+                        verticalOffset: 2
+                        radius: 5.0
+                        color: "black"
+                        cached: false
+                        transparentBorder: true
+                    }
                 }
             }
 
@@ -144,6 +155,16 @@ Item {
                     source: "qrc:/game/gameassets/trivia/testimage.png"
                     fillMode: Image.PreserveAspectFit
                     smooth: true
+
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                        horizontalOffset: 6
+                        verticalOffset: 6
+                        radius: 6.0
+                        color: "black"
+                        cached: false
+                        transparentBorder: true
+                    }
                 }
             }
 
@@ -183,6 +204,16 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.VerticalFit
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 1
+                            verticalOffset: 1
+                            radius: 4.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     }
 
                     onClicked: gameBase.newQuestion(1)
@@ -193,6 +224,16 @@ Item {
                         radius: 72 * root.scaleFactor
                         border.width: 12 * root.scaleFactor
                         border.color: "black"
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 6
+                            verticalOffset: 6
+                            radius: 6.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     }
                 }
 
@@ -217,6 +258,16 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.VerticalFit
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 1
+                            verticalOffset: 1
+                            radius: 4.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     }
 
                     onClicked: gameBase.newQuestion(2)
@@ -227,6 +278,16 @@ Item {
                         radius: 72 * root.scaleFactor
                         border.width: 12 * root.scaleFactor
                         border.color: "black"
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 6
+                            verticalOffset: 6
+                            radius: 6.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     }
                 }
 
@@ -251,6 +312,16 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.VerticalFit
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 1
+                            verticalOffset: 1
+                            radius: 4.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     } 
 
                     onClicked: gameBase.newQuestion(3)
@@ -261,6 +332,16 @@ Item {
                         radius: 72 * root.scaleFactor
                         border.width: 12 * root.scaleFactor
                         border.color: "black"
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 6
+                            verticalOffset: 6
+                            radius: 6.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     }
                 }
 
@@ -285,6 +366,16 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.VerticalFit
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 1
+                            verticalOffset: 1
+                            radius: 4.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     }
 
                     onClicked: gameBase.newQuestion(4)
@@ -295,6 +386,16 @@ Item {
                         radius: 72 * root.scaleFactor
                         border.width: 12 * root.scaleFactor
                         border.color: "black"
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            horizontalOffset: 6
+                            verticalOffset: 6
+                            radius: 6.0
+                            color: "black"
+                            cached: false
+                            transparentBorder: true
+                        }
                     }
                 }
             }
