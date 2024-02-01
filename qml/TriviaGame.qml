@@ -159,6 +159,8 @@ Item {
                 rows: 2
                 columns: 2
                 anchors.bottomMargin: 0
+                columnSpacing: 40 * scaleFactor
+                rowSpacing: 40 * scaleFactor
 
                 Button {
                     id: answer1Btn
