@@ -42,11 +42,11 @@ Item {
             }
         }
 
-        PropertyAnimation {id: correctAnim; properties: "color"; to: "green"; duration: 100} // target is set dynamically to whichever is correct at the time
-        PropertyAnimation {id: incorrectAnim1; properties: "color"; to: "red"; target: answer1Bg; duration: 100}
-        PropertyAnimation {id: incorrectAnim2; properties: "color"; to: "red"; target: answer2Bg; duration: 100}
-        PropertyAnimation {id: incorrectAnim3; properties: "color"; to: "red"; target: answer3Bg; duration: 100}
-        PropertyAnimation {id: incorrectAnim4; properties: "color"; to: "red"; target: answer4Bg; duration: 100}
+        PropertyAnimation {id: correctAnim; properties: "color"; to: "#5bee62"; duration: 100} // target is set dynamically to whichever is correct at the time
+        PropertyAnimation {id: incorrectAnim1; properties: "color"; to: "#ff3030"; target: answer1Bg; duration: 100}
+        PropertyAnimation {id: incorrectAnim2; properties: "color"; to: "#ff3030"; target: answer2Bg; duration: 100}
+        PropertyAnimation {id: incorrectAnim3; properties: "color"; to: "#ff3030"; target: answer3Bg; duration: 100}
+        PropertyAnimation {id: incorrectAnim4; properties: "color"; to: "#ff3030"; target: answer4Bg; duration: 100}
 
         function newQuestion(button: int) {
             if (!lock) {
