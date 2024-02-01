@@ -190,6 +190,9 @@ Item {
                     background: Rectangle {
                         id: answer1Bg
                         color: "white"
+                        radius: 72 * root.scaleFactor
+                        border.width: 12 * root.scaleFactor
+                        border.color: "black"
                     }
                 }
 
@@ -221,6 +224,9 @@ Item {
                     background: Rectangle {
                         id: answer2Bg
                         color: "white"
+                        radius: 72 * root.scaleFactor
+                        border.width: 12 * root.scaleFactor
+                        border.color: "black"
                     }
                 }
 
@@ -252,6 +258,9 @@ Item {
                     background: Rectangle {
                         id: answer3Bg
                         color: "white"
+                        radius: 72 * root.scaleFactor
+                        border.width: 12 * root.scaleFactor
+                        border.color: "black"
                     }
                 }
 
@@ -283,6 +292,9 @@ Item {
                     background: Rectangle {
                         id: answer4Bg
                         color: "white"
+                        radius: 72 * root.scaleFactor
+                        border.width: 12 * root.scaleFactor
+                        border.color: "black"
                     }
                 }
             }
