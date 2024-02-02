@@ -224,16 +224,15 @@ Item {
                         id: answer1Bg
                         color: "white"
                         radius: 72 * root.scaleFactor
-                        border.width: 12 * root.scaleFactor
-                        border.color: "black"
 
                         layer.enabled: true
                         layer.effect: DropShadow {
                             horizontalOffset: 6
                             verticalOffset: 6
-                            radius: 6.0
+                            radius: 18.0
+                            samples: (radius * 2) + 1
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
@@ -278,16 +277,15 @@ Item {
                         id: answer2Bg
                         color: "white"
                         radius: 72 * root.scaleFactor
-                        border.width: 12 * root.scaleFactor
-                        border.color: "black"
 
                         layer.enabled: true
                         layer.effect: DropShadow {
                             horizontalOffset: 6
                             verticalOffset: 6
-                            radius: 6.0
+                            radius: 18.0
+                            samples: (radius * 2) + 1
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
@@ -324,7 +322,7 @@ Item {
                             cached: false
                             transparentBorder: true
                         }
-                    } 
+                    }
 
                     onClicked: gameBase.newQuestion(3)
 
@@ -332,16 +330,15 @@ Item {
                         id: answer3Bg
                         color: "white"
                         radius: 72 * root.scaleFactor
-                        border.width: 12 * root.scaleFactor
-                        border.color: "black"
 
                         layer.enabled: true
                         layer.effect: DropShadow {
                             horizontalOffset: 6
                             verticalOffset: 6
-                            radius: 6.0
+                            radius: 18.0
+                            samples: (radius * 2) + 1
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
@@ -386,16 +383,15 @@ Item {
                         id: answer4Bg
                         color: "white"
                         radius: 72 * root.scaleFactor
-                        border.width: 12 * root.scaleFactor
-                        border.color: "black"
 
                         layer.enabled: true
                         layer.effect: DropShadow {
                             horizontalOffset: 6
                             verticalOffset: 6
-                            radius: 6.0
+                            radius: 18.0
+                            samples: (radius * 2) + 1
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
