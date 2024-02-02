@@ -16,11 +16,13 @@ Item {
         id: controller
     }
 
-    Rectangle {
+    Image {
         id: gameBase
         visible: true
-        color: "#004c9d"
         anchors.fill: parent
+        source: "qrc:/Logos-Buttons/TriviaBackgroundBase/FFF7E9.png"
+        fillMode: Image.PreserveAspectFit
+        smooth: true
 
         Component.onCompleted: questionOps(); // get the first question on startup
         property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
