@@ -233,7 +233,7 @@ Item {
                             radius: 18.0
                             samples: (radius * 2) + 1
                             color: "black"
-                            cached: true
+                            cached: false
                             transparentBorder: true
                         }
                     }
@@ -286,7 +286,7 @@ Item {
                             radius: 18.0
                             samples: (radius * 2) + 1
                             color: "black"
-                            cached: true
+                            cached: false
                             transparentBorder: true
                         }
                     }
@@ -339,7 +339,7 @@ Item {
                             radius: 18.0
                             samples: (radius * 2) + 1
                             color: "black"
-                            cached: true
+                            cached: false
                             transparentBorder: true
                         }
                     }
@@ -392,7 +392,7 @@ Item {
                             radius: 18.0
                             samples: (radius * 2) + 1
                             color: "black"
-                            cached: true
+                            cached: false
                             transparentBorder: true
                         }
                     }
