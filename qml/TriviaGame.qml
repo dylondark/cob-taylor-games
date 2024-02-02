@@ -162,9 +162,10 @@ Item {
                     layer.effect: DropShadow {
                         horizontalOffset: 6
                         verticalOffset: 6
-                        radius: 6.0
+                        radius: 18.0
+                        samples: (radius * 2) + 1
                         color: "black"
-                        cached: false
+                        cached: true
                         transparentBorder: true
                     }
                 }
