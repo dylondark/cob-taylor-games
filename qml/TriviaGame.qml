@@ -214,7 +214,7 @@ Item {
                             verticalOffset: 1
                             radius: 4.0
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
@@ -267,7 +267,7 @@ Item {
                             verticalOffset: 1
                             radius: 4.0
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
@@ -320,7 +320,7 @@ Item {
                             verticalOffset: 1
                             radius: 4.0
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
@@ -373,7 +373,7 @@ Item {
                             verticalOffset: 1
                             radius: 4.0
                             color: "black"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
