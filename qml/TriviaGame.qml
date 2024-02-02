@@ -16,222 +16,228 @@ Item {
         id: controller
     }
 
-    Image {
-        id: gameBase
-        visible: true
+    Rectangle {
+        id: background
         anchors.fill: parent
-        source: "qrc:/Logos-Buttons/TriviaBackgroundBase/FFF7E9.png"
-        fillMode: Image.PreserveAspectFit
-        smooth: true
+        anchors.centerIn: parent
+        color: "#fff7e9"
 
-        Component.onCompleted: questionOps(); // get the first question on startup
-        property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
-        property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
+        property real textSize: 300 * root.scaleFactor
+        property string text1Color: "#588bff" // blue
+        property string text2Color: "#ffd36c" // gold
+        property int ms: 10000
 
-        Timer {
-            id: timer
-            // cb: callback to a function we want to run afterward
-            // delayTime: milliseconds to wait
-            function setTimeout(cb, delayTime) {
-                timer.interval = delayTime;
-                timer.repeat = false;
-                timer.triggered.connect(cb);
-                timer.triggered.connect(function release () {
-                    timer.triggered.disconnect(cb);
-                    timer.triggered.disconnect(release);
-                });
-                timer.start();
-            }
-        }
+        // background animation text rows
+        Text {
+            id: animText1
+            y: 0
+            text: "? ? ? ? ? ? ? ? ? ? ?"
+            font.styleName: "The Next Font"
+            font.pointSize: background.textSize
+            font.wordSpacing: background.textSize
+            font.bold: true
+            color: background.text1Color
 
-        PropertyAnimation {id: correctAnim; properties: "color"; to: "#5bee62"; duration: 100} // target is set dynamically to whichever is correct at the time
-        PropertyAnimation {id: incorrectAnim1; properties: "color"; to: "#ff3030"; target: answer1Bg; duration: 100}
-        PropertyAnimation {id: incorrectAnim2; properties: "color"; to: "#ff3030"; target: answer2Bg; duration: 100}
-        PropertyAnimation {id: incorrectAnim3; properties: "color"; to: "#ff3030"; target: answer3Bg; duration: 100}
-        PropertyAnimation {id: incorrectAnim4; properties: "color"; to: "#ff3030"; target: answer4Bg; duration: 100}
-
-        function newQuestion(button: int) {
-            if (!lock) {
-                lock = true;
-
-                if (controller.getQuestion().correct == button) {
-                    // correct answer
-                    questionLabel.text = qsTr("Correct!")
+            SequentialAnimation on x {
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0 - background.textSize * 2; to: 0; duration: background.ms; }
                 }
-                else {
-                    // incorrect answer
-                    questionLabel.text = qsTr("Incorrect!")
+        }
+
+        Text {
+            id: animText2
+            y: (root.height / 6)
+            text: "? ? ? ? ? ? ? ? ? ? ?"
+            font.styleName: "The Next Font"
+            font.pointSize: background.textSize
+            font.wordSpacing: font.pointSize
+            font.bold: true
+            color: background.text2Color
+
+            SequentialAnimation on x {
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0; to: 0 - background.textSize * 2; duration: background.ms; }
                 }
-
-                // fade incorrect buttons to red
-                if (controller.getQuestion().correct != 1)
-                    incorrectAnim1.start();
-                if (controller.getQuestion().correct != 2)
-                    incorrectAnim2.start();
-                if (controller.getQuestion().correct != 3)
-                    incorrectAnim3.start();
-                if (controller.getQuestion().correct != 4)
-                    incorrectAnim4.start();
-
-                // fade the correct button to green
-                correctAnim.target = buttons[controller.getQuestion().correct - 1];
-                correctAnim.start();
-
-                timer.setTimeout(function(){ questionOps(); }, 3000);
-            }
         }
 
-        function questionOps() {
-            controller.randQuestion();
-            questionLabel.text = controller.getQuestion().question;
-            answer1Txt.text = controller.getQuestion().ans1;
-            answer2Txt.text = controller.getQuestion().ans2;
-            answer3Txt.text = controller.getQuestion().ans3;
-            answer4Txt.text = controller.getQuestion().ans4;
-            questionImage.source = controller.getQuestion().img;
-            lock = false;
+        Text {
+            id: animText3
+            y: (root.height / 6) * 2
+            text: "? ? ? ? ? ? ? ? ? ? ?"
+            font.styleName: "The Next Font"
+            font.pointSize: background.textSize
+            font.wordSpacing: background.textSize
+            font.bold: true
+            color: background.text1Color
 
-            // reset colors
-            answer1Bg.color = "white";
-            answer2Bg.color = "white";
-            answer3Bg.color = "white";
-            answer4Bg.color = "white";
+            SequentialAnimation on x {
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0 - background.textSize * 2; to: 0; duration: background.ms; }
+                }
         }
 
-        ColumnLayout {
-            id: gameLayout
+        Text {
+            id: animText4
+            y: (root.height / 6) * 3
+            text: "? ? ? ? ? ? ? ? ? ? ?"
+            font.styleName: "The Next Font"
+            font.pointSize: background.textSize
+            font.wordSpacing: font.pointSize
+            font.bold: true
+            color: background.text2Color
+
+            SequentialAnimation on x {
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0; to: 0 - background.textSize * 2; duration: background.ms; }
+                }
+        }
+
+        Text {
+            id: animText5
+            y: (root.height / 6) * 4
+            text: "? ? ? ? ? ? ? ? ? ? ?"
+            font.styleName: "The Next Font"
+            font.pointSize: background.textSize
+            font.wordSpacing: background.textSize
+            font.bold: true
+            color: background.text1Color
+
+            SequentialAnimation on x {
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0 - background.textSize * 2; to: 0; duration: background.ms; }
+                }
+        }
+
+        Text {
+            id: animText6
+            y: (root.height / 6) * 5
+            text: "? ? ? ? ? ? ? ? ? ? ?"
+            font.styleName: "The Next Font"
+            font.pointSize: background.textSize
+            font.wordSpacing: font.pointSize
+            font.bold: true
+            color: background.text2Color
+
+            SequentialAnimation on x {
+                    loops: Animation.Infinite
+                    PropertyAnimation { from: 0; to: 0 - background.textSize * 2; duration: background.ms; }
+                }
+        }
+
+        Item {
+            id: gameBase
             anchors.fill: parent
-            anchors.margins: 60 * root.scaleFactor
-            layoutDirection: Qt.LeftToRight
-            spacing: 60 * root.scaleFactor
 
-            Rectangle {
-                id: questionLabelBase
-                Layout.preferredHeight: -1
-                Layout.preferredWidth: -1
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                color: "transparent"
-                Layout.verticalStretchFactor: 1
+            Component.onCompleted: questionOps(); // get the first question on startup
+            property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
+            property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
 
-                Label {
-                    id: questionLabel
-                    width: questionLabelBase.width / root.scaleFactor
-                    height: questionLabelBase.height / root.scaleFactor
-                    anchors.centerIn: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    color: "#000000"
-                    text: qsTr("question")
-                    font.styleName: "Bold"
-                    font.pointSize: 72
-                    scale: root.scaleFactor
-                    wrapMode: Text.WordWrap
-                    fontSizeMode: Text.VerticalFit
-
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        horizontalOffset: 2
-                        verticalOffset: 2
-                        radius: 5.0
-                        color: "#aa000000"
-                        cached: false
-                        transparentBorder: true
-                    }
+            Timer {
+                id: timer
+                // cb: callback to a function we want to run afterward
+                // delayTime: milliseconds to wait
+                function setTimeout(cb, delayTime) {
+                    timer.interval = delayTime;
+                    timer.repeat = false;
+                    timer.triggered.connect(cb);
+                    timer.triggered.connect(function release () {
+                        timer.triggered.disconnect(cb);
+                        timer.triggered.disconnect(release);
+                    });
+                    timer.start();
                 }
             }
 
-            Rectangle {
-                id: imageRect
-                Layout.preferredHeight: -1
-                Layout.preferredWidth: -1
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.verticalStretchFactor: 2
-                color: "transparent"
+            PropertyAnimation {id: correctAnim; properties: "color"; to: "#5bee62"; duration: 100} // target is set dynamically to whichever is correct at the time
+            PropertyAnimation {id: incorrectAnim1; properties: "color"; to: "#ff3030"; target: answer1Bg; duration: 100}
+            PropertyAnimation {id: incorrectAnim2; properties: "color"; to: "#ff3030"; target: answer2Bg; duration: 100}
+            PropertyAnimation {id: incorrectAnim3; properties: "color"; to: "#ff3030"; target: answer3Bg; duration: 100}
+            PropertyAnimation {id: incorrectAnim4; properties: "color"; to: "#ff3030"; target: answer4Bg; duration: 100}
 
-                Image {
-                    id: questionImage
-                    width: imageRect.width
-                    height: imageRect.height
-                    source: "qrc:/game/gameassets/trivia/testimage.png"
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
+            function newQuestion(button: int) {
+                if (!lock) {
+                    lock = true;
 
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        horizontalOffset: 6
-                        verticalOffset: 6
-                        radius: 18.0
-                        samples: (radius * 2) + 1
-                        color: "#aa000000"
-                        cached: true
-                        transparentBorder: true
+                    if (controller.getQuestion().correct == button) {
+                        // correct answer
+                        questionLabel.text = qsTr("Correct!")
                     }
+                    else {
+                        // incorrect answer
+                        questionLabel.text = qsTr("Incorrect!")
+                    }
+
+                    // fade incorrect buttons to red
+                    if (controller.getQuestion().correct != 1)
+                        incorrectAnim1.start();
+                    if (controller.getQuestion().correct != 2)
+                        incorrectAnim2.start();
+                    if (controller.getQuestion().correct != 3)
+                        incorrectAnim3.start();
+                    if (controller.getQuestion().correct != 4)
+                        incorrectAnim4.start();
+
+                    // fade the correct button to green
+                    correctAnim.target = buttons[controller.getQuestion().correct - 1];
+                    correctAnim.start();
+
+                    timer.setTimeout(function(){ questionOps(); }, 3000);
                 }
             }
 
-            GridLayout {
-                id: answersLayout
-                Layout.preferredHeight: -1
-                Layout.preferredWidth: -1
+            function questionOps() {
+                controller.randQuestion();
+                questionLabel.text = controller.getQuestion().question;
+                answer1Txt.text = controller.getQuestion().ans1;
+                answer2Txt.text = controller.getQuestion().ans2;
+                answer3Txt.text = controller.getQuestion().ans3;
+                answer4Txt.text = controller.getQuestion().ans4;
+                questionImage.source = controller.getQuestion().img;
+                lock = false;
+
+                // reset colors
+                answer1Bg.color = "white";
+                answer2Bg.color = "white";
+                answer3Bg.color = "white";
+                answer4Bg.color = "white";
+            }
+
+            ColumnLayout {
+                id: gameLayout
+                anchors.fill: parent
+                anchors.margins: 60 * root.scaleFactor
                 layoutDirection: Qt.LeftToRight
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.verticalStretchFactor: 2
-                rows: 2
-                columns: 2
-                anchors.bottomMargin: 0
-                columnSpacing: 40 * scaleFactor
-                rowSpacing: 40 * scaleFactor
+                spacing: 60 * root.scaleFactor
 
-                Button {
-                    id: answer1Btn
+                Rectangle {
+                    id: questionLabelBase
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    Layout.fillHeight: true
                     Layout.fillWidth: true
-                    display: AbstractButton.TextBesideIcon
+                    Layout.fillHeight: true
+                    color: "transparent"
+                    Layout.verticalStretchFactor: 1
 
-                    Text  {
-                        id: answer1Txt
+                    Label {
+                        id: questionLabel
+                        width: questionLabelBase.width / root.scaleFactor
+                        height: questionLabelBase.height / root.scaleFactor
                         anchors.centerIn: parent
-                        font.pointSize: 48
-                        text: "answer1"
-                        scale: root.scaleFactor
-                        width: answer1Btn.width / root.scaleFactor
-                        height: answer1Btn.height / root.scaleFactor
-                        wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                        color: "#000000"
+                        text: qsTr("question")
+                        font.styleName: "Bold"
+                        font.pointSize: 72
+                        scale: root.scaleFactor
+                        wrapMode: Text.WordWrap
                         fontSizeMode: Text.VerticalFit
 
                         layer.enabled: true
                         layer.effect: DropShadow {
-                            horizontalOffset: 1
-                            verticalOffset: 1
-                            radius: 4.0
-                            color: "#aa000000"
-                            cached: true
-                            transparentBorder: true
-                        }
-                    }
-
-                    onClicked: gameBase.newQuestion(1)
-
-                    background: Rectangle {
-                        id: answer1Bg
-                        color: "white"
-                        radius: 72 * root.scaleFactor
-
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            horizontalOffset: 6
-                            verticalOffset: 6
-                            radius: 18.0
-                            samples: (radius * 2) + 1
+                            horizontalOffset: 2
+                            verticalOffset: 2
+                            radius: 5.0
                             color: "#aa000000"
                             cached: false
                             transparentBorder: true
@@ -239,45 +245,22 @@ Item {
                     }
                 }
 
-                Button {
-                    id: answer2Btn
+                Rectangle {
+                    id: imageRect
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    display: AbstractButton.TextBesideIcon
+                    Layout.verticalStretchFactor: 2
+                    color: "transparent"
 
-                    Text  {
-                        id: answer2Txt
-                        anchors.centerIn: parent
-                        font.pointSize: 48
-                        text: "answer2"
-                        scale: root.scaleFactor
-                        width: answer2Btn.width / root.scaleFactor
-                        height: answer2Btn.height / root.scaleFactor
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        fontSizeMode: Text.VerticalFit
-
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            horizontalOffset: 1
-                            verticalOffset: 1
-                            radius: 4.0
-                            color: "#aa000000"
-                            cached: true
-                            transparentBorder: true
-                        }
-                    }
-
-                    onClicked: gameBase.newQuestion(2)
-
-                    background: Rectangle {
-                        id: answer2Bg
-                        color: "white"
-                        radius: 72 * root.scaleFactor
+                    Image {
+                        id: questionImage
+                        width: imageRect.width
+                        height: imageRect.height
+                        source: "qrc:/game/gameassets/trivia/testimage.png"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
 
                         layer.enabled: true
                         layer.effect: DropShadow {
@@ -286,114 +269,236 @@ Item {
                             radius: 18.0
                             samples: (radius * 2) + 1
                             color: "#aa000000"
-                            cached: false
+                            cached: true
                             transparentBorder: true
                         }
                     }
                 }
 
-                Button {
-                    id: answer3Btn
+                GridLayout {
+                    id: answersLayout
                     Layout.preferredHeight: -1
                     Layout.preferredWidth: -1
+                    layoutDirection: Qt.LeftToRight
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    display: AbstractButton.TextBesideIcon
+                    Layout.verticalStretchFactor: 2
+                    rows: 2
+                    columns: 2
+                    anchors.bottomMargin: 0
+                    columnSpacing: 40 * scaleFactor
+                    rowSpacing: 40 * scaleFactor
 
-                    Text  {
-                        id: answer3Txt
-                        anchors.centerIn: parent
-                        font.pointSize: 48
-                        text: "answer3"
-                        scale: root.scaleFactor
-                        width: answer3Btn.width / root.scaleFactor
-                        height: answer3Btn.height / root.scaleFactor
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        fontSizeMode: Text.VerticalFit
+                    Button {
+                        id: answer1Btn
+                        Layout.preferredHeight: -1
+                        Layout.preferredWidth: -1
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        display: AbstractButton.TextBesideIcon
 
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            horizontalOffset: 1
-                            verticalOffset: 1
-                            radius: 4.0
-                            color: "#aa000000"
-                            cached: true
-                            transparentBorder: true
+                        Text  {
+                            id: answer1Txt
+                            anchors.centerIn: parent
+                            font.pointSize: 48
+                            text: "answer1"
+                            scale: root.scaleFactor
+                            width: answer1Btn.width / root.scaleFactor
+                            height: answer1Btn.height / root.scaleFactor
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            fontSizeMode: Text.VerticalFit
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 1
+                                verticalOffset: 1
+                                radius: 4.0
+                                color: "#aa000000"
+                                cached: true
+                                transparentBorder: true
+                            }
+                        }
+
+                        onClicked: gameBase.newQuestion(1)
+
+                        background: Rectangle {
+                            id: answer1Bg
+                            color: "white"
+                            radius: 72 * root.scaleFactor
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 6
+                                verticalOffset: 6
+                                radius: 18.0
+                                samples: (radius * 2) + 1
+                                color: "#aa000000"
+                                cached: false
+                                transparentBorder: true
+                            }
                         }
                     }
 
-                    onClicked: gameBase.newQuestion(3)
+                    Button {
+                        id: answer2Btn
+                        Layout.preferredHeight: -1
+                        Layout.preferredWidth: -1
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        display: AbstractButton.TextBesideIcon
 
-                    background: Rectangle {
-                        id: answer3Bg
-                        color: "white"
-                        radius: 72 * root.scaleFactor
+                        Text  {
+                            id: answer2Txt
+                            anchors.centerIn: parent
+                            font.pointSize: 48
+                            text: "answer2"
+                            scale: root.scaleFactor
+                            width: answer2Btn.width / root.scaleFactor
+                            height: answer2Btn.height / root.scaleFactor
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            fontSizeMode: Text.VerticalFit
 
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            horizontalOffset: 6
-                            verticalOffset: 6
-                            radius: 18.0
-                            samples: (radius * 2) + 1
-                            color: "#aa000000"
-                            cached: false
-                            transparentBorder: true
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 1
+                                verticalOffset: 1
+                                radius: 4.0
+                                color: "#aa000000"
+                                cached: true
+                                transparentBorder: true
+                            }
+                        }
+
+                        onClicked: gameBase.newQuestion(2)
+
+                        background: Rectangle {
+                            id: answer2Bg
+                            color: "white"
+                            radius: 72 * root.scaleFactor
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 6
+                                verticalOffset: 6
+                                radius: 18.0
+                                samples: (radius * 2) + 1
+                                color: "#aa000000"
+                                cached: false
+                                transparentBorder: true
+                            }
                         }
                     }
-                }
 
-                Button {
-                    id: answer4Btn
-                    Layout.preferredHeight: -1
-                    Layout.preferredWidth: -1
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    display: AbstractButton.TextBesideIcon
+                    Button {
+                        id: answer3Btn
+                        Layout.preferredHeight: -1
+                        Layout.preferredWidth: -1
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        display: AbstractButton.TextBesideIcon
 
-                    Text  {
-                        id: answer4Txt
-                        anchors.centerIn: parent
-                        font.pointSize: 48
-                        text: "answer4"
-                        scale: root.scaleFactor
-                        width: answer4Btn.width / root.scaleFactor
-                        height: answer4Btn.height / root.scaleFactor
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        fontSizeMode: Text.VerticalFit
+                        Text  {
+                            id: answer3Txt
+                            anchors.centerIn: parent
+                            font.pointSize: 48
+                            text: "answer3"
+                            scale: root.scaleFactor
+                            width: answer3Btn.width / root.scaleFactor
+                            height: answer3Btn.height / root.scaleFactor
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            fontSizeMode: Text.VerticalFit
 
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            horizontalOffset: 1
-                            verticalOffset: 1
-                            radius: 4.0
-                            color: "#aa000000"
-                            cached: true
-                            transparentBorder: true
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 1
+                                verticalOffset: 1
+                                radius: 4.0
+                                color: "#aa000000"
+                                cached: true
+                                transparentBorder: true
+                            }
+                        }
+
+                        onClicked: gameBase.newQuestion(3)
+
+                        background: Rectangle {
+                            id: answer3Bg
+                            color: "white"
+                            radius: 72 * root.scaleFactor
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 6
+                                verticalOffset: 6
+                                radius: 18.0
+                                samples: (radius * 2) + 1
+                                color: "#aa000000"
+                                cached: false
+                                transparentBorder: true
+                            }
                         }
                     }
 
-                    onClicked: gameBase.newQuestion(4)
+                    Button {
+                        id: answer4Btn
+                        Layout.preferredHeight: -1
+                        Layout.preferredWidth: -1
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        display: AbstractButton.TextBesideIcon
 
-                    background: Rectangle {
-                        id: answer4Bg
-                        color: "white"
-                        radius: 72 * root.scaleFactor
+                        Text  {
+                            id: answer4Txt
+                            anchors.centerIn: parent
+                            font.pointSize: 48
+                            text: "answer4"
+                            scale: root.scaleFactor
+                            width: answer4Btn.width / root.scaleFactor
+                            height: answer4Btn.height / root.scaleFactor
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            fontSizeMode: Text.VerticalFit
 
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            horizontalOffset: 6
-                            verticalOffset: 6
-                            radius: 18.0
-                            samples: (radius * 2) + 1
-                            color: "#aa000000"
-                            cached: false
-                            transparentBorder: true
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 1
+                                verticalOffset: 1
+                                radius: 4.0
+                                color: "#aa000000"
+                                cached: true
+                                transparentBorder: true
+                            }
+                        }
+
+                        onClicked: gameBase.newQuestion(4)
+
+                        background: Rectangle {
+                            id: answer4Bg
+                            color: "white"
+                            radius: 72 * root.scaleFactor
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 6
+                                verticalOffset: 6
+                                radius: 18.0
+                                samples: (radius * 2) + 1
+                                color: "#aa000000"
+                                cached: false
+                                transparentBorder: true
+                            }
                         }
                     }
                 }
