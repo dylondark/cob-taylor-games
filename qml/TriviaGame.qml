@@ -202,12 +202,101 @@ Item {
                 answer4Bg.color = "white";
             }
 
+            Rectangle {
+                id: timerBar
+                x: 0
+                y: 0
+                width: root.width
+                height: root.height / 30
+                color: "white"
+
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    horizontalOffset: 4
+                    verticalOffset: 4
+                    radius: 14.0
+                    color: "#aa000000"
+                    samples: (radius * 2) + 1
+                    cached: false
+                    transparentBorder: true
+                }
+            }
+
             ColumnLayout {
                 id: gameLayout
                 anchors.fill: parent
                 anchors.margins: 60 * root.scaleFactor
                 layoutDirection: Qt.LeftToRight
                 spacing: 60 * root.scaleFactor
+
+                RowLayout {
+                    id: timerBase
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.verticalStretchFactor: 1
+                    layoutDirection: Qt.LeftToRight
+
+                    Rectangle {
+                        color: "transparent"
+                        Layout.preferredHeight: -1
+                        Layout.preferredWidth: -1
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        Text {
+                            id: timeRemainingTxt
+                            font.pointSize: 60 * root.scaleFactor
+                            text: "time"
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignLeft
+                            verticalAlignment: Text.AlignBottom
+                            fontSizeMode: Text.VerticalFit
+                            font.bold: true
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 1
+                                verticalOffset: 1
+                                radius: 3.0
+                                color: "#aa000000"
+                                cached: false
+                                transparentBorder: true
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        color: "transparent"
+                        Layout.preferredHeight: -1
+                        Layout.preferredWidth: -1
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        anchors.margins: 40 * root.scaleFactor
+
+                        Text {
+                            id: pointsRemainingTxt
+                            font.pointSize: 60 * root.scaleFactor
+                            anchors.fill: parent
+                            text: "points"
+                            horizontalAlignment: Text.AlignRight
+                            verticalAlignment: Text.AlignBottom
+                            fontSizeMode: Text.VerticalFit
+                            font.bold: true
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 1
+                                verticalOffset: 1
+                                radius: 3.0
+                                color: "#aa000000"
+                                cached: false
+                                transparentBorder: true
+                            }
+                        }
+                    }
+                }
 
                 Rectangle {
                     id: questionLabelBase
@@ -216,7 +305,7 @@ Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     color: "transparent"
-                    Layout.verticalStretchFactor: 1
+                    Layout.verticalStretchFactor: 2
 
                     Label {
                         id: questionLabel
@@ -251,7 +340,7 @@ Item {
                     Layout.preferredWidth: -1
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 2
+                    Layout.verticalStretchFactor: 5
                     color: "transparent"
 
                     Image {
@@ -283,7 +372,7 @@ Item {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 2
+                    Layout.verticalStretchFactor: 5
                     rows: 2
                     columns: 2
                     anchors.bottomMargin: 0
