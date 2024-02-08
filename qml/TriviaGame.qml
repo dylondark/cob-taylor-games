@@ -125,8 +125,59 @@ Item {
         }
 
         Item {
+            id: menuBase
+            anchors.fill: parent
+
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 72 * root.scaleFactor
+
+                Rectangle {
+                    color: "transparent"
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 3
+                    anchors.margins: 72 * root.scaleFactor
+
+                    Image {
+                        id: menuImg
+                        source: "qrc:/menu/Logos-Buttons/trivia.png"
+                        width: parent.width
+                        height: parent.height
+                        fillMode: Image.PreserveAspectFit
+
+                    }
+                }
+
+                Rectangle {
+                    color: "white"
+                    Layout.verticalStretchFactor: 1
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    anchors.margins: 72 * root.scaleFactor
+                }
+
+                Rectangle {
+                    color: "white"
+                    Layout.verticalStretchFactor: 3
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    anchors.margins: 72 * root.scaleFactor
+                }
+
+            }
+        }
+
+        Item {
             id: gameBase
             anchors.fill: parent
+            visible: false
 
             Component.onCompleted: questionOps(); // get the first question on startup
             property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
