@@ -207,6 +207,37 @@ Item {
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
 
                 Timer {
+                    id: questionCountdown
+                    interval: 100
+                    repeat: true
+                    triggeredOnStart: false
+
+                    property int pointsRemaining: 1500
+
+                    function beginCountdown() {
+                        pointsRemaining = 1500;
+                        pointsRemainingTxt.text = questionCountdown.pointsRemaining;
+                        timeRemainingTxt.text = "0:15"
+                        questionCountdown.start();
+                    }
+
+                    function triggerActions() {
+                        questionCountdown.pointsRemaining -= 10;
+                        pointsRemainingTxt.text = questionCountdown.pointsRemaining; // update the score shown to the user
+
+                        timeRemainingTxt.text = "0:" + (Math.ceil(pointsRemaining / 100)).toString().padStart(2, '0');
+
+                        if (questionCountdown.pointsRemaining <= 0) {
+                            questionCountdown.stop();
+                            gameBase.newQuestion(5);
+                        }
+                    }
+
+                    onTriggered: triggerActions()
+                }
+
+
+                Timer {
                     id: timer
                     // cb: callback to a function we want to run afterward
                     // delayTime: milliseconds to wait
@@ -235,6 +266,10 @@ Item {
                         if (controller.getQuestion().correct == button) {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
+                        }
+                        else if (button == 5) {
+                            // ran out of time
+                            questionLabel.text = "Time's Up!";
                         }
                         else {
                             // incorrect answer
@@ -274,6 +309,8 @@ Item {
                     answer2Bg.color = "white";
                     answer3Bg.color = "white";
                     answer4Bg.color = "white";
+
+                    questionCountdown.beginCountdown();
                 }
 
                 Rectangle {
