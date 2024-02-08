@@ -166,9 +166,22 @@ Item {
                         anchors.margins: 72 * root.scaleFactor
 
                         RowLayout {
+                            anchors.fill: parent
+                            spacing: 10
+
+                            Text {
+                                text: 'Input your name:'
+                                font.pointSize: 14
+                                color: "black"
+                            }
+
                             TextField {
                                 id: playerName
-                                anchors.fill: parent
+                                Layout.fillWidth: true
+                                //Limit text to 4 characters here
+                                //Optional: Enable the virtual keyboard explicitly if necessary
+                                //focus: true
+                                //inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferLowercase
                             }
                         }
 
