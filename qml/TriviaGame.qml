@@ -131,6 +131,7 @@ Item {
             Item {
                 id: menuBase
                 anchors.fill: parent
+                visible: false
 
                 ColumnLayout {
                     anchors.fill: parent
@@ -199,7 +200,7 @@ Item {
             Item {
                 id: gameBase
                 anchors.fill: parent
-                visible: false
+                visible: true
 
                 Component.onCompleted: questionOps(); // get the first question on startup
                 property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
