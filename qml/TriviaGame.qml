@@ -134,11 +134,11 @@ Item {
 
                 Rectangle {
                     color: "transparent"
-                    Layout.preferredHeight: -1
-                    Layout.preferredWidth: -1
+                    Layout.verticalStretchFactor: 3
+                    Layout.preferredHeight: 1
+                    Layout.preferredWidth: 1
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 3
                     anchors.margins: 72 * root.scaleFactor
 
                     Image {
@@ -147,15 +147,14 @@ Item {
                         width: parent.width
                         height: parent.height
                         fillMode: Image.PreserveAspectFit
-
                     }
                 }
 
                 Rectangle {
                     color: "white"
                     Layout.verticalStretchFactor: 1
-                    Layout.preferredHeight: -1
-                    Layout.preferredWidth: -1
+                    Layout.preferredHeight: 1
+                    Layout.preferredWidth: 1
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     anchors.margins: 72 * root.scaleFactor
@@ -164,8 +163,8 @@ Item {
                 Rectangle {
                     color: "white"
                     Layout.verticalStretchFactor: 3
-                    Layout.preferredHeight: -1
-                    Layout.preferredWidth: -1
+                    Layout.preferredHeight: 1
+                    Layout.preferredWidth: 1
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     anchors.margins: 72 * root.scaleFactor
