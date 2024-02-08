@@ -133,8 +133,9 @@ Item {
                 spacing: 72 * root.scaleFactor
 
                 Rectangle {
+                    id: menuImgRect
                     color: "transparent"
-                    Layout.verticalStretchFactor: 3
+                    Layout.verticalStretchFactor: 6
                     Layout.preferredHeight: 1
                     Layout.preferredWidth: 1
                     Layout.fillHeight: true
@@ -151,6 +152,7 @@ Item {
                 }
 
                 Rectangle {
+                    id: nameRect
                     color: "white"
                     Layout.verticalStretchFactor: 1
                     Layout.preferredHeight: 1
@@ -158,16 +160,33 @@ Item {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     anchors.margins: 72 * root.scaleFactor
+
+                    RowLayout {
+                        TextField {
+                            id: playerName
+                            anchors.fill: parent
+                        }
+                    }
+
                 }
 
                 Rectangle {
+                    id: playRect
                     color: "white"
-                    Layout.verticalStretchFactor: 3
+                    Layout.verticalStretchFactor: 6
                     Layout.preferredHeight: 1
                     Layout.preferredWidth: 1
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     anchors.margins: 72 * root.scaleFactor
+
+                    Button {
+                    id: playButton
+                    width: parent / 2
+                    height: parent / 6
+                    anchors.horizontalCenter: parent.top
+                    anchors.top: parent.top
+                    }
                 }
 
             }
