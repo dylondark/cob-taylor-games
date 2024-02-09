@@ -265,6 +265,10 @@ Item {
                     if (!lock) {
                         lock = true;
 
+                        // stop the countdown
+                        questionCountdown.stop();
+                        timerBarAnim.stop();
+
                         if (controller.getQuestion().correct == button) {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
