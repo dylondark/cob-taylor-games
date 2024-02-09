@@ -205,6 +205,8 @@ Item {
                 Component.onCompleted: questionOps(); // get the first question on startup
                 property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
+                property int maxQuestions: 15
+                property int questionNum: 0
 
                 Timer {
                     id: questionCountdown
@@ -315,6 +317,9 @@ Item {
                     answer2Bg.color = "white";
                     answer3Bg.color = "white";
                     answer4Bg.color = "white";
+
+                    // update the questions completed
+                    questionsRemainingTxt.text = ++gameBase.questionNum + "/" + gameBase.maxQuestions;
 
                     questionCountdown.beginCountdown();
                 }
