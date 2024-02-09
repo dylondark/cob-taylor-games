@@ -9,6 +9,7 @@
 #include <QShortcut>
 #include <QKeySequence>
 #include <QQuickWidget>
+#include <QQuickView>
 #include <QStackedLayout>
 #include <QQmlContext>
 #include <triviacontroller.h>
@@ -379,9 +380,20 @@ void MainWindow::closeKeyDetected()
 
 void MainWindow::showGame(game game)
 {
-    QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
-    gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
-    ui->canvas->layout()->addWidget(gameWidget);
+    if (true) // TODO: determine by cli argument
+    {
+        QQuickView* gameWindow = new QQuickView(Utilities::getGameQML(game));
+        gameWindow->setBaseSize(this->size());
+        gameWindow->setResizeMode(QQuickView::SizeRootObjectToView);
+        gameWindow->show();
+    }
+    else
+    {
+        QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+        gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+        ui->canvas->layout()->addWidget(gameWidget);
+    }
+
 
     // stop menu timers, for performance
     titleClickTimer->stop();
