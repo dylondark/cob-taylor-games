@@ -402,6 +402,36 @@ Item {
                             anchors.margins: 40 * root.scaleFactor
 
                             Text {
+                                id: questionsRemainingTxt
+                                font.pointSize: 60 * root.scaleFactor
+                                anchors.fill: parent
+                                text: "0/15"
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignBottom
+                                fontSizeMode: Text.VerticalFit
+                                font.bold: true
+
+                                layer.enabled: true
+                                layer.effect: DropShadow {
+                                    horizontalOffset: 1
+                                    verticalOffset: 1
+                                    radius: 3.0
+                                    color: "#aa000000"
+                                    cached: false
+                                    transparentBorder: true
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            color: "transparent"
+                            Layout.preferredHeight: -1
+                            Layout.preferredWidth: -1
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            anchors.margins: 40 * root.scaleFactor
+
+                            Text {
                                 id: pointsRemainingTxt
                                 font.pointSize: 60 * root.scaleFactor
                                 anchors.fill: parent
