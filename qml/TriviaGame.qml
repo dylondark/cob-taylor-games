@@ -218,6 +218,7 @@ Item {
                         pointsRemaining = 1500;
                         pointsRemainingTxt.text = questionCountdown.pointsRemaining;
                         timeRemainingTxt.text = "0:15"
+                        timerBarAnim.start();
                         questionCountdown.start();
                     }
 
@@ -229,6 +230,7 @@ Item {
 
                         if (questionCountdown.pointsRemaining <= 0) {
                             questionCountdown.stop();
+                            timerBarAnim.stop();
                             gameBase.newQuestion(5);
                         }
                     }
@@ -331,6 +333,15 @@ Item {
                         cached: false
                         transparentBorder: true
                     }
+
+                    ParallelAnimation {
+                        id: timerBarAnim
+                            PropertyAnimation { target: timerBar; properties: "x"; from: 0; to: 0 - root.width * 1.02; duration: 15000; }
+                            SequentialAnimation {
+                                PropertyAnimation { target: timerBar; properties: "color"; from: "green"; to: "yellow"; duration: 7500; }
+                                PropertyAnimation { target: timerBar; properties: "color"; from: "yellow"; to: "red"; duration: 5000; }
+                            }
+                        }
                 }
 
                 ColumnLayout {
