@@ -10,6 +10,8 @@ Item {
     width: 2160
     height: 3840
 
+    signal quit() // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
+
     property real scaleFactor: height / 3840
 
     TriviaController {
@@ -303,6 +305,10 @@ Item {
                 }
 
                 function questionOps() {
+                    // check if all questions have been completed
+                    if (gameBase.questionNum >= gameBase.maxQuestions)
+                        root.quit()
+
                     controller.randQuestion();
                     questionLabel.text = controller.getQuestion().question;
                     answer1Txt.text = controller.getQuestion().ans1;
