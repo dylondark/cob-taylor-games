@@ -403,6 +403,7 @@ Item {
                                     verticalOffset: 1
                                     radius: 3.0
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: false
                                     transparentBorder: true
                                 }
@@ -433,6 +434,7 @@ Item {
                                     verticalOffset: 1
                                     radius: 3.0
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: false
                                     transparentBorder: true
                                 }
@@ -463,6 +465,7 @@ Item {
                                     verticalOffset: 1
                                     radius: 3.0
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: false
                                     transparentBorder: true
                                 }
@@ -500,6 +503,7 @@ Item {
                                 verticalOffset: 2
                                 radius: 5.0
                                 color: "#aa000000"
+                                samples: (radius * 2) + 1
                                 cached: false
                                 transparentBorder: true
                             }
@@ -579,6 +583,7 @@ Item {
                                     verticalOffset: 1
                                     radius: 4.0
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
@@ -632,6 +637,7 @@ Item {
                                     verticalOffset: 1
                                     radius: 4.0
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
@@ -685,6 +691,7 @@ Item {
                                     verticalOffset: 1
                                     radius: 4.0
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
@@ -738,6 +745,7 @@ Item {
                                     verticalOffset: 1
                                     radius: 4.0
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
