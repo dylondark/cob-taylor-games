@@ -220,17 +220,17 @@ Item {
 
                     function beginCountdown() {
                         pointsRemaining = 1500;
-                        pointsRemainingTxt.text = questionCountdown.pointsRemaining;
-                        timeRemainingTxt.text = "0:15"
+                        pointsRemainingTxt.text = "Points: " + questionCountdown.pointsRemaining;
+                        timeRemainingTxt.text = "Time Left: 0:" + questionCountdown.questionSeconds;
                         timerBarAnim.start();
                         questionCountdown.start();
                     }
 
                     function triggerActions() {
                         questionCountdown.pointsRemaining -= 10;
-                        pointsRemainingTxt.text = questionCountdown.pointsRemaining; // update the score shown to the user
+                        pointsRemainingTxt.text = "Points: " + questionCountdown.pointsRemaining; // update the score shown to the user
 
-                        timeRemainingTxt.text = "0:" + (Math.ceil(pointsRemaining / 100)).toString().padStart(2, '0');
+                        timeRemainingTxt.text = "Time Left: 0:" + (Math.ceil(pointsRemaining / 100)).toString().padStart(2, '0');
 
                         if (questionCountdown.pointsRemaining <= 0) {
                             questionCountdown.stop();
@@ -325,7 +325,7 @@ Item {
                     answer4Bg.color = "white";
 
                     // update the questions completed
-                    questionsRemainingTxt.text = ++gameBase.questionNum + "/" + gameBase.maxQuestions;
+                    questionsRemainingTxt.text = "Questions: " + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
 
                     questionCountdown.beginCountdown();
                 }
@@ -384,8 +384,8 @@ Item {
 
                             Text {
                                 id: timeRemainingTxt
-                                font.pointSize: 60 * root.scaleFactor
-                                text: "time"
+                                font.pointSize: 48 * root.scaleFactor
+                                text: "Time Left:"
                                 anchors.fill: parent
                                 horizontalAlignment: Text.AlignLeft
                                 verticalAlignment: Text.AlignBottom
@@ -414,9 +414,9 @@ Item {
 
                             Text {
                                 id: questionsRemainingTxt
-                                font.pointSize: 60 * root.scaleFactor
+                                font.pointSize: 48 * root.scaleFactor
                                 anchors.fill: parent
-                                text: "0/15"
+                                text: "Questions:"
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignBottom
                                 fontSizeMode: Text.VerticalFit
@@ -444,9 +444,9 @@ Item {
 
                             Text {
                                 id: pointsRemainingTxt
-                                font.pointSize: 60 * root.scaleFactor
+                                font.pointSize: 48 * root.scaleFactor
                                 anchors.fill: parent
-                                text: "points"
+                                text: "Points:"
                                 horizontalAlignment: Text.AlignRight
                                 verticalAlignment: Text.AlignBottom
                                 fontSizeMode: Text.VerticalFit
