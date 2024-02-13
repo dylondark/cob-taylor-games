@@ -29,8 +29,8 @@ Item {
             color: "#fff7e9"
 
             property real textSize: 300 * root.scaleFactor
-            property string text1Color: "#588bff" // blue
-            property string text2Color: "#ffd36c" // gold
+            property string text1Color: "#8097ff" // blue
+            property string text2Color: "#ffd980" // gold
             property int ms: 10000
 
             // background animation text rows
