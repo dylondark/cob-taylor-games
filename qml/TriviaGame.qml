@@ -221,17 +221,17 @@ Item {
 
                     function beginCountdown() {
                         questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100; // reset pointsRemaining
-                        pointsRemainingTxt.text = "Points: " + questionCountdown.pointsRemaining;
-                        timeRemainingTxt.text = "Time Left: 0:" + questionCountdown.questionSeconds;
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining;
+                        timeRemainingTxt.text = timerBase.timePrefix + questionCountdown.questionSeconds;
                         timerBarAnim.start();
                         questionCountdown.start();
                     }
 
                     function triggerActions() {
                         questionCountdown.pointsRemaining -= 10;
-                        pointsRemainingTxt.text = "Points: " + questionCountdown.pointsRemaining; // update the score shown to the user
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining; // update the score shown to the user
 
-                        timeRemainingTxt.text = "Time Left: 0:" + (Math.ceil(pointsRemaining / 100)).toString().padStart(2, '0');
+                        timeRemainingTxt.text = timerBase.timePrefix + (Math.ceil(pointsRemaining / 100)).toString().padStart(2, '0');
 
                         if (questionCountdown.pointsRemaining <= 0) {
                             questionCountdown.stop();
@@ -326,7 +326,7 @@ Item {
                     answer4Bg.color = "white";
 
                     // update the questions completed
-                    questionsRemainingTxt.text = "Questions: " + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
+                    questionsRemainingTxt.text = timerBase.questionPrefix + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
 
                     questionCountdown.beginCountdown();
                 }
@@ -376,6 +376,10 @@ Item {
                         Layout.verticalStretchFactor: 1
                         layoutDirection: Qt.LeftToRight
 
+                        property string timePrefix: "Time Left: 0:"
+                        property string questionPrefix: "Questions: "
+                        property string pointsPrefix: "Points: "
+
                         Rectangle {
                             color: "transparent"
                             Layout.preferredHeight: -1
@@ -386,7 +390,7 @@ Item {
                             Text {
                                 id: timeRemainingTxt
                                 font.pointSize: 48 * root.scaleFactor
-                                text: "Time Left:"
+                                text: timerBase.timePrefix
                                 anchors.fill: parent
                                 horizontalAlignment: Text.AlignLeft
                                 verticalAlignment: Text.AlignBottom
@@ -417,7 +421,7 @@ Item {
                                 id: questionsRemainingTxt
                                 font.pointSize: 48 * root.scaleFactor
                                 anchors.fill: parent
-                                text: "Questions:"
+                                text: timerBase.questionPrefix
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignBottom
                                 fontSizeMode: Text.VerticalFit
@@ -447,7 +451,7 @@ Item {
                                 id: pointsRemainingTxt
                                 font.pointSize: 48 * root.scaleFactor
                                 anchors.fill: parent
-                                text: "Points:"
+                                text: timerBase.pointsPrefix
                                 horizontalAlignment: Text.AlignRight
                                 verticalAlignment: Text.AlignBottom
                                 fontSizeMode: Text.VerticalFit
