@@ -341,9 +341,9 @@ Item {
 
                     layer.enabled: true
                     layer.effect: DropShadow {
-                        horizontalOffset: 4
-                        verticalOffset: 4
-                        radius: 14.0
+                        horizontalOffset: 8 * root.scaleFactor
+                        verticalOffset: 8 * root.scaleFactor
+                        radius: 28.0 * root.scaleFactor
                         color: "#aa000000"
                         samples: (radius * 2) + 1
                         cached: false
@@ -399,9 +399,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 3.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 6.0 * root.scaleFactor
                                     color: "#aa000000"
                                     samples: (radius * 2) + 1
                                     cached: false
@@ -430,9 +430,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 3.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 6.0 * root.scaleFactor
                                     color: "#aa000000"
                                     samples: (radius * 2) + 1
                                     cached: false
@@ -461,9 +461,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 3.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 6.0 * root.scaleFactor
                                     color: "#aa000000"
                                     samples: (radius * 2) + 1
                                     cached: false
@@ -499,9 +499,9 @@ Item {
 
                             layer.enabled: true
                             layer.effect: DropShadow {
-                                horizontalOffset: 2
-                                verticalOffset: 2
-                                radius: 5.0
+                                horizontalOffset: 4 * root.scaleFactor
+                                verticalOffset: 4 * root.scaleFactor
+                                radius: 10.0 * root.scaleFactor
                                 color: "#aa000000"
                                 samples: (radius * 2) + 1
                                 cached: false
@@ -529,9 +529,9 @@ Item {
 
                             layer.enabled: true
                             layer.effect: DropShadow {
-                                horizontalOffset: 6
-                                verticalOffset: 6
-                                radius: 18.0
+                                horizontalOffset: 12 * root.scaleFactor
+                                verticalOffset: 12 * root.scaleFactor
+                                radius: 36.0 * root.scaleFactor
                                 samples: (radius * 2) + 1
                                 color: "#aa000000"
                                 cached: true
@@ -579,9 +579,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
                                     samples: (radius * 2) + 1
                                     cached: true
@@ -598,9 +598,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
@@ -633,9 +633,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
                                     samples: (radius * 2) + 1
                                     cached: true
@@ -652,9 +652,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
@@ -687,9 +687,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
                                     samples: (radius * 2) + 1
                                     cached: true
@@ -706,9 +706,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
@@ -741,9 +741,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
                                     samples: (radius * 2) + 1
                                     cached: true
@@ -760,9 +760,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
