@@ -325,10 +325,29 @@ Item {
                     answer3Bg.color = "white";
                     answer4Bg.color = "white";
 
+                    randomizeAnswers();
+
                     // update the questions completed
                     questionsRemainingTxt.text = timerBase.questionPrefix + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
 
                     questionCountdown.beginCountdown();
+                }
+
+                // randomize answer button order
+                // done by shuffling the position of the buttons in the layout
+                function randomizeAnswers() {
+                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]];
+                    var nums = controller.randomizeFour(); // get array of 0-3 in random order
+
+                    // apply layout positions
+                    answer1Btn.Layout.row = indexes[nums[0]][0];
+                    answer1Btn.Layout.column = indexes[nums[0]][1];
+                    answer2Btn.Layout.row = indexes[nums[1]][0];
+                    answer2Btn.Layout.column = indexes[nums[1]][1];
+                    answer3Btn.Layout.row = indexes[nums[2]][0];
+                    answer3Btn.Layout.column = indexes[nums[2]][1];
+                    answer4Btn.Layout.row = indexes[nums[3]][0];
+                    answer4Btn.Layout.column = indexes[nums[3]][1];
                 }
 
                 Rectangle {
