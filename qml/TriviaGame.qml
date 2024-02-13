@@ -336,7 +336,7 @@ Item {
                     x: 0
                     y: 0
                     width: root.width
-                    height: root.height / 30
+                    height: root.height / 36
                     color: "white"
 
                     layer.enabled: true
@@ -477,7 +477,7 @@ Item {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         color: "transparent"
-                        Layout.verticalStretchFactor: 2
+                        Layout.verticalStretchFactor: 3
 
                         Label {
                             id: questionLabel
@@ -512,7 +512,7 @@ Item {
                         Layout.preferredWidth: -1
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Layout.verticalStretchFactor: 5
+                        Layout.verticalStretchFactor: 6
                         color: "transparent"
 
                         Image {
@@ -544,7 +544,7 @@ Item {
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Layout.verticalStretchFactor: 5
+                        Layout.verticalStretchFactor: 6
                         rows: 2
                         columns: 2
                         anchors.bottomMargin: 0
