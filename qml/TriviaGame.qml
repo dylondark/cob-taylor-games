@@ -484,24 +484,23 @@ Item {
 
                         Label {
                             id: questionLabel
-                            width: questionLabelBase.width / root.scaleFactor
-                            height: questionLabelBase.height / root.scaleFactor
+                            width: questionLabelBase.width
+                            height: questionLabelBase.height
                             anchors.centerIn: parent
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             color: "#000000"
                             text: qsTr("question")
                             font.styleName: "Bold"
-                            font.pointSize: 72
-                            scale: root.scaleFactor
+                            font.pointSize: 72 * root.scaleFactor
                             wrapMode: Text.WordWrap
                             fontSizeMode: Text.VerticalFit
 
                             layer.enabled: true
                             layer.effect: DropShadow {
-                                horizontalOffset: 4 * root.scaleFactor
-                                verticalOffset: 4 * root.scaleFactor
-                                radius: 10.0 * root.scaleFactor
+                                horizontalOffset: 3 * root.scaleFactor
+                                verticalOffset: 3 * root.scaleFactor
+                                radius: 6.0 * root.scaleFactor
                                 color: "#aa000000"
                                 samples: (radius * 2) + 1
                                 cached: false
