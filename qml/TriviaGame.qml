@@ -216,10 +216,11 @@ Item {
                     repeat: true
                     triggeredOnStart: false
 
-                    property int pointsRemaining: 1500
+                    property int questionSeconds: 15 // change this when adjusting question time
+                    property int pointsRemaining: questionSeconds * 100
 
                     function beginCountdown() {
-                        pointsRemaining = 1500;
+                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100; // reset pointsRemaining
                         pointsRemainingTxt.text = "Points: " + questionCountdown.pointsRemaining;
                         timeRemainingTxt.text = "Time Left: 0:" + questionCountdown.questionSeconds;
                         timerBarAnim.start();
