@@ -585,11 +585,10 @@ Item {
                             Text  {
                                 id: answer1Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer1"
-                                scale: root.scaleFactor
-                                width: answer1Btn.width / root.scaleFactor
-                                height: answer1Btn.height / root.scaleFactor
+                                width: answer1Btn.width
+                                height: answer1Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
@@ -639,11 +638,10 @@ Item {
                             Text  {
                                 id: answer2Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer2"
-                                scale: root.scaleFactor
-                                width: answer2Btn.width / root.scaleFactor
-                                height: answer2Btn.height / root.scaleFactor
+                                width: answer2Btn.width
+                                height: answer2Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
@@ -693,11 +691,10 @@ Item {
                             Text  {
                                 id: answer3Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer3"
-                                scale: root.scaleFactor
-                                width: answer3Btn.width / root.scaleFactor
-                                height: answer3Btn.height / root.scaleFactor
+                                width: answer3Btn.width
+                                height: answer3Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
@@ -747,11 +744,10 @@ Item {
                             Text  {
                                 id: answer4Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer4"
-                                scale: root.scaleFactor
-                                width: answer4Btn.width / root.scaleFactor
-                                height: answer4Btn.height / root.scaleFactor
+                                width: answer4Btn.width
+                                height: answer4Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
