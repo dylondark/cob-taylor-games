@@ -156,42 +156,35 @@ Item {
                         }
                     }
 
-                    Rectangle {
-                        id: nameRect
-                        color: "transparent"
+                    Item {
+                        id: nameItem
                         Layout.verticalStretchFactor: 1
                         Layout.preferredHeight: 1
                         Layout.preferredWidth: 1
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        anchors.margins: 72 * root.scaleFactor
 
                         RowLayout {
                             anchors.fill: parent
                             spacing: 10
+                            anchors.leftMargin: 600 * root.scaleFactor
+                            anchors.rightMargin: 600 * root.scaleFactor
 
                             Text {
-                                text: 'Input your name:'
-                                font.pointSize: 14
+                                text: 'Name:'
+                                font.pointSize: 78 * root.scaleFactor
                                 color: "black"
+                                Layout.alignment: Qt.AlignVCenter // Vertically center align the text within its space
                             }
 
                             TextField {
                                 id: playerName
-                                Layout.fillWidth: true
-                                width: parent.width / 2
                                 maximumLength: 4
                                 focus: true
                                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferLowercase
-                                //also, make sure name is not restricted per google's list
-
-                                InputPanel {
-                                        id: inputPanel
-                                        z: 99 // Ensure the keyboard is always on top
-                                        anchors.bottom: parent.bottom
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        visible: Qt.inputMethod.visible
-                                    }
+                                Layout.fillWidth: true // Allow the text field to take up the remaining space
+                                Layout.alignment: Qt.AlignVCenter // Vertically center align the text field
+                                Layout.preferredWidth: -1
                             }
                         }
                     }
@@ -207,18 +200,17 @@ Item {
                         anchors.margins: 72 * root.scaleFactor
 
                         Button {
-                        id: playButton
-                        width: parent.width / 1.5
-                        height: parent.height / 6
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.height / 3
-                        font.pointSize: 20
-                        text: "Play"
-                        font.family: "1up"
-                        font.bold: true
+                            id: playButton
+                            width: parent.width / 2
+                            height: parent.height / 6
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.height / 3
+                            font.pointSize: 20
+                            text: "Play"
+                            font.styleName: "1UP"
+                            font.bold: true
                         }
                     }
-
                 }
             }
 
