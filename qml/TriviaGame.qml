@@ -179,8 +179,7 @@ Item {
                             TextField {
                                 id: playerName
                                 Layout.fillWidth: true
-                                //Limit text to 4 characters here
-                                //Optional: Enable the virtual keyboard explicitly if necessary
+                                width: parent.width / 2
                                 maximumLength: 4
                                 focus: true
                                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferLowercase
@@ -209,10 +208,14 @@ Item {
 
                         Button {
                         id: playButton
-                        width: parent / 2
-                        height: parent / 6
-                        anchors.horizontalCenter: parent.top
-                        anchors.top: parent.top
+                        width: parent.width / 1.5
+                        height: parent.height / 6
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.height / 3
+                        font.pointSize: 20
+                        text: "Play"
+                        font.family: "1up"
+                        font.bold: true
                         }
                     }
 
