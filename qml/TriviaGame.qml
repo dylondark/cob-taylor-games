@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQml
 import Qt5Compat.GraphicalEffects
 import QMLControllers
+import QtQuick.VirtualKeyboard 2.15
 
 Item {
     id: root
@@ -157,7 +158,7 @@ Item {
 
                     Rectangle {
                         id: nameRect
-                        color: "white"
+                        color: "transparent"
                         Layout.verticalStretchFactor: 1
                         Layout.preferredHeight: 1
                         Layout.preferredWidth: 1
@@ -180,16 +181,25 @@ Item {
                                 Layout.fillWidth: true
                                 //Limit text to 4 characters here
                                 //Optional: Enable the virtual keyboard explicitly if necessary
-                                //focus: true
-                                //inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferLowercase
+                                maximumLength: 4
+                                focus: true
+                                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferLowercase
+                                //also, make sure name is not restricted per google's list
+
+                                InputPanel {
+                                        id: inputPanel
+                                        z: 99 // Ensure the keyboard is always on top
+                                        anchors.bottom: parent.bottom
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        visible: Qt.inputMethod.visible
+                                    }
                             }
                         }
-
                     }
 
                     Rectangle {
                         id: playRect
-                        color: "white"
+                        color: "transparent"
                         Layout.verticalStretchFactor: 6
                         Layout.preferredHeight: 1
                         Layout.preferredWidth: 1
