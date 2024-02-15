@@ -211,6 +211,22 @@ Item {
                             text: "PLAY"
                             font.family: "1UP!"
                             font.bold: true
+
+                            background: Rectangle {
+                                color: "white"
+                                radius: 72 * root.scaleFactor
+
+                                layer.enabled: true
+                                layer.effect: DropShadow {
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 12.0 * root.scaleFactor
+                                    samples: (radius * 2) + 1
+                                    color: "#aa000000"
+                                    cached: false
+                                    transparentBorder: true
+                                }
+                            }
                         }
                     }
                 }
