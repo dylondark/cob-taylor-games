@@ -183,10 +183,13 @@ Item {
                                 id: playerName
                                 maximumLength: 4
                                 focus: true
-                                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferLowercase
                                 Layout.fillWidth: true // Allow the text field to take up the remaining space
                                 Layout.alignment: Qt.AlignVCenter // Vertically center align the text field
+                                font.capitalization: Font.AllUppercase
                                 Layout.preferredWidth: -1
+                                onTextChanged: {
+                                        textField.text = textField.text.toUpperCase();
+                                    }
                             }
                         }
                     }
