@@ -171,7 +171,9 @@ Item {
                             anchors.rightMargin: 600 * root.scaleFactor
 
                             Text {
-                                text: 'Name:'
+                                text: 'NAME:'
+                                font.family: "1UP!"
+                                font.bold: true
                                 font.pointSize: 78 * root.scaleFactor
                                 color: "black"
                                 Layout.alignment: Qt.AlignVCenter // Vertically center align the text within its space
@@ -206,8 +208,8 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.height / 3
                             font.pointSize: 20
-                            text: "Play"
-                            font.styleName: "1UP"
+                            text: "PLAY"
+                            font.family: "1UP!"
                             font.bold: true
                         }
                     }
