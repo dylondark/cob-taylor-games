@@ -204,7 +204,7 @@ Item {
                 anchors.fill: parent
                 visible: true
 
-                Component.onCompleted: questionOps(); // get the first question on startup
+                Component.onCompleted: newQuestion(); // get the first question on startup
                 property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
                 property int maxQuestions: 15
@@ -236,7 +236,7 @@ Item {
                         if (questionCountdown.pointsRemaining <= 0) {
                             questionCountdown.stop();
                             timerBarAnim.stop();
-                            gameBase.newQuestion(5);
+                            gameBase.endQuestion(5);
                         }
                     }
 
@@ -266,7 +266,7 @@ Item {
                 PropertyAnimation {id: incorrectAnim3; properties: "color"; to: "#ff3030"; target: answer3Bg; duration: 100}
                 PropertyAnimation {id: incorrectAnim4; properties: "color"; to: "#ff3030"; target: answer4Bg; duration: 100}
 
-                function newQuestion(button: int) {
+                function endQuestion(button: int) {
                     if (!lock) {
                         lock = true;
 
@@ -301,11 +301,11 @@ Item {
                         correctAnim.target = buttons[controller.getQuestion().correct - 1];
                         correctAnim.start();
 
-                        timer.setTimeout(function(){ questionOps(); }, 3000);
+                        timer.setTimeout(function(){ newQuestion(); }, 3000);
                     }
                 }
 
-                function questionOps() {
+                function newQuestion() {
                     // check if all questions have been completed
                     if (gameBase.questionNum >= gameBase.maxQuestions)
                         root.quit()
@@ -606,7 +606,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(1)
+                            onClicked: gameBase.endQuestion(1)
 
                             background: Rectangle {
                                 id: answer1Bg
@@ -659,7 +659,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(2)
+                            onClicked: gameBase.endQuestion(2)
 
                             background: Rectangle {
                                 id: answer2Bg
@@ -712,7 +712,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(3)
+                            onClicked: gameBase.endQuestion(3)
 
                             background: Rectangle {
                                 id: answer3Bg
@@ -765,7 +765,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(4)
+                            onClicked: gameBase.endQuestion(4)
 
                             background: Rectangle {
                                 id: answer4Bg
