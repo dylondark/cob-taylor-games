@@ -787,6 +787,49 @@ Item {
                     }
                 }
             }
+
+            ColumnLayout {
+                id: gameOverBase
+                anchors.fill: parent
+                visible: false
+                anchors.centerIn: parent
+
+                Item {
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    Text {
+                        id: gameOverText
+                        anchors.fill: parent
+                        font.pointSize: 144 * root.scaleFactor
+                        font.bold: true
+                        text: "Game Over!\nThanks for playing!"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignBottom
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    }
+                }
+
+                Item {
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    Text {
+                        id: gameOverScoreText
+                        anchors.fill: parent
+                        font.pointSize: 72 * root.scaleFactor
+                        font.bold: true
+                        text: "Your score: 42069"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    }
+                }
+            }
         }
     }
 }
