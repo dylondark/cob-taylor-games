@@ -18,6 +18,7 @@
     </qresource>
     <qresource prefix="/qml">
         <file>qml/TriviaGame.qml</file>
+        <file>qml/GameOverBase.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
