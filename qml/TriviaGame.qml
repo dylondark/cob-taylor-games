@@ -301,15 +301,14 @@ Item {
                         correctAnim.target = buttons[controller.getQuestion().correct - 1];
                         correctAnim.start();
 
-                        timer.setTimeout(function(){ newQuestion(); }, 3000);
+                        if (gameBase.questionNum >= gameBase.maxQuestions)
+                            timer.setTimeout(function(){ endGame(); }, 3000);
+                        else
+                            timer.setTimeout(function(){ newQuestion(); }, 3000);
                     }
                 }
 
                 function newQuestion() {
-                    // check if all questions have been completed
-                    if (gameBase.questionNum >= gameBase.maxQuestions)
-                        root.quit()
-
                     controller.randQuestion();
                     questionLabel.text = controller.getQuestion().question;
                     answer1Txt.text = controller.getQuestion().ans1;
@@ -331,6 +330,14 @@ Item {
                     questionsRemainingTxt.text = timerBase.questionPrefix + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
 
                     questionCountdown.beginCountdown();
+                }
+
+                function endGame() {
+                    gameBase.visible = false;
+                    gameOverBase.gameOverOps();
+                    // send signal to put in user's score
+                    // change score value in label
+                    // add extra line to congratulate user if they got a leaderboard spot
                 }
 
                 // randomize answer button order
@@ -793,6 +800,18 @@ Item {
                 anchors.fill: parent
                 visible: false
                 anchors.centerIn: parent
+
+                Timer {
+                    id: gameOverTimer
+                    interval: 15000 // 15 seconds
+                    onTriggered: root.quit()
+                }
+
+                // run this function to show the game over screen and automatically send quit signal
+                function gameOverOps() {
+                    gameOverBase.visible = true;
+                    gameOverTimer.start();
+                }
 
                 Item {
                     Layout.preferredHeight: -1
