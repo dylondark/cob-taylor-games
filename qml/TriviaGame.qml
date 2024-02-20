@@ -287,6 +287,7 @@ Item {
                         else {
                             // incorrect answer
                             questionLabel.text = qsTr("Incorrect!")
+                            pointsRemainingTxt.text = timerBase.pointsPrefix + "0" // set points display to 0
                         }
 
                         // fade incorrect buttons to red
