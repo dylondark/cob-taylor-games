@@ -13,6 +13,7 @@ Item {
     signal quit() // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
 
     property real scaleFactor: height / 3840
+    property int points: 0
 
     TriviaController {
         id: controller
@@ -277,6 +278,7 @@ Item {
                         if (controller.getQuestion().correct == button) {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
+                            root.points += questionCountdown.pointsRemaining // add points to total
                         }
                         else if (button == 5) {
                             // ran out of time

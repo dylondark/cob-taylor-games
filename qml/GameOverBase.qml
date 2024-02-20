@@ -62,7 +62,7 @@ ColumnLayout {
             anchors.fill: parent
             font.pointSize: 72 * root.scaleFactor
             font.bold: true
-            text: "Your score: 42069"
+            text: "Your score: " + root.points
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
