@@ -232,6 +232,12 @@ Item {
                                 border.color: "black"
                                 border.width: 12 * root.scaleFactor
                             }
+
+                            onClicked: {
+                                menuBase.visible = false;
+                                gameBase.visible = true;
+                                gameBase.questionOps();
+                            }
                         }
                     }
                 }
@@ -242,7 +248,6 @@ Item {
                 anchors.fill: parent
                 visible: false
 
-                Component.onCompleted: questionOps(); // get the first question on startup
                 property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
 
