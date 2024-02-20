@@ -227,19 +227,10 @@ Item {
                             font.bold: true
 
                             background: Rectangle {
-                                color: "white"
+                                color: Qt.rgba(1, 1, 1, 0.6)
                                 radius: 72 * root.scaleFactor
-
-                                layer.enabled: true
-                                layer.effect: DropShadow {
-                                    horizontalOffset: 12 * root.scaleFactor
-                                    verticalOffset: 12 * root.scaleFactor
-                                    radius: 12.0 * root.scaleFactor
-                                    samples: (radius * 2) + 1
-                                    color: "#aa000000"
-                                    cached: false
-                                    transparentBorder: true
-                                }
+                                border.color: "black"
+                                border.width: 12 * root.scaleFactor
                             }
                         }
                     }
