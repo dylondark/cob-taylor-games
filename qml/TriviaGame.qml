@@ -210,7 +210,7 @@ Item {
                             height: parent.height / 6
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.height / 3
-                            font.pointSize: 20
+                            font.pointSize: 72 * root.scaleFactor
                             text: "PLAY"
                             font.family: "1UP!"
                             font.bold: true
