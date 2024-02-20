@@ -153,6 +153,17 @@ Item {
                             width: parent.width
                             height: parent.height
                             fillMode: Image.PreserveAspectFit
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                horizontalOffset: 12 * root.scaleFactor
+                                verticalOffset: 12 * root.scaleFactor
+                                radius: 24.0 * root.scaleFactor
+                                samples: (radius * 2) + 1
+                                color: "#aa000000"
+                                cached: true
+                                transparentBorder: true
+                            }
                         }
                     }
 
@@ -188,8 +199,8 @@ Item {
                                 font.capitalization: Font.AllUppercase
                                 Layout.preferredWidth: -1
                                 onTextChanged: {
-                                        textField.text = textField.text.toUpperCase();
-                                    }
+                                    textField.text = textField.text.toUpperCase();
+                                }
                             }
                         }
                     }
