@@ -25,9 +25,12 @@ Item {
 
         Rectangle {
             id: background
-            anchors.fill: parent
-            anchors.centerIn: parent
+            Layout.preferredHeight: -1
+            Layout.preferredWidth: -1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
             color: "#fff7e9"
+            Layout.verticalStretchFactor: 6
 
             property real textSize: 300 * root.scaleFactor
             property string text1Color: "#8097ff" // blue
@@ -801,6 +804,19 @@ Item {
             GameOverBase {
                 id: gameOverBase
             }
+        }
+
+        Rectangle {
+            id: homeBarBase
+            color: "black"
+            Layout.verticalStretchFactor: 1
+            Layout.preferredHeight: 1
+            Layout.preferredWidth: 1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+
+
         }
     }
 }
