@@ -181,9 +181,11 @@ Item {
                             anchors.leftMargin: 600 * root.scaleFactor
                             anchors.rightMargin: 600 * root.scaleFactor
 
+
                             Text {
+                                id:nameText
                                 text: 'NAME:'
-                                font.family: "1UP!"
+                                font.family: "1UP!" //Text font
                                 font.bold: true
                                 font.pointSize: 78 * root.scaleFactor
                                 color: "black"
@@ -196,14 +198,26 @@ Item {
                                 focus: true
                                 Layout.fillWidth: true // Allow the text field to take up the remaining space
                                 Layout.alignment: Qt.AlignVCenter // Vertically center align the text field
-                                font.capitalization: Font.AllUppercase
+                                font.capitalization: Font.AllUppercase //make all characters look uppercase
                                 Layout.preferredWidth: -1
                                 onTextChanged: {
-                                    textField.text = textField.text.toUpperCase();
+                                    playerName.text = playerName.text.toUpperCase() //Actually make all characters uppercase
                                 }
+                                font.family: "1UP!"
+                                font.bold: true
+                                font.pointSize: nameText.font.pointSize
+                            }
+
+                            InputPanel {
+                                id:inputPanel
+                                z:99
+                                anchors.bottom: parent.bottom
+                                visible: Qt.inputMethod.visible
                             }
                         }
+
                     }
+
 
                     Rectangle {
                         id: playRect
