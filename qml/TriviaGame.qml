@@ -13,6 +13,7 @@ Item {
 
     property real scaleFactor: height / 3840
 
+
     TriviaController {
         id: controller
     }
@@ -133,6 +134,15 @@ Item {
                 id: menuBase
                 anchors.fill: parent
 
+                InputPanel {
+                    id:inputPanel
+                    z:99
+                    anchors.bottom: parent.bottom
+                    visible: true
+                    width: parent.width
+                    height: parent.height / 3
+                }
+
                 ColumnLayout {
                     anchors.fill: parent
                     spacing: 72 * root.scaleFactor
@@ -208,12 +218,6 @@ Item {
                                 font.pointSize: nameText.font.pointSize
                             }
 
-                            InputPanel {
-                                id:inputPanel
-                                z:99
-                                anchors.bottom: parent.bottom
-                                visible: Qt.inputMethod.visible
-                            }
                         }
 
                     }
