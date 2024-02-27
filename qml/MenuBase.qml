@@ -132,7 +132,7 @@ Item {
                 onClicked: {
                     base.visible = false;
                     gameBase.visible = true;
-                    gameBase.questionOps();
+                    gameBase.newQuestion();
                 }
             }
         }

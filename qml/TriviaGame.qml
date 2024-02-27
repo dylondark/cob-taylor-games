@@ -144,7 +144,7 @@ Item {
             Item {
                 id: gameBase
                 anchors.fill: parent
-                visible: true
+                visible: false
 
                 property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
