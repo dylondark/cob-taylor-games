@@ -10,6 +10,8 @@ Item {
     id: base
     anchors.fill: parent
 
+    property var imageSource
+
     InputPanel {
         id:inputPanel
         z:99
@@ -35,7 +37,7 @@ Item {
 
             Image {
                 id: menuImg
-                source: "qrc:/menu/Logos-Buttons/trivia.png"
+                source: imageSource
                 width: parent.width
                 height: parent.height
                 fillMode: Image.PreserveAspectFit
