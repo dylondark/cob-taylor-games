@@ -19,11 +19,13 @@
     <qresource prefix="/qml">
         <file>qml/TriviaGame.qml</file>
         <file>qml/GameOverBase.qml</file>
+        <file>qml/HomeBarBase.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
     </qresource>
     <qresource prefix="/">
         <file>Logos-Buttons/TriviaBackgroundBase/FFF7E9.png</file>
+        <file>qml/HomeBarBase.qml</file>
     </qresource>
 </RCC>

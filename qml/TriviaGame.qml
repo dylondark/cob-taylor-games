@@ -806,17 +806,13 @@ Item {
             }
         }
 
-        Rectangle {
+        HomeBarBase {
             id: homeBarBase
-            color: "black"
             Layout.verticalStretchFactor: 1
             Layout.preferredHeight: 1
             Layout.preferredWidth: 1
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-
-
         }
     }
 }
