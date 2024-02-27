@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QQuickWidget>
 #include "bgwidget.h"
 #include <QPushButton>
 #include <QFont>
@@ -45,9 +46,11 @@ private slots:
     void titleClickTimeout();
     void closeKeyDetected();
     void on_btnGame1_clicked();
+    void exitGame();
 
 private:
     Ui::MainWindow *ui;
+    QQuickWidget* gameWidget;
     void resizeEvent(QResizeEvent*);
     void initbg();
     void initDebug();

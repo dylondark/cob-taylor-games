@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtQml/qqmlregistration.h>
+#include <QVariantList>
 
 // documentation for using c++ with QML can be found at
 // https://doc.qt.io/qt-6/qtqml-cppintegration-definetypes.html
@@ -41,6 +42,7 @@ public:
     TriviaController();
     Q_INVOKABLE Question getQuestion(); // retrieves the current question stored in currentQuestion
     Q_INVOKABLE void randQuestion(); // gets the next random question and stores in currentQuestion
+    Q_INVOKABLE QVariantList randomizeFour(); // returns a list of ints 1-4 but in random order. used for randomizing answer buttons
 
 private:
     string filepath = ".";

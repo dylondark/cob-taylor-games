@@ -66,3 +66,17 @@ Question TriviaController::getQuestion()
 {
     return currentQuestion;
 }
+
+QVariantList TriviaController::randomizeFour()
+{
+    // shuffle 0-3
+    static int nums[] = {0, 1, 2, 3};
+    std::shuffle(std::begin(nums), std::end(nums), std::default_random_engine{ std::random_device{}() });
+
+    // convert to qvariantlist for output in qml
+    QVariantList out;
+    for (int x : nums)
+        out.append(x);
+
+    return out;
+}

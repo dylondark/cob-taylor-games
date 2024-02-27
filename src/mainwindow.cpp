@@ -8,7 +8,6 @@
 #include <QScrollBar>
 #include <QShortcut>
 #include <QKeySequence>
-#include <QQuickWidget>
 #include <QStackedLayout>
 #include <QQmlContext>
 #include <triviacontroller.h>
@@ -379,13 +378,25 @@ void MainWindow::closeKeyDetected()
 
 void MainWindow::showGame(game game)
 {
-    QQuickWidget* gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+    gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+    connect((QObject*)gameWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
     gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     ui->canvas->layout()->addWidget(gameWidget);
 
     // stop menu timers, for performance
     titleClickTimer->stop();
     bgUpdateTimer->stop();
+}
+
+// intercepts root.quit() signal in QML and deletes the game object. must be connected in showGame()
+void MainWindow::exitGame()
+{
+    ui->canvas->layout()->removeWidget(gameWidget);
+    gameWidget->close();
+    gameWidget->deleteLater();
+
+    titleClickTimer->start();
+    bgUpdateTimer->start();
 }
 
 void MainWindow::on_btnGame1_clicked()

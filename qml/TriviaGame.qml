@@ -11,7 +11,10 @@ Item {
     width: 2160
     height: 3840
 
+    signal quit() // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
+
     property real scaleFactor: height / 3840
+    property int points: 0
 
 
     TriviaController {
@@ -24,13 +27,16 @@ Item {
 
         Rectangle {
             id: background
-            anchors.fill: parent
-            anchors.centerIn: parent
+            Layout.preferredHeight: -1
+            Layout.preferredWidth: -1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
             color: "#fff7e9"
+            Layout.verticalStretchFactor: 6
 
             property real textSize: 300 * root.scaleFactor
-            property string text1Color: "#588bff" // blue
-            property string text2Color: "#ffd36c" // gold
+            property string text1Color: "#8097ff" // blue
+            property string text2Color: "#ffd980" // gold
             property int ms: 10000
 
             // background animation text rows
@@ -138,10 +144,46 @@ Item {
             Item {
                 id: gameBase
                 anchors.fill: parent
-                visible: false
+                visible: true
 
                 property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
+                property int maxQuestions: 15
+                property int questionNum: 0
+
+                Timer {
+                    id: questionCountdown
+                    interval: 100
+                    repeat: true
+                    triggeredOnStart: false
+
+                    property int questionSeconds: 15 // change this when adjusting question time
+                    property int pointsRemaining: questionSeconds * 100
+
+                    function beginCountdown() {
+                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100; // reset pointsRemaining
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining;
+                        timeRemainingTxt.text = timerBase.timePrefix + questionCountdown.questionSeconds;
+                        timerBarAnim.start();
+                        questionCountdown.start();
+                    }
+
+                    function triggerActions() {
+                        questionCountdown.pointsRemaining -= 10;
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining; // update the score shown to the user
+
+                        timeRemainingTxt.text = timerBase.timePrefix + (Math.ceil(pointsRemaining / 100)).toString().padStart(2, '0');
+
+                        if (questionCountdown.pointsRemaining <= 0) {
+                            questionCountdown.stop();
+                            timerBarAnim.stop();
+                            gameBase.endQuestion(5);
+                        }
+                    }
+
+                    onTriggered: triggerActions()
+                }
+
 
                 Timer {
                     id: timer
@@ -165,17 +207,27 @@ Item {
                 PropertyAnimation {id: incorrectAnim3; properties: "color"; to: "#ff3030"; target: answer3Bg; duration: 100}
                 PropertyAnimation {id: incorrectAnim4; properties: "color"; to: "#ff3030"; target: answer4Bg; duration: 100}
 
-                function newQuestion(button: int) {
+                function endQuestion(button: int) {
                     if (!lock) {
                         lock = true;
+
+                        // stop the countdown
+                        questionCountdown.stop();
+                        timerBarAnim.stop();
 
                         if (controller.getQuestion().correct == button) {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
+                            root.points += questionCountdown.pointsRemaining // add points to total
+                        }
+                        else if (button == 5) {
+                            // ran out of time
+                            questionLabel.text = "Time's Up!";
                         }
                         else {
                             // incorrect answer
                             questionLabel.text = qsTr("Incorrect!")
+                            pointsRemainingTxt.text = timerBase.pointsPrefix + "0" // set points display to 0
                         }
 
                         // fade incorrect buttons to red
@@ -192,11 +244,14 @@ Item {
                         correctAnim.target = buttons[controller.getQuestion().correct - 1];
                         correctAnim.start();
 
-                        timer.setTimeout(function(){ questionOps(); }, 3000);
+                        if (gameBase.questionNum >= gameBase.maxQuestions)
+                            timer.setTimeout(function(){ endGame(); }, 3000);
+                        else
+                            timer.setTimeout(function(){ newQuestion(); }, 3000);
                     }
                 }
 
-                function questionOps() {
+                function newQuestion() {
                     controller.randQuestion();
                     questionLabel.text = controller.getQuestion().question;
                     answer1Txt.text = controller.getQuestion().ans1;
@@ -211,6 +266,38 @@ Item {
                     answer2Bg.color = "white";
                     answer3Bg.color = "white";
                     answer4Bg.color = "white";
+
+                    randomizeAnswers();
+
+                    // update the questions completed
+                    questionsRemainingTxt.text = timerBase.questionPrefix + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
+
+                    questionCountdown.beginCountdown();
+                }
+
+                function endGame() {
+                    gameBase.visible = false;
+                    gameOverBase.gameOverOps();
+                    // send signal to put in user's score
+                    // change score value in label
+                    // add extra line to congratulate user if they got a leaderboard spot
+                }
+
+                // randomize answer button order
+                // done by shuffling the position of the buttons in the layout
+                function randomizeAnswers() {
+                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]];
+                    var nums = controller.randomizeFour(); // get array of 0-3 in random order
+
+                    // apply layout positions
+                    answer1Btn.Layout.row = indexes[nums[0]][0];
+                    answer1Btn.Layout.column = indexes[nums[0]][1];
+                    answer2Btn.Layout.row = indexes[nums[1]][0];
+                    answer2Btn.Layout.column = indexes[nums[1]][1];
+                    answer3Btn.Layout.row = indexes[nums[2]][0];
+                    answer3Btn.Layout.column = indexes[nums[2]][1];
+                    answer4Btn.Layout.row = indexes[nums[3]][0];
+                    answer4Btn.Layout.column = indexes[nums[3]][1];
                 }
 
                 Rectangle {
@@ -218,19 +305,28 @@ Item {
                     x: 0
                     y: 0
                     width: root.width
-                    height: root.height / 30
+                    height: root.height / 36
                     color: "white"
 
                     layer.enabled: true
                     layer.effect: DropShadow {
-                        horizontalOffset: 4
-                        verticalOffset: 4
-                        radius: 14.0
+                        horizontalOffset: 8 * root.scaleFactor
+                        verticalOffset: 8 * root.scaleFactor
+                        radius: 28.0 * root.scaleFactor
                         color: "#aa000000"
                         samples: (radius * 2) + 1
                         cached: false
                         transparentBorder: true
                     }
+
+                    ParallelAnimation {
+                        id: timerBarAnim
+                            PropertyAnimation { target: timerBar; properties: "x"; from: 0; to: 0 - root.width * 1.02; duration: 15000; }
+                            SequentialAnimation {
+                                PropertyAnimation { target: timerBar; properties: "color"; from: "green"; to: "yellow"; duration: 7500; }
+                                PropertyAnimation { target: timerBar; properties: "color"; from: "yellow"; to: "red"; duration: 5000; }
+                            }
+                        }
                 }
 
                 ColumnLayout {
@@ -249,6 +345,10 @@ Item {
                         Layout.verticalStretchFactor: 1
                         layoutDirection: Qt.LeftToRight
 
+                        property string timePrefix: "Time Left: 0:"
+                        property string questionPrefix: "Questions: "
+                        property string pointsPrefix: "Points: "
+
                         Rectangle {
                             color: "transparent"
                             Layout.preferredHeight: -1
@@ -258,8 +358,8 @@ Item {
 
                             Text {
                                 id: timeRemainingTxt
-                                font.pointSize: 60 * root.scaleFactor
-                                text: "time"
+                                font.pointSize: 48 * root.scaleFactor
+                                text: timerBase.timePrefix
                                 anchors.fill: parent
                                 horizontalAlignment: Text.AlignLeft
                                 verticalAlignment: Text.AlignBottom
@@ -268,10 +368,42 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 3.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 6.0 * root.scaleFactor
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
+                                    cached: false
+                                    transparentBorder: true
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            color: "transparent"
+                            Layout.preferredHeight: -1
+                            Layout.preferredWidth: -1
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            anchors.margins: 40 * root.scaleFactor
+
+                            Text {
+                                id: questionsRemainingTxt
+                                font.pointSize: 48 * root.scaleFactor
+                                anchors.fill: parent
+                                text: timerBase.questionPrefix
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignBottom
+                                fontSizeMode: Text.VerticalFit
+                                font.bold: true
+
+                                layer.enabled: true
+                                layer.effect: DropShadow {
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 6.0 * root.scaleFactor
+                                    color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: false
                                     transparentBorder: true
                                 }
@@ -288,9 +420,9 @@ Item {
 
                             Text {
                                 id: pointsRemainingTxt
-                                font.pointSize: 60 * root.scaleFactor
+                                font.pointSize: 48 * root.scaleFactor
                                 anchors.fill: parent
-                                text: "points"
+                                text: timerBase.pointsPrefix
                                 horizontalAlignment: Text.AlignRight
                                 verticalAlignment: Text.AlignBottom
                                 fontSizeMode: Text.VerticalFit
@@ -298,10 +430,11 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 3.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 6.0 * root.scaleFactor
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: false
                                     transparentBorder: true
                                 }
@@ -316,29 +449,29 @@ Item {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         color: "transparent"
-                        Layout.verticalStretchFactor: 2
+                        Layout.verticalStretchFactor: 3
 
                         Label {
                             id: questionLabel
-                            width: questionLabelBase.width / root.scaleFactor
-                            height: questionLabelBase.height / root.scaleFactor
+                            width: questionLabelBase.width
+                            height: questionLabelBase.height
                             anchors.centerIn: parent
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             color: "#000000"
                             text: qsTr("question")
                             font.styleName: "Bold"
-                            font.pointSize: 72
-                            scale: root.scaleFactor
+                            font.pointSize: 72 * root.scaleFactor
                             wrapMode: Text.WordWrap
                             fontSizeMode: Text.VerticalFit
 
                             layer.enabled: true
                             layer.effect: DropShadow {
-                                horizontalOffset: 2
-                                verticalOffset: 2
-                                radius: 5.0
+                                horizontalOffset: 3 * root.scaleFactor
+                                verticalOffset: 3 * root.scaleFactor
+                                radius: 6.0 * root.scaleFactor
                                 color: "#aa000000"
+                                samples: (radius * 2) + 1
                                 cached: false
                                 transparentBorder: true
                             }
@@ -351,7 +484,7 @@ Item {
                         Layout.preferredWidth: -1
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Layout.verticalStretchFactor: 5
+                        Layout.verticalStretchFactor: 6
                         color: "transparent"
 
                         Image {
@@ -364,9 +497,9 @@ Item {
 
                             layer.enabled: true
                             layer.effect: DropShadow {
-                                horizontalOffset: 6
-                                verticalOffset: 6
-                                radius: 18.0
+                                horizontalOffset: 12 * root.scaleFactor
+                                verticalOffset: 12 * root.scaleFactor
+                                radius: 36.0 * root.scaleFactor
                                 samples: (radius * 2) + 1
                                 color: "#aa000000"
                                 cached: true
@@ -383,7 +516,7 @@ Item {
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Layout.verticalStretchFactor: 5
+                        Layout.verticalStretchFactor: 6
                         rows: 2
                         columns: 2
                         anchors.bottomMargin: 0
@@ -402,11 +535,10 @@ Item {
                             Text  {
                                 id: answer1Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer1"
-                                scale: root.scaleFactor
-                                width: answer1Btn.width / root.scaleFactor
-                                height: answer1Btn.height / root.scaleFactor
+                                width: answer1Btn.width
+                                height: answer1Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
@@ -414,16 +546,17 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(1)
+                            onClicked: gameBase.endQuestion(1)
 
                             background: Rectangle {
                                 id: answer1Bg
@@ -432,9 +565,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
@@ -455,11 +588,10 @@ Item {
                             Text  {
                                 id: answer2Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer2"
-                                scale: root.scaleFactor
-                                width: answer2Btn.width / root.scaleFactor
-                                height: answer2Btn.height / root.scaleFactor
+                                width: answer2Btn.width
+                                height: answer2Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
@@ -467,16 +599,17 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(2)
+                            onClicked: gameBase.endQuestion(2)
 
                             background: Rectangle {
                                 id: answer2Bg
@@ -485,9 +618,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
@@ -508,11 +641,10 @@ Item {
                             Text  {
                                 id: answer3Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer3"
-                                scale: root.scaleFactor
-                                width: answer3Btn.width / root.scaleFactor
-                                height: answer3Btn.height / root.scaleFactor
+                                width: answer3Btn.width
+                                height: answer3Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
@@ -520,16 +652,17 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(3)
+                            onClicked: gameBase.endQuestion(3)
 
                             background: Rectangle {
                                 id: answer3Bg
@@ -538,9 +671,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
@@ -561,11 +694,10 @@ Item {
                             Text  {
                                 id: answer4Txt
                                 anchors.centerIn: parent
-                                font.pointSize: 48
+                                font.pointSize: 48 * root.scaleFactor
                                 text: "answer4"
-                                scale: root.scaleFactor
-                                width: answer4Btn.width / root.scaleFactor
-                                height: answer4Btn.height / root.scaleFactor
+                                width: answer4Btn.width
+                                height: answer4Btn.height
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
@@ -573,16 +705,17 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 1
-                                    verticalOffset: 1
-                                    radius: 4.0
+                                    horizontalOffset: 2 * root.scaleFactor
+                                    verticalOffset: 2 * root.scaleFactor
+                                    radius: 8.0 * root.scaleFactor
                                     color: "#aa000000"
+                                    samples: (radius * 2) + 1
                                     cached: true
                                     transparentBorder: true
                                 }
                             }
 
-                            onClicked: gameBase.newQuestion(4)
+                            onClicked: gameBase.endQuestion(4)
 
                             background: Rectangle {
                                 id: answer4Bg
@@ -591,9 +724,9 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
-                                    horizontalOffset: 6
-                                    verticalOffset: 6
-                                    radius: 18.0
+                                    horizontalOffset: 12 * root.scaleFactor
+                                    verticalOffset: 12 * root.scaleFactor
+                                    radius: 36.0 * root.scaleFactor
                                     samples: (radius * 2) + 1
                                     color: "#aa000000"
                                     cached: false
@@ -604,6 +737,19 @@ Item {
                     }
                 }
             }
+
+            GameOverBase {
+                id: gameOverBase
+            }
+        }
+
+        HomeBarBase {
+            id: homeBarBase
+            Layout.verticalStretchFactor: 1
+            Layout.preferredHeight: 1
+            Layout.preferredWidth: 1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
     }
 }
