@@ -18,6 +18,7 @@
     </qresource>
     <qresource prefix="/qml">
         <file>qml/TriviaGame.qml</file>
+        <file>qml/MenuBase.qml</file>
         <file>qml/GameOverBase.qml</file>
         <file>qml/HomeBarBase.qml</file>
     </qresource>
