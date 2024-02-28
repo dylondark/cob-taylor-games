@@ -16,6 +16,8 @@ Rectangle {
         Button {
             id: backButton
             text: "Back button"
+            highlighted: bool
+            onClicked: root.quit()
         }
 
         Label {
