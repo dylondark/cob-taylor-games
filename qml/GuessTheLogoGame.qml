@@ -17,7 +17,7 @@ Item {
     property int points: 0
 
 
-    TriviaController {
+    GuessTheLogoController {
         id: controller
     }
 

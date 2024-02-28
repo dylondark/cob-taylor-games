@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QIcon>
 #include <QListWidget>
+#include "guessthelogocontroller.h"
 #include "leaderboardtools.h"
 #include <QScrollBar>
 #include <QShortcut>
@@ -124,6 +125,7 @@ void MainWindow::initQML()
     // all qml controller classes must be "registered" as qml types so they can be instantiated and accessed in the qml files.
     // use "import QMLControllers"
     qmlRegisterType<TriviaController>("QMLControllers", 1, 0, "TriviaController");
+    qmlRegisterType<GuessTheLogoController>("QMLControllers", 1, 0, "GuessTheLogoController");
     // all qml controllers will eventually be registered here
 }
 
