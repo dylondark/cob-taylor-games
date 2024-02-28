@@ -24,6 +24,7 @@ Item {
     ColumnLayout {
         id: baseLayout
         anchors.fill: parent
+        spacing: 0
 
         Rectangle {
             id: background
