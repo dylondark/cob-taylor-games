@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQml
 import Qt5Compat.GraphicalEffects
 import QMLControllers
+import QtQuick.VirtualKeyboard 2.15
 
 Item {
     id: root
@@ -14,6 +15,7 @@ Item {
 
     property real scaleFactor: height / 3840
     property int points: 0
+
 
     TriviaController {
         id: controller
@@ -134,81 +136,16 @@ Item {
                     }
             }
 
-            Item {
+            MenuBase {
                 id: menuBase
-                anchors.fill: parent
-                visible: false
-
-                ColumnLayout {
-                    anchors.fill: parent
-                    spacing: 72 * root.scaleFactor
-
-                    Rectangle {
-                        id: menuImgRect
-                        color: "transparent"
-                        Layout.verticalStretchFactor: 6
-                        Layout.preferredHeight: 1
-                        Layout.preferredWidth: 1
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        anchors.margins: 72 * root.scaleFactor
-
-                        Image {
-                            id: menuImg
-                            source: "qrc:/menu/Logos-Buttons/trivia.png"
-                            width: parent.width
-                            height: parent.height
-                            fillMode: Image.PreserveAspectFit
-                        }
-                    }
-
-                    Rectangle {
-                        id: nameRect
-                        color: "white"
-                        Layout.verticalStretchFactor: 1
-                        Layout.preferredHeight: 1
-                        Layout.preferredWidth: 1
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        anchors.margins: 72 * root.scaleFactor
-
-                        RowLayout {
-                            TextField {
-                                id: playerName
-                                anchors.fill: parent
-                            }
-                        }
-
-                    }
-
-                    Rectangle {
-                        id: playRect
-                        color: "white"
-                        Layout.verticalStretchFactor: 6
-                        Layout.preferredHeight: 1
-                        Layout.preferredWidth: 1
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        anchors.margins: 72 * root.scaleFactor
-
-                        Button {
-                        id: playButton
-                        width: parent / 2
-                        height: parent / 6
-                        anchors.horizontalCenter: parent.top
-                        anchors.top: parent.top
-                        }
-                    }
-
-                }
+                imageSource : "qrc:/menu/Logos-Buttons/trivia.png"
             }
 
             Item {
                 id: gameBase
                 anchors.fill: parent
-                visible: true
+                visible: false
 
-                Component.onCompleted: newQuestion(); // get the first question on startup
                 property bool lock: false // "lock" the newQuestion func so it cant be ran more than once at a time
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
                 property int maxQuestions: 15
