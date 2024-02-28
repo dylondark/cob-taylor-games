@@ -16,9 +16,9 @@ Item {
         id:inputPanel
         z:99
         anchors.bottom: parent.bottom
-        visible: true
+        visible: Qt.inputMethod.visible //only show when input method is active
         width: parent.width
-        height: parent.height / 3
+        externalLanguageSwitchEnabled: true
     }
 
     ColumnLayout {
@@ -87,13 +87,13 @@ Item {
                     Layout.fillWidth: true // Allow the text field to take up the remaining space
                     Layout.alignment: Qt.AlignVCenter // Vertically center align the text field
                     font.capitalization: Font.AllUppercase //make all characters look uppercase
+                    font.family: "1UP!"
+                    font.bold: true
+                    font.pointSize: nameText.font.pointSize
                     Layout.preferredWidth: -1
                     onTextChanged: {
                         playerName.text = playerName.text.toUpperCase() //Actually make all characters uppercase
                     }
-                    font.family: "1UP!"
-                    font.bold: true
-                    font.pointSize: nameText.font.pointSize
                 }
 
             }
