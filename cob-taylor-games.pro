@@ -27,6 +27,7 @@ HEADERS += \
     leaderboardhandler.h \
     clickdetector.h \
     triviacontroller.h \
+    guessthelogocontroller.h \
     rapidcsv.h
 FORMS += mainwindow.ui
 SOURCES += \
@@ -37,6 +38,7 @@ SOURCES += \
     mainwindow.cpp \
     leaderboardhandler.cpp \
     clickdetector.cpp \
+    guessthelogocontroller.cpp \
     triviacontroller.cpp
 
 RESOURCES += \

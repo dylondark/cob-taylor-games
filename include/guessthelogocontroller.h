@@ -1,5 +1,5 @@
-#ifndef TRIVIACONTROLLER_H
-#define TRIVIACONTROLLER_H
+#ifndef GUESSTHELOGOCONTROLLER_H
+#define GUESSTHELOGOCONTROLLER_H
 
 #include <QObject>
 #include <QtQml/qqmlregistration.h>
@@ -11,7 +11,7 @@
 using std::string;
 using std::vector;
 
-struct TriviaQuestion
+struct GTLQuestion
 {
     Q_GADGET
 public:
@@ -28,19 +28,19 @@ public:
     Q_PROPERTY(QString img MEMBER m_img)
 };
 
-/* TriviaController
+/* GuessTheLogoController
  *
  * This class is the controller class for the Trivia game. It is instantiated as an object in the QML file for the game and used in the QML.
  * Anything more than basic ui logic is located here. Specifically, this class loads the trivia question data from the filesystem, and
  * it contains methods that can be used within QML to obtain that question data in random order.
  */
-class TriviaController : public QObject
+class GuessTheLogoController : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
 public:
-    TriviaController();
-    Q_INVOKABLE TriviaQuestion getQuestion(); // retrieves the current question stored in currentQuestion
+    GuessTheLogoController();
+    Q_INVOKABLE GTLQuestion getQuestion(); // retrieves the current question stored in currentQuestion
     Q_INVOKABLE void randQuestion(); // gets the next random question and stores in currentQuestion
     Q_INVOKABLE QVariantList randomizeFour(); // returns a list of ints 1-4 but in random order. used for randomizing answer buttons
 
@@ -48,9 +48,9 @@ private:
     string filepath = ".";
     const string questionPath = "/gamefiles/trivia/triviaquestions.csv";
     const string imgPath = "/gamefiles/trivia/images/";
-    vector<TriviaQuestion> questionVec; // vector containing the question structs, to be populated by loadQuestions
+    vector<GTLQuestion> questionVec; // vector containing the question structs, to be populated by loadQuestions
     vector<int> questionNums;
-    TriviaQuestion currentQuestion;
+    GTLQuestion currentQuestion;
 };
 
-#endif // TRIVIACONTROLLER_H
+#endif // GUESSTHELOGOCONTROLLER_H

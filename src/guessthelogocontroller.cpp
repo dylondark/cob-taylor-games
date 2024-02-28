@@ -1,4 +1,4 @@
-#include "triviacontroller.h"
+#include "guessthelogocontroller.h"
 #include <random>
 #include <algorithm>
 #include <fstream>
@@ -6,7 +6,7 @@
 #include "rapidcsv.h"
 #include <QApplication>
 
-TriviaController::TriviaController()
+GuessTheLogoController::GuessTheLogoController()
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
     {
@@ -16,7 +16,7 @@ TriviaController::TriviaController()
     // load question data from files, package into question structs and store in questionVec
     // trivia datafile must be csv with lines consisting of string, int, string, string, string, string, string
     // all strings must be enclosed in quotation marks
-    TriviaQuestion current;
+    GTLQuestion current;
     std::string strTemp;
     rapidcsv::Document file(filepath + questionPath);
     for (unsigned x = 0; x < file.GetRowCount(); x++)
@@ -55,7 +55,7 @@ TriviaController::TriviaController()
      * every time we need to get a new question. see getQuestion() */
 }
 
-void TriviaController::randQuestion()
+void GuessTheLogoController::randQuestion()
 {
     static int index = 0;
     if (index >= questionNums.size())
@@ -63,12 +63,12 @@ void TriviaController::randQuestion()
     currentQuestion = questionVec[questionNums[index++]];
 }
 
-TriviaQuestion TriviaController::getQuestion()
+GTLQuestion GuessTheLogoController::getQuestion()
 {
     return currentQuestion;
 }
 
-QVariantList TriviaController::randomizeFour()
+QVariantList GuessTheLogoController::randomizeFour()
 {
     // shuffle 0-3
     static int nums[] = {0, 1, 2, 3};

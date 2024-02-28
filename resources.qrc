@@ -21,6 +21,7 @@
         <file>qml/MenuBase.qml</file>
         <file>qml/GameOverBase.qml</file>
         <file>qml/HomeBarBase.qml</file>
+        <file>qml/GuessTheLogoGame.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
