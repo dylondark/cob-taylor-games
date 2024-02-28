@@ -48,6 +48,8 @@ private slots:
     void on_btnGame1_clicked();
     void exitGame();
 
+    void on_btnGame2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QQuickWidget* gameWidget;

@@ -13,10 +13,12 @@ inline QUrl getGameQML(game game)
 {
     switch (game)
     {
-      case Trivia:
+    case Trivia:
         return QUrl("qrc:/qml/qml/TriviaGame.qml");
-      default:
-          throw "Requested game QML file does not exist yet!"; // TODO: update this function when more qml files are added
+    case GuessTheLogo:
+        return QUrl("qrc:/qml/qml/GuessTheLogoGame.qml");
+    default:
+        throw "Requested game QML file does not exist yet!"; // TODO: update this function when more qml files are added
     }
 }
 }

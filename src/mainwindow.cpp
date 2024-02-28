@@ -404,3 +404,9 @@ void MainWindow::on_btnGame1_clicked()
     showGame(game::Trivia);
 }
 
+
+void MainWindow::on_btnGame2_clicked()
+{
+    showGame(game::GuessTheLogo);
+}
+
