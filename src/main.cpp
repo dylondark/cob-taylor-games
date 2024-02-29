@@ -10,6 +10,8 @@
 // "Init" operations for the program should be placed in the mainwindow constructor unless they really need to be here.
 int main(int argc, char *argv[])
 {
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard")); //Enable virtual keyboard environment variable
+
     QApplication a(argc, argv);
     a.setStyle(QStyleFactory::create("Fusion")); // setting fusion qstyle should make the application look the same regardless of os
     MainWindow w;
