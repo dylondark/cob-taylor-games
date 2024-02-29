@@ -34,6 +34,7 @@ Rectangle {
                 text: "< Back"
                 color: "white"
                 font.pointSize: 48 * root.scaleFactor
+                font.family: "The Next Font"
                 anchors.fill: parent
                 horizontalAlignment: Label.AlignLeft
                 verticalAlignment: Label.AlignVCenter
@@ -50,6 +51,7 @@ Rectangle {
             id: userNameTxt
             color: "white"
             text: "Test"
+            font.family: "The Next Font"
             font.pointSize: 48 * root.scaleFactor
             horizontalAlignment: Label.AlignHCenter
             Layout.fillHeight: true
@@ -63,6 +65,7 @@ Rectangle {
             id: pointCounter
             color: "white"
             font.pointSize: 48 * root.scaleFactor
+            font.family: "The Next Font"
             text: ""
             horizontalAlignment: Label.AlignRight
             Layout.fillHeight: true
