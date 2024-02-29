@@ -7,7 +7,7 @@ import QMLControllers
 import QtQuick.VirtualKeyboard 2.15
 
 Rectangle {
-    id: homeBarBase
+    id: base
     color: "black"
 
     RowLayout {
