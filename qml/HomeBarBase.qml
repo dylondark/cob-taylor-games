@@ -10,6 +10,10 @@ Rectangle {
     id: base
     color: "black"
 
+    function updatePoints() {
+        pointCounter.text = root.points
+    }
+
     RowLayout {
         spacing: 140
         anchors.fill: parent
@@ -40,7 +44,7 @@ Rectangle {
         Label {
             id: pointCounter
             color: "white"
-            text: "12345 "
+            text: ""
             horizontalAlignment: Label.AlignRight
             Layout.fillHeight: true
             Layout.fillWidth: true

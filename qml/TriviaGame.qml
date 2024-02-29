@@ -219,7 +219,7 @@ Item {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
                             root.points += questionCountdown.pointsRemaining // add points to total
-                        }
+                            homeBarBase.updatePoints()
                         else if (button == 5) {
                             // ran out of time
                             questionLabel.text = "Time's Up!";
