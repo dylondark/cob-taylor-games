@@ -17,6 +17,8 @@ Rectangle {
     RowLayout {
         spacing: 140
         anchors.fill: parent
+        anchors.leftMargin: 40 * root.scaleFactor
+        anchors.rightMargin: 40 * root.scaleFactor
 
         Button {
 
@@ -33,7 +35,7 @@ Rectangle {
                 color: "white"
                 font.pointSize: 48 * root.scaleFactor
                 anchors.fill: parent
-                horizontalAlignment: Label.AlignHCenter
+                horizontalAlignment: Label.AlignLeft
                 verticalAlignment: Label.AlignVCenter
             }
 
