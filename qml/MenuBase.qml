@@ -94,6 +94,29 @@ Item {
                     onTextChanged: {
                         playerName.text = playerName.text.toUpperCase() //Actually make all characters uppercase
                     }
+
+                    background: Rectangle {
+                            color: "white" // Default background color
+                            radius: 4
+                        }
+
+                    // Define the color animation for the TextField
+                                ColorAnimation {
+                                    id:backgroundAnimation
+                                    running: false // Not running initially
+                                    target: playerName.background
+                                    property: "color"
+                                    from: "red"
+                                    to: "white"
+                                    duration: 500 // 0.5 seconds duration
+                                }
+
+                                // Function to trigger the background color animation
+                                    function triggerErrorAnimation() {
+                                        backgroundAnimation.from = "red"; // Ensure it starts from red
+                                        backgroundAnimation.start(); // Start the animation
+                                    }
+
                 }
 
             }
@@ -130,9 +153,14 @@ Item {
                 }
 
                 onClicked: {
+                    if (playerName.text.length === 0) {
+                        playerName.triggerErrorAnimation(); // Trigger the animation if the TextField is empty
+                     } else {
+                        // Proceed with the game logic
                     base.visible = false;
                     gameBase.visible = true;
                     gameBase.newQuestion();
+                    }
                 }
             }
         }
