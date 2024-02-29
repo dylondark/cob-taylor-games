@@ -18,8 +18,8 @@ ColumnLayout {
 
     // run this function to show the game over screen and automatically send quit signal
     function gameOverOps() {
-        base.visible = true;
-        gameOverTimer.start();
+        base.visible = true
+        gameOverTimer.start()
     }
 
     Item {
@@ -28,25 +28,39 @@ ColumnLayout {
         Layout.fillHeight: true
         Layout.fillWidth: true
 
-        Text {
-            id: gameOverText
-            anchors.fill: parent
-            font.pointSize: 144 * root.scaleFactor
-            font.bold: true
-            text: "Game Over!\nThanks for playing!"
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignBottom
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        RowLayout {
 
-            layer.enabled: true
-            layer.effect: DropShadow {
-                horizontalOffset: 8 * root.scaleFactor
-                verticalOffset: 8 * root.scaleFactor
-                radius: 24.0 * root.scaleFactor
-                samples: (radius * 2) + 1
-                color: "#aa000000"
-                cached: false
-                transparentBorder: true
+            Text {
+                id: gameOverText
+                anchors.fill: parent
+                font.pointSize: 144 * root.scaleFactor
+                font.bold: true
+                text: "Game Over!\nThanks for playing!"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignBottom
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    horizontalOffset: 8 * root.scaleFactor
+                    verticalOffset: 8 * root.scaleFactor
+                    radius: 24.0 * root.scaleFactor
+                    samples: (radius * 2) + 1
+                    color: "#aa000000"
+                    cached: false
+                    transparentBorder: true
+                }
+            }
+
+            Text {
+                id: feedbackText
+                anchors.fill: parent
+                font.pointSize: 144 * root.scaleFacotr
+                font.bold: true
+                text: "This game was made by 5 people trying to make it better than it is.\n Let us know what you think!"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignBottom
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVBottom
             }
         }
     }
