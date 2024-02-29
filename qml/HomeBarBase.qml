@@ -19,17 +19,31 @@ Rectangle {
         anchors.fill: parent
 
         Button {
+
             id: backButton
-            text: "Back button"
-            highlighted: bool
+            highlighted: false
             onClicked: root.quit()
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.preferredHeight: 1
             Layout.preferredWidth: 1
+
+            Text {
+                text: "< Back"
+                color: "white"
+                anchors.fill: parent
+                horizontalAlignment: Label.AlignHCenter
+                verticalAlignment: Label.AlignVCenter
+            }
+
+            background: Rectangle {
+                color: "transparent"
+                anchors.fill: parent
+            }
         }
 
         Label {
+
             id: userNameTxt
             color: "white"
             text: "Test"
