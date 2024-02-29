@@ -11,11 +11,11 @@ Item {
     width: 2160
     height: 3840
 
-    signal quit() // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
+    signal quit
 
+    // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
     property real scaleFactor: height / 3840
     property int points: 0
-
 
     TriviaController {
         id: controller
@@ -52,9 +52,13 @@ Item {
                 color: background.text1Color
 
                 SequentialAnimation on x {
-                        loops: Animation.Infinite
-                        PropertyAnimation { from: 0 - background.textSize * 2; to: 0; duration: background.ms; }
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        from: 0 - background.textSize * 2
+                        to: 0
+                        duration: background.ms
                     }
+                }
             }
 
             Text {
@@ -68,9 +72,13 @@ Item {
                 color: background.text2Color
 
                 SequentialAnimation on x {
-                        loops: Animation.Infinite
-                        PropertyAnimation { from: 0; to: 0 - background.textSize * 2; duration: background.ms; }
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        from: 0
+                        to: 0 - background.textSize * 2
+                        duration: background.ms
                     }
+                }
             }
 
             Text {
@@ -84,9 +92,13 @@ Item {
                 color: background.text1Color
 
                 SequentialAnimation on x {
-                        loops: Animation.Infinite
-                        PropertyAnimation { from: 0 - background.textSize * 2; to: 0; duration: background.ms; }
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        from: 0 - background.textSize * 2
+                        to: 0
+                        duration: background.ms
                     }
+                }
             }
 
             Text {
@@ -100,9 +112,13 @@ Item {
                 color: background.text2Color
 
                 SequentialAnimation on x {
-                        loops: Animation.Infinite
-                        PropertyAnimation { from: 0; to: 0 - background.textSize * 2; duration: background.ms; }
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        from: 0
+                        to: 0 - background.textSize * 2
+                        duration: background.ms
                     }
+                }
             }
 
             Text {
@@ -116,9 +132,13 @@ Item {
                 color: background.text1Color
 
                 SequentialAnimation on x {
-                        loops: Animation.Infinite
-                        PropertyAnimation { from: 0 - background.textSize * 2; to: 0; duration: background.ms; }
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        from: 0 - background.textSize * 2
+                        to: 0
+                        duration: background.ms
                     }
+                }
             }
 
             Text {
@@ -132,14 +152,18 @@ Item {
                 color: background.text2Color
 
                 SequentialAnimation on x {
-                        loops: Animation.Infinite
-                        PropertyAnimation { from: 0; to: 0 - background.textSize * 2; duration: background.ms; }
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        from: 0
+                        to: 0 - background.textSize * 2
+                        duration: background.ms
                     }
+                }
             }
 
             MenuBase {
                 id: menuBase
-                imageSource : "qrc:/menu/Logos-Buttons/trivia.png"
+                imageSource: "qrc:/menu/Logos-Buttons/trivia.png"
             }
 
             Item {
@@ -162,123 +186,163 @@ Item {
                     property int pointsRemaining: questionSeconds * 100
 
                     function beginCountdown() {
-                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100; // reset pointsRemaining
-                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining;
-                        timeRemainingTxt.text = timerBase.timePrefix + questionCountdown.questionSeconds;
-                        timerBarAnim.start();
-                        questionCountdown.start();
+                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds
+                                * 100 // reset pointsRemaining
+                        pointsRemainingTxt.text = timerBase.pointsPrefix
+                                + questionCountdown.pointsRemaining
+                        timeRemainingTxt.text = timerBase.timePrefix
+                                + questionCountdown.questionSeconds
+                        timerBarAnim.start()
+                        questionCountdown.start()
                     }
 
                     function triggerActions() {
-                        questionCountdown.pointsRemaining -= 10;
-                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining; // update the score shown to the user
+                        questionCountdown.pointsRemaining -= 10
+                        pointsRemainingTxt.text = timerBase.pointsPrefix
+                                + questionCountdown.pointsRemaining // update the score shown to the user
 
-                        timeRemainingTxt.text = timerBase.timePrefix + (Math.ceil(pointsRemaining / 100)).toString().padStart(2, '0');
+                        timeRemainingTxt.text = timerBase.timePrefix
+                                + (Math.ceil(pointsRemaining / 100)).toString(
+                                    ).padStart(2, '0')
 
                         if (questionCountdown.pointsRemaining <= 0) {
-                            questionCountdown.stop();
-                            timerBarAnim.stop();
-                            gameBase.endQuestion(5);
+                            questionCountdown.stop()
+                            timerBarAnim.stop()
+                            gameBase.endQuestion(5)
                         }
                     }
 
                     onTriggered: triggerActions()
                 }
 
-
                 Timer {
                     id: timer
                     // cb: callback to a function we want to run afterward
                     // delayTime: milliseconds to wait
                     function setTimeout(cb, delayTime) {
-                        timer.interval = delayTime;
-                        timer.repeat = false;
-                        timer.triggered.connect(cb);
-                        timer.triggered.connect(function release () {
-                            timer.triggered.disconnect(cb);
-                            timer.triggered.disconnect(release);
-                        });
-                        timer.start();
+                        timer.interval = delayTime
+                        timer.repeat = false
+                        timer.triggered.connect(cb)
+                        timer.triggered.connect(function release() {
+                            timer.triggered.disconnect(cb)
+                            timer.triggered.disconnect(release)
+                        })
+                        timer.start()
                     }
                 }
 
-                PropertyAnimation {id: correctAnim; properties: "color"; to: "#5bee62"; duration: 100} // target is set dynamically to whichever is correct at the time
-                PropertyAnimation {id: incorrectAnim1; properties: "color"; to: "#ff3030"; target: answer1Bg; duration: 100}
-                PropertyAnimation {id: incorrectAnim2; properties: "color"; to: "#ff3030"; target: answer2Bg; duration: 100}
-                PropertyAnimation {id: incorrectAnim3; properties: "color"; to: "#ff3030"; target: answer3Bg; duration: 100}
-                PropertyAnimation {id: incorrectAnim4; properties: "color"; to: "#ff3030"; target: answer4Bg; duration: 100}
+                PropertyAnimation {
+                    id: correctAnim
+                    properties: "color"
+                    to: "#5bee62"
+                    duration: 100
+                } // target is set dynamically to whichever is correct at the time
+                PropertyAnimation {
+                    id: incorrectAnim1
+                    properties: "color"
+                    to: "#ff3030"
+                    target: answer1Bg
+                    duration: 100
+                }
+                PropertyAnimation {
+                    id: incorrectAnim2
+                    properties: "color"
+                    to: "#ff3030"
+                    target: answer2Bg
+                    duration: 100
+                }
+                PropertyAnimation {
+                    id: incorrectAnim3
+                    properties: "color"
+                    to: "#ff3030"
+                    target: answer3Bg
+                    duration: 100
+                }
+                PropertyAnimation {
+                    id: incorrectAnim4
+                    properties: "color"
+                    to: "#ff3030"
+                    target: answer4Bg
+                    duration: 100
+                }
 
                 function endQuestion(button: int) {
                     if (!lock) {
-                        lock = true;
+                        lock = true
 
                         // stop the countdown
-                        questionCountdown.stop();
-                        timerBarAnim.stop();
+                        questionCountdown.stop()
+                        timerBarAnim.stop()
 
                         if (controller.getQuestion().correct == button) {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
                             root.points += questionCountdown.pointsRemaining // add points to total
                             homeBarBase.updatePoints()
-                        else if (button == 5) {
+                        } else if (button == 5) {
                             // ran out of time
-                            questionLabel.text = "Time's Up!";
-                        }
-                        else {
+                            questionLabel.text = "Time's Up!"
+                        } else {
                             // incorrect answer
                             questionLabel.text = qsTr("Incorrect!")
-                            pointsRemainingTxt.text = timerBase.pointsPrefix + "0" // set points display to 0
+                            pointsRemainingTxt.text = timerBase.pointsPrefix
+                                    + "0" // set points display to 0
                         }
 
                         // fade incorrect buttons to red
                         if (controller.getQuestion().correct != 1)
-                            incorrectAnim1.start();
+                            incorrectAnim1.start()
                         if (controller.getQuestion().correct != 2)
-                            incorrectAnim2.start();
+                            incorrectAnim2.start()
                         if (controller.getQuestion().correct != 3)
-                            incorrectAnim3.start();
+                            incorrectAnim3.start()
                         if (controller.getQuestion().correct != 4)
-                            incorrectAnim4.start();
+                            incorrectAnim4.start()
 
                         // fade the correct button to green
-                        correctAnim.target = buttons[controller.getQuestion().correct - 1];
-                        correctAnim.start();
+                        correctAnim.target = buttons[controller.getQuestion(
+                                                         ).correct - 1]
+                        correctAnim.start()
 
                         if (gameBase.questionNum >= gameBase.maxQuestions)
-                            timer.setTimeout(function(){ endGame(); }, 3000);
+                            timer.setTimeout(function () {
+                                endGame()
+                            }, 3000)
                         else
-                            timer.setTimeout(function(){ newQuestion(); }, 3000);
+                            timer.setTimeout(function () {
+                                newQuestion()
+                            }, 3000)
                     }
                 }
 
                 function newQuestion() {
-                    controller.randQuestion();
-                    questionLabel.text = controller.getQuestion().question;
-                    answer1Txt.text = controller.getQuestion().ans1;
-                    answer2Txt.text = controller.getQuestion().ans2;
-                    answer3Txt.text = controller.getQuestion().ans3;
-                    answer4Txt.text = controller.getQuestion().ans4;
-                    questionImage.source = controller.getQuestion().img;
-                    lock = false;
+                    controller.randQuestion()
+                    questionLabel.text = controller.getQuestion().question
+                    answer1Txt.text = controller.getQuestion().ans1
+                    answer2Txt.text = controller.getQuestion().ans2
+                    answer3Txt.text = controller.getQuestion().ans3
+                    answer4Txt.text = controller.getQuestion().ans4
+                    questionImage.source = controller.getQuestion().img
+                    lock = false
 
                     // reset colors
-                    answer1Bg.color = "white";
-                    answer2Bg.color = "white";
-                    answer3Bg.color = "white";
-                    answer4Bg.color = "white";
+                    answer1Bg.color = "white"
+                    answer2Bg.color = "white"
+                    answer3Bg.color = "white"
+                    answer4Bg.color = "white"
 
-                    randomizeAnswers();
+                    randomizeAnswers()
 
                     // update the questions completed
-                    questionsRemainingTxt.text = timerBase.questionPrefix + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
+                    questionsRemainingTxt.text = timerBase.questionPrefix
+                            + (++gameBase.questionNum) + "/" + gameBase.maxQuestions
 
-                    questionCountdown.beginCountdown();
+                    questionCountdown.beginCountdown()
                 }
 
                 function endGame() {
-                    gameBase.visible = false;
-                    gameOverBase.gameOverOps();
+                    gameBase.visible = false
+                    gameOverBase.gameOverOps()
                     // send signal to put in user's score
                     // change score value in label
                     // add extra line to congratulate user if they got a leaderboard spot
@@ -287,18 +351,19 @@ Item {
                 // randomize answer button order
                 // done by shuffling the position of the buttons in the layout
                 function randomizeAnswers() {
-                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]];
-                    var nums = controller.randomizeFour(); // get array of 0-3 in random order
+                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]]
+                    var nums = controller.randomizeFour()
+                    // get array of 0-3 in random order
 
                     // apply layout positions
-                    answer1Btn.Layout.row = indexes[nums[0]][0];
-                    answer1Btn.Layout.column = indexes[nums[0]][1];
-                    answer2Btn.Layout.row = indexes[nums[1]][0];
-                    answer2Btn.Layout.column = indexes[nums[1]][1];
-                    answer3Btn.Layout.row = indexes[nums[2]][0];
-                    answer3Btn.Layout.column = indexes[nums[2]][1];
-                    answer4Btn.Layout.row = indexes[nums[3]][0];
-                    answer4Btn.Layout.column = indexes[nums[3]][1];
+                    answer1Btn.Layout.row = indexes[nums[0]][0]
+                    answer1Btn.Layout.column = indexes[nums[0]][1]
+                    answer2Btn.Layout.row = indexes[nums[1]][0]
+                    answer2Btn.Layout.column = indexes[nums[1]][1]
+                    answer3Btn.Layout.row = indexes[nums[2]][0]
+                    answer3Btn.Layout.column = indexes[nums[2]][1]
+                    answer4Btn.Layout.row = indexes[nums[3]][0]
+                    answer4Btn.Layout.column = indexes[nums[3]][1]
                 }
 
                 Rectangle {
@@ -322,12 +387,30 @@ Item {
 
                     ParallelAnimation {
                         id: timerBarAnim
-                            PropertyAnimation { target: timerBar; properties: "x"; from: 0; to: 0 - root.width * 1.02; duration: 15000; }
-                            SequentialAnimation {
-                                PropertyAnimation { target: timerBar; properties: "color"; from: "green"; to: "yellow"; duration: 7500; }
-                                PropertyAnimation { target: timerBar; properties: "color"; from: "yellow"; to: "red"; duration: 5000; }
+                        PropertyAnimation {
+                            target: timerBar
+                            properties: "x"
+                            from: 0
+                            to: 0 - root.width * 1.02
+                            duration: 15000
+                        }
+                        SequentialAnimation {
+                            PropertyAnimation {
+                                target: timerBar
+                                properties: "color"
+                                from: "green"
+                                to: "yellow"
+                                duration: 7500
+                            }
+                            PropertyAnimation {
+                                target: timerBar
+                                properties: "color"
+                                from: "yellow"
+                                to: "red"
+                                duration: 5000
                             }
                         }
+                    }
                 }
 
                 ColumnLayout {
@@ -533,7 +616,7 @@ Item {
                             Layout.fillWidth: true
                             display: AbstractButton.TextBesideIcon
 
-                            Text  {
+                            Text {
                                 id: answer1Txt
                                 anchors.centerIn: parent
                                 font.pointSize: 48 * root.scaleFactor
@@ -586,7 +669,7 @@ Item {
                             Layout.fillWidth: true
                             display: AbstractButton.TextBesideIcon
 
-                            Text  {
+                            Text {
                                 id: answer2Txt
                                 anchors.centerIn: parent
                                 font.pointSize: 48 * root.scaleFactor
@@ -639,7 +722,7 @@ Item {
                             Layout.fillWidth: true
                             display: AbstractButton.TextBesideIcon
 
-                            Text  {
+                            Text {
                                 id: answer3Txt
                                 anchors.centerIn: parent
                                 font.pointSize: 48 * root.scaleFactor
@@ -692,7 +775,7 @@ Item {
                             Layout.fillWidth: true
                             display: AbstractButton.TextBesideIcon
 
-                            Text  {
+                            Text {
                                 id: answer4Txt
                                 anchors.centerIn: parent
                                 font.pointSize: 48 * root.scaleFactor
@@ -725,6 +808,7 @@ Item {
 
                                 layer.enabled: true
                                 layer.effect: DropShadow {
+
                                     horizontalOffset: 12 * root.scaleFactor
                                     verticalOffset: 12 * root.scaleFactor
                                     radius: 36.0 * root.scaleFactor
