@@ -29,6 +29,7 @@ Item {
             Layout.preferredWidth: parent.width * 0.8 // Adjust width as needed, example uses 80% of parent width
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 20
+            onFocusChanged: gameOverTimer.restart()
         }
 
         Button {
@@ -57,5 +58,22 @@ Item {
           in the final product and i dont really know how else to position it correctly while
           keeping it in the same file as the rest of the feedback items */
         y: 534 * root.scaleFactor
+    }
+
+    // timer logic to use when including in gameoverbase
+    // close if this function returns true
+    property var lastText: "" // save the last text entered in the submit button to see if anything new has been typed
+    function timerEval() {
+        if (inputPanel.visible) {
+            if (feedbackInput.text == lastText)
+                // if input has not changed, put down the keyboard
+                submitButton.focus = true; // changing focus to another object deselects the textinput
+
+            lastText = feedbackInput.text
+            return false;
+        } else {
+            // if keyboard is not up then just close
+            return true;
+        }
     }
 }

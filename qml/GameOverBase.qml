@@ -11,12 +11,16 @@ ColumnLayout {
     visible: false
     anchors.centerIn: parent
 
-
-    /*Timer {
+    Timer {
         id: gameOverTimer
-        interval: 15000 // 15 seconds
-        onTriggered: root.quit()
-    }*/
+        interval: 30000 // 15 seconds
+        repeat: true
+        onTriggered: {
+            if (feedbackBase.timerEval()) {
+                root.quit()
+            }
+        }
+    }
 
     // run this function to show the game over screen and automatically send quit signal
     function gameOverOps() {
