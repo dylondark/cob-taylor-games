@@ -22,6 +22,7 @@
         <file>qml/GameOverBase.qml</file>
         <file>qml/HomeBarBase.qml</file>
         <file>qml/GuessTheLogoGame.qml</file>
+        <file>qml/Feedback.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
@@ -29,5 +30,6 @@
     <qresource prefix="/">
         <file>Logos-Buttons/TriviaBackgroundBase/FFF7E9.png</file>
         <file>qml/HomeBarBase.qml</file>
+        <file>qml/Feedback.qml</file>
     </qresource>
 </RCC>
