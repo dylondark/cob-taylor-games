@@ -66,7 +66,7 @@ Rectangle {
             color: "white"
             font.pointSize: 48 * root.scaleFactor
             font.family: "The Next Font"
-            text: ""
+            text: "0"
             horizontalAlignment: Label.AlignRight
             Layout.fillHeight: true
             Layout.fillWidth: true
