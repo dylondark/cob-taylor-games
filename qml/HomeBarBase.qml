@@ -50,7 +50,7 @@ Rectangle {
 
             id: userNameTxt
             color: "white"
-            text: "Test"
+            text: ""
             font.family: "The Next Font"
             font.pointSize: 48 * root.scaleFactor
             horizontalAlignment: Label.AlignHCenter
