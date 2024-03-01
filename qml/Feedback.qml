@@ -13,15 +13,17 @@ Item {
     }
 
     ColumnLayout {
+        anchors.fill: parent
+        anchors.bottomMargin: width * (2/3) // leave room for the keyboard
         Layout.alignment: Qt.AlignHCenter
-        spacing: 20
+        spacing: 0
 
         Text {
             id: feedbackText
             anchors.fill: parent
-            font.pointSize: 144 * root.scaleFacotr
+            font.pointSize: 60 * root.scaleFactor
             font.bold: true
-            text: "This game was made by 5 people trying to make it better than it is.\n Let us know what you think!"
+            text: "This project is still in heavy development.\nIf you have any feedback, please share it with us!"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVTop
@@ -30,20 +32,23 @@ Item {
         TextField {
             id: feedbackInput
             placeholderText: qsTr("Enter your feedback here...")
-            Layout.preferredHeight: 40 // Adjust based on your UI needs
+            Layout.preferredHeight: 80 * root.scaleFactor
             Layout.preferredWidth: parent.width * 0.8 // Adjust width as needed, example uses 80% of parent width
             Layout.alignment: Qt.AlignHCenter
-            Layout.margins: 20
+            Layout.margins: 40 * root.scaleFactor
+            font.pointSize: 40 * root.scaleFactor
             onFocusChanged: gameOverTimer.restart()
         }
 
         Button {
             id: submitButton
             text: qsTr("Submit")
-            Layout.preferredHeight: 40 // Adjust based on your UI needs
+            font.pointSize: 40 * root.scaleFactor
+            font.bold: true
+            Layout.preferredHeight: 80 * root.scaleFactor
             Layout.preferredWidth: parent.width * 0.3 // Adjust width as needed, example uses 30% of parent width
             Layout.alignment: Qt.AlignHCenter
-            Layout.margins: 20
+            Layout.margins: 40 * root.scaleFactor
             onClicked: {
                 fbcontroller.submit(root.strName, feedbackInput.text, root.username);
                 root.quit();
