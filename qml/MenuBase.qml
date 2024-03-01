@@ -149,10 +149,15 @@ Item {
                 }
 
                 onClicked: {
-                    if (playerName.text.length === 0) {
+                    // profanity check will likely be here
+                    if (playerName.text.trim().length === 0) {
                         playerName.triggerErrorAnimation(
                                     ) // Trigger the animation if the TextField is empty
                     } else {
+                        // save username
+                        root.username = playerName.text.trim()
+                        homeBarBase.updateUsername()
+
                         // Proceed with the game logic
                         base.visible = false
                         gameBase.visible = true

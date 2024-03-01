@@ -14,6 +14,10 @@ Rectangle {
         pointCounter.text = root.points
     }
 
+    function updateUsername() {
+        userNameTxt.text = root.username
+    }
+
     RowLayout {
         spacing: 140
         anchors.fill: parent
