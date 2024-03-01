@@ -6,6 +6,7 @@
         <file>Logos-Buttons/guessthelogo.png</file>
         <file>Logos-Buttons/ComingSoon2.png</file>
         <file>Logos-Buttons/GuessTheLogoNEW.png</file>
+        <file>Logos-Buttons/title_splash.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>projecticons/controller1.png</file>
