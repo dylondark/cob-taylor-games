@@ -46,8 +46,8 @@ public:
 
 private:
     string filepath = ".";
-    const string questionPath = "/gamefiles/trivia/triviaquestions.csv";
-    const string imgPath = "/gamefiles/trivia/images/";
+    const string QUESTION_PATH = "/gamefiles/gtl/GTL.csv";
+    const string IMG_PATHS[2];
     vector<GTLQuestion> questionVec; // vector containing the question structs, to be populated by loadQuestions
     vector<int> questionNums;
     GTLQuestion currentQuestion;

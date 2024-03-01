@@ -6,7 +6,7 @@
 #include "rapidcsv.h"
 #include <QApplication>
 
-GuessTheLogoController::GuessTheLogoController()
+GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/logos/edited_images/", "/gamefiles/gtl/Timeline/"}
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
     {
@@ -18,7 +18,8 @@ GuessTheLogoController::GuessTheLogoController()
     // all strings must be enclosed in quotation marks
     GTLQuestion current;
     std::string strTemp;
-    rapidcsv::Document file(filepath + questionPath);
+    int questionType;
+    rapidcsv::Document file(filepath + QUESTION_PATH);
     for (unsigned x = 0; x < file.GetRowCount(); x++)
     {
         strTemp = file.GetCell<string>(0, x);
@@ -38,8 +39,9 @@ GuessTheLogoController::GuessTheLogoController()
         strTemp = file.GetCell<string>(5, x);
         current.m_ans4 = QString(strTemp.c_str());
 
+        questionType = file.GetCell<int>(7,x);
         strTemp = file.GetCell<string>(6, x);
-        current.m_img = QString(("file:")).append(filepath + imgPath).append(strTemp.c_str());
+        current.m_img = QString(("file:")).append(filepath + IMG_PATHS[questionType - 1]).append(strTemp.c_str());
 
         questionVec.push_back(current);
     }
@@ -57,7 +59,7 @@ GuessTheLogoController::GuessTheLogoController()
 
 void GuessTheLogoController::randQuestion()
 {
-    static int index = 0;
+    static unsigned int index = 0;
     if (index >= questionNums.size())
         index = 0; // exceeding the amount of questions in questionVec will just loop back to the beginning. in the final game this should probably end the game or at least randomize the questions again
     currentQuestion = questionVec[questionNums[index++]];
