@@ -15,7 +15,8 @@ Item {
 
     property real scaleFactor: height / 3840
     property int points: 0
-
+    property string strName: "GuessTheLogo"
+    property string username: "unset"
 
     GuessTheLogoController {
         id: controller
