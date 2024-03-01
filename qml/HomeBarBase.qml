@@ -35,7 +35,7 @@ Rectangle {
             Layout.preferredWidth: 1
 
             Text {
-                text: "< Back"
+                text: "< HOME"
                 color: "white"
                 font.pointSize: 48 * root.scaleFactor
                 font.family: "The Next Font"
