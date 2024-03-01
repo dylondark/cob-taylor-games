@@ -13,8 +13,8 @@ Item {
     property var imageSource
 
     InputPanel {
-        id:inputPanel
-        z:99
+        id: inputPanel
+        z: 99
         anchors.bottom: parent.bottom
         visible: Qt.inputMethod.visible //only show when input method is active
         width: parent.width
@@ -69,9 +69,8 @@ Item {
                 anchors.leftMargin: 600 * root.scaleFactor
                 anchors.rightMargin: 600 * root.scaleFactor
 
-
                 Text {
-                    id:nameText
+                    id: nameText
                     text: 'NAME:'
                     font.family: "1UP!" //Text font
                     font.bold: true
@@ -92,14 +91,34 @@ Item {
                     font.pointSize: nameText.font.pointSize
                     Layout.preferredWidth: -1
                     onTextChanged: {
-                        playerName.text = playerName.text.toUpperCase() //Actually make all characters uppercase
+                        playerName.text = playerName.text.toUpperCase(
+                                    ) //Actually make all characters uppercase
+                    }
+
+                    background: Rectangle {
+                        color: "white" // Default background color
+                        radius: 4
+                    }
+
+                    // Define the color animation for the TextField
+                    ColorAnimation {
+                        id: backgroundAnimation
+                        running: false // Not running initially
+                        target: playerName.background
+                        property: "color"
+                        from: "red"
+                        to: "white"
+                        duration: 500 // 0.5 seconds duration
+                    }
+
+                    // Function to trigger the background color animation
+                    function triggerErrorAnimation() {
+                        backgroundAnimation.from = "red" // Ensure it starts from red
+                        backgroundAnimation.start() // Start the animation
                     }
                 }
-
             }
-
         }
-
 
         Rectangle {
             id: playRect
@@ -130,9 +149,15 @@ Item {
                 }
 
                 onClicked: {
-                    base.visible = false;
-                    gameBase.visible = true;
-                    gameBase.newQuestion();
+                    if (playerName.text.length === 0) {
+                        playerName.triggerErrorAnimation(
+                                    ) // Trigger the animation if the TextField is empty
+                    } else {
+                        // Proceed with the game logic
+                        base.visible = false
+                        gameBase.visible = true
+                        gameBase.newQuestion()
+                    }
                 }
             }
         }
