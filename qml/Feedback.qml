@@ -4,8 +4,13 @@ import QtQuick.Layouts
 import QtQml
 import Qt5Compat.GraphicalEffects
 import QtQuick.VirtualKeyboard 2.15
+import QMLControllers
 
 Item {
+
+    FeedbackController {
+        id: fbcontroller
+    }
 
     ColumnLayout {
         Layout.alignment: Qt.AlignHCenter
@@ -40,8 +45,8 @@ Item {
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 20
             onClicked: {
-                // Add your logic here for what happens when the button is clicked, e.g., send feedback to a server
-                console.log("Feedback submitted:", feedbackInput.text)
+                fbcontroller.submit(root.strName, feedbackInput.text, root.username);
+                root.quit();
             }
         }
     }

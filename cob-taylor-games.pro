@@ -21,6 +21,7 @@ HEADERS += \
     bgwidget.h \
     imgqueue.h \
     debuglabel.h \
+    feedbackcontroller.h \
     utilities.h \
     leaderboardtools.h \
     mainwindow.h \
@@ -39,6 +40,7 @@ SOURCES += \
     leaderboardhandler.cpp \
     clickdetector.cpp \
     guessthelogocontroller.cpp \
+    feedbackcontroller.cpp \
     triviacontroller.cpp
 
 RESOURCES += \
