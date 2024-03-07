@@ -148,7 +148,7 @@ Item {
                     border.width: 12 * root.scaleFactor
                 }
 
-                onClicked: {
+                onPressed: {
                     if (playerName.text.trim().length === 0 || profanitychecker.check(playerName.text.trim())  === false) {
                         playerName.triggerErrorAnimation() // Trigger the animation if the TextField is empty
                     } else {

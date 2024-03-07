@@ -14,7 +14,7 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.bottomMargin: width * (2/3) // leave room for the keyboard
+        anchors.bottomMargin: width * (2 / 3) // leave room for the keyboard
         Layout.alignment: Qt.AlignHCenter
         spacing: 0
 
@@ -33,7 +33,8 @@ Item {
             id: feedbackInput
             placeholderText: qsTr("Enter your feedback here...")
             Layout.preferredHeight: 80 * root.scaleFactor
-            Layout.preferredWidth: parent.width * 0.8 // Adjust width as needed, example uses 80% of parent width
+            Layout.preferredWidth: parent.width
+                                   * 0.8 // Adjust width as needed, example uses 80% of parent width
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 40 * root.scaleFactor
             font.pointSize: 40 * root.scaleFactor
@@ -46,12 +47,14 @@ Item {
             font.pointSize: 40 * root.scaleFactor
             font.bold: true
             Layout.preferredHeight: 80 * root.scaleFactor
-            Layout.preferredWidth: parent.width * 0.3 // Adjust width as needed, example uses 30% of parent width
+            Layout.preferredWidth: parent.width
+                                   * 0.3 // Adjust width as needed, example uses 30% of parent width
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 40 * root.scaleFactor
-            onClicked: {
-                fbcontroller.submit(root.strName, feedbackInput.text, root.username);
-                root.quit();
+            onPressed: {
+                fbcontroller.submit(root.strName, feedbackInput.text,
+                                    root.username)
+                root.quit()
             }
         }
     }
@@ -63,6 +66,7 @@ Item {
         visible: Qt.inputMethod.visible //only show when input method is active
         width: parent.width
         externalLanguageSwitchEnabled: true
+
 
         /* this is not how positioning should be done ideally, but this feedback item wont be
           in the final product and i dont really know how else to position it correctly while
@@ -77,13 +81,14 @@ Item {
         if (inputPanel.visible) {
             if (feedbackInput.text == lastText)
                 // if input has not changed, put down the keyboard
-                submitButton.focus = true; // changing focus to another object deselects the textinput
+                submitButton.focus
+                        = true // changing focus to another object deselects the textinput
 
             lastText = feedbackInput.text
-            return false;
+            return false
         } else {
             // if keyboard is not up then just close
-            return true;
+            return true
         }
     }
 }

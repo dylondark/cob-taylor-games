@@ -644,7 +644,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.endQuestion(1)
+                            onPressed: gameBase.endQuestion(1)
 
                             background: Rectangle {
                                 id: answer1Bg
@@ -697,7 +697,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.endQuestion(2)
+                            onPressed: gameBase.endQuestion(2)
 
                             background: Rectangle {
                                 id: answer2Bg
@@ -750,7 +750,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.endQuestion(3)
+                            onPressed: gameBase.endQuestion(3)
 
                             background: Rectangle {
                                 id: answer3Bg
@@ -803,7 +803,7 @@ Item {
                                 }
                             }
 
-                            onClicked: gameBase.endQuestion(4)
+                            onPressed: gameBase.endQuestion(4)
 
                             background: Rectangle {
                                 id: answer4Bg

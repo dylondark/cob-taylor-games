@@ -28,7 +28,7 @@ Rectangle {
 
             id: backButton
             highlighted: false
-            onClicked: root.quit()
+            onPressed: root.quit()
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.preferredHeight: 1
