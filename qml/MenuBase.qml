@@ -148,7 +148,7 @@ Item {
                     border.width: 12 * root.scaleFactor
                 }
 
-                onClicked: {
+                onPressed: {
                     // profanity check will likely be here
                     if (playerName.text.trim().length === 0) {
                         playerName.triggerErrorAnimation(

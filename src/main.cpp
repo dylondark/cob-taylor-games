@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     }
     std::cout << "using screen: " << screen << "\n";
     //w.setWindowFlag(Qt::FramelessWindowHint); // set window to be borderless
-    w.move(screens[screen]->availableGeometry().center()); // set screen
+    w.move(screens[1]->availableGeometry().center()); // set screen
     w.showFullScreen();
 
     return a.exec();
