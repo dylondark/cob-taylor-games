@@ -12,7 +12,7 @@ Item {
     height: 3840
 
     signal quit
-    signal saveScore
+    signal saveScore(int game, string username, int score)
 
     // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
     property real scaleFactor: height / 3840

@@ -13,7 +13,7 @@ Item {
 
     signal quit
     // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
-    signal saveScore
+    signal saveScore(int game, string username, int score)
 
     property real scaleFactor: height / 3840
     property int points: 0

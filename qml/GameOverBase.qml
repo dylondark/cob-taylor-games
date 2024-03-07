@@ -26,7 +26,7 @@ ColumnLayout {
     function gameOverOps() {
         base.visible = true
         gameOverTimer.start()
-        root.saveScore()
+        root.saveScore(root.gameEnum, root.username, root.points)
     }
 
     Item {
