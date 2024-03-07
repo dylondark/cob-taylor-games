@@ -12,12 +12,14 @@ Item {
     height: 3840
 
     signal quit
+    signal saveScore
 
     // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
     property real scaleFactor: height / 3840
     property int points: 0
     property string strName: "Trivia"
     property string username: "unset"
+    property int gameEnum: 0 //Utilities number.
 
     TriviaController {
         id: controller

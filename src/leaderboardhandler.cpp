@@ -165,3 +165,5 @@ QIcon LeaderboardHandler::genNumIcon(int num)
     painter.end();
     return QIcon(pix);
 }
+
+

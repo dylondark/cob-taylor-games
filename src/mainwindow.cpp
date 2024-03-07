@@ -380,10 +380,20 @@ void MainWindow::closeKeyDetected()
     this->close();
 }
 
+//It's here to be used in showGame.
+//Add the score, write it to lb, and refresh it.
+void MainWindow::enterScore(game game, std::string userName, int score)
+{
+    lbHandler->addScore(game, userName, score);
+    lbHandler->writeScores(game);
+    lbHandler->refreshlb(game);
+}
+
 void MainWindow::showGame(game game)
 {
     gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
     connect((QObject*)gameWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
+    connect((QObject*)gameWidget->rootObject(), SIGNAL(saveScore()), this, SLOT(enterScore()));
     gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     ui->canvas->layout()->addWidget(gameWidget);
 

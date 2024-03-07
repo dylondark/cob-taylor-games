@@ -47,7 +47,7 @@ private slots:
     void closeKeyDetected();
     void on_btnGame1_clicked();
     void exitGame();
-
+    void enterScore(game, std::string, int);//Game number specification, name string, score int.
     void on_btnGame2_clicked();
 
 private:
