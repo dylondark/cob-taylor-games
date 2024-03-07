@@ -22,6 +22,7 @@ HEADERS += \
     imgqueue.h \
     debuglabel.h \
     feedbackcontroller.h \
+    profanitychecker.h \
     utilities.h \
     leaderboardtools.h \
     mainwindow.h \
@@ -41,6 +42,7 @@ SOURCES += \
     clickdetector.cpp \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
+    profanitychecker.cpp \
     triviacontroller.cpp
 
 RESOURCES += \

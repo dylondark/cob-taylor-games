@@ -149,10 +149,8 @@ Item {
                 }
 
                 onClicked: {
-                    // profanity check will likely be here
-                    if (playerName.text.trim().length === 0) {
-                        playerName.triggerErrorAnimation(
-                                    ) // Trigger the animation if the TextField is empty
+                    if (playerName.text.trim().length === 0 || profanitychecker.check(playerName.text.trim())  === false) {
+                        playerName.triggerErrorAnimation() // Trigger the animation if the TextField is empty
                     } else {
                         // save username
                         root.username = playerName.text.trim()
@@ -166,5 +164,9 @@ Item {
                 }
             }
         }
+    }
+
+    ProfanityChecker {
+        id: profanitychecker
     }
 }

@@ -7,6 +7,7 @@
 #include "feedbackcontroller.h"
 #include "guessthelogocontroller.h"
 #include "leaderboardtools.h"
+#include "profanitychecker.h"
 #include <QScrollBar>
 #include <QShortcut>
 #include <QKeySequence>
@@ -128,6 +129,7 @@ void MainWindow::initQML()
     qmlRegisterType<TriviaController>("QMLControllers", 1, 0, "TriviaController");
     qmlRegisterType<GuessTheLogoController>("QMLControllers", 1, 0, "GuessTheLogoController");
     qmlRegisterType<FeedbackController>("QMLControllers", 1, 0, "FeedbackController");
+    qmlRegisterType<ProfanityChecker>("QMLControllers", 1, 0, "ProfanityChecker");
     // all qml controllers will eventually be registered here
 }
 
