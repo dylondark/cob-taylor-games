@@ -116,6 +116,26 @@ Item {
                         backgroundAnimation.from = "red" // Ensure it starts from red
                         backgroundAnimation.start() // Start the animation
                     }
+                    EnterKeyAction.label: "Play"
+                    Keys.onReleased: {
+                        if (event.key === Qt.Key_Return) {
+                            if (playerName.text.trim().length === 0
+                                    || profanitychecker.check(
+                                        playerName.text.trim()) === false) {
+                                playerName.triggerErrorAnimation(
+                                            ) // Trigger the animation if the TextField is empty
+                            } else {
+                                // save username
+                                root.username = playerName.text.trim()
+                                homeBarBase.updateUsername()
+
+                                // Proceed with the game logic
+                                base.visible = false
+                                gameBase.visible = true
+                                gameBase.newQuestion()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -149,8 +169,11 @@ Item {
                 }
 
                 onPressed: {
-                    if (playerName.text.trim().length === 0 || profanitychecker.check(playerName.text.trim())  === false) {
-                        playerName.triggerErrorAnimation() // Trigger the animation if the TextField is empty
+                    if (playerName.text.trim().length === 0
+                            || profanitychecker.check(playerName.text.trim(
+                                                          )) === false) {
+                        playerName.triggerErrorAnimation(
+                                    ) // Trigger the animation if the TextField is empty
                     } else {
                         // save username
                         root.username = playerName.text.trim()
