@@ -12,6 +12,18 @@ Item {
         id: fbcontroller
     }
 
+    // Background MouseArea, used so that you can drop the keyboard and
+    //bring it back up when selecting textField.
+    MouseArea {
+        anchors.fill: parent
+        onPressed: {
+            // Remove focus from any focused item
+            feedbackInput.focus = false
+        }
+        //Ensure it doesn't swallow clicks but still allows feedbackInput to be clickable
+        //propagateComposedEvents: true
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.bottomMargin: width * (2 / 3) // leave room for the keyboard
@@ -38,7 +50,24 @@ Item {
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 40 * root.scaleFactor
             font.pointSize: 40 * root.scaleFactor
+            onPressed: focus = true
             onFocusChanged: gameOverTimer.restart()
+            MouseArea {
+                anchors.fill: parent
+                onPressed: {
+                    feedbackInput.forceActiveFocus()
+                }
+            }
+            EnterKeyAction.enabled: feedbackInput.text.length > 0
+                                    || feedbackInput.inputMethodComposing
+            EnterKeyAction.label: "Submit"
+            Keys.onReleased: {
+                if (event.key === Qt.Key_Return) {
+                    fbcontroller.submit(root.strName, feedbackInput.text,
+                                        root.username)
+                    root.quit()
+                }
+            }
         }
 
         Button {
@@ -51,10 +80,13 @@ Item {
                                    * 0.3 // Adjust width as needed, example uses 30% of parent width
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 40 * root.scaleFactor
-            onPressed: {
-                fbcontroller.submit(root.strName, feedbackInput.text,
-                                    root.username)
-                root.quit()
+            MouseArea {
+                anchors.fill: parent
+                onPressed: {
+                    fbcontroller.submit(root.strName, feedbackInput.text,
+                                        root.username)
+                    root.quit()
+                }
             }
         }
     }
