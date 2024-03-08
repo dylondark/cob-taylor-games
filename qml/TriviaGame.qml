@@ -281,7 +281,8 @@ Item {
                         if (controller.getQuestion().correct == button) {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
-                            root.points += questionCountdown.pointsRemaining // add points to total
+                            root.points += questionCountdown.pointsRemaining
+                                    + 500 // add points to total + 500 base pts for correctness
                             homeBarBase.updatePoints()
                         } else if (button == 5) {
                             // ran out of time
