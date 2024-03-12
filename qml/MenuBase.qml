@@ -94,6 +94,7 @@ Item {
                         playerName.text = playerName.text.toUpperCase(
                                     ) //Actually make all characters uppercase
                     }
+                    onPressed: { focus = true; inputPanel.visible = true; }
 
                     background: Rectangle {
                         color: "white" // Default background color

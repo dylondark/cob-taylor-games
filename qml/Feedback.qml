@@ -50,7 +50,7 @@ Item {
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 40 * root.scaleFactor
             font.pointSize: 40 * root.scaleFactor
-            onPressed: focus = true
+            onPressed: { focus = true; inputPanel.visible = true; }
             onFocusChanged: gameOverTimer.restart()
             MouseArea {
                 anchors.fill: parent
@@ -58,6 +58,7 @@ Item {
                     feedbackInput.forceActiveFocus()
                 }
             }
+
             EnterKeyAction.enabled: feedbackInput.text.length > 0
                                     || feedbackInput.inputMethodComposing
             EnterKeyAction.label: "Submit"
