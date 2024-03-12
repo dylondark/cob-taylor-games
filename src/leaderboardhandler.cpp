@@ -1,4 +1,5 @@
 #include "leaderboardhandler.h"
+#include <QApplication>
 #include <QPainter>
 #include <fstream>
 #include <iostream>
@@ -7,6 +8,10 @@
 
 LeaderboardHandler:: LeaderboardHandler(QStackedWidget* lbObj)
 {
+    if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
+    {
+        filepath = QApplication::arguments().at(2).toStdString() + "/leaderboard/";
+    }
     this->lbObj = lbObj;
 }
 
@@ -28,7 +33,7 @@ void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int
 
 void LeaderboardHandler::loadScores(game selectedGame)
 {
-    std::ifstream file(FILEPATH + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
+    std::ifstream file(filepath + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
 
     if (!file.is_open()) {
         std::cerr << "Error opening file: " << FILENAMES[selectedGame] << std::endl <<
@@ -63,7 +68,7 @@ void LeaderboardHandler::loadScores() {
 
 void LeaderboardHandler:: writeScores(game selectedGame)
 {
-    std::ofstream outFile(FILEPATH + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
+    std::ofstream outFile(filepath + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
 
     if (!outFile.is_open()) {
         std::cerr << "Error opening file for writing: " << FILENAMES[selectedGame] << std::endl;
@@ -160,3 +165,5 @@ QIcon LeaderboardHandler::genNumIcon(int num)
     painter.end();
     return QIcon(pix);
 }
+
+

@@ -6,6 +6,7 @@
         <file>Logos-Buttons/guessthelogo.png</file>
         <file>Logos-Buttons/ComingSoon2.png</file>
         <file>Logos-Buttons/GuessTheLogoNEW.png</file>
+        <file>Logos-Buttons/title_splash.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>projecticons/controller1.png</file>
@@ -15,5 +16,21 @@
         <file>projecticons/roo1.png</file>
         <file>projecticons/zippy2.png</file>
         <file>projecticons/seal1.png</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file>qml/TriviaGame.qml</file>
+        <file>qml/MenuBase.qml</file>
+        <file>qml/GameOverBase.qml</file>
+        <file>qml/HomeBarBase.qml</file>
+        <file>qml/GuessTheLogoGame.qml</file>
+        <file>qml/Feedback.qml</file>
+    </qresource>
+    <qresource prefix="/game">
+        <file>gameassets/trivia/testimage.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>Logos-Buttons/TriviaBackgroundBase/FFF7E9.png</file>
+        <file>qml/HomeBarBase.qml</file>
+        <file>qml/Feedback.qml</file>
     </qresource>
 </RCC>

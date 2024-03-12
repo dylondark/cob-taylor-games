@@ -8,6 +8,15 @@
 #include <vector>
 #include "imgqueue.h"
 
+
+/* bgWidget class
+ *
+ * This is a custom implementation of the QOpenGLWidget. QOpenGLWidget is a generic widget (so, doesn't come with any specialized features like a label, button etc would)
+ * that provides GPU acceleration through openGL for everything drawn on it. This is naturally useful for drawing a fancy scrolling background animation on, because
+ * it offloads some of that animation work from the CPU to the GPU, making it more efficient. This custom widget specifically includes the code to draw said background
+ * animation onto itself. It just needs to be added to the window and a QTimer object needs to be connected to the animate() slot in order to run the animation. This is done
+ * in mainwindow class (see initbg() in mainwindow.cpp).
+ */
 class bgWidget : public QOpenGLWidget
 {
 

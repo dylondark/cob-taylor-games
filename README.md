@@ -23,6 +23,11 @@ Qt runs on Windows, Mac, and Linux. Therefore you can use any for development (a
 ### Project Dependencies
 -  Make sure to install all fonts in "projectfonts" folder
 
+## File Setup
+The games require the proper files and file structure present or else they will not work correctly (if at all). All game files are expected to be in a folder called "gamefiles" in the same folder as the project executable. In this directory, the files for each game are in their own subdirectory, named after their respective game (for example: "trivia"). By default, when building from Qt Creator, the project executable will be located in a folder called something like "build-cob-taylor-games-Desktop-Debug", located in the same directory as the project folder "cob-taylor-games" (so, one directory up from inside the project folder). Below is a screenshot of the directory structure.
+
+![image](https://github.com/dylondark/cob-taylor-games/assets/126813495/0976d1f1-2916-480b-a6cc-77b194afa821)
+
 ## Deployment
 ### Target System Information
 This program is meant to run on a PC box connected to one of the touchscreens in the Taylor institute. The touchscreen resolution is **2160x3840 (portrait 4K)** and the box is running **Debian Linux 12**. Note that this is just the environment that the program is intended to run in, but it can run with other resolutions/operating systems for development. 

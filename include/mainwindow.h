@@ -2,16 +2,29 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QQuickWidget>
 #include "bgwidget.h"
 #include <QPushButton>
 #include <QFont>
 #include "clickdetector.h"
 #include "leaderboardhandler.h"
+#include "utilities.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+using Utilities::game;
+
+/* MainWindow class
+ *
+ * This is the class for the actual Qt window that the program is displayed in. This class is sort of the "central hub" of the program and is the most important.
+ * This class is how you generally deal with the ui (outside of QML which is separate and only for the games) since this class owns the the ui object of which all
+ * widgets in the window are a child of. However, some objects like the LeaderboardHandler object lbHandler have pointers to widgets that they are designated control
+ * over, and those objects can do ui operations on those specific widgets as well (lbHandler owns a pointer to the stack widget which is a parent of all the leaderboard
+ * pages, so that it can refresh the leaderboard pages with its own internal data). Primarily, operations for the main menu are carried out here, like creating the QML
+ * widgets for the games and displaying them over the screen, and destroying those widgets to return to the main menu.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -32,13 +45,19 @@ private slots:
     void titleClicked();
     void titleClickTimeout();
     void closeKeyDetected();
+    void on_btnGame1_clicked();
+    void exitGame();
+    void enterScore(int, QString, int);//Game number specification, name string, score int.
+    void on_btnGame2_clicked();
 
 private:
     Ui::MainWindow *ui;
+    QQuickWidget* gameWidget;
     void resizeEvent(QResizeEvent*);
     void initbg();
     void initDebug();
     void initLeaderboard();
+    void initQML();
     void scaleLeaderboard(int);
     void scaleMenu(int);
     void setBtnIcon(QPushButton*, std::string);
@@ -49,9 +68,12 @@ private:
     LeaderboardHandler* lbHandler;
     const int targetW = 2160, targetH = 3840; // target res for the application, 2160x3840
     const int lbSwitchInterval = 5; // seconds, to be used for lbSwitchTimer interval
+    const int FPS = 60; // how many times to update the background per second
     QTimer* lbSwitchTimer;
     QTimer* titleClickTimer;
+    QTimer* bgUpdateTimer;
     int titleClicks = 0;
     ClickDetector* lbDetector;
+    void showGame(Utilities::game);
 };
 #endif // MAINWINDOW_H

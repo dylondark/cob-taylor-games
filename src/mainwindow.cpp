@@ -4,10 +4,16 @@
 #include <QTimer>
 #include <QIcon>
 #include <QListWidget>
+#include "feedbackcontroller.h"
+#include "guessthelogocontroller.h"
 #include "leaderboardtools.h"
+#include "profanitychecker.h"
 #include <QScrollBar>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QStackedLayout>
+#include <QQmlContext>
+#include <triviacontroller.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     initbg();
     initLeaderboard();
     initDebug();
+    initQML();
 
     // install close shortcut ctrl+q
     QShortcut* closeShortcut = new QShortcut(QKeySequence("ctrl+q"), this);
@@ -105,13 +112,25 @@ void MainWindow::initbg()
     // send background to back
     ui->background->lower();
 
+    ui->canvas->setLayout(new QStackedLayout());
+
     // create timer that will update the background object
-    QTimer *bgUpdate = new QTimer(this);
-    bgUpdate->setTimerType(Qt::PreciseTimer); // precise timer could potentially improve frametimes
-    connect(bgUpdate, &QTimer::timeout, ui->background, &bgWidget::animate);
-    const int FPS = 60; // how many times to update the background per second
-    bgUpdate->start(1000 / FPS); // this takes milliseconds per frame
+    bgUpdateTimer = new QTimer(this);
+    bgUpdateTimer->setTimerType(Qt::PreciseTimer); // precise timer could potentially improve frametimes
+    connect(bgUpdateTimer, &QTimer::timeout, ui->background, &bgWidget::animate);
+    bgUpdateTimer->start(1000 / FPS); // this takes milliseconds per frame
     ui->background->setFrameInterval(1000 / FPS); // its important that this is set with the same value as the timer. see paintEvent() in bgwidget.cpp for explanation
+}
+
+void MainWindow::initQML()
+{
+    // all qml controller classes must be "registered" as qml types so they can be instantiated and accessed in the qml files.
+    // use "import QMLControllers"
+    qmlRegisterType<TriviaController>("QMLControllers", 1, 0, "TriviaController");
+    qmlRegisterType<GuessTheLogoController>("QMLControllers", 1, 0, "GuessTheLogoController");
+    qmlRegisterType<FeedbackController>("QMLControllers", 1, 0, "FeedbackController");
+    qmlRegisterType<ProfanityChecker>("QMLControllers", 1, 0, "ProfanityChecker");
+    // all qml controllers will eventually be registered here
 }
 
 MainWindow::~MainWindow()
@@ -145,7 +164,7 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
 
     // scale and reapply title image
-    ui->lblTitle->setPixmap(QPixmap(":/menu/Logos-Buttons/title.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->lblTitle->setPixmap(QPixmap(":/menu/Logos-Buttons/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     // apply button images
     setBtnIcon(ui->btnGame1, ":/menu/Logos-Buttons/trivia.png");
@@ -362,3 +381,49 @@ void MainWindow::closeKeyDetected()
 {
     this->close();
 }
+
+//It's here to be used in showGame.
+//Add the score, write it to lb, and refresh it.
+void MainWindow::enterScore(int game, QString userName, int score)
+{
+    Utilities::game gameEnum = static_cast<Utilities::game>(game);
+    lbHandler->addScore(gameEnum, userName.toStdString(), score);
+    lbHandler->writeScores(gameEnum);
+    lbHandler->refreshlb(gameEnum);
+}
+
+void MainWindow::showGame(game game)
+{
+    gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+    connect((QObject*)gameWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
+    connect((QObject*)gameWidget->rootObject(), SIGNAL(saveScore(int, QString, int)), this, SLOT(enterScore(int, QString, int)));
+    gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    ui->canvas->layout()->addWidget(gameWidget);
+
+    // stop menu timers, for performance
+    titleClickTimer->stop();
+    bgUpdateTimer->stop();
+}
+
+// intercepts root.quit() signal in QML and deletes the game object. must be connected in showGame()
+void MainWindow::exitGame()
+{
+    ui->canvas->layout()->removeWidget(gameWidget);
+    gameWidget->close();
+    gameWidget->deleteLater();
+
+    titleClickTimer->start();
+    bgUpdateTimer->start();
+}
+
+void MainWindow::on_btnGame1_clicked()
+{
+    showGame(game::Trivia);
+}
+
+
+void MainWindow::on_btnGame2_clicked()
+{
+    showGame(game::GuessTheLogo);
+}
+
