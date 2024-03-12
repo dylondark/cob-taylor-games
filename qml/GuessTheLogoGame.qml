@@ -20,7 +20,6 @@ Item {
     property string strName: "GuessTheLogo"
     property string username: "unset"
     property int gameEnum: 1 //Utilities number.
-    property int questionsCorrect: 0
 
     GuessTheLogoController {
         id: controller
@@ -181,6 +180,7 @@ Item {
                 property int maxQuestions: 15
                 property int questionNum: 0
                 property int pointBonus: 500
+                property int questionsCorrect: 0
 
                 Timer {
                     id: questionCountdown
@@ -192,8 +192,8 @@ Item {
                     property int pointsRemaining: questionSeconds * 100 + gameBase.pointBonus
 
                     function beginCountdown() {
-                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds
-                                * 100 + gameBase.pointBonus // reset pointsRemaining
+                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100
+                                + gameBase.pointBonus // reset pointsRemaining
                         pointsRemainingTxt.text = timerBase.pointsPrefix
                                 + questionCountdown.pointsRemaining
                         timeRemainingTxt.text = timerBase.timePrefix
