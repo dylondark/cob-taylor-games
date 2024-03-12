@@ -45,10 +45,10 @@ private slots:
     void titleClicked();
     void titleClickTimeout();
     void closeKeyDetected();
-    void on_btnGame1_clicked();
+    void on_btnGame1_pressed();
+    void on_btnGame2_pressed();
     void exitGame();
     void enterScore(int, QString, int);//Game number specification, name string, score int.
-    void on_btnGame2_clicked();
 
 private:
     Ui::MainWindow *ui;

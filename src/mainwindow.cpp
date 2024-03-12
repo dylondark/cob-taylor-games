@@ -416,13 +416,13 @@ void MainWindow::exitGame()
     bgUpdateTimer->start();
 }
 
-void MainWindow::on_btnGame1_clicked()
+void MainWindow::on_btnGame1_pressed()
 {
     showGame(game::Trivia);
 }
 
 
-void MainWindow::on_btnGame2_clicked()
+void MainWindow::on_btnGame2_pressed()
 {
     showGame(game::GuessTheLogo);
 }
