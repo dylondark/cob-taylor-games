@@ -69,7 +69,8 @@ ColumnLayout {
             anchors.fill: parent
             font.pointSize: 72 * root.scaleFactor
             font.bold: true
-            text: "Your score: " + root.points
+            text: "Your score: " + root.points + "\n" + gameBase.questionsCorrect
+                  + "/" + gameBase.maxQuestions + " questions correct!"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

@@ -20,6 +20,7 @@ Item {
     property string strName: "GuessTheLogo"
     property string username: "unset"
     property int gameEnum: 1 //Utilities number.
+    property int questionsCorrect: 0
 
     GuessTheLogoController {
         id: controller
@@ -284,6 +285,7 @@ Item {
                             questionLabel.text = qsTr("Correct!")
                             root.points += questionCountdown.pointsRemaining
                             homeBarBase.updatePoints()
+                            questionsCorrect++
                         } else if (button == 5) {
                             // ran out of time
                             questionLabel.text = "Time's Up!"

@@ -180,6 +180,7 @@ Item {
                 property int maxQuestions: 15
                 property int questionNum: 0
                 property int pointBonus: 500
+                property int questionsCorrect: 0
 
                 Timer {
                     id: questionCountdown
@@ -284,6 +285,8 @@ Item {
                             questionLabel.text = qsTr("Correct!")
                             root.points += questionCountdown.pointsRemaining
                             homeBarBase.updatePoints()
+                            questionsCorrect++
+
                         } else if (button == 5) {
                             // ran out of time
                             questionLabel.text = "Time's Up!"
