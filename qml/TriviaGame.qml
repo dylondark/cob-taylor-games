@@ -208,7 +208,7 @@ Item {
                                 + questionCountdown.pointsRemaining // update the score shown to the user
 
                         timeRemainingTxt.text = timerBase.timePrefix
-                                + (Math.ceil(pointsRemaining / 100)).toString(
+                                + (Math.ceil((pointsRemaining - gameBase.pointBonus) / 100)).toString(
                                     ).padStart(2, '0')
 
                         if (questionCountdown.pointsRemaining <= gameBase.pointBonus) {
