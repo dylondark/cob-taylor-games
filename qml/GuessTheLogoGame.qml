@@ -179,6 +179,7 @@ Item {
                 property var buttons: [answer1Bg, answer2Bg, answer3Bg, answer4Bg]
                 property int maxQuestions: 15
                 property int questionNum: 0
+                property int pointBonus: 500
 
                 Timer {
                     id: questionCountdown
@@ -187,11 +188,11 @@ Item {
                     triggeredOnStart: false
 
                     property int questionSeconds: 15 // change this when adjusting question time
-                    property int pointsRemaining: questionSeconds * 100
+                    property int pointsRemaining: questionSeconds * 100 + gameBase.pointBonus
 
                     function beginCountdown() {
                         questionCountdown.pointsRemaining = questionCountdown.questionSeconds
-                                * 100 // reset pointsRemaining
+                                * 100 + gameBase.pointBonus // reset pointsRemaining
                         pointsRemainingTxt.text = timerBase.pointsPrefix
                                 + questionCountdown.pointsRemaining
                         timeRemainingTxt.text = timerBase.timePrefix
@@ -209,7 +210,7 @@ Item {
                                 + (Math.ceil(pointsRemaining / 100)).toString(
                                     ).padStart(2, '0')
 
-                        if (questionCountdown.pointsRemaining <= 0) {
+                        if (questionCountdown.pointsRemaining <= gameBase.pointBonus) {
                             questionCountdown.stop()
                             timerBarAnim.stop()
                             gameBase.endQuestion(5)
@@ -282,11 +283,12 @@ Item {
                             // correct answer
                             questionLabel.text = qsTr("Correct!")
                             root.points += questionCountdown.pointsRemaining
-                                    + 500 // add points to total + 500 for correctness
                             homeBarBase.updatePoints()
                         } else if (button == 5) {
                             // ran out of time
                             questionLabel.text = "Time's Up!"
+                            pointsRemainingTxt.text = timerBase.pointsPrefix
+                                    + "0" // set points display to 0
                         } else {
                             // incorrect answer
                             questionLabel.text = qsTr("Incorrect!")
