@@ -12,6 +12,18 @@ Item {
 
     property var imageSource
 
+    // Background MouseArea, used so that you can drop the keyboard and
+    //bring it back up when selecting textField.
+    MouseArea {
+        anchors.fill: parent
+        onPressed: {
+            // Remove focus from any focused item
+            playerName.focus = false
+        }
+        //Ensure it doesn't swallow clicks but still allows feedbackInput to be clickable
+        propagateComposedEvents: true
+    }
+
     InputPanel {
         id: inputPanel
         z: 99
@@ -94,7 +106,12 @@ Item {
                         playerName.text = playerName.text.toUpperCase(
                                     ) //Actually make all characters uppercase
                     }
-                    onPressed: { focus = true; inputPanel.visible = true; }
+                    MouseArea {
+                        anchors.fill: parent
+                        onPressed: {
+                            playerName.forceActiveFocus()
+                        }
+                    }
 
                     background: Rectangle {
                         color: "white" // Default background color

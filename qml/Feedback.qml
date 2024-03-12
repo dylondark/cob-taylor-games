@@ -21,7 +21,7 @@ Item {
             feedbackInput.focus = false
         }
         //Ensure it doesn't swallow clicks but still allows feedbackInput to be clickable
-        //propagateComposedEvents: true
+        propagateComposedEvents: true
     }
 
     ColumnLayout {
@@ -50,7 +50,6 @@ Item {
             Layout.alignment: Qt.AlignHCenter
             Layout.margins: 40 * root.scaleFactor
             font.pointSize: 40 * root.scaleFactor
-            onPressed: { focus = true; inputPanel.visible = true; }
             onFocusChanged: gameOverTimer.restart()
             MouseArea {
                 anchors.fill: parent
