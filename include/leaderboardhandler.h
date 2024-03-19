@@ -30,7 +30,7 @@ private:
     std::map<std::string, int> scoreLists[6]; // 6 maps holding scores for the 6 games. key is their playername, int is their high score
     struct sortcomp; // used for map sort
     std::string filepath = "./leaderboard/"; // path where the data files can be found. currently it is a folder inside wherever the executable is named "datafiles"
-    const std::string FILENAMES[6] = {"trivia.txt", "guessthelogo.txt", "checkers.txt", "hopper.txt", "pong.txt", "tetris.txt"}; // names of the datafiles
+    const std::string FILENAMES[6] = {"trivia.txt", "guessthelogo.txt", "tetroos.txt", "hopper.txt", "pong.txt", "checkers.txt"}; // names of the datafiles
     QIcon genNumIcon(int num); // generates an icon containing a number for the leaderboard image
     const int MAX_ENTRIES = 24; // max number of entries on each leaderboard page. should be multiple of 3 for best results
 };

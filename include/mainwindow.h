@@ -36,10 +36,10 @@ public:
 private slots:
     void on_lbGame1_pressed(); // ua trivia
     void on_lbGame2_pressed(); // guess the logo
-    void on_lbGame3_pressed(); // checkers
+    void on_lbGame3_pressed(); // tetroos
     void on_lbGame4_pressed(); // zippy hopper
     void on_lbGame5_pressed(); // pong
-    void on_lbGame6_pressed(); // tetris
+    void on_lbGame6_pressed(); // checkers
     void switchLB();
     void lbClicked();
     void titleClicked();
