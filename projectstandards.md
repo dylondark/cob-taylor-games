@@ -6,7 +6,7 @@ This document contains a list of style, syntax and organizational standards for 
 These are the exact strings that are to be used to refer to the games in the project in things like the file and folder names and code (where possible). For example, in the main game enum in utilities.h or the "strName" properties of the game QML files.
 - "Trivia"
 - "GuessTheLogo"
-- "Tetris" (subject to change)
+- "Tetroos"
 - "Checkers"
 - "Hopper"
 - "Pong"
