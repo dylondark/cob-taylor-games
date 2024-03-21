@@ -7,7 +7,7 @@
 
 namespace Utilities
 {
-enum game {Trivia = 0, GuessTheLogo = 1, Checkers = 2, Hopper = 3, Pong = 4, Tetris = 5};
+enum game {Trivia = 0, GuessTheLogo = 1, Tetroos = 2, Hopper = 3, Pong = 4, Checkers = 5};
 
 inline QUrl getGameQML(game game)
 {

@@ -265,7 +265,7 @@ void MainWindow::on_lbGame2_pressed()
     returnLBPagesToTop();
 }
 
-// checkers
+// tetroos
 void MainWindow::on_lbGame3_pressed()
 {
     ui->lbValues->setCurrentIndex(2);
@@ -290,7 +290,7 @@ void MainWindow::on_lbGame5_pressed()
     returnLBPagesToTop();
 }
 
-// tetris
+// checkers
 void MainWindow::on_lbGame6_pressed()
 {
     ui->lbValues->setCurrentIndex(5);

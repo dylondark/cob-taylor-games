@@ -314,7 +314,7 @@ Logo</string>
                </font>
               </property>
               <property name="text">
-               <string>Checkers</string>
+               <string>Tetroos</string>
               </property>
              </widget>
             </item>
@@ -429,7 +429,7 @@ Hopper</string>
                </font>
               </property>
               <property name="text">
-               <string>Tetris</string>
+               <string>Checkers</string>
               </property>
              </widget>
             </item>
