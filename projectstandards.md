@@ -13,9 +13,33 @@ These are the exact strings that are to be used to refer to the games in the pro
 
 
 ## Git
-### General Good Practices
 ### Commit Good Practices
+- **Always pull when you begin working and push when you finish!**
+- Commits should be *finished*, meaning that the commit should fully implement the change that it is for with nothing left to do.
+- The changes in a commit should have a *singular* purpose or be related to a singular purpose. For example, "Trivia: fix file load issue" has a singular purpose, while "Trivia: fix file load issue and implement question shuffling" does not have a singular purpose.
+- Try to make sure that commits do not break anything (that they aren't supposed to). If the project is supposed to build after a change, it should. It should also work properly.
+- If commit something and then realize you need to change that commit, you can amend the last commit with the "Amend Last Commit" button in the Git menu in Qt Creator. However, this will only change the last commit.
 ### Commit Messages
+- Commit messages should be in *present tense*. For example "Trivia: fix file load issue" rather than "Trivia: fixed file load issue".
+- The first line of a commit message should be a *short sentence* describing *objectively* what the commit is for. Extra details, information, or opinions should go on the following lines.
+- Commits that encompass changes on a particular system should be shortened with a prefix for that system. For example, instead of "Fix file load error in triviacontroller.cpp" it should be "Trivia: fix file load error". Commits that don't fit into any one prefix don't need a prefix.
+- System prefixes:
+  - **Trivia** - triviacontroller.h, triviacontroller.cpp, TriviaGame.qml, data files
+  - **GTL** - guessthelogocontroller.h, triviacontroller.cpp, GuessTheLogoGame.qml, data files
+  - **Tetroos** - tetrooscontroller.h, tetrooscontroller.cpp, TetroosGame.qml, data files
+  - **Checkers** - checkerscontroller.h, checkerscontroller.cpp, CheckersGame.qml, data files
+  - **Hopper** - hoppercontroller.h, hoppercontroller.cpp, HopperGame.qml, data files
+  - **Pong** - pongcontroller.h, pongcontroller.cpp, PongGame.qml, data files
+  - **MainWindow** - mainwindow.h, mainwindow.cpp, mainwindow.ui
+  - **Leaderboard** - leaderboardhandler.h, leaderboardhandler.cpp
+  - **ProfanityCheck** - profanitychecker.h, profanitychecker.cpp, anything in profanity folder
+  - **BgWidget** - bgwidget.h, bgwidget.cpp, imgqueue.h, imgqueue.cpp
+  - **DebugLabel** - debuglabel.h, debuglabel.cpp, anything in cob-taylor-games.pro concerning debug label
+  - **Feedback** - feedbackcontroller.h, feedbackcontroller.cpp, Feedback.qml
+  - **Menu** - MenuBase.qml
+  - **GameOver** - GameOverBase.qml
+  - **HomeBar** - HomeBarBase.qml
+  - **Resources** - resources.qrc (anything changed in the Resources tab in Qt Creator)
 
 
 ## File Structure
