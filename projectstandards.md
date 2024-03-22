@@ -13,6 +13,7 @@ These are the exact strings that are to be used to refer to the games in the pro
 
 
 ## Git
+
 ### Commit Good Practices
 - **Always pull when you begin working and push when you finish!**
 - Commits should be *finished*, meaning that the commit should fully implement the change that it is for with nothing left to do.
@@ -72,9 +73,37 @@ The main data files for the games should be in comma-separated values (.csv) for
 
 
 ## C++
+
 ### Syntax
+- Curly brackets on separate lines (Allman style).
+- Indentation with 4 spaces (Qt Creator default).
+- **No compiler warnings.**
+- Don't use curly brackets in if statements and loops that are only one line.
+- "using namespace std" is *not* okay, but "using std::string" or any other object within a namespace is fine as long as there are no conflicts.
+- Single newlines separating blocks. This includes:
+  - Blocks of code
+  - Blocks of include statements
+  - Blocks of using statements
+  - Blocks of pragma statements (statements that start with # other than include statements, like #ifndef, #define, etc)
+- Single newlines separating function declarations and definitions.
+- Code lines that have a singular purpose within functions should be separated into chunks (separated by newlines).
+- Functions that have similar purposes should be grouped together (for example: on_lbGame1_pressed(), on_lb_Game2_pressed(), etc. should be placed next to each other).
+- Functions that are numbered should be in order (for example: on_lbGame2_pressed() should come after on_lbGame1_pressed()).
+- Line comments should start with a space unless they are used for commenting out code.
+  - `// this is a comment, it starts with a single space`
+  - `//cout << "this is code, it starts with no spaces";`
+```
+/*
+ * Block comments should look like this.
+*/
+```
+
 ### Naming
+
 ### Comments & Documentation
+- All .h and .cpp files should have a block comment at the top with the filename and short description of the file.
+- All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable).
+- Chunks of code should have comments preceding them.
 
 
 ## QML
