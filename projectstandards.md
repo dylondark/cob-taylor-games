@@ -77,18 +77,20 @@ The main data files for the games should be in comma-separated values (.csv) for
 ### Syntax
 - Curly brackets on separate lines (Allman style).
 - Indentation with 4 spaces (Qt Creator default).
-- **No compiler warnings.**
+- Parameters in functions should always be passed as *const reference* rather than by value, unless they are basic types like `int` or `double` (`std::string` is *not* a basic type).
+- No compiler warnings.
 - Don't use curly brackets in if statements and loops that are only one line.
-- "using namespace std" is *not* okay, but "using std::string" or any other object within a namespace is fine as long as there are no conflicts.
-- Single newlines separating blocks. This includes:
+- "using namespace std" is *not* okay, but `using std::string` or any other object within a namespace is fine as long as there are no conflicts.
+- Single empty lines separating blocks. This includes:
   - Blocks of code
   - Blocks of include statements
   - Blocks of using statements
-  - Blocks of pragma statements (statements that start with # other than include statements, like #ifndef, #define, etc)
+  - Blocks of pragma statements (statements that start with # other than include statements, like `#ifndef`, `#define`, etc)
 - Single newlines separating function declarations and definitions.
-- Code lines that have a singular purpose within functions should be separated into chunks (separated by newlines).
-- Functions that have similar purposes should be grouped together (for example: on_lbGame1_pressed(), on_lb_Game2_pressed(), etc. should be placed next to each other).
-- Functions that are numbered should be in order (for example: on_lbGame2_pressed() should come after on_lbGame1_pressed()).
+- Code lines that have a singular purpose within functions should be separated into chunks (separated by lines).
+- Functions that have similar purposes should be grouped together (for example: `on_lbGame1_pressed()`, `on_lb_Game2_pressed()`, etc. should be placed next to each other).
+- Functions that are numbered should be in order (for example: `on_lbGame2_pressed()` should come after `on_lbGame1_pressed()`).
+- Parameters in function definitions should be named, and they should be the same names as in the definition.
 - Line comments should start with a space unless they are used for commenting out code.
   - `// this is a comment, it starts with a single space`
   - `//cout << "this is code, it starts with no spaces";`
@@ -97,13 +99,22 @@ The main data files for the games should be in comma-separated values (.csv) for
  * Block comments should look like this.
 */
 ```
+- No unnecessary newlines (newlines at the beginning and end of functions, more than one empty line separating anything, etc).
+- Don't use `auto` type for basic types like `int` and `double`.
+- Initializer lists in constructors should be on their own line.
 
 ### Naming
+- Use camelCase (first word lowercase, all other words capitalized, no underscores) for function and variable names.
+- Use PascalCase (first letter of every word capitalized, no underscores) for class names.
+- Don't include the type in the name of a variable or function (for example `intCount`).
+- Constants should be all caps with underscores for spaces (for example `LOOP_SECONDS` is a constant, while `loopSeconds` is a variable).
+- File names should be all lowercase and should be the same as the class or namespace within them (for example, class "TriviaController" will have files "triviacontroller.h" and "triviacontroller.cpp", and namespace Utilities will have "utilities.h" and "utilities.cpp").
 
 ### Comments & Documentation
 - All .h and .cpp files should have a block comment at the top with the filename and short description of the file.
-- All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable).
+- All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable) in both the h and cpp files.
 - Chunks of code should have comments preceding them.
+- Classes should have a block comment preceding them (in the header file) explaining what the class is for and any other important information about it.
 
 
 ## QML
