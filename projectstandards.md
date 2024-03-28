@@ -86,7 +86,7 @@ The main data files for the games should be in comma-separated values (.csv) for
   - Blocks of include statements
   - Blocks of using statements
   - Blocks of pragma statements (statements that start with # other than include statements, like `#ifndef`, `#define`, etc)
-- Single newlines separating function declarations and definitions.
+- Single empty lines separating function declarations and definitions.
 - Code lines that have a singular purpose within functions should be separated into chunks (separated by lines).
 - Functions that have similar purposes should be grouped together (for example: `on_lbGame1_pressed()`, `on_lb_Game2_pressed()`, etc. should be placed next to each other).
 - Functions that are numbered should be in order (for example: `on_lbGame2_pressed()` should come after `on_lbGame1_pressed()`).
@@ -96,12 +96,13 @@ The main data files for the games should be in comma-separated values (.csv) for
   - `//cout << "this is code, it starts with no spaces";`
 ```
 /*
- * Block comments should look like this.
+    Block comments should look like this.
 */
 ```
 - No unnecessary newlines (newlines at the beginning and end of functions, more than one empty line separating anything, etc).
 - Don't use `auto` type for basic types like `int` and `double`.
 - Initializer lists in constructors should be on their own line.
+- Lines of code should only be one line of text (not split between separate text lines).
 
 ### Naming
 - Use camelCase (first word lowercase, all other words capitalized, no underscores) for function and variable names.
@@ -119,14 +120,54 @@ The main data files for the games should be in comma-separated values (.csv) for
 
 ## QML
 
+### Structure
+- All *game* QML files should have an Item object as the root object, with `id: root`.
+- The root object for every game must contain the following properties and signals (minus the comments which are just for explanation):
+```
+id: root
+width: 2160 // target width
+height: 3840 // target height
+
+signal quit // to be called when the game wants to quit and return to menu
+signal saveScore(int game, string username, int score) // to be called to save the user's score to the leaderboard
+
+property real scaleFactor: height / 3840 // the current scale factor of the game since height and width are dynamically adjusted to the window size. 3840 is the target width
+property int points: 0 // to contain the user's points
+property string strName: "Trivia" // this should contain the official name of whatever game this file is for (trivia in this example)
+property string username: "unset" // stores the user's name. should be "unset" by default, it will be filled in once the user enters their name
+property int gameEnum: 0 // the enum number of the game. should be whatever int corresponds to the value for the game in gameEnum in utilities.h
+```
+- The root object for every game should contain the controller object for the game (with `id: controller`).
+- QML files that are not game files should have a root Item object with `id: base`.
+
 ### Syntax
 - Only closing curly bracket on separate line (K&R style).
 - Indentation with 4 spaces (Qt Creator default).
 - No compiler warnings.
-- 
-### Naming
-### Comments & Documentation
+- id property should always be the first property of an object.
+- Semicolons should be used at the end of lines for code in functions.
+- Object properties should always go on separate lines.
+- Object declarations should be separated by single empty lines.
+- *Do not* use the beautify (auto-formatting) setting in Qt Creator
+- Related properties should be grouped together (for example: rows and columns should be placed next to each other).
+- Use same comment syntax from C++.
+- There should be a single space before property values (for example: `id: timerBase` is good while `id:timerBase` is not).
+- There should be a single space between object types and the opening curly bracket (for example: `Rectangle {` is good while `Rectangle{` is not).
+- Lines of code should only be one line of text (not split between separate text lines).
+- Code in functions should be separated into blocks of related code just like in C++.
+- No unnecessary newlines (newlines at the beginning and end of functions, more than one empty line separating anything, etc).
 
+### Naming
+- Use camelCase (first word lowercase, all other words capitalized, no underscores) for object ids, variable names, and function names.
+- Use PascalCase (first letter of every word capitalized, no underscores) for file names (for example: "TriviaGame.qml").
+- Don't include the type in the name of a variable or function (for example: `intCount`).
+- Filenames for game QML files should end in "Game.qml" (for example: "TriviaGame.qml").
+- Filenames for other QML files should end in "Base.qml" (for example: "MenuBase.qml").
+
+### Comments & Documentation
+- All .qml files should have a block comment at the top with the filename and short description of the file.
+- All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable).
+- Chunks of code in functions should have comments preceding them.
 
 ## QMake File
 
