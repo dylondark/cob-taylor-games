@@ -118,7 +118,12 @@ The main data files for the games should be in comma-separated values (.csv) for
 
 
 ## QML
+
 ### Syntax
+- Only closing curly bracket on separate line (K&R style).
+- Indentation with 4 spaces (Qt Creator default).
+- No compiler warnings.
+- 
 ### Naming
 ### Comments & Documentation
 
