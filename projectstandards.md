@@ -169,7 +169,18 @@ property int gameEnum: 0 // the enum number of the game. should be whatever int 
 - All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable).
 - Chunks of code in functions should have comments preceding them.
 
-## QMake File
+## QMake File 
+The QMake file (cob-taylor-games.pro) specifies how the project should be built, and serves as the project file when opening in Qt Creator.
+- Any folders that house files used in the QMake file should be listed in `INCLUDEPATH` (for example: `./include`).
+- Code files in HEADERS and SOURCES should not have path prefixes since they are already listed in `INCLUDEPATH` (for example: `include/bgwidget.h \` should just be `bgwidget.h \`).
+  - **Qt Creator will automatically add these path prefixes when creating code files, so make sure to remove them!**
+- Files in `HEADERS` and `SOURCES` should go on separates lines.
+- For functions, only closing curly bracket on separate line (K&R style).
 
-
-## Resource File
+## Resource File 
+The resource (resources.qrc) file contains files that are baked into the program executable for faster and more reliable access. 
+- Should contain 3 prefixes:
+  - **/menu** - for menu images and background icons.
+  - **/game** - for files used by games.
+  - **/qml** - for QML files.
+- Resources file should not contain any files that are not being used by the program. 
