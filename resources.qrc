@@ -28,6 +28,7 @@
         <file>qml/HopperGame.qml</file>
         <file>qml/PongGame.qml</file>
         <file>qml/CheckersGame.qml</file>
+        <file>qml/PreviewBase.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
