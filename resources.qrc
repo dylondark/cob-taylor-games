@@ -24,6 +24,10 @@
         <file>qml/HomeBarBase.qml</file>
         <file>qml/GuessTheLogoGame.qml</file>
         <file>qml/Feedback.qml</file>
+        <file>qml/TetroosGame.qml</file>
+        <file>qml/HopperGame.qml</file>
+        <file>qml/PongGame.qml</file>
+        <file>qml/CheckersGame.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
