@@ -17,6 +17,8 @@ ProfanityChecker::ProfanityChecker()
     {
         words.push_back(QString(line.c_str()).toUpper());
     }
+
+    fin.close();
 }
 
 // returns true if word is good, false if word is bad

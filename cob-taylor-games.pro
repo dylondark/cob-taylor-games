@@ -22,6 +22,7 @@ HEADERS += \
     imgqueue.h \
     debuglabel.h \
     feedbackcontroller.h \
+    cliparser.h \
     profanitychecker.h \
     utilities.h \
     leaderboardtools.h \
@@ -43,6 +44,7 @@ SOURCES += \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
     profanitychecker.cpp \
+    cliparser.cpp \
     triviacontroller.cpp
 
 RESOURCES += \
