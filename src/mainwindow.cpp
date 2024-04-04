@@ -171,7 +171,7 @@ void MainWindow::resizeEvent(QResizeEvent*)
     setBtnIcon(ui->btnGame2, ":/menu/Logos-Buttons/GuessTheLogoNEW.png");//GuessTheLogo
     setBtnIcon(ui->btnGame3, ":/menu/Logos-Buttons/Tetroos/TetroosPreview.png");//Tetroos
     setBtnIcon(ui->btnGame4, ":/menu/Logos-Buttons/ZippyHop/HopperPreview.png"); //ZippyHop
-    setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ZippyPong/ZippyPongPreview.png");//pong
+    setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ZippyPong/PongMotionPreview.png");//pong
     setBtnIcon(ui->btnGame6, ":/menu/Logos-Buttons/Checkers/CheckersPreview.png");//checkers
 
     // scale functions
