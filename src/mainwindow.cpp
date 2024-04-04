@@ -430,3 +430,8 @@ void MainWindow::on_btnGame3_pressed()
 {
     showGame(game::Tetroos);
 }
+
+void MainWindow::on_btnGame4_pressed()
+{
+    showGame(game::Hopper);
+}
