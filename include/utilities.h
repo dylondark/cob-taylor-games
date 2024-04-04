@@ -17,6 +17,14 @@ inline QUrl getGameQML(game game)
         return QUrl("qrc:/qml/qml/TriviaGame.qml");
     case GuessTheLogo:
         return QUrl("qrc:/qml/qml/GuessTheLogoGame.qml");
+    case Tetroos:
+        return QUrl("qrc:/qml/qml/TetroosGame.qml");
+    case Hopper:
+        return QUrl("qrc:/qml/qml/HopperGame.qml");
+    case Pong:
+        return QUrl("qrc:/qml/qml/PongGame.qml");
+    case Checkers:
+        return QUrl("qrc:/qml/qml/CheckersGame.qml");
     default:
         throw "Requested game QML file does not exist yet!"; // TODO: update this function when more qml files are added
     }
