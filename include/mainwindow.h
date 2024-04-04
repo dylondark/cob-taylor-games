@@ -49,6 +49,7 @@ private slots:
     void on_btnGame2_pressed();
     void on_btnGame3_pressed();
     void on_btnGame4_pressed();
+    void on_btnGame5_pressed();
     void exitGame();
     void enterScore(int, QString, int);//Game number specification, name string, score int.
 

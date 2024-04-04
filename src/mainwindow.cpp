@@ -435,3 +435,8 @@ void MainWindow::on_btnGame4_pressed()
 {
     showGame(game::Hopper);
 }
+
+void MainWindow::on_btnGame5_pressed()
+{
+    showGame(game::Pong);
+}
