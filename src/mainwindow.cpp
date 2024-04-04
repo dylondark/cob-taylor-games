@@ -421,9 +421,12 @@ void MainWindow::on_btnGame1_pressed()
     showGame(game::Trivia);
 }
 
-
 void MainWindow::on_btnGame2_pressed()
 {
     showGame(game::GuessTheLogo);
 }
 
+void MainWindow::on_btnGame3_pressed()
+{
+    showGame(game::Tetroos);
+}
