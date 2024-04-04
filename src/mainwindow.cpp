@@ -169,10 +169,10 @@ void MainWindow::resizeEvent(QResizeEvent*)
     // apply button images
     setBtnIcon(ui->btnGame1, ":/menu/Logos-Buttons/trivia.png");// UATrivia
     setBtnIcon(ui->btnGame2, ":/menu/Logos-Buttons/GuessTheLogoNEW.png");//GuessTheLogo
-    setBtnIcon(ui->btnGame3, ":/menu/Logos-Buttons/Tetroos/Tetroos.png");//Tetroos
-    setBtnIcon(ui->btnGame4, ":/menu/Logos-Buttons/ZippyHop/Logo.png"); //ZippyHop
-    setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ZippyPong/ZippyPongMotion.png");//pong
-    setBtnIcon(ui->btnGame6, ":/menu/Logos-Buttons/Checkers/Checkers1.png");//checkers
+    setBtnIcon(ui->btnGame3, ":/menu/Logos-Buttons/Tetroos/TetroosPreview.png");//Tetroos
+    setBtnIcon(ui->btnGame4, ":/menu/Logos-Buttons/ZippyHop/HopperPreview.png"); //ZippyHop
+    setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ZippyPong/ZippyPongPreview.png");//pong
+    setBtnIcon(ui->btnGame6, ":/menu/Logos-Buttons/Checkers/CheckersPreview.png");//checkers
 
     // scale functions
     scaleMenu(wh[1]);
