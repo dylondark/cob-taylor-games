@@ -115,10 +115,22 @@ The main data files for the games should be in comma-separated values (.csv) for
 ### Comments & Documentation
 - Comments should have propper grammar and punctuation.
 - All .h and .cpp files should have a block comment at the top with the filename and short description of the file.
-- All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable) in both the h and cpp files.
+- All functions should be documented with block comments containing description of function followed by description of parameters and return value if applicable, in both the h and cpp files.
+```
+/*
+    Setter for frameInterval.
+    This MUST be used to set the same interval value as the timer that is connected to this object.
+    TODO: Find a better way to enforce frameInterval being set to the same value as the interval of the timer connected to this object.
+
+    int ms: Milliseconds value to set
+    return int: Status code indicating 0 for success and 1 for failure.
+*/
+int setFrameInterval(int ms);
+```
 - Variables in class declarations should have a line comment preceding them (or a block comment if there is a lot to explain).
 - Chunks of code should have comments preceding them.
 - Classes should have a block comment preceding them (in the header file) explaining what the class is for and any other important information about it.
+- Any comments containing TODO messages should have `TODO:` in them.
 
 
 ## QML
@@ -166,6 +178,7 @@ property int gameEnum: 0 // the enum number of the game. should be whatever int 
 - Don't include the type in the name of a variable or function (for example: `intCount`).
 - Filenames for game QML files should end in "Game.qml" (for example: "TriviaGame.qml").
 - Filenames for other QML files should end in "Base.qml" (for example: "MenuBase.qml").
+- Any comments containing TODO messages should have `TODO:` in them.
 
 ### Comments & Documentation
 - Comments should have propper grammar and punctuation.
