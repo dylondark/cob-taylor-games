@@ -103,6 +103,7 @@ The main data files for the games should be in comma-separated values (.csv) for
 - Don't use `auto` type for basic types like `int` and `double`.
 - Initializer lists in constructors should be on their own line.
 - Lines of code should only be one line of text (not split between separate text lines).
+- In class declarations, the order of member declarations should be **constants, then variables, then functions**.
 
 ### Naming
 - Use camelCase (first word lowercase, all other words capitalized, no underscores) for function and variable names.
@@ -114,6 +115,7 @@ The main data files for the games should be in comma-separated values (.csv) for
 ### Comments & Documentation
 - All .h and .cpp files should have a block comment at the top with the filename and short description of the file.
 - All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable) in both the h and cpp files.
+- Variables in class declarations should have a line comment preceding them (or a block comment if there is a lot to explain).
 - Chunks of code should have comments preceding them.
 - Classes should have a block comment preceding them (in the header file) explaining what the class is for and any other important information about it.
 
