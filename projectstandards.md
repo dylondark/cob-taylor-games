@@ -102,7 +102,7 @@ The main data files for the games should be in comma-separated values (.csv) for
 - No unnecessary newlines (newlines at the beginning and end of functions, more than one empty line separating anything, etc).
 - Don't use `auto` type for basic types like `int` and `double`.
 - Initializer lists in constructors should be on their own line.
-- Lines of code should only be one line of text (not split between separate text lines).
+- Lines of code should only be one line of text (not split between separate text lines), except in cases where there are long parameter lists.
 - In class declarations, the order of member declarations should be **constants, then variables, then functions**.
 
 ### Naming
