@@ -113,6 +113,7 @@ The main data files for the games should be in comma-separated values (.csv) for
 - File names should be all lowercase and should be the same as the class or namespace within them (for example, class "TriviaController" will have files "triviacontroller.h" and "triviacontroller.cpp", and namespace Utilities will have "utilities.h" and "utilities.cpp").
 
 ### Comments & Documentation
+- Comments should have propper grammar and punctuation.
 - All .h and .cpp files should have a block comment at the top with the filename and short description of the file.
 - All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable) in both the h and cpp files.
 - Variables in class declarations should have a line comment preceding them (or a block comment if there is a lot to explain).
@@ -167,6 +168,7 @@ property int gameEnum: 0 // the enum number of the game. should be whatever int 
 - Filenames for other QML files should end in "Base.qml" (for example: "MenuBase.qml").
 
 ### Comments & Documentation
+- Comments should have propper grammar and punctuation.
 - All .qml files should have a block comment at the top with the filename and short description of the file.
 - All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable).
 - Chunks of code in functions should have comments preceding them.
