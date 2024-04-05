@@ -42,7 +42,7 @@ Item {
 
                 anchors.fill: parent
 
-                logoSource: "qrc:/menu/Logos-Buttons/Tetroos/Tetroos.png"
+                logoSource: "qrc:/menu/Logos-Buttons/Tetroos/TetroosPreview.png"
                 conceptSource: "qrc:/game/gameassets/trivia/testimage.png"
             }
         }

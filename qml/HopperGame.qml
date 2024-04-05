@@ -42,7 +42,7 @@ Item {
 
                 anchors.fill: parent
 
-                logoSource: "qrc:/menu/Logos-Buttons/ZippyHop/Logo.png"
+                logoSource: "qrc:/menu/Logos-Buttons/ZippyHop/HopperPreview.png"
                 conceptSource: "qrc:/game/gameassets/trivia/testimage.png"
             }
         }
