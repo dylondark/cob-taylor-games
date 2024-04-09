@@ -104,6 +104,7 @@ The main data files for the games should be in comma-separated values (.csv) for
 - Initializer lists in constructors should be on their own line.
 - Lines of code should only be one line of text (not split between separate text lines), except in cases where there are long parameter lists.
 - In class declarations, the order of member declarations should be **constants, then variables, then functions**.
+- Declare pointers with the asterisk on the type name (where possible). For example: `int* ptr` rather than `int *ptr`.
 
 ### Naming
 - Use camelCase (first word lowercase, all other words capitalized, no underscores) for function and variable names.
