@@ -6,7 +6,7 @@
 #include "rapidcsv.h"
 #include <QApplication>
 
-GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/logos/edited_images/", "/gamefiles/gtl/Timeline/"}
+GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/Type1/", "/gamefiles/gtl/Type2/"}
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
     {
