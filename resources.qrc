@@ -36,9 +36,7 @@
         <file>qml/CheckersGame.qml</file>
         <file>qml/PreviewBase.qml</file>
     </qresource>
-    <qresource prefix="/game">
-        <file>gameassets/trivia/testimage.png</file>
-    </qresource>
+    <qresource prefix="/game"/>
     <qresource prefix="/">
         <file>Logos-Buttons/TriviaBackgroundBase/FFF7E9.png</file>
         <file>qml/HomeBarBase.qml</file>
