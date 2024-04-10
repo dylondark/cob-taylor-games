@@ -101,6 +101,7 @@ Item {
                     font.family: "1UP!"
                     font.bold: true
                     font.pointSize: nameText.font.pointSize
+                    color: "black"
                     Layout.preferredWidth: -1
                     onTextChanged: {
                         playerName.text = playerName.text.toUpperCase(
@@ -174,10 +175,16 @@ Item {
                 height: parent.height / 6
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.height / 3
-                font.pointSize: 72 * root.scaleFactor
-                text: "PLAY"
-                font.family: "1UP!"
-                font.bold: true
+
+                contentItem: Text {
+                    text: "PLAY"
+                    color: "black"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.pointSize: 72 * root.scaleFactor
+                    font.family: "1UP!"
+                    font.bold: true
+                }
 
                 background: Rectangle {
                     color: Qt.rgba(1, 1, 1, 0.6)

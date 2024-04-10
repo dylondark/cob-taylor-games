@@ -102,7 +102,9 @@ The main data files for the games should be in comma-separated values (.csv) for
 - No unnecessary newlines (newlines at the beginning and end of functions, more than one empty line separating anything, etc).
 - Don't use `auto` type for basic types like `int` and `double`.
 - Initializer lists in constructors should be on their own line.
-- Lines of code should only be one line of text (not split between separate text lines).
+- Lines of code should only be one line of text (not split between separate text lines), except in cases where there are long parameter lists.
+- In class declarations, the order of member declarations should be **constants, then variables, then functions**.
+- Declare pointers with the asterisk on the type name (where possible). For example: `int* ptr` rather than `int *ptr`.
 
 ### Naming
 - Use camelCase (first word lowercase, all other words capitalized, no underscores) for function and variable names.
@@ -112,10 +114,24 @@ The main data files for the games should be in comma-separated values (.csv) for
 - File names should be all lowercase and should be the same as the class or namespace within them (for example, class "TriviaController" will have files "triviacontroller.h" and "triviacontroller.cpp", and namespace Utilities will have "utilities.h" and "utilities.cpp").
 
 ### Comments & Documentation
+- Comments should have propper grammar and punctuation.
 - All .h and .cpp files should have a block comment at the top with the filename and short description of the file.
-- All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable) in both the h and cpp files.
+- All functions should be documented with block comments containing description of function followed by description of parameters and return value if applicable, in both the h and cpp files.
+```
+/*
+    Setter for frameInterval.
+    This MUST be used to set the same interval value as the timer that is connected to this object.
+    TODO: Find a better way to enforce frameInterval being set to the same value as the interval of the timer connected to this object.
+
+    int ms: Milliseconds value to set
+    return int: Status code indicating 0 for success and 1 for failure.
+*/
+int setFrameInterval(int ms);
+```
+- Variables in class declarations should have a line comment preceding them (or a block comment if there is a lot to explain).
 - Chunks of code should have comments preceding them.
 - Classes should have a block comment preceding them (in the header file) explaining what the class is for and any other important information about it.
+- Any comments containing TODO messages should have `TODO:` in them.
 
 
 ## QML
@@ -163,8 +179,10 @@ property int gameEnum: 0 // the enum number of the game. should be whatever int 
 - Don't include the type in the name of a variable or function (for example: `intCount`).
 - Filenames for game QML files should end in "Game.qml" (for example: "TriviaGame.qml").
 - Filenames for other QML files should end in "Base.qml" (for example: "MenuBase.qml").
+- Any comments containing TODO messages should have `TODO:` in them.
 
 ### Comments & Documentation
+- Comments should have propper grammar and punctuation.
 - All .qml files should have a block comment at the top with the filename and short description of the file.
 - All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable).
 - Chunks of code in functions should have comments preceding them.

@@ -7,6 +7,12 @@
         <file>Logos-Buttons/ComingSoon2.png</file>
         <file>Logos-Buttons/GuessTheLogoNEW.png</file>
         <file>Logos-Buttons/title_splash.png</file>
+        <file>Logos-Buttons/Tetroos/Tetroos.png</file>
+        <file>Logos-Buttons/ZippyHop/Hopper.png</file>
+        <file>Logos-Buttons/ZippyPong/PongMotionPreview.png</file>
+        <file>Logos-Buttons/ZippyHop/HopperPreview.png</file>
+        <file>Logos-Buttons/Tetroos/TetroosPreview.png</file>
+        <file>Logos-Buttons/Checkers/CheckersPreview.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>projecticons/controller1.png</file>
@@ -37,5 +43,6 @@
         <file>Logos-Buttons/TriviaBackgroundBase/FFF7E9.png</file>
         <file>qml/HomeBarBase.qml</file>
         <file>qml/Feedback.qml</file>
+        <file>Logos-Buttons/Tetroos/Tetroos.png</file>
     </qresource>
 </RCC>

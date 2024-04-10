@@ -167,12 +167,12 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->lblTitle->setPixmap(QPixmap(":/menu/Logos-Buttons/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     // apply button images
-    setBtnIcon(ui->btnGame1, ":/menu/Logos-Buttons/trivia.png");
-    setBtnIcon(ui->btnGame2, ":/menu/Logos-Buttons/GuessTheLogoNEW.png");
-    setBtnIcon(ui->btnGame3, ":/menu/Logos-Buttons/ComingSoon2.png");
-    setBtnIcon(ui->btnGame4, ":/menu/Logos-Buttons/ComingSoon2.png");
-    setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ComingSoon2.png");
-    setBtnIcon(ui->btnGame6, ":/menu/Logos-Buttons/ComingSoon2.png");
+    setBtnIcon(ui->btnGame1, ":/menu/Logos-Buttons/trivia.png");// UATrivia
+    setBtnIcon(ui->btnGame2, ":/menu/Logos-Buttons/GuessTheLogoNEW.png");//GuessTheLogo
+    setBtnIcon(ui->btnGame3, ":/menu/Logos-Buttons/Tetroos/TetroosPreview.png");//Tetroos
+    setBtnIcon(ui->btnGame4, ":/menu/Logos-Buttons/ZippyHop/HopperPreview.png"); //ZippyHop
+    setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ZippyPong/PongMotionPreview.png");//pong
+    setBtnIcon(ui->btnGame6, ":/menu/Logos-Buttons/Checkers/CheckersPreview.png");//checkers
 
     // scale functions
     scaleMenu(wh[1]);
@@ -421,9 +421,27 @@ void MainWindow::on_btnGame1_pressed()
     showGame(game::Trivia);
 }
 
-
 void MainWindow::on_btnGame2_pressed()
 {
     showGame(game::GuessTheLogo);
 }
 
+void MainWindow::on_btnGame3_pressed()
+{
+    showGame(game::Tetroos);
+}
+
+void MainWindow::on_btnGame4_pressed()
+{
+    showGame(game::Hopper);
+}
+
+void MainWindow::on_btnGame5_pressed()
+{
+    showGame(game::Pong);
+}
+
+void MainWindow::on_btnGame6_pressed()
+{
+    showGame(game::Checkers);
+}

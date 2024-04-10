@@ -32,12 +32,19 @@ Item {
             Layout.fillWidth: true
             Layout.verticalStretchFactor: 6
 
-            color: "white"
+            gradient: Gradient {
+                     GradientStop { position: 0.0; color: "#3f51b1" }
+                     GradientStop { position: 1.0; color: "#cc6b8e" }
+                 }
 
             PreviewBase {
                 id: preview
-            }
 
+                anchors.fill: parent
+
+                logoSource: "qrc:/menu/Logos-Buttons/Tetroos/TetroosPreview.png"
+                conceptSource: "qrc:/game/gameassets/trivia/testimage.png"
+            }
         }
 
         HomeBarBase {
