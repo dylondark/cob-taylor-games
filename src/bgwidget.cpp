@@ -1,7 +1,7 @@
 /*
     bgwidget.cpp
 
-    Class definition for bgwidget
+    Class definition for bgWidget.
 */
 
 #include "bgwidget.h"

@@ -1,7 +1,7 @@
 /*
     bgwidget.h
 
-    Class declaration for bgwidget
+    Class declaration for bgWidget.
 */
 
 #ifndef BGWIDGET_H
