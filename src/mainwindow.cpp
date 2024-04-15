@@ -6,7 +6,6 @@
 #include <QListWidget>
 #include "feedbackcontroller.h"
 #include "guessthelogocontroller.h"
-#include "leaderboardtools.h"
 #include "profanitychecker.h"
 #include <QScrollBar>
 #include <QShortcut>
@@ -58,8 +57,11 @@ void MainWindow::initLeaderboard()
 
     // init click detection
     lbDetector = new ClickDetector();
+
     connect(lbDetector, &ClickDetector::clickDetected, this, &MainWindow::lbClicked);
+
     QPushButton* lbButtons[] = {ui->lbGame1, ui->lbGame2, ui->lbGame3, ui->lbGame4, ui->lbGame5, ui->lbGame6};
+
     // add detector to all buttons
     for (auto button : lbButtons)
         button->installEventFilter(lbDetector);
@@ -77,6 +79,7 @@ void MainWindow::initLeaderboard()
         page->layout()->addWidget(newList2);
         QListWidget* newList3 = new QListWidget();
         page->layout()->addWidget(newList3);
+
         // click detection
         connect(newList1, &QListWidget::itemPressed, this, &MainWindow::lbClicked);
         newList1->verticalScrollBar()->installEventFilter(lbDetector);
@@ -96,6 +99,7 @@ void MainWindow::initDebug()
 {
     // install a clickdetector to title for activating the debug label
     ClickDetector* titleDetector = new ClickDetector;
+
     ui->lblTitle->installEventFilter(titleDetector);
     connect(titleDetector, &ClickDetector::clickDetected, this, &MainWindow::titleClicked);
 
@@ -140,7 +144,7 @@ MainWindow::~MainWindow()
 }
 
 // called on window resize (also at program start)
-void MainWindow::resizeEvent(QResizeEvent*)
+void MainWindow::resizeEvent(QResizeEvent* event)
 {
     // get current size of window
     int wh[2] = {this->size().width(), this->size().height()};
@@ -183,7 +187,7 @@ void MainWindow::resizeEvent(QResizeEvent*)
     ui->lblDebug->update(wh);
 }
 
-void MainWindow::setBtnIcon(QPushButton* btn, std::string iconpath)
+void MainWindow::setBtnIcon(QPushButton* btn, const std::string& iconpath)
 {
     btn->setIcon(QIcon(QPixmap(iconpath.c_str()).scaled(btn->width(), btn->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation)));
     btn->setIconSize(btn->size());
@@ -226,10 +230,12 @@ void MainWindow::scaleLeaderboard(int height)
     // calculate scaling values
     const double hScale = (double)height / targetH;
     const int iconSize = 90 * hScale, fontSize = iconSize / 2; // I HATE INTEGER DIVISION I HATE INTEGER DIVISION
+
     // assemble font stylesheet str
     QString fontSheet("\n QListWidget, QPushButton { font: "); // widget classes have to be specified manually because they just couldnt make it easy and let you exclude widgets from a class
     fontSheet.append(std::to_string(fontSize));
     fontSheet.append("px; } \n");
+
     // title font needs to be larger from the rest and bold
     QString titleSheet("\n QLabel#lbLabel  { font: 700 "); // 700 means bold i guess?
     titleSheet.append(std::to_string(fontSize * 2));
@@ -370,10 +376,9 @@ void MainWindow::titleClicked()
 void MainWindow::titleClickTimeout()
 {
     if (titleClicks >= 5)
-    {
         // toggle the debug label
         ui->lblDebug->isHidden() ? ui->lblDebug->show() : ui->lblDebug->hide();
-    }
+
     titleClicks = 0;
 }
 
@@ -396,7 +401,7 @@ void MainWindow::showGame(game game)
 {
     gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
     connect((QObject*)gameWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
-    connect((QObject*)gameWidget->rootObject(), SIGNAL(saveScore(int, QString, int)), this, SLOT(enterScore(int, QString, int)));
+    connect((QObject*)gameWidget->rootObject(), SIGNAL(saveScore(int,QString,int)), this, SLOT(enterScore(int,QString,int)));
     gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     ui->canvas->layout()->addWidget(gameWidget);
 
