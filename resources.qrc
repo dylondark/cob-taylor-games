@@ -38,6 +38,7 @@
     </qresource>
     <qresource prefix="/game">
         <file>gameassets/trivia/testimage.png</file>
+        <file>gamefiles/TetroosFiles/TetroosInGamePreview.png</file>
     </qresource>
     <qresource prefix="/">
         <file>Logos-Buttons/TriviaBackgroundBase/FFF7E9.png</file>
