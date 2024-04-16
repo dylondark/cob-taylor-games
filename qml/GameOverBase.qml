@@ -87,12 +87,4 @@ ColumnLayout {
             }
         }
     }
-
-    Feedback {
-        id: feedbackBase
-        Layout.preferredHeight: -1
-        Layout.preferredWidth: -1
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-    }
 }
