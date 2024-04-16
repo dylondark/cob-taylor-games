@@ -43,7 +43,7 @@ Item {
                 anchors.fill: parent
 
                 logoSource: "qrc:/menu/Logos-Buttons/ZippyPong/PongMotionPreview.png"
-                conceptSource: "qrc:/game/gameassets/trivia/testimage.png"
+                conceptSource: "qrc:/game/gamefiles/Zoccer/Zoccer.png"
             }
         }
 
