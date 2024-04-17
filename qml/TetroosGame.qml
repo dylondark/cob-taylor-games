@@ -33,9 +33,15 @@ Item {
             Layout.verticalStretchFactor: 6
 
             gradient: Gradient {
-                     GradientStop { position: 0.0; color: "#3f51b1" }
-                     GradientStop { position: 1.0; color: "#cc6b8e" }
-                 }
+                GradientStop {
+                    position: 0.0
+                    color: "#3f51b1"
+                }
+                GradientStop {
+                    position: 1.0
+                    color: "#cc6b8e"
+                }
+            }
 
             PreviewBase {
                 id: preview
@@ -43,7 +49,7 @@ Item {
                 anchors.fill: parent
 
                 logoSource: "qrc:/menu/Logos-Buttons/Tetroos/TetroosPreview.png"
-                conceptSource: "qrc:/game/gameassets/trivia/testimage.png"
+                conceptSource: "qrc:/game/gamefiles/TetroosFiles/TetroosInGamePreview.png"
             }
         }
 
