@@ -167,7 +167,7 @@ Item {
 
             MenuBase {
                 id: menuBase
-                imageSource: "qrc:/menu/Logos-Buttons/GuessTheLogoNEW.png"
+                imageSource: "qrc:/menu/menufiles/GuessTheLogoNEW.png"
             }
 
             Item {

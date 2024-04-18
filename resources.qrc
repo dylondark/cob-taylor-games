@@ -1,28 +1,4 @@
 <RCC>
-    <qresource prefix="/menu">
-        <file>Logos-Buttons/title.png</file>
-        <file>Logos-Buttons/trivia.png</file>
-        <file>Logos-Buttons/comingsoon.png</file>
-        <file>Logos-Buttons/guessthelogo.png</file>
-        <file>Logos-Buttons/ComingSoon2.png</file>
-        <file>Logos-Buttons/GuessTheLogoNEW.png</file>
-        <file>Logos-Buttons/title_splash.png</file>
-        <file>Logos-Buttons/Tetroos/Tetroos.png</file>
-        <file>Logos-Buttons/ZippyHop/Hopper.png</file>
-        <file>Logos-Buttons/ZippyPong/PongMotionPreview.png</file>
-        <file>Logos-Buttons/ZippyHop/HopperPreview.png</file>
-        <file>Logos-Buttons/Tetroos/TetroosPreview.png</file>
-        <file>Logos-Buttons/Checkers/CheckersPreview.png</file>
-    </qresource>
-    <qresource prefix="/background">
-        <file>projecticons/controller1.png</file>
-        <file>projecticons/controller3.png</file>
-        <file>projecticons/aroo1.png</file>
-        <file>projecticons/z4.png</file>
-        <file>projecticons/roo1.png</file>
-        <file>projecticons/zippy2.png</file>
-        <file>projecticons/seal1.png</file>
-    </qresource>
     <qresource prefix="/qml">
         <file>qml/TriviaGame.qml</file>
         <file>qml/MenuBase.qml</file>
@@ -37,16 +13,25 @@
         <file>qml/PreviewBase.qml</file>
     </qresource>
     <qresource prefix="/game">
-        <file>gameassets/trivia/testimage.png</file>
         <file>gamefiles/TetroosFiles/TetroosInGamePreview.png</file>
         <file>gamefiles/Zoccer/Zoccer.png</file>
         <file>gamefiles/Hopper/Hopper.png</file>
         <file>gamefiles/CheckersFiles/CheckersInGamePreview.png</file>
     </qresource>
-    <qresource prefix="/">
-        <file>Logos-Buttons/TriviaBackgroundBase/FFF7E9.png</file>
-        <file>qml/HomeBarBase.qml</file>
-        <file>qml/Feedback.qml</file>
-        <file>Logos-Buttons/Tetroos/Tetroos.png</file>
+    <qresource prefix="/menu">
+        <file>menufiles/PongMotionPreview.png</file>
+        <file>menufiles/HopperPreview.png</file>
+        <file>menufiles/TetroosPreview.png</file>
+        <file>menufiles/CheckersPreview.png</file>
+        <file>menufiles/trivia.png</file>
+        <file>menufiles/GuessTheLogoNEW.png</file>
+        <file>menufiles/title_splash.png</file>
+        <file>menufiles/projecticons/controller1.png</file>
+        <file>menufiles/projecticons/controller3.png</file>
+        <file>menufiles/projecticons/aroo1.png</file>
+        <file>menufiles/projecticons/z4.png</file>
+        <file>menufiles/projecticons/roo1.png</file>
+        <file>menufiles/projecticons/zippy2.png</file>
+        <file>menufiles/projecticons/seal1.png</file>
     </qresource>
 </RCC>

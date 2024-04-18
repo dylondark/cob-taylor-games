@@ -195,15 +195,15 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
 
     // scale and reapply title image
-    ui->lblTitle->setPixmap(QPixmap(":/menu/Logos-Buttons/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->lblTitle->setPixmap(QPixmap(":/menu/menufiles/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     // apply button images
-    setBtnIcon(ui->btnGame1, ":/menu/Logos-Buttons/trivia.png");// UATrivia
-    setBtnIcon(ui->btnGame2, ":/menu/Logos-Buttons/GuessTheLogoNEW.png");//GuessTheLogo
-    setBtnIcon(ui->btnGame3, ":/menu/Logos-Buttons/Tetroos/TetroosPreview.png");//Tetroos
-    setBtnIcon(ui->btnGame4, ":/menu/Logos-Buttons/ZippyHop/HopperPreview.png"); //ZippyHop
-    setBtnIcon(ui->btnGame5, ":/menu/Logos-Buttons/ZippyPong/PongMotionPreview.png");//pong
-    setBtnIcon(ui->btnGame6, ":/menu/Logos-Buttons/Checkers/CheckersPreview.png");//checkers
+    setBtnIcon(ui->btnGame1, ":/menu/menufiles/trivia.png");// UATrivia
+    setBtnIcon(ui->btnGame2, ":/menu/menufiles/GuessTheLogoNEW.png");//GuessTheLogo
+    setBtnIcon(ui->btnGame3, ":/menu/menufiles/TetroosPreview.png");//Tetroos
+    setBtnIcon(ui->btnGame4, ":/menu/menufiles/HopperPreview.png"); //ZippyHop
+    setBtnIcon(ui->btnGame5, ":/menu/menufiles/PongMotionPreview.png");//pong
+    setBtnIcon(ui->btnGame6, ":/menu/menufiles/CheckersPreview.png");//checkers
 
     // scale functions
     scaleMenu(wh[1]);

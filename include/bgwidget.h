@@ -80,13 +80,13 @@ private:
 
     // Contains QPixmaps containing all the images to use for the background.
     std::vector<QPixmap> pictures =
-        {QPixmap(":/background/projecticons/controller1.png"),
-         QPixmap(":/background/projecticons/controller3.png"),
-         QPixmap(":/background/projecticons/aroo1.png"),
-         QPixmap(":/background/projecticons/z4.png"),
-         QPixmap(":/background/projecticons/roo1.png"),
-         QPixmap(":/background/projecticons/zippy2.png"),
-         QPixmap(":/background/projecticons/seal1.png")};
+        {QPixmap(":/menu/menufiles/projecticons/controller1.png"),
+         QPixmap(":/menu/menufiles/projecticons/controller3.png"),
+         QPixmap(":/menu/menufiles/projecticons/aroo1.png"),
+         QPixmap(":/menu/menufiles/projecticons/z4.png"),
+         QPixmap(":/menu/menufiles/projecticons/roo1.png"),
+         QPixmap(":/menu/menufiles/projecticons/zippy2.png"),
+         QPixmap(":/menu/menufiles/projecticons/seal1.png")};
 
     // Queue that contains the images to be painted on the background.
     imgQueue queue = imgQueue(pictures);
