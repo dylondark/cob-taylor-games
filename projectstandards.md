@@ -109,7 +109,6 @@ The main data files for the games should be in comma-separated values (.csv) for
 ### Naming
 - Use camelCase (first word lowercase, all other words capitalized, no underscores) for function and variable names.
 - Use PascalCase (first letter of every word capitalized, no underscores) for class names.
-- Don't include the type in the name of a variable or function (for example `intCount`).
 - Constants should be all caps with underscores for spaces (for example `LOOP_SECONDS` is a constant, while `loopSeconds` is a variable).
 - File names should be all lowercase and should be the same as the class or namespace within them (for example, class "TriviaController" will have files "triviacontroller.h" and "triviacontroller.cpp", and namespace Utilities will have "utilities.h" and "utilities.cpp").
 
