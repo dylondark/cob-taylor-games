@@ -114,7 +114,7 @@ The main data files for the games should be in comma-separated values (.csv) for
 - File names should be all lowercase and should be the same as the class or namespace within them (for example, class "TriviaController" will have files "triviacontroller.h" and "triviacontroller.cpp", and namespace Utilities will have "utilities.h" and "utilities.cpp").
 
 ### Comments & Documentation
-- Comments should have proper grammar and punctuation.
+- All block comments and comments documenting functions or class member variables should have proper grammar and punctuation.
 - All .h and .cpp files should have a block comment at the top with the filename and short description of the file.
 - All functions should be documented with block comments containing description of function followed by description of parameters and return value if applicable, in both the h and cpp files.
 ```
