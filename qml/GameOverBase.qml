@@ -13,12 +13,10 @@ ColumnLayout {
 
     Timer {
         id: gameOverTimer
-        interval: 30000 // 15 seconds
+        interval: 15000 // 15 seconds
         repeat: true
         onTriggered: {
-            if (feedbackBase.timerEval()) {
                 root.quit()
-            }
         }
     }
 
