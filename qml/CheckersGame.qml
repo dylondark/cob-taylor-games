@@ -42,7 +42,7 @@ Item {
 
                 anchors.fill: parent
 
-                logoSource: "qrc:/menu/Logos-Buttons/Checkers/CheckersPreview.png"
+                logoSource: "qrc:/menu/menufiles/CheckersPreview.png"
                 conceptSource: "qrc:/game/gamefiles/CheckersFiles/CheckersInGamePreview.png"
             }
         }

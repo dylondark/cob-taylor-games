@@ -48,7 +48,7 @@ Item {
 
                 anchors.fill: parent
 
-                logoSource: "qrc:/menu/Logos-Buttons/Tetroos/TetroosPreview.png"
+                logoSource: "qrc:/menu/menufiles/TetroosPreview.png"
                 conceptSource: "qrc:/game/gamefiles/TetroosFiles/TetroosInGamePreview.png"
             }
         }
