@@ -15,8 +15,8 @@
     <qresource prefix="/game">
         <file>gamefiles/TetroosFiles/TetroosInGamePreview.png</file>
         <file>gamefiles/Zoccer/Zoccer.png</file>
-        <file>gamefiles/Hopper/Hopper.png</file>
         <file>gamefiles/CheckersFiles/CheckersInGamePreview.png</file>
+        <file>gamefiles/Hopper/Hopper.png</file>
     </qresource>
     <qresource prefix="/menu">
         <file>menufiles/PongMotionPreview.png</file>
