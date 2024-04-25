@@ -1,3 +1,9 @@
+/*
+    GameOverBase.qml
+
+    Contains the game over screen to be shown at the end of each game.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -20,11 +26,14 @@ ColumnLayout {
         }
     }
 
-    // run this function to show the game over screen and automatically send quit signal
+    /*
+        Shows the game over screen and automatically sends quit signal
+    */
     function gameOverOps() {
-        base.visible = true
-        gameOverTimer.start()
-        root.saveScore(root.gameEnum, root.username, root.points)
+        base.visible = true;
+        gameOverTimer.start();
+        root.saveScore(root.gameEnum, root.username, root.points);
+        // TODO: tell user if they got a score on the leaderboard
     }
 
     Item {
