@@ -1,13 +1,21 @@
+/*
+    triviacontroller.cpp
+
+    Class definition for TriviaController.
+*/
+
 #include "triviacontroller.h"
 #include <random>
 #include <algorithm>
-#include <fstream>
-#include <cstring>
 #include "rapidcsv.h"
 #include <QApplication>
 
+/*
+    Constructor for TriviaController.
+*/
 TriviaController::TriviaController()
 {
+    // parse -p CLI argument and set filepath if applicable
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
     {
         filepath = QApplication:: arguments().at(2).toStdString();
@@ -18,56 +26,80 @@ TriviaController::TriviaController()
     // all strings must be enclosed in quotation marks
     TriviaQuestion current;
     std::string strTemp;
-    rapidcsv::Document file(filepath + questionPath);
+    rapidcsv::Document file(filepath + QUESTION_PATH);
     for (unsigned x = 0; x < file.GetRowCount(); x++)
     {
+        // get question text
         strTemp = file.GetCell<string>(0, x);
         current.m_question = QString(strTemp.c_str());
 
+        // get correct question number
         current.m_correct = file.GetCell<int>(1, x);
 
+        // get first answer
         strTemp = file.GetCell<string>(2, x);
         current.m_ans1 = QString(strTemp.c_str());
 
+        // second answer
         strTemp = file.GetCell<string>(3, x);
         current.m_ans2 = QString(strTemp.c_str());
 
+        // third answer
         strTemp = file.GetCell<string>(4, x);
         current.m_ans3 = QString(strTemp.c_str());
 
+        // fourth answer
         strTemp = file.GetCell<string>(5, x);
         current.m_ans4 = QString(strTemp.c_str());
 
+        // get image filename
         strTemp = file.GetCell<string>(6, x);
-        current.m_img = QString(("file:")).append(filepath + imgPath).append(strTemp.c_str());
+        current.m_img = QString(("file:")).append(filepath + IMG_PATH).append(strTemp.c_str());
 
+        // add to questions vector
         questionVec.push_back(current);
     }
 
     // populate and randomize questionNums
-    for (int x = 0; x < questionVec.size(); x++)
+    for (int x = 0; x < (int)questionVec.size(); x++)
         questionNums.push_back(x);
     std::shuffle(questionNums.begin(), questionNums.end(), std::default_random_engine{ std::random_device{}() });
-    /* questions must be shown to the player in random order with no repeats,
-     * and the question order must be different every time the game is played (this object is constructed).
-     * the simplest way i figured to do this would be to create a vector of numbers 0 to questionVec.size() - 1 (questionNum)
-     * to use as the index for questionVec and randomly shuffle this vector. then iterate through this vector as the index
-     * every time we need to get a new question. see getQuestion() */
+    /*
+        Questions must be shown to the player in random order with no repeats,
+        and the question order must be different every time the game is played (this object is constructed).
+        The simplest way I figured to do this would be to create a vector of numbers 0 to questionVec.size() - 1 (questionNum)
+        to use as the index for questionVec and randomly shuffle this vector. Then iterate through this vector as the index
+        every time we need to get a new question. See getQuestion().
+    */
 }
 
+/*
+    Gets the next random question and stores in currentQuestion.
+*/
 void TriviaController::randQuestion()
 {
     static int index = 0;
-    if (index >= questionNums.size())
-        index = 0; // exceeding the amount of questions in questionVec will just loop back to the beginning. in the final game this should probably end the game or at least randomize the questions again
+
+    // loop back around if index has gone higher than the amount of questions
+    // this should never happen in production since there should be more questions in the database than will be shown in any one play of the game
+    if (index >= (int)questionNums.size())
+        index = 0;
+
+    // retrieve random question
     currentQuestion = questionVec[questionNums[index++]];
 }
 
+/*
+    Retrieves the current question stored in currentQuestion.
+*/
 TriviaQuestion TriviaController::getQuestion()
 {
     return currentQuestion;
 }
 
+/*
+    Returns a list of ints 1-4 but in random order. used for randomizing answer buttons
+*/
 QVariantList TriviaController::randomizeFour()
 {
     // shuffle 0-3

@@ -1,3 +1,9 @@
+/*
+    TriviaGame.qml
+
+    Main QML file for the Trivia game.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -14,12 +20,11 @@ Item {
     signal quit
     signal saveScore(int game, string username, int score)
 
-    // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
     property real scaleFactor: height / 3840
     property int points: 0
     property string strName: "Trivia"
     property string username: "unset"
-    property int gameEnum: 0 //Utilities number.
+    property int gameEnum: 0
 
     TriviaController {
         id: controller
@@ -191,49 +196,56 @@ Item {
                     property int questionSeconds: 15 // change this when adjusting question time
                     property int pointsRemaining: questionSeconds * 100 + gameBase.pointBonus
 
+                    /*
+                        Starts the timer countdown.
+                    */
                     function beginCountdown() {
-                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds
-                                * 100 + gameBase.pointBonus // reset pointsRemaining
-                        pointsRemainingTxt.text = timerBase.pointsPrefix
-                                + questionCountdown.pointsRemaining
-                        timeRemainingTxt.text = timerBase.timePrefix
-                                + questionCountdown.questionSeconds
-                        timerBarAnim.start()
-                        questionCountdown.start()
+                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100 + gameBase.pointBonus; // reset pointsRemaining
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining;
+                        timeRemainingTxt.text = timerBase.timePrefix + questionCountdown.questionSeconds;
+                        timerBarAnim.start();
+                        questionCountdown.start();
                     }
 
+                    /*
+                        Function called on countdown timer trigger.
+                        Updates points and time remaining.
+                        Ends current question if time is up.
+                    */
                     function triggerActions() {
-                        questionCountdown.pointsRemaining -= 10
-                        pointsRemainingTxt.text = timerBase.pointsPrefix
-                                + questionCountdown.pointsRemaining // update the score shown to the user
+                        questionCountdown.pointsRemaining -= 10;
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining; // update the score shown to the user
 
-                        timeRemainingTxt.text = timerBase.timePrefix
-                                + (Math.ceil((pointsRemaining - gameBase.pointBonus) / 100)).toString(
-                                    ).padStart(2, '0')
+                        timeRemainingTxt.text = timerBase.timePrefix + (Math.ceil((pointsRemaining - gameBase.pointBonus) / 100)).toString().padStart(2, '0');
 
                         if (questionCountdown.pointsRemaining <= gameBase.pointBonus) {
-                            questionCountdown.stop()
-                            timerBarAnim.stop()
-                            gameBase.endQuestion(5)
+                            questionCountdown.stop();
+                            timerBarAnim.stop();
+                            gameBase.endQuestion(5);
                         }
                     }
 
-                    onTriggered: triggerActions()
+                    onTriggered: triggerActions();
                 }
 
                 Timer {
                     id: timer
-                    // cb: callback to a function we want to run afterward
-                    // delayTime: milliseconds to wait
+
+                    /*
+                        Sets the action for the timer and the amount of time between timeouts.
+
+                        cb: Callback to a function we want to run afterward
+                        delayTime: Milliseconds to wait
+                    */
                     function setTimeout(cb, delayTime) {
-                        timer.interval = delayTime
-                        timer.repeat = false
-                        timer.triggered.connect(cb)
+                        timer.interval = delayTime;
+                        timer.repeat = false;
+                        timer.triggered.connect(cb);
                         timer.triggered.connect(function release() {
-                            timer.triggered.disconnect(cb)
-                            timer.triggered.disconnect(release)
+                            timer.triggered.disconnect(cb);
+                            timer.triggered.disconnect(release);
                         })
-                        timer.start()
+                        timer.start();
                     }
                 }
 
@@ -242,7 +254,8 @@ Item {
                     properties: "color"
                     to: "#5bee62"
                     duration: 100
-                } // target is set dynamically to whichever is correct at the time
+                }
+
                 PropertyAnimation {
                     id: incorrectAnim1
                     properties: "color"
@@ -250,6 +263,7 @@ Item {
                     target: answer1Bg
                     duration: 100
                 }
+
                 PropertyAnimation {
                     id: incorrectAnim2
                     properties: "color"
@@ -257,6 +271,7 @@ Item {
                     target: answer2Bg
                     duration: 100
                 }
+
                 PropertyAnimation {
                     id: incorrectAnim3
                     properties: "color"
@@ -264,6 +279,7 @@ Item {
                     target: answer3Bg
                     duration: 100
                 }
+
                 PropertyAnimation {
                     id: incorrectAnim4
                     properties: "color"
@@ -272,108 +288,117 @@ Item {
                     duration: 100
                 }
 
+                /*
+                    Operations for ending the current question.
+
+                    int button: Button pressed. 1-4 for answer buttons, 5 if question ended due to time running out.
+                */
                 function endQuestion(button: int) {
                     if (!lock) {
-                        lock = true
+                        lock = true;
 
                         // stop the countdown
-                        questionCountdown.stop()
-                        timerBarAnim.stop()
+                        questionCountdown.stop();
+                        timerBarAnim.stop();
 
-                        if (controller.getQuestion().correct == button) {
+                        if (controller.getQuestion().correct === button) {
                             // correct answer
-                            questionLabel.text = qsTr("Correct!")
-                            root.points += questionCountdown.pointsRemaining
-                            homeBarBase.updatePoints()
-                            questionsCorrect++
+                            questionLabel.text = qsTr("Correct!");
+                            root.points += questionCountdown.pointsRemaining;
+                            homeBarBase.updatePoints();
+                            questionsCorrect++;
 
-                        } else if (button == 5) {
+                        } else if (button === 5) {
                             // ran out of time
-                            questionLabel.text = "Time's Up!"
-                            pointsRemainingTxt.text = timerBase.pointsPrefix
-                                    + "0" // set points display to 0
+                            questionLabel.text = "Time's Up!";
+                            pointsRemainingTxt.text = timerBase.pointsPrefix + "0"; // set points display to 0
                         } else {
                             // incorrect answer
                             questionLabel.text = qsTr("Incorrect!")
-                            pointsRemainingTxt.text = timerBase.pointsPrefix
-                                    + "0" // set points display to 0
+                            pointsRemainingTxt.text = timerBase.pointsPrefix + "0"; // set points display to 0
                         }
 
                         // fade incorrect buttons to red
-                        if (controller.getQuestion().correct != 1)
-                            incorrectAnim1.start()
-                        if (controller.getQuestion().correct != 2)
-                            incorrectAnim2.start()
-                        if (controller.getQuestion().correct != 3)
-                            incorrectAnim3.start()
-                        if (controller.getQuestion().correct != 4)
-                            incorrectAnim4.start()
+                        if (controller.getQuestion().correct !== 1)
+                            incorrectAnim1.start();
+                        if (controller.getQuestion().correct !== 2)
+                            incorrectAnim2.start();
+                        if (controller.getQuestion().correct !== 3)
+                            incorrectAnim3.start();
+                        if (controller.getQuestion().correct !== 4)
+                            incorrectAnim4.start();
 
                         // fade the correct button to green
-                        correctAnim.target = buttons[controller.getQuestion(
-                                                         ).correct - 1]
-                        correctAnim.start()
+                        correctAnim.target = buttons[controller.getQuestion().correct - 1];
+                        correctAnim.start();
 
                         if (gameBase.questionNum >= gameBase.maxQuestions)
                             timer.setTimeout(function () {
-                                endGame()
+                                endGame();
                             }, 3000)
                         else
                             timer.setTimeout(function () {
-                                newQuestion()
+                                newQuestion();
                             }, 3000)
                     }
                 }
 
+                /*
+                    Operations for starting a new question.
+                */
                 function newQuestion() {
-                    controller.randQuestion()
-                    questionLabel.text = controller.getQuestion().question
-                    answer1Txt.text = controller.getQuestion().ans1
-                    answer2Txt.text = controller.getQuestion().ans2
-                    answer3Txt.text = controller.getQuestion().ans3
-                    answer4Txt.text = controller.getQuestion().ans4
-                    questionImage.source = controller.getQuestion().img
-                    lock = false
+                    // randomize question and set text fields
+                    controller.randQuestion();
+                    questionLabel.text = controller.getQuestion().question;
+                    answer1Txt.text = controller.getQuestion().ans1;
+                    answer2Txt.text = controller.getQuestion().ans2;
+                    answer3Txt.text = controller.getQuestion().ans3;
+                    answer4Txt.text = controller.getQuestion().ans4;
+                    questionImage.source = controller.getQuestion().img;
+
+                    // unlock endQuestion()
+                    lock = false;
 
                     // reset colors
-                    answer1Bg.color = "white"
-                    answer2Bg.color = "white"
-                    answer3Bg.color = "white"
-                    answer4Bg.color = "white"
+                    answer1Bg.color = "white";
+                    answer2Bg.color = "white";
+                    answer3Bg.color = "white";
+                    answer4Bg.color = "white";
 
-                    randomizeAnswers()
+                    // shuffle the answer buttons
+                    randomizeAnswers();
 
                     // update the questions completed
-                    questionsRemainingTxt.text = timerBase.questionPrefix
-                            + (++gameBase.questionNum) + "/" + gameBase.maxQuestions
+                    questionsRemainingTxt.text = timerBase.questionPrefix + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
 
-                    questionCountdown.beginCountdown()
+                    questionCountdown.beginCountdown();
                 }
 
+                /*
+                    Operations for when the game ends.
+                */
                 function endGame() {
-                    gameBase.visible = false
-                    gameOverBase.gameOverOps()
-                    // send signal to put in user's score
-                    // change score value in label
-                    // add extra line to congratulate user if they got a leaderboard spot
+                    gameBase.visible = false;
+                    gameOverBase.gameOverOps();
                 }
 
-                // randomize answer button order
-                // done by shuffling the position of the buttons in the layout
+                /*
+                    Randomize answer button order.
+                    Done by shuffling the position of the buttons in the layout.
+                */
                 function randomizeAnswers() {
-                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]]
-                    var nums = controller.randomizeFour()
-                    // get array of 0-3 in random order
+                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]];
+                    var nums = controller.randomizeFour(); // get array of 0-3 in random order
 
                     // apply layout positions
-                    answer1Btn.Layout.row = indexes[nums[0]][0]
-                    answer1Btn.Layout.column = indexes[nums[0]][1]
-                    answer2Btn.Layout.row = indexes[nums[1]][0]
-                    answer2Btn.Layout.column = indexes[nums[1]][1]
-                    answer3Btn.Layout.row = indexes[nums[2]][0]
-                    answer3Btn.Layout.column = indexes[nums[2]][1]
-                    answer4Btn.Layout.row = indexes[nums[3]][0]
-                    answer4Btn.Layout.column = indexes[nums[3]][1]
+                    answer1Btn.Layout.row = indexes[nums[0]][0];
+                    answer1Btn.Layout.column = indexes[nums[0]][1];
+                    answer2Btn.Layout.row = indexes[nums[1]][0];
+                    answer2Btn.Layout.column = indexes[nums[1]][1];
+                    answer3Btn.Layout.row = indexes[nums[2]][0];
+                    answer3Btn.Layout.column = indexes[nums[2]][1];
+                    answer4Btn.Layout.row = indexes[nums[3]][0];
+                    answer4Btn.Layout.column = indexes[nums[3]][1];
                 }
 
                 Rectangle {
@@ -404,6 +429,7 @@ Item {
                             to: 0 - root.width * 1.02
                             duration: 15000
                         }
+
                         SequentialAnimation {
                             PropertyAnimation {
                                 target: timerBar
@@ -412,6 +438,7 @@ Item {
                                 to: "yellow"
                                 duration: 7500
                             }
+
                             PropertyAnimation {
                                 target: timerBar
                                 properties: "color"
