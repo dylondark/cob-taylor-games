@@ -178,13 +178,13 @@ property int gameEnum: 0 // the enum number of the game. should be whatever int 
 - Don't include the type in the name of a variable or function (for example: `intCount`).
 - Filenames for game QML files should end in "Game.qml" (for example: "TriviaGame.qml").
 - Filenames for other QML files should end in "Base.qml" (for example: "MenuBase.qml").
-- Any comments containing TODO messages should have `TODO:` in them.
 
 ### Comments & Documentation
-- Comments should have propper grammar and punctuation.
+- Comments documenting functions should have propper grammar and punctuation.
 - All .qml files should have a block comment at the top with the filename and short description of the file.
 - All functions should be documented with block comments in Doxygen style (description of function followed by description of parameters and return value if applicable).
 - Chunks of code in functions should have comments preceding them.
+- Any comments containing TODO messages should have `TODO:` in them.
 
 ## QMake File 
 The QMake file (cob-taylor-games.pro) specifies how the project should be built, and serves as the project file when opening in Qt Creator.
