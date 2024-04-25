@@ -1,3 +1,9 @@
+/*
+    TetroosGame.qml
+
+    Main QML file for the Tetroos game.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -12,12 +18,11 @@ Item {
     signal quit
     signal saveScore(int game, string username, int score)
 
-    // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
     property real scaleFactor: height / 3840
     property int points: 0
     property string strName: "Tetroos"
     property string username: ""
-    property int gameEnum: 0 //Utilities number.
+    property int gameEnum: 0
 
     ColumnLayout {
         id: baseLayout
