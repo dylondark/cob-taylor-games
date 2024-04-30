@@ -1,9 +1,27 @@
+/*
+    clickdetector.cpp
+
+    Class definition for clickdetector.
+ */
+
 #include "clickdetector.h"
 #include <QEvent>
 
-ClickDetector::ClickDetector() {}
+/*
+    Constructor for ClickDetector.
+ */
+ClickDetector::ClickDetector()
+{
 
-bool ClickDetector::eventFilter(QObject *obj, QEvent *event)
+}
+
+/*
+    Detects a click on object.
+
+    QObject* obj: Object that click dectector.
+    QEvent* event: Click event.
+ */
+bool ClickDetector::eventFilter(QObject* obj, QEvent* event)
 {
     if (event->type() == QEvent::MouseButtonPress)
         emit clickDetected();
