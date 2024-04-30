@@ -26,6 +26,7 @@
 class bgWidget : public QOpenGLWidget
 {
 public:
+
     /*
         Constructor for bgWidget.
     */
