@@ -1,3 +1,9 @@
+/*
+    leaderboardhandler.cpp
+
+    class definition for the leaderboardhandler.
+*/
+
 #include "leaderboardhandler.h"
 #include <QApplication>
 #include <QPainter>
@@ -20,6 +26,10 @@ LeaderboardHandler:: ~LeaderboardHandler()
     delete lbObj;
 }
 
+/*
+    add score to memory buffer
+*/
+
 void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int score)
 {
     // check if a score for this player already exists
@@ -31,6 +41,9 @@ void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int
         scoreLists[selectedGame][playerName] = score;
 }
 
+/*
+    load scores from file into memory buffer for specified game
+*/
 void LeaderboardHandler::loadScores(game selectedGame)
 {
     std::ifstream file(filepath + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
@@ -60,12 +73,18 @@ void LeaderboardHandler::loadScores(game selectedGame)
     file.close();
 }
 
+/*
+    calls loadScores(game) for all games
+*/
 void LeaderboardHandler::loadScores() {
     for (int i = 0; i < 6; ++i) {
         loadScores(static_cast<game>(i));
     }
 }
 
+/*
+    writes scores from memory buffer to file for specified game
+*/
 void LeaderboardHandler:: writeScores(game selectedGame)
 {
     std::ofstream outFile(filepath + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
@@ -82,6 +101,9 @@ void LeaderboardHandler:: writeScores(game selectedGame)
     outFile.close();
 }
 
+/*
+    calls writeScores(game) for all games
+*/
 void LeaderboardHandler::writeScores() {
     // Calls writeScores(game) for all games
     for (int i = 0; i < 6; ++i) {
@@ -101,6 +123,9 @@ struct LeaderboardHandler::sortcomp
     }
 };
 
+/*
+    refreshes the leaderboard page of specified game with new values based on current memory
+*/
 void LeaderboardHandler::refreshlb(game selectedGame)
 {
     QListWidget* list[] = {(QListWidget*)(lbObj->widget(selectedGame)->children()[1]), (QListWidget*)(lbObj->widget(selectedGame)->children()[2]), (QListWidget*)(lbObj->widget(selectedGame)->children()[3])};
@@ -143,6 +168,9 @@ void LeaderboardHandler::refreshlb(game selectedGame)
     }
 }
 
+/*
+    calls refreshlb(game) for all games (refreshes all pages)
+*/
 void LeaderboardHandler::refreshlb()
 {
     for (int i = 0; i < 6; ++i) {
