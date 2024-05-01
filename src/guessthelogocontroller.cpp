@@ -1,11 +1,18 @@
+/*
+   guessthelogocontroller.cpp
+
+   Class definition for guessthelogocontroller.
+*/
+
 #include "guessthelogocontroller.h"
 #include <random>
 #include <algorithm>
-#include <fstream>
-#include <cstring>
 #include "rapidcsv.h"
 #include <QApplication>
 
+/*
+    Constructor for GuessthelogoController.
+*/
 GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/Type1/", "/gamefiles/gtl/Type2/"}
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
@@ -13,9 +20,10 @@ GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/Typ
         filepath = QApplication:: arguments().at(2).toStdString();
     }
 
-    // load question data from files, package into question structs and store in questionVec
-    // trivia datafile must be csv with lines consisting of string, int, string, string, string, string, string
-    // all strings must be enclosed in quotation marks
+
+    //load question data from files, package into question structs and store in questionVec
+    //trivia datafile must be csv with lines consisting of string, int, string, string, string, string, string
+    //all strings must be enclosed in quotation marks
     GTLQuestion current;
     std::string strTemp;
     int questionType;
@@ -50,13 +58,18 @@ GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/Typ
     for (int x = 0; x < questionVec.size(); x++)
         questionNums.push_back(x);
     std::shuffle(questionNums.begin(), questionNums.end(), std::default_random_engine{ std::random_device{}() });
-    /* questions must be shown to the player in random order with no repeats,
-     * and the question order must be different every time the game is played (this object is constructed).
-     * the simplest way i figured to do this would be to create a vector of numbers 0 to questionVec.size() - 1 (questionNum)
-     * to use as the index for questionVec and randomly shuffle this vector. then iterate through this vector as the index
-     * every time we need to get a new question. see getQuestion() */
+    /*
+    questions must be shown to the player in random order with no repeats,
+    and the question order must be different every time the game is played (this object is constructed).
+    the simplest way i figured to do this would be to create a vector of numbers 0 to questionVec.size() - 1 (questionNum)
+    to use as the index for questionVec and randomly shuffle this vector. then iterate through this vector as the index
+    every time we need to get a new question. see getQuestion()
+    */
 }
 
+/*
+    Gets the next random question and stores in currentQuestion.
+*/
 void GuessTheLogoController::randQuestion()
 {
     static unsigned int index = 0;
@@ -65,11 +78,17 @@ void GuessTheLogoController::randQuestion()
     currentQuestion = questionVec[questionNums[index++]];
 }
 
+/*
+    Retrieves the current question stored in currentQuestion.
+*/
 GTLQuestion GuessTheLogoController::getQuestion()
 {
     return currentQuestion;
 }
 
+/*
+    Returns a list of ints 1-4 but in random order. used for randomizing answer buttons
+*/
 QVariantList GuessTheLogoController::randomizeFour()
 {
     // shuffle 0-3
