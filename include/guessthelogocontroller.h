@@ -1,3 +1,9 @@
+/*
+    guessthelogocontroller.h
+
+    class declaration for guessthelogocontroller.
+*/
+
 #ifndef GUESSTHELOGOCONTROLLER_H
 #define GUESSTHELOGOCONTROLLER_H
 
@@ -5,8 +11,10 @@
 #include <QtQml/qqmlregistration.h>
 #include <QVariantList>
 
-// documentation for using c++ with QML can be found at
-// https://doc.qt.io/qt-6/qtqml-cppintegration-definetypes.html
+/*
+    documentation for using c++ with QML can be found at
+    https://doc.qt.io/qt-6/qtqml-cppintegration-definetypes.html
+*/
 
 using std::string;
 using std::vector;
@@ -29,11 +37,11 @@ public:
 };
 
 /* GuessTheLogoController
- *
- * This class is the controller class for the Trivia game. It is instantiated as an object in the QML file for the game and used in the QML.
- * Anything more than basic ui logic is located here. Specifically, this class loads the trivia question data from the filesystem, and
- * it contains methods that can be used within QML to obtain that question data in random order.
- */
+
+    This class is the controller class for the Trivia game. It is instantiated as an object in the QML file for the game and used in the QML.
+    Anything more than basic ui logic is located here. Specifically, this class loads the trivia question data from the filesystem, and
+    it contains methods that can be used within QML to obtain that question data in random order.
+*/
 class GuessTheLogoController : public QObject
 {
     Q_OBJECT
