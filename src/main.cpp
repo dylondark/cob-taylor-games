@@ -1,3 +1,9 @@
+/*
+    main.cpp
+
+    Starting file of the program.
+*/
+
 #include "mainwindow.h"
 #include <QScreen>
 #include <QApplication>
@@ -5,9 +11,11 @@
 #include <QStyleFactory>
 #include <QQuickWindow>
 
-// Provides the "entry point" for the application.
-// This function only configures and sets up the environment for the main window.
-// "Init" operations for the program should be placed in the mainwindow constructor unless they really need to be here.
+/*
+    Provides the "entry point" for the application.
+    This function only configures and sets up the environment for the main window.
+   "Init" operations for the program should be placed in the mainwindow constructor unless they really need to be here.
+*/
 int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard")); //Enable virtual keyboard environment variable
