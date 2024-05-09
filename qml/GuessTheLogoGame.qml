@@ -11,8 +11,7 @@ Item {
     width: 2160
     height: 3840
 
-    signal quit
-    // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
+    signal quit // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
     signal saveScore(int game, string username, int score)
 
     property real scaleFactor: height / 3840
@@ -192,33 +191,27 @@ Item {
                     property int pointsRemaining: questionSeconds * 100 + gameBase.pointBonus
 
                     function beginCountdown() {
-                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100
-                                + gameBase.pointBonus // reset pointsRemaining
-                        pointsRemainingTxt.text = timerBase.pointsPrefix
-                                + questionCountdown.pointsRemaining
-                        timeRemainingTxt.text = timerBase.timePrefix
-                                + questionCountdown.questionSeconds
-                        timerBarAnim.start()
-                        questionCountdown.start()
+                        questionCountdown.pointsRemaining = questionCountdown.questionSeconds * 100 + gameBase.pointBonus; // reset pointsRemaining
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining;
+                        timeRemainingTxt.text = timerBase.timePrefix + questionCountdown.questionSeconds;
+                        timerBarAnim.start();
+                        questionCountdown.start();
                     }
 
                     function triggerActions() {
-                        questionCountdown.pointsRemaining -= 10
-                        pointsRemainingTxt.text = timerBase.pointsPrefix
-                                + questionCountdown.pointsRemaining // update the score shown to the user
+                        questionCountdown.pointsRemaining -= 10;
+                        pointsRemainingTxt.text = timerBase.pointsPrefix + questionCountdown.pointsRemaining; // update the score shown to the user
 
-                        timeRemainingTxt.text = timerBase.timePrefix
-                                + (Math.ceil((pointsRemaining - gameBase.pointBonus) / 100)).toString(
-                                    ).padStart(2, '0')
+                        timeRemainingTxt.text = timerBase.timePrefix + (Math.ceil((pointsRemaining - gameBase.pointBonus) / 100)).toString().padStart(2, '0');
 
                         if (questionCountdown.pointsRemaining <= gameBase.pointBonus) {
-                            questionCountdown.stop()
-                            timerBarAnim.stop()
-                            gameBase.endQuestion(5)
+                            questionCountdown.stop();
+                            timerBarAnim.stop();
+                            gameBase.endQuestion(5);
                         }
                     }
 
-                    onTriggered: triggerActions()
+                    onTriggered: triggerActions();
                 }
 
                 Timer {
@@ -226,14 +219,14 @@ Item {
                     // cb: callback to a function we want to run afterward
                     // delayTime: milliseconds to wait
                     function setTimeout(cb, delayTime) {
-                        timer.interval = delayTime
-                        timer.repeat = false
-                        timer.triggered.connect(cb)
+                        timer.interval = delayTime;
+                        timer.repeat = false;
+                        timer.triggered.connect(cb);
                         timer.triggered.connect(function release() {
-                            timer.triggered.disconnect(cb)
-                            timer.triggered.disconnect(release)
+                            timer.triggered.disconnect(cb);
+                            timer.triggered.disconnect(release);
                         })
-                        timer.start()
+                        timer.start();
                     }
                 }
 
@@ -274,44 +267,41 @@ Item {
 
                 function endQuestion(button: int) {
                     if (!lock) {
-                        lock = true
+                        lock = true;
 
                         // stop the countdown
-                        questionCountdown.stop()
-                        timerBarAnim.stop()
+                        questionCountdown.stop();
+                        timerBarAnim.stop();
 
                         if (controller.getQuestion().correct == button) {
                             // correct answer
-                            questionLabel.text = qsTr("Correct!")
-                            root.points += questionCountdown.pointsRemaining
-                            homeBarBase.updatePoints()
-                            questionsCorrect++
+                            questionLabel.text = qsTr("Correct!");
+                            root.points += questionCountdown.pointsRemaining;
+                            homeBarBase.updatePoints();
+                            questionsCorrect++;
                         } else if (button == 5) {
                             // ran out of time
-                            questionLabel.text = "Time's Up!"
-                            pointsRemainingTxt.text = timerBase.pointsPrefix
-                                    + "0" // set points display to 0
+                            questionLabel.text = "Time's Up!";
+                            pointsRemainingTxt.text = timerBase.pointsPrefix + "0"; // set points display to 0
                         } else {
                             // incorrect answer
                             questionLabel.text = qsTr("Incorrect!")
-                            pointsRemainingTxt.text = timerBase.pointsPrefix
-                                    + "0" // set points display to 0
+                            pointsRemainingTxt.text = timerBase.pointsPrefix + "0"; // set points display to 0
                         }
 
                         // fade incorrect buttons to red
                         if (controller.getQuestion().correct != 1)
-                            incorrectAnim1.start()
+                            incorrectAnim1.start();
                         if (controller.getQuestion().correct != 2)
-                            incorrectAnim2.start()
+                            incorrectAnim2.start();
                         if (controller.getQuestion().correct != 3)
-                            incorrectAnim3.start()
+                            incorrectAnim3.start();
                         if (controller.getQuestion().correct != 4)
-                            incorrectAnim4.start()
+                            incorrectAnim4.start();
 
                         // fade the correct button to green
-                        correctAnim.target = buttons[controller.getQuestion(
-                                                         ).correct - 1]
-                        correctAnim.start()
+                        correctAnim.target = buttons[controller.getQuestion().correct - 1];
+                        correctAnim.start();
 
                         if (gameBase.questionNum >= gameBase.maxQuestions)
                             timer.setTimeout(function () {
@@ -326,32 +316,31 @@ Item {
 
                 function newQuestion() {
                     controller.randQuestion()
-                    questionLabel.text = controller.getQuestion().question
-                    answer1Txt.text = controller.getQuestion().ans1
-                    answer2Txt.text = controller.getQuestion().ans2
-                    answer3Txt.text = controller.getQuestion().ans3
-                    answer4Txt.text = controller.getQuestion().ans4
-                    questionImage.source = controller.getQuestion().img
-                    lock = false
+                    questionLabel.text = controller.getQuestion().question;
+                    answer1Txt.text = controller.getQuestion().ans1;
+                    answer2Txt.text = controller.getQuestion().ans2;
+                    answer3Txt.text = controller.getQuestion().ans3;
+                    answer4Txt.text = controller.getQuestion().ans4;
+                    questionImage.source = controller.getQuestion().img;
+                    lock = false;
 
                     // reset colors
-                    answer1Bg.color = "white"
-                    answer2Bg.color = "white"
-                    answer3Bg.color = "white"
-                    answer4Bg.color = "white"
+                    answer1Bg.color = "white";
+                    answer2Bg.color = "white";
+                    answer3Bg.color = "white";
+                    answer4Bg.color = "white";
 
                     randomizeAnswers()
 
                     // update the questions completed
-                    questionsRemainingTxt.text = timerBase.questionPrefix
-                            + (++gameBase.questionNum) + "/" + gameBase.maxQuestions
+                    questionsRemainingTxt.text = timerBase.questionPrefix + (++gameBase.questionNum) + "/" + gameBase.maxQuestions;
 
-                    questionCountdown.beginCountdown()
+                    questionCountdown.beginCountdown();
                 }
 
                 function endGame() {
-                    gameBase.visible = false
-                    gameOverBase.gameOverOps()
+                    gameBase.visible = false;
+                    gameOverBase.gameOverOps();
                     // send signal to put in user's score
                     // change score value in label
                     // add extra line to congratulate user if they got a leaderboard spot
@@ -360,19 +349,19 @@ Item {
                 // randomize answer button order
                 // done by shuffling the position of the buttons in the layout
                 function randomizeAnswers() {
-                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]]
-                    var nums = controller.randomizeFour()
+                    var indexes = [[0, 0], [0, 1], [1, 0], [1, 1]];
+                    var nums = controller.randomizeFour();
                     // get array of 0-3 in random order
 
                     // apply layout positions
-                    answer1Btn.Layout.row = indexes[nums[0]][0]
-                    answer1Btn.Layout.column = indexes[nums[0]][1]
-                    answer2Btn.Layout.row = indexes[nums[1]][0]
-                    answer2Btn.Layout.column = indexes[nums[1]][1]
-                    answer3Btn.Layout.row = indexes[nums[2]][0]
-                    answer3Btn.Layout.column = indexes[nums[2]][1]
-                    answer4Btn.Layout.row = indexes[nums[3]][0]
-                    answer4Btn.Layout.column = indexes[nums[3]][1]
+                    answer1Btn.Layout.row = indexes[nums[0]][0];
+                    answer1Btn.Layout.column = indexes[nums[0]][1];
+                    answer2Btn.Layout.row = indexes[nums[1]][0];
+                    answer2Btn.Layout.column = indexes[nums[1]][1];
+                    answer3Btn.Layout.row = indexes[nums[2]][0];
+                    answer3Btn.Layout.column = indexes[nums[2]][1];
+                    answer4Btn.Layout.row = indexes[nums[3]][0];
+                    answer4Btn.Layout.column = indexes[nums[3]][1];
                 }
 
                 Rectangle {
