@@ -1,7 +1,7 @@
 /*
-   guessthelogocontroller.cpp
+    guessthelogocontroller.cpp
 
-   Class definition for guessthelogocontroller.
+    Class definition for guessthelogocontroller.
 */
 
 #include "guessthelogocontroller.h"
@@ -16,18 +16,18 @@
 GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/Type1/", "/gamefiles/gtl/Type2/"}
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
-    {
         filepath = QApplication:: arguments().at(2).toStdString();
-    }
 
-
-    //load question data from files, package into question structs and store in questionVec
-    //trivia datafile must be csv with lines consisting of string, int, string, string, string, string, string
-    //all strings must be enclosed in quotation marks
+    /*
+    load question data from files, package into question structs and store in questionVec
+    trivia datafile must be csv with lines consisting of string, int, string, string, string, string, string
+    all strings must be enclosed in quotation marks
+    */
     GTLQuestion current;
     std::string strTemp;
     int questionType;
     rapidcsv::Document file(filepath + QUESTION_PATH);
+
     for (unsigned x = 0; x < file.GetRowCount(); x++)
     {
         strTemp = file.GetCell<string>(0, x);
@@ -58,6 +58,7 @@ GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/Typ
     for (int x = 0; x < questionVec.size(); x++)
         questionNums.push_back(x);
     std::shuffle(questionNums.begin(), questionNums.end(), std::default_random_engine{ std::random_device{}() });
+
     /*
     questions must be shown to the player in random order with no repeats,
     and the question order must be different every time the game is played (this object is constructed).
