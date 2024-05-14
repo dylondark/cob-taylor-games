@@ -54,7 +54,7 @@ public:
 
 private:
     string filepath = ".";
-    const string QUESTION_PATH = "/gamefiles/gtl/GTL.csv";
+    const string QUESTION_PATH = "/gamefiles/GuessTheLogo/GTL.csv";
     const string IMG_PATHS[2];
     vector<GTLQuestion> questionVec; // vector containing the question structs, to be populated by loadQuestions
     vector<int> questionNums;

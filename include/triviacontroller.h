@@ -88,13 +88,13 @@ public:
 private:
 
     // The path to the question data file.
-    const string QUESTION_PATH = "/gamefiles/trivia/triviaquestions.csv";
+    const string QUESTION_PATH = "/gamefiles/Trivia/triviaquestions.csv";
 
     /*
         The path to the folder containing the images for the game.
         The code appends the image location of the question onto this string to get the entire image path for the current question's image.
     */
-    const string IMG_PATH = "/gamefiles/trivia/images/";
+    const string IMG_PATH = "/gamefiles/Trivia/images/";
 
     /*
         The base of the paths. Should be the location of the folder containing the gamefiles folder.

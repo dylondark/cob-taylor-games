@@ -13,7 +13,7 @@
 /*
     Constructor for GuessthelogoController.
 */
-GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/gtl/Type1/", "/gamefiles/gtl/Type2/"}
+GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/GuessTheLogo/Type1/", "/gamefiles/GuessTheLogo/Type2/"}
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
         filepath = QApplication:: arguments().at(2).toStdString();
