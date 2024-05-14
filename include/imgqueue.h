@@ -1,6 +1,5 @@
 #ifndef IMGQUEUE_H
 #define IMGQUEUE_H
-#include <cstdlib>
 #include <QPixmap>
 #include <vector>
 

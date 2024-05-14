@@ -1,7 +1,6 @@
 #ifndef CLIPARSER_H
 #define CLIPARSER_H
 
-#include <optional>
 #include <QString>
 
 namespace CliParser

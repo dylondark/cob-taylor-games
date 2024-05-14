@@ -14,8 +14,6 @@
 #pragma once
 
 #include <algorithm>
-#include <cassert>
-#include <cmath>
 #ifdef HAS_CODECVT
 #include <codecvt>
 #include <locale>

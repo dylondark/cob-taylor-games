@@ -1,5 +1,4 @@
 #include "feedbackcontroller.h"
-#include "utilities.h"
 #include <QApplication>
 #include <QDateTime>
 #include <fstream>
