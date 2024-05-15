@@ -1,3 +1,9 @@
+/*
+    imgqueue.h
+
+    This file is for the function declarations of image queuing.
+*/
+
 #ifndef IMGQUEUE_H
 #define IMGQUEUE_H
 #include <QPixmap>
@@ -17,10 +23,20 @@
 class imgQueue
 {
 private:
+
+    // Struct for the nodes.
     struct queueNode;
+
+    // The current node.
     queueNode* head;
-    const int LENGTH; // how many images are in this queue
-    const std::vector<QPixmap> IMGLIST; // to save the input images
+
+    // Tow many images are in this queue
+    const int LENGTH;
+
+    // To save the input images
+    const std::vector<QPixmap> IMGLIST;
+
+    // Points to the next node in queue
     queueNode* nextPtr;
 public:
 
