@@ -23,15 +23,63 @@ using Utilities::game;
 class LeaderboardHandler
 {
 public:
+
+    /*
+        Handles adding to the leaderboard.
+
+        QStackedWidget* lbObj: pointer to data about the addition.
+    */
     LeaderboardHandler(QStackedWidget* lbObj);
+
+    /*
+        Handles destructing/deleting the object.
+    */
     ~LeaderboardHandler();
+
+    /*
+        Adds score to memory buffer.
+
+        game selectedGame: game to add score to
+        string playerName: the name connected with the score
+        int score: the score the player achieved.
+    */
     void addScore(game, std::string, int); // add score to memory buffer
+
+    /*
+        Loads scores from file into memory buffer for specified game.
+
+        game selectedGame: game to load scores from.
+    */
     void loadScores(game); // load scores from file into memory buffer for specified game
+
+    /*
+        Calls loadScores(game) for all games.
+    */
     void loadScores(); // calls loadScores(game) for all games
+
+    /*
+        Writes scores from memory buffer to file for specified game.
+
+        game selectedGame: specified game.
+    */
     void writeScores(game); // writes scores from memory buffer to file for specified game
-    void writeScores(); // calls writeScores(game) for all games
+
+    /*
+        Calls writeScores(game) for all games.
+    */
+    void writeScores();
+
+    /*
+        Refreshes the leaderboard page of specified game with new values based on current memory.
+
+        game selectedGame: the game who's data is being refreshed on the leaderboard.
+    */
     void refreshlb(game); // refreshes the leaderboard page of specified game with new values based on current memory
-    void refreshlb(); // calls refreshlb(game) for all games (refreshes all pages)
+
+    /*
+        Calls refreshlb(game) for all games (refreshes all pages).
+    */
+    void refreshlb();
 
 private:
     QStackedWidget* lbObj; // ptr to the stack widget containing all the "pages" of the leaderboard

@@ -12,6 +12,11 @@
 #include <cmath>
 #include <set>
 
+/*
+    Handles adding to the leaderboard.
+
+    QStackedWidget* lbObj: pointer to data about the addition.
+*/
 LeaderboardHandler:: LeaderboardHandler(QStackedWidget* lbObj)
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
@@ -21,15 +26,21 @@ LeaderboardHandler:: LeaderboardHandler(QStackedWidget* lbObj)
     this->lbObj = lbObj;
 }
 
+/*
+    Handles destructing/deleting the object.
+*/
 LeaderboardHandler:: ~LeaderboardHandler()
 {
     delete lbObj;
 }
 
 /*
-    add score to memory buffer
-*/
+    Adds score to memory buffer.
 
+    game selectedGame: game to add score to
+    string playerName: the name connected with the score
+    int score: the score the player achieved.
+*/
 void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int score)
 {
     // check if a score for this player already exists
@@ -42,7 +53,9 @@ void LeaderboardHandler::addScore(game selectedGame, std::string playerName, int
 }
 
 /*
-    load scores from file into memory buffer for specified game
+    Loads scores from file into memory buffer for specified game.
+
+    game selectedGame: game to load scores from.
 */
 void LeaderboardHandler::loadScores(game selectedGame)
 {
@@ -74,7 +87,7 @@ void LeaderboardHandler::loadScores(game selectedGame)
 }
 
 /*
-    calls loadScores(game) for all games
+    Calls loadScores(game) for all games.
 */
 void LeaderboardHandler::loadScores() {
     for (int i = 0; i < 6; ++i) {
@@ -83,7 +96,9 @@ void LeaderboardHandler::loadScores() {
 }
 
 /*
-    writes scores from memory buffer to file for specified game
+    Writes scores from memory buffer to file for specified game.
+
+    game selectedGame: specified game.
 */
 void LeaderboardHandler:: writeScores(game selectedGame)
 {
@@ -102,7 +117,7 @@ void LeaderboardHandler:: writeScores(game selectedGame)
 }
 
 /*
-    calls writeScores(game) for all games
+    Calls writeScores(game) for all games.
 */
 void LeaderboardHandler::writeScores() {
     // Calls writeScores(game) for all games
@@ -124,7 +139,9 @@ struct LeaderboardHandler::sortcomp
 };
 
 /*
-    refreshes the leaderboard page of specified game with new values based on current memory
+    Refreshes the leaderboard page of specified game with new values based on current memory.
+
+    game selectedGame: the game who's data is being refreshed on the leaderboard.
 */
 void LeaderboardHandler::refreshlb(game selectedGame)
 {
@@ -169,7 +186,7 @@ void LeaderboardHandler::refreshlb(game selectedGame)
 }
 
 /*
-    calls refreshlb(game) for all games (refreshes all pages)
+    Calls refreshlb(game) for all games (refreshes all pages).
 */
 void LeaderboardHandler::refreshlb()
 {
