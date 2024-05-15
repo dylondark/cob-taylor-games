@@ -12,12 +12,14 @@
 
 using Utilities::game;
 
-/* LeaderboardHandler class
+/*
+    LeaderboardHandler class
 
     This class is meant to be the "controller" object for the leaderbard on the main menu. It stores, facilitates adding to, loads, and saves the leaderboard data.
     It can also modify the contents of the leaderboard widgets through a pointer to their parent object, stored in lbObj. This is used so that this object can also
     be responsible for refreshing the data in the leaderboard widgets.
 */
+
 class LeaderboardHandler
 {
 public:
