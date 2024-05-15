@@ -6,6 +6,7 @@
 
 #ifndef IMGQUEUE_H
 #define IMGQUEUE_H
+
 #include <QPixmap>
 #include <vector>
 
@@ -22,6 +23,7 @@
 
 class imgQueue
 {
+
 private:
 
     // Struct for the nodes.
@@ -38,6 +40,7 @@ private:
 
     // Points to the next node in queue
     queueNode* nextPtr;
+
 public:
 
     /*
@@ -77,7 +80,9 @@ public:
     */
     int getLength() const;
 
+    // Dimensions for each image to be used in scaling.
     int imageDim = 3840 / 20;
+
 };
 
 #endif // IMGQUEUE_H
