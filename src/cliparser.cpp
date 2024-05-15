@@ -12,7 +12,7 @@
 
 /*
     "-p" argument,
-    Get the path if specified by the user,
+    Get the path if specified by the user--
     will return "." if no path is specified or path is invalid.
 */
 QString CliParser::getPath()
