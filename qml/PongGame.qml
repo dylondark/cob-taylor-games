@@ -1,3 +1,9 @@
+/*
+    PongGame.qml
+
+    A preview of Zoccer, our Pong clone. Will be expanded later.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -17,7 +23,7 @@ Item {
     property int points: 0
     property string strName: "Pong"
     property string username: ""
-    property int gameEnum: 0 //Utilities number.
+    property int gameEnum: 0 // Utilities number.
 
     ColumnLayout {
         id: baseLayout
@@ -33,8 +39,8 @@ Item {
             Layout.verticalStretchFactor: 6
 
             gradient: Gradient {
-                     GradientStop { position: 0.0; color: "#a86aa4" }
-                     GradientStop { position: 1.0; color: "#f3a469" }
+                GradientStop { position: 0.0; color: "#a86aa4" }
+                GradientStop { position: 1.0; color: "#f3a469" }
                 }
 
             PreviewBase {
