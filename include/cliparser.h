@@ -1,3 +1,10 @@
+/*
+    cliparser.h
+
+    Header for cli parsing function declarations.
+*/
+
+
 #ifndef CLIPARSER_H
 #define CLIPARSER_H
 
