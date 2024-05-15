@@ -55,7 +55,7 @@ GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/GuessTh
     }
 
     // populate and randomize questionNums
-    for (int x = 0; x < questionVec.size(); x++)
+    for (unsigned long long x = 0; x < questionVec.size(); x++)
         questionNums.push_back(x);
     std::shuffle(questionNums.begin(), questionNums.end(), std::default_random_engine{ std::random_device{}() });
 
