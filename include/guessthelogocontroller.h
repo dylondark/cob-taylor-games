@@ -47,11 +47,26 @@ class GuessTheLogoController : public QObject
     Q_OBJECT
     QML_ELEMENT
 public:
-    GuessTheLogoController();
-    Q_INVOKABLE GTLQuestion getQuestion(); // retrieves the current question stored in currentQuestion
-    Q_INVOKABLE void randQuestion(); // gets the next random question and stores in currentQuestion
-    Q_INVOKABLE QVariantList randomizeFour(); // returns a list of ints 1-4 but in random order. used for randomizing answer buttons
 
+    /*
+        Constructor for GuessTheLogoController.
+    */
+    GuessTheLogoController();
+
+    /*
+        Retrieves the current question stored in currentQuestion.
+    */
+    Q_INVOKABLE GTLQuestion getQuestion();
+
+    /*
+        Gets the next random question and stores in currentQuestion.
+    */
+    Q_INVOKABLE void randQuestion();
+
+    /*
+        Returns a list of ints 1-4 but in random order. used for randomizing answer buttons
+    */
+    Q_INVOKABLE QVariantList randomizeFour();
 private:
     string filepath = ".";
     const string QUESTION_PATH = "/gamefiles/GuessTheLogo/GTL.csv";
