@@ -1,3 +1,9 @@
+/*
+    MenuBase.qml
+
+    The file for the screen for name inputs, while displaying the game card/img.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -13,15 +19,13 @@ Item {
     property var imageSource
 
     // Background MouseArea, used so that you can drop the keyboard and
-    //bring it back up when selecting textField.
+    // bring it back up when selecting textField.
     MouseArea {
         anchors.fill: parent
         onPressed: {
             // Remove focus from any focused item
             playerName.focus = false
         }
-        //Ensure it doesn't swallow clicks but still allows feedbackInput to be clickable
-        propagateComposedEvents: true
     }
 
     InputPanel {
@@ -84,7 +88,7 @@ Item {
                 Text {
                     id: nameText
                     text: 'NAME:'
-                    font.family: "1UP!" //Text font
+                    font.family: "1UP!" // Text font
                     font.bold: true
                     font.pointSize: 78 * root.scaleFactor
                     color: "black"
@@ -104,8 +108,7 @@ Item {
                     color: "black"
                     Layout.preferredWidth: -1
                     onTextChanged: {
-                        playerName.text = playerName.text.toUpperCase(
-                                    ) //Actually make all characters uppercase
+                        playerName.text = playerName.text.toUpperCase() // Actually make all characters uppercase
                     }
                     MouseArea {
                         anchors.fill: parent
@@ -132,17 +135,14 @@ Item {
 
                     // Function to trigger the background color animation
                     function triggerErrorAnimation() {
-                        backgroundAnimation.from = "red" // Ensure it starts from red
-                        backgroundAnimation.start() // Start the animation
+                        backgroundAnimation.from = "red"; // Ensure it starts from red
+                        backgroundAnimation.start(); // Start the animation
                     }
                     EnterKeyAction.label: "Play"
                     Keys.onReleased: {
                         if (event.key === Qt.Key_Return) {
-                            if (playerName.text.trim().length === 0
-                                    || profanitychecker.check(
-                                        playerName.text.trim()) === false) {
-                                playerName.triggerErrorAnimation(
-                                            ) // Trigger the animation if the TextField is empty
+                            if (playerName.text.trim().length === 0|| profanityChecker.check(playerName.text.trim()) === false) {
+                                playerName.triggerErrorAnimation() // Trigger the animation if the TextField is empty
                             } else {
                                 // save username
                                 root.username = playerName.text.trim()
@@ -194,11 +194,8 @@ Item {
                 }
 
                 onPressed: {
-                    if (playerName.text.trim().length === 0
-                            || profanitychecker.check(playerName.text.trim(
-                                                          )) === false) {
-                        playerName.triggerErrorAnimation(
-                                    ) // Trigger the animation if the TextField is empty
+                    if (playerName.text.trim().length === 0 || profanityChecker.check(playerName.text.trim()) === false) {
+                        playerName.triggerErrorAnimation() // Trigger the animation if the TextField is empty
                     } else {
                         // save username
                         root.username = playerName.text.trim()
@@ -215,6 +212,6 @@ Item {
     }
 
     ProfanityChecker {
-        id: profanitychecker
+        id: profanityChecker
     }
 }
