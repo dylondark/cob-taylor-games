@@ -22,6 +22,7 @@ using Utilities::game;
 
 class LeaderboardHandler
 {
+
 public:
 
     /*
@@ -43,26 +44,26 @@ public:
         string playerName: the name connected with the score
         int score: the score the player achieved.
     */
-    void addScore(game, std::string, int); // add score to memory buffer
+    void addScore(game, std::string, int);
 
     /*
         Loads scores from file into memory buffer for specified game.
 
         game selectedGame: game to load scores from.
     */
-    void loadScores(game); // load scores from file into memory buffer for specified game
+    void loadScores(game);
 
     /*
         Calls loadScores(game) for all games.
     */
-    void loadScores(); // calls loadScores(game) for all games
+    void loadScores();
 
     /*
         Writes scores from memory buffer to file for specified game.
 
         game selectedGame: specified game.
     */
-    void writeScores(game); // writes scores from memory buffer to file for specified game
+    void writeScores(game);
 
     /*
         Calls writeScores(game) for all games.
@@ -74,7 +75,7 @@ public:
 
         game selectedGame: the game who's data is being refreshed on the leaderboard.
     */
-    void refreshlb(game); // refreshes the leaderboard page of specified game with new values based on current memory
+    void refreshlb(game);
 
     /*
         Calls refreshlb(game) for all games (refreshes all pages).
@@ -82,26 +83,28 @@ public:
     void refreshlb();
 
 private:
-    // ptr to the stack widget containing all the "pages" of the leaderboard
+
+    // Pointer to the stack widget containing all the "pages" of the leaderboard
     QStackedWidget* lbObj;
 
     // 6 maps holding scores for the 6 games. key is their playername, int is their high score
     std::map<std::string, int> scoreLists[6];
 
-    // used for map sort
+    // Used for map sort
     struct sortcomp;
 
-    // path where the data files can be found. currently it is a folder inside wherever the executable is named "datafiles"
+    // Path where the data files can be found. currently it is a folder inside wherever the executable is named "datafiles"
     std::string filepath = "./leaderboard/";
 
-    // names of the datafiles
+    // Names of the datafiles
     const std::string FILENAMES[6] = {"trivia.txt", "guessthelogo.txt", "tetroos.txt", "hopper.txt", "pong.txt", "checkers.txt"};
 
-    // generates an icon containing a number for the leaderboard images
+    // Generates an icon containing a number for the leaderboard images
     QIcon genNumIcon(int num);
 
-    // max number of entries on each leaderboard page. should be multiple of 3 for best results.
+    // Max number of entries on each leaderboard page. should be multiple of 3 for best results.
     const int MAX_ENTRIES = 24;
+
 };
 
 #endif // LEADERBOARDHANDLER_H
