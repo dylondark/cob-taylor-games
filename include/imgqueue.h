@@ -23,12 +23,44 @@ private:
     const std::vector<QPixmap> IMGLIST; // to save the input images
     queueNode* nextPtr;
 public:
-    imgQueue(std::vector<QPixmap>); // constructor, array of images to use
-    ~imgQueue(); // destructor, must delete all elements in queue from memory
+
+    /*
+        Constructor, populates the queue linked list with all images in imglist and sets length to length of imglist.
+
+        std::vector<QPixmap> imglist: the list of images to be populated.
+    */
+    imgQueue(std::vector<QPixmap>);
+
+    /*
+        Destructor, must delete all elements in queue from memory.
+    */
+    ~imgQueue();
+
+    /*
+        Removes an element from the front of the queue and adds a random element from imglist to the back of the queue.
+    */
     void shift();
+
+    /*
+        Will return the image at the element specified.
+        This is less efficient than next() but lets you specify the element.
+
+        int index: the element specified.
+    */
     QPixmap operator[](int) const;
+
+    /*
+        Returns the image that nextPtr is currently pointing to, and then makes nextPtr point to the next image in the queue.
+        Provides a faster way of accessing the queue in series.
+        This will return the first element (resetting the "series") if a shift has happened or we have looped through the queue already
+    */
     QPixmap next();
+
+    /*
+        Returns the length of this queue (how many objects are in it).
+    */
     int getLength() const;
+
     int imageDim = 3840 / 20;
 };
 

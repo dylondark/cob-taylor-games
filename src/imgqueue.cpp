@@ -15,8 +15,10 @@ struct imgQueue::queueNode
 
 /*
     Constructor, populates the queue linked list with all images in imglist and sets length to length of imglist.
+
+    std::vector<QPixmap> imglist: the list of images to be populated.
 */
-imgQueue::imgQueue(vector<QPixmap> imglist) : LENGTH(imglist.size()), IMGLIST(imglist)
+imgQueue::imgQueue(std::vector<QPixmap> imglist) : LENGTH(imglist.size()), IMGLIST(imglist)
 {
     // populate this list randomly
     head = new queueNode{IMGLIST[rand() % LENGTH], nullptr};
@@ -95,6 +97,8 @@ void imgQueue::shift()
 /*
     Will return the image at the element specified.
     This is less efficient than next() but lets you specify the element.
+
+    int index: the element specified.
 */
 QPixmap imgQueue::operator[](int index) const
 {
@@ -105,6 +109,7 @@ QPixmap imgQueue::operator[](int index) const
 
     return nodePtr->img;
 }
+
 /*
     Returns the image that nextPtr is currently pointing to, and then makes nextPtr point to the next image in the queue.
     Provides a faster way of accessing the queue in series.
