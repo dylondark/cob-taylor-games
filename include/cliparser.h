@@ -20,8 +20,7 @@ namespace CliParser
 QString getPath();
 
 /*
-    -w argument
-    get whether the user has specified to use pop out windows for the games
+    "-w" argument, gets whether the user has specified to use pop out windows for the games.
 */
 bool getWindow();
 }
