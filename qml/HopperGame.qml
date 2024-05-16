@@ -1,3 +1,9 @@
+/*
+    HopperGame.qml
+
+    Main QML file for the Hopper game.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
