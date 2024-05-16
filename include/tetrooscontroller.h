@@ -27,6 +27,17 @@ public:
     explicit TetroosController();
 
 signals:
+    //updateBoardState();
+
+private:
+    block board[20][10];
+    char holdPiece;
+    char currentPiece;
+    char nextPiece;
+    int score;
+    QTimer gameTimer;
+
+
 };
 
 #endif // TETROOSCONTROLLER_H
