@@ -1,9 +1,19 @@
+/*
+    feedbackcontroller.cpp
+
+    Class implamation for feedbackcontroller.cpp
+
+ */
+
 #include "feedbackcontroller.h"
 #include <QApplication>
 #include <QDateTime>
 #include <fstream>
 #include <iostream>
 
+/*
+    Constructor for FeedbackController
+*/
 FeedbackController::FeedbackController()
 {
     // set filepath if cli argument is used
@@ -13,6 +23,13 @@ FeedbackController::FeedbackController()
     }
 }
 
+/*
+    Submits a feedback line and writes the file
+
+    QString currentGame: String representation of the game
+    QString submitText: Feedback submission text
+    QString playerName: The player's user name
+*/
 void FeedbackController::submit(QString currentGame, QString submitText, QString playerName)
 {
     QString line;
