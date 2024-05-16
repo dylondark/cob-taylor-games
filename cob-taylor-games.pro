@@ -23,6 +23,7 @@ HEADERS += \
     debuglabel.h \
     feedbackcontroller.h \
     cliparser.h \
+    tetroosdata.h \
     profanitychecker.h \
     tetrooscontroller.h \
     utilities.h \
