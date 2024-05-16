@@ -1,5 +1,13 @@
+/*
+    tetrooscontroller.cpp
+
+    Class definition for TetroosController.
+*/
+
 #include "tetrooscontroller.h"
 
-TetroosController::TetroosController(QObject *parent)
-    : QObject{parent}
+/*
+    Constructor for TetroosController.
+*/
+TetroosController::TetroosController()
 {}
