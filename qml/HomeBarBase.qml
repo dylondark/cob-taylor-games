@@ -1,3 +1,9 @@
+/*
+    HomeBarBase.qml
+
+    QML file for the Home bar.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
