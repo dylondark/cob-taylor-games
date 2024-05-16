@@ -1,17 +1,31 @@
+/*
+    debuglabel.cpp
+
+    Class implementation for debug label.
+*/
+
 #include "debuglabel.h"
 #include <QtSystemDetection>
 #include <QOpenGLContext>
 
+/*
+    Constructor for Debug
+*/
 DebugLabel::DebugLabel(QWidget* parent) : QLabel(parent)
 {
 
 }
 
+/*
+    Updates each element in the given integer array
+
+    int wh[]: Window width and height
+*/
 void DebugLabel::update(int wh[])
 {
     QString txt("You've found the debug!");
 
-    // get build build info
+    // get build info
     txt.append(" Build: ");
     txt.append(BUILD_INFO_BRANCH);
     txt.append(" #");
@@ -23,6 +37,7 @@ void DebugLabel::update(int wh[])
     txt.append(" OS: ");
 #ifdef Q_OS_LINUX
     txt.append("Linux, ");
+
     // check existence of WAYLAND_DISPLAY envvar to determine if we are on wayland or x11
     if (qgetenv("WAYLAND_DISPLAY") != "")
         txt.append("Wayland");
