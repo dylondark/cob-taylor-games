@@ -20,9 +20,8 @@
 LeaderboardHandler:: LeaderboardHandler(QStackedWidget* lbObj)
 {
     if (QApplication::arguments().length() > 1 && QApplication::arguments().at(1) == "-p")
-    {
         filepath = QApplication::arguments().at(2).toStdString() + "/leaderboard/";
-    }
+
     this->lbObj = lbObj;
 }
 
@@ -66,11 +65,11 @@ void LeaderboardHandler::loadScores(game selectedGame)
             "Please ensure that this file is present, not corrupt, and has sufficient read/write permissions." << std::endl;
         std::terminate();
         /*
-         * this failing must end the program because if the program fails to read in a file and continues to save back to that file,
-         * it could overwrite the data in that file causing data loss, assuming the file is even writable, which if it isnt then it will cause further error anyway.
-         * putting terminate() here is (hopefully) going to be a temporary solution. i would like to have some organized exception system that
-         * can notify the user with a nice dialog window or something, but i just tried for 2 hours to implement that and it seems to be biting off more
-         * than i can chew at the moment, so this is a reminder to (hopefully) come back and implement that at some point!
+            this failing must end the program because if the program fails to read in a file and continues to save back to that file,
+            it could overwrite the data in that file causing data loss, assuming the file is even writable, which if it isnt then it will cause further error anyway.
+            putting terminate() here is (hopefully) going to be a temporary solution. i would like to have some organized exception system that
+            can notify the user with a nice dialog window or something, but i just tried for 2 hours to implement that and it seems to be biting off more
+            than i can chew at the moment, so this is a reminder to (hopefully) come back and implement that at some point!
          */
     }
 
@@ -79,9 +78,8 @@ void LeaderboardHandler::loadScores(game selectedGame)
     std::string playerName;
     int score;
 
-    while (file >> playerName >> score) {
+    while (file >> playerName >> score)
         scoreLists[selectedGame][playerName] = score;
-    }
 
     file.close();
 }
@@ -90,9 +88,8 @@ void LeaderboardHandler::loadScores(game selectedGame)
     Calls loadScores(game) for all games.
 */
 void LeaderboardHandler::loadScores() {
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; ++i)
         loadScores(static_cast<game>(i));
-    }
 }
 
 /*
@@ -109,9 +106,8 @@ void LeaderboardHandler:: writeScores(game selectedGame)
         return;
     }
 
-    for (const auto& entry : scoreLists[selectedGame]) {
+    for (const auto& entry : scoreLists[selectedGame])
         outFile << entry.first << " " << entry.second << "\n";
-    }
 
     outFile.close();
 }
@@ -121,9 +117,8 @@ void LeaderboardHandler:: writeScores(game selectedGame)
 */
 void LeaderboardHandler::writeScores() {
     // Calls writeScores(game) for all games
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; ++i)
         writeScores(static_cast<game>(i));
-    }
 }
 
 struct LeaderboardHandler::sortcomp
@@ -131,9 +126,8 @@ struct LeaderboardHandler::sortcomp
     template <typename T>
     bool operator()(const T& l, const T& r) const
     {
-        if (l.second != r.second) {
+        if (l.second != r.second)
             return l.second < r.second;
-        }
         return l.first < r.first;
     }
 };
@@ -161,6 +155,7 @@ void LeaderboardHandler::refreshlb(game selectedGame)
         list[0]->addItem("No scores yet...");
         return;
     }
+
     int itemIndex;
     for (int count = 0; count < MAX_ENTRIES; count++)
     {
@@ -190,9 +185,8 @@ void LeaderboardHandler::refreshlb(game selectedGame)
 */
 void LeaderboardHandler::refreshlb()
 {
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; ++i)
         refreshlb(static_cast<game>(i));
-    }
 }
 
 QIcon LeaderboardHandler::genNumIcon(int num)
