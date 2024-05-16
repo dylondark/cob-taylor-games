@@ -24,6 +24,7 @@ HEADERS += \
     feedbackcontroller.h \
     cliparser.h \
     profanitychecker.h \
+    tetrooscontroller.h \
     utilities.h \
     leaderboardtools.h \
     mainwindow.h \
@@ -45,6 +46,7 @@ SOURCES += \
     feedbackcontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
+    tetrooscontroller.cpp \
     triviacontroller.cpp
 
 RESOURCES += \
