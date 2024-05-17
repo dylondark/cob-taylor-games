@@ -30,7 +30,7 @@ signals:
     //updateBoardState();
 
 private:
-    block board[20][10];
+    Block board[20][10];
     PieceType holdPiece;
     PieceType currentPiece;
     PieceType nextPiece;

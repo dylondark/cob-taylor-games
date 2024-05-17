@@ -16,7 +16,7 @@ enum PieceType {I = 'I' , J = 'J', L = 'L', O = 'O', S = 'S', T = 'T', Z = 'Z', 
     This is the data structure that represents every individual block on the play grid.
     It contains the block type as well as a bunch of metadata used to determine how to apply images to the block.
 */
-struct block
+struct Block
 {
     Q_GADGET
 public:
