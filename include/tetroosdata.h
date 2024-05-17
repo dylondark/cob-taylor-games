@@ -10,7 +10,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-enum PieceType {I = 'I' , J = 'J', L = 'L', O = 'O', S = 'S', T = 'T', Z = 'Z', empty = 'E'};
+enum PieceType : char {I = 'I' , J = 'J', L = 'L', O = 'O', S = 'S', T = 'T', Z = 'Z', empty = 'E'};
 
 /*
     This is the data structure that represents every individual block on the play grid.
@@ -19,6 +19,7 @@ enum PieceType {I = 'I' , J = 'J', L = 'L', O = 'O', S = 'S', T = 'T', Z = 'Z', 
 struct Block
 {
     Q_GADGET
+    Q_ENUM(PieceType)
 public:
     /*
         Contains the type of piece this block belongs to.
@@ -56,7 +57,7 @@ public:
     int m_posX, m_posY;
 
     // Properties to make these data members accessible in QML.
-    Q_PROPERTY(char pieceType MEMBER m_pieceType)
+    Q_PROPERTY(PieceType pieceType MEMBER m_pieceType)
     Q_PROPERTY(int rotation MEMBER m_rotation)
     Q_PROPERTY(int pieceID MEMBER m_pieceID)
     Q_PROPERTY(bool silhouette MEMBER m_silhouette)
