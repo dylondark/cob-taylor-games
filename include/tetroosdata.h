@@ -10,6 +10,10 @@
 #include <QObject>
 #include <QQmlEngine>
 
+/*
+    Enum that neatly defines all of the piece types (or empty).
+    Mapping to chars may or may not be necessary.
+*/
 enum PieceType : char {I = 'I' , J = 'J', L = 'L', O = 'O', S = 'S', T = 'T', Z = 'Z', empty = 'E'};
 
 /*
