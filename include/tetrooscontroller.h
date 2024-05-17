@@ -176,6 +176,20 @@ private:
     bool mergePieceDown();
 
     /*
+        Internal action to rotate the active piece clockwise and merge it into the board.
+
+        Returns whether or not the rotate was successful.
+    */
+    bool mergePieceRotateCW();
+
+    /*
+        Internal action to rotate the active piece counterclockwise and merge it into the board.
+
+        Returns whether or not the rotate was successful.
+    */
+    bool mergePieceRotateCCW();
+
+    /*
         Randomly chooses a PieceType to be the next piece and sets it to currentPiece.
     */
     void calculateNextPiece();
