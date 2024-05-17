@@ -31,9 +31,9 @@ signals:
 
 private:
     block board[20][10];
-    char holdPiece;
-    char currentPiece;
-    char nextPiece;
+    PieceType holdPiece;
+    PieceType currentPiece;
+    PieceType nextPiece;
     int score;
     QTimer gameTimer;
 

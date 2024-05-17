@@ -10,6 +10,8 @@
 #include <QObject>
 #include <QQmlEngine>
 
+enum PieceType {I = 'I' , J = 'J', L = 'L', O = 'O', S = 'S', T = 'T', Z = 'Z', empty = 'E'};
+
 /*
     This is the data structure that represents every individual block on the play grid.
     It contains the block type as well as a bunch of metadata used to determine how to apply images to the block.
@@ -24,7 +26,7 @@ public:
         Can be 'I', 'J', 'L', 'O', 'S', 'T', 'Z' for their respective blocks.
         'E' for empty (not part of a block).
     */
-    char m_pieceType;
+    PieceType m_pieceType;
 
     /*
         Contains the rotation of the piece (if part of one).
