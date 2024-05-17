@@ -11,6 +11,7 @@
 #include <QQmlEngine>
 #include <QTimer>
 #include <QImage>
+#include <array>
 #include "tetroosdata.h"
 
 /*
@@ -109,6 +110,12 @@ signals:
     void updateView();
 
 private:
+    // The amount of textures to hold in the textures array.
+    const static int TEXTURE_COUNT = 21;
+
+    // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
+    const std::array<QImage, TEXTURE_COUNT> textures;
+
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
 
@@ -132,9 +139,6 @@ private:
 
     // Timer that causes the block to fall. Gets increasingly faster according to an exponential function.
     QTimer gameTimer;
-
-    // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
-    QImage textures[21];
 
     /*
         Main game loop. Called every time a new action has happened.
@@ -169,6 +173,11 @@ private:
         Randomly chooses a PieceType to be the next piece and sets it to currentPiece.
     */
     void calculateNextPiece();
+
+    /*
+        Load the texture images and initialize the textures array with them.
+    */
+    std::array<QImage, TEXTURE_COUNT> loadTextures();
 };
 
 #endif // TETROOSCONTROLLER_H
