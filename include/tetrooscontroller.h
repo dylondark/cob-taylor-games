@@ -109,6 +109,12 @@ signals:
     */
     void updateView();
 
+private slots:
+    /*
+        Slot function that is called when gameTimer ticks. Calls updateGame with the TimerTick action.
+    */
+    void timerTick();
+
 private:
     // The amount of textures to hold in the textures array.
     const static int TEXTURE_COUNT = 21;
