@@ -23,8 +23,8 @@ public:
     /*
         Contains the type of piece this block belongs to.
 
-        Can be 'I', 'J', 'L', 'O', 'S', 'T', 'Z' for their respective blocks.
-        'E' for empty (not part of a block).
+        Can be 'I', 'J', 'L', 'O', 'S', 'T', 'Z' for their respective pieces.
+        'E' for empty (not part of a piece).
     */
     PieceType m_pieceType;
 
