@@ -9,6 +9,9 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include <array>
+
+typedef std::array<std::array<bool, 4>, 4> PieceGrid;
 
 /*
     Enum that neatly defines all of the piece types (or empty).
@@ -59,5 +62,47 @@ struct Block
     */
     int posX, posY;
 };
+
+// Grid representation of the I piece
+const PieceGrid I_PIECE = {{{1,0,0,0},
+                            {1,0,0,0},
+                            {1,0,0,0},
+                            {1,0,0,0}}};
+
+// Grid representation of the J piece
+const PieceGrid J_PIECE = {{{0,0,0,0},
+                            {0,1,0,0},
+                            {0,1,0,0},
+                            {1,1,0,0}}};
+
+// Grid representation of the L piece
+const PieceGrid L_PIECE = {{{0,0,0,0},
+                            {1,0,0,0},
+                            {1,0,0,0},
+                            {1,1,0,0}}};
+
+// Grid representation of the O piece
+const PieceGrid O_PIECE = {{{0,0,0,0},
+                            {0,0,0,0},
+                            {1,1,0,0},
+                            {1,1,0,0}}};
+
+// Grid representation of the S piece
+const PieceGrid S_PIECE = {{{0,0,0,0},
+                            {0,0,0,0},
+                            {0,1,1,0},
+                            {1,1,0,0}}};
+
+// Grid representation of the T piece
+const PieceGrid T_PIECE = {{{0,0,0,0},
+                            {0,0,0,0},
+                            {0,1,0,0},
+                            {1,1,1,0}}};
+
+// Grid representation of the Z piece
+const PieceGrid Z_PIECE = {{{0,0,0,0},
+                            {0,0,0,0},
+                            {1,1,0,0},
+                            {0,1,1,0}}};
 
 #endif // TETROOSDATA_H
