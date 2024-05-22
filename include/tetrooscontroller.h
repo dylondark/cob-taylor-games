@@ -46,12 +46,12 @@ public:
         However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
         This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
     */
-    Q_INVOKABLE QImage getTextureAt(int posX, int posY);
+    Q_INVOKABLE QImage getTextureAt(unsigned posX, unsigned posY);
 
     /*
         Returns the current score.
     */
-    Q_INVOKABLE int getScore();
+    Q_INVOKABLE unsigned getScore();
 
     /*
         Returns the current holding piece type (or empty if not holding).
@@ -112,7 +112,7 @@ private slots:
 
 private:
     // The amount of textures to hold in the textures array.
-    const static int TEXTURE_COUNT = 29;
+    const static unsigned TEXTURE_COUNT = 29;
 
     // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
     const std::array<QImage, TEXTURE_COUNT> textures;
@@ -133,10 +133,10 @@ private:
     PieceType nextPiece;
 
     // Player's current score.
-    int score;
+    unsigned score;
 
     // ID of the currently active piece. Used for determining which set of blocks on the grid makes up the current piece.
-    int activePieceID;
+    unsigned activePieceID;
 
     // Timer that causes the block to fall. Gets increasingly faster according to an exponential function.
     QTimer gameTimer;

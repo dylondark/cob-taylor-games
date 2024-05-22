@@ -40,14 +40,14 @@ struct Block
 
         Mod this number by 4 to get rotation. 0 is right side up, 1 is right, 2 is upside down, 3 is left.
     */
-    int rotation;
+    unsigned rotation;
 
     /*
         Unique identifier of the piece that this block belongs to.
 
         -1 if the block doesn't belong to a piece (empty).
     */
-    int pieceID;
+    unsigned pieceID;
 
     /*
     `   Whether this block is part of the piece silhouette that shows where the piece will end up.
@@ -60,7 +60,7 @@ struct Block
         Pieces are represented as a 4x4 grid of blocks with the bottom left corner being the origin.
         @TODO: document the piece grids.
     */
-    int posX, posY;
+    unsigned posX, posY;
 };
 
 // Grid representation of the I piece
