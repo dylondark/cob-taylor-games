@@ -21,6 +21,17 @@ TetroosController::TetroosController()
     for (int y = 0; y < 10; y++)
         for (int x = 0; x < 20; x++)
             board[y][x] = {empty, 0, 0, false, 0, 0}; // empty block
+
+    // init other data members
+    gameOver = false;
+    waitingForNewPiece = true;
+    activePiece = {empty, 0, 0, 0, 0};
+    holdPiece = empty;
+    nextPiece = empty;
+    score = 0;
+
+    // start game timer with 1 second interval
+    gameTimer.start(1000);
 }
 
 /*
