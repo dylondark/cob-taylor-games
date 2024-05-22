@@ -18,8 +18,8 @@ TetroosController::TetroosController()
     // connect updateView signal to slot in QML
 
     // populate board with empty values
-    for (int y = 0; y < 10; ++y)
-        for (int x = 0; x < 20; ++x)
+    for (int y = 0; y < 10; y++)
+        for (int x = 0; x < 20; x++)
             board[y][x] = {empty, 0, 0, false, 0, 0}; // empty block
 }
 
