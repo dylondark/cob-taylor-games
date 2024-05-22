@@ -183,6 +183,14 @@ private:
     void calculateNextPiece();
 
     /*
+        Returns a PieceGrid for a specified piece with specified rotation.
+
+        PieceType piece: The type of piece to return the grid for.
+        unsigned rotation: The rotation to apply to the grid before returning. Uses same logic as the rotation values in the Block struct.
+    */
+    PieceGrid getPieceGrid(PieceType piece, unsigned rotation);
+
+    /*
         Load the texture images and initialize the textures array with them.
     */
     std::array<QImage, TEXTURE_COUNT> loadTextures();
