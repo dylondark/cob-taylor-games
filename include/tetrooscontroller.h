@@ -202,6 +202,14 @@ private:
     PieceGrid getPieceGrid(PieceType piece, unsigned rotation);
 
     /*
+        Updates the interval for gameTimer. Should be called every time the timer ticks.
+        This will decrease the timer tick interval a little bit every time its called according to an exponential function.
+        The idea is to start off slow and then gradually get faster. The exponential nature of the function provides a soft
+        limit for the amount of time someone can play the game, as it will start to get impossibly fast after a time.
+    */
+    void updateTimerInterval();
+
+    /*
         Load the texture images and initialize the textures array with them.
     */
     std::array<QImage, TEXTURE_COUNT> loadTextures();
