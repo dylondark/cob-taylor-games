@@ -16,6 +16,11 @@ TetroosController::TetroosController()
     connect(&gameTimer, &QTimer::timeout, this, &TetroosController::timerTick);
 
     // connect updateView signal to slot in QML
+
+    // populate board with empty values
+    for (int y = 0; y < 10; ++y)
+        for (int x = 0; x < 20; ++x)
+            board[y][x] = {empty, 0, 0, false, 0, 0}; // empty block
 }
 
 /*
