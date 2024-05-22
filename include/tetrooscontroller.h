@@ -117,7 +117,7 @@ private slots:
 
 private:
     // The amount of textures to hold in the textures array.
-    const static int TEXTURE_COUNT = 21;
+    const static int TEXTURE_COUNT = 29;
 
     // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
     const std::array<QImage, TEXTURE_COUNT> textures;
