@@ -86,12 +86,7 @@ public:
     /*
         Rotate piece clockwise action.
     */
-    Q_INVOKABLE void rotateCW();
-
-    /*
-        Rotate piece counterclockwise action.
-    */
-    Q_INVOKABLE void rotateCCW();
+    Q_INVOKABLE void rotate();
 
     /*
         Slam piece to the bottom action.
@@ -180,14 +175,7 @@ private:
 
         Returns whether or not the rotate was successful.
     */
-    bool mergePieceRotateCW();
-
-    /*
-        Internal action to rotate the active piece counterclockwise and merge it into the board.
-
-        Returns whether or not the rotate was successful.
-    */
-    bool mergePieceRotateCCW();
+    bool mergePieceRotate();
 
     /*
         Randomly chooses a PieceType to be the next piece and sets it to currentPiece.

@@ -38,7 +38,7 @@ struct Block
     /*
         Contains the rotation of the piece (if part of one).
 
-        0 for right side up, -1 for rotated left, 1 for rotated right, 2 for upside down.
+        Mod this number by 4 to get rotation. 0 is right side up, 1 is right, 2 is upside down, 3 is left.
     */
     int rotation;
 
