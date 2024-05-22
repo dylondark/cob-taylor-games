@@ -183,6 +183,13 @@ private:
     void calculateNextPiece();
 
     /*
+        Clears a row and shifts everything above it down to fill the space.
+
+        unsigned row: row to clear. Can be 0-19 with 0 being the bottom row and 19 being the top row.
+    */
+    void clearRow(unsigned row);
+
+    /*
         Returns a PieceGrid for a specified piece with specified rotation.
 
         PieceType piece: The type of piece to return the grid for.
