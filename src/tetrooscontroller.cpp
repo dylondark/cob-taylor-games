@@ -31,7 +31,33 @@ TetroosController::TetroosController()
 */
 void TetroosController::updateGame(GameAction trigger)
 {
+    switch (trigger)
+    {
+    case TimerTick:
 
+        break;
+    case Left:
+
+        break;
+    case Right:
+
+        break;
+    case Down:
+
+        break;
+    case Rotate:
+
+        break;
+    case Slam:
+
+        break;
+    case Hold:
+
+        break;
+    }
+
+    // tell QML to update
+    emit updateView();
 }
 
 /*
