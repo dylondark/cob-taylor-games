@@ -45,7 +45,7 @@ struct Block
     /*
         Unique identifier of the piece that this block belongs to.
 
-        -1 if the block doesn't belong to a piece (empty).
+        0 if the block doesn't belong to a piece (empty).
     */
     unsigned pieceID;
 
