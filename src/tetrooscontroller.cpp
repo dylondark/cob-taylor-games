@@ -28,3 +28,20 @@ void TetroosController::updateGame(GameAction trigger)
 {
 
 }
+
+/*
+    Internal action to move the active piece down one and merge it into the board.
+
+    Returns whether or not the move was successful.
+*/
+bool mergePieceDown()
+{
+    // determine current position, rotation and type of active piece
+    // get the PieceGrid for the active piece and attempt to merge into the board one down from where the active piece is
+    // if it doesn't overlap with another non-silhouetted piece...
+    //     erase the active piece from its current position
+    //     rewrite the active piece into its new position
+    //     return true
+    // else
+    //     return false
+}
