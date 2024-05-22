@@ -63,6 +63,33 @@ struct Block
     unsigned posX, posY;
 };
 
+/*
+    Struct that holds all relevant data about the currently active piece.
+*/
+struct ActivePiece
+{
+    /*
+        Contains the type of piece the active piece is.
+    */
+    PieceType pieceType;
+
+    /*
+        The rotation of the piece.
+        Mod this number by 4 to get rotation. 0 is right side up, 1 is right, 2 is upside down, 3 is left.
+    */
+    unsigned rotation;
+
+    /*
+        The unique identifier of the piece.
+    */
+    unsigned pieceID;
+
+    /*
+        The location of the bottom left corner of the piece on the board.
+    */
+    unsigned posX, posY;
+};
+
 // Grid representation of the I piece
 const PieceGrid I_PIECE = {{{1,0,0,0},
                             {1,0,0,0},

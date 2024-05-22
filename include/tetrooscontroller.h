@@ -61,7 +61,7 @@ public:
     /*
         Returns the currently active piece type.
     */
-    Q_INVOKABLE PieceType getCurrentPiece();
+    Q_INVOKABLE PieceType getActivePiece();
 
     /*
         Returns the type of the next piece.
@@ -94,7 +94,7 @@ public:
     Q_INVOKABLE void slam();
 
     /*
-        Hold current piece action.
+        Hold active piece action.
     */
     Q_INVOKABLE void hold();
 
@@ -123,20 +123,17 @@ private:
     // Contains the internal representation of the board grid.
     Block board[20][10];
 
+    // Current active piece. Holds all relevant data about the piece on the board.
+    ActivePiece activePiece;
+
     // Current holding piece
     PieceType holdPiece;
-
-    // Current active piece.
-    PieceType currentPiece;
 
     // Current next up piece.
     PieceType nextPiece;
 
     // Player's current score.
     unsigned score;
-
-    // ID of the currently active piece. Used for determining which set of blocks on the grid makes up the current piece.
-    unsigned activePieceID;
 
     // Timer that causes the block to fall. Gets increasingly faster according to an exponential function.
     QTimer gameTimer;
