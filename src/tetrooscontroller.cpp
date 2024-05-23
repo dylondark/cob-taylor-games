@@ -4,6 +4,7 @@
     Class definition for TetroosController.
 */
 
+#include <algorithm>
 #include "tetrooscontroller.h"
 
 /*
@@ -115,14 +116,73 @@ void TetroosController::updateGame(GameAction trigger)
 
     Returns whether or not the move was successful.
 */
-bool mergePieceDown()
+bool TetroosController::mergePieceDown()
 {
-    // determine current position, rotation and type of active piece
-    // get the PieceGrid for the active piece and attempt to merge into the board one down from where the active piece is
+    // check that the piece isn't going to go out of bounds
+    if (activePiece.posY == 0)
+        return false;
+
+    // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
+    PieceGrid newPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation);
+    unsigned startPosX = activePiece.posX, startPosY = activePiece.posY - 1;
+    unsigned pieceX = 0, pieceY = 0;
+    bool collision = false;
+    for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
+    {
+        for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
+        {
+            // get the two blocks we are examining
+            Block currentBlockInBoard = board[boardY][boardX];
+            bool currentBlockInPiece = newPiece[pieceY][pieceX];
+
+            if (currentBlockInBoard.pieceType != empty && currentBlockInPiece == true)
+            {
+                collision = true;
+                goto endloop; // exit both loops, no need to continue evaluating
+            }
+
+            ++pieceX;
+        }
+        ++pieceY;
+    }
+endloop:
+
     // if it doesn't overlap with another non-silhouetted piece...
-    //     erase the active piece from its current position
-    //     rewrite the active piece into its new position
-    //     return true
-    // else
-    //     return false
+    if (!collision)
+    {
+        // erase the active piece from its current position
+        for (unsigned boardY = startPosY + 1; boardY < std::min(startPosY + 6, 20U); boardY++)
+            for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
+            {
+                // get reference to block since we are modifying it
+                Block* currentBlockInBoard = &board[boardY][boardX];
+
+                if (currentBlockInBoard->pieceID == activePiece.pieceID)
+                    // blank the block
+                    *currentBlockInBoard = {empty, 0, 0, false, 0, 0};
+            }
+
+        // rewrite the active piece into its new position
+        pieceX = 0;
+        pieceY = 0;
+        for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++)
+        {
+            for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
+            {
+                // get reference to block since we are modifying it
+                Block* currentBlockInBoard = &board[boardY][boardX];
+                bool currentBlockInPiece = newPiece[pieceY][pieceX];
+
+                if (currentBlockInPiece == true)
+                    *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
+
+                ++pieceX;
+            }
+            ++pieceY;
+        }
+
+        return true;
+    }
+    else
+        return false;
 }
