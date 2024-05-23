@@ -208,6 +208,23 @@ private:
     void clearRow(unsigned row);
 
     /*
+        Checks that a given piece would not collide with any filled blocks were it to be applied to the board at the provided location.
+
+        unsigned startPosX: X value of the bottom left corner of the grid area on the board.
+        unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
+        Returns whether there was a collision.
+    */
+    bool checkActivePieceCollision(unsigned startPosX, unsigned startPosY);
+
+    /*
+        Erases the current active piece and then rewrites it again at the specified coordinates.
+
+        unsigned startPosX: X value of the bottom left corner of the grid area on the board.
+        unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
+    */
+    void rewriteActivePiece(unsigned startPosX, unsigned startPosY);
+
+    /*
         Returns a PieceGrid for a specified piece with specified rotation.
 
         PieceType piece: The type of piece to return the grid for.
