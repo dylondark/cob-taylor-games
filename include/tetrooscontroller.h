@@ -195,9 +195,9 @@ private:
     void applySilhouette();
 
     /*
-        Randomly chooses a PieceType to be the next piece and sets it to currentPiece.
+        Randomly chooses a PieceType to be the next piece and spawns it.
     */
-    void calculateNextPiece();
+    void spawnNextPiece();
 
     /*
         Clears a row and shifts everything above it down to fill the space.
