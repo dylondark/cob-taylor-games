@@ -133,6 +133,27 @@ bool TetroosController::mergePieceDown()
 }
 
 /*
+    Internal action to move the active piece left and merge it into the board.
+
+    Returns whether or not the move was successful.
+*/
+bool TetroosController::mergePieceLeft()
+{
+    // check that the piece isn't going to go out of bounds
+    if (activePiece.posX == 0)
+        return false;
+
+    // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
+    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY))
+    {
+        rewriteActivePiece(--activePiece.posX, activePiece.posY);
+        return true;
+    }
+    else
+        return false;
+}
+
+/*
     Checks that a given piece would not collide with any filled blocks were it to be applied to the board at the provided location.
 
     unsigned startPosX: X value of the bottom left corner of the grid area on the board.
