@@ -154,6 +154,48 @@ bool TetroosController::mergePieceLeft()
 }
 
 /*
+    Internal action to move the active piece right and merge it into the board.
+
+    Returns whether or not the move was successful.
+*/
+bool TetroosController::mergePieceRight()
+{
+    // get the width of the current piece
+    unsigned pieceWidth = 0;
+    switch (activePiece.pieceType)
+    {
+    case I:
+        pieceWidth = 1;
+        break;
+    case J:
+    case L:
+    case O:
+        pieceWidth = 2;
+        break;
+    case S:
+    case T:
+    case Z:
+        pieceWidth = 3;
+        break;
+    case empty: // active piece should never be empty so this is here just to suppress a warning
+        break;
+    }
+
+    // check that the piece isn't going to go out of bounds
+    if (activePiece.posX + pieceWidth >= 19)
+        return false;
+
+    // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
+    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY))
+    {
+        rewriteActivePiece(++activePiece.posX, activePiece.posY);
+        return true;
+    }
+    else
+        return false;
+}
+
+/*
     Checks that a given piece would not collide with any filled blocks were it to be applied to the board at the provided location.
 
     unsigned startPosX: X value of the bottom left corner of the grid area on the board.
