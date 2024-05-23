@@ -42,28 +42,67 @@ TetroosController::TetroosController()
 */
 void TetroosController::updateGame(GameAction trigger)
 {
+    // do nothing if game over
+    if (gameOver)
+        return;
+
     switch (trigger)
     {
     case TimerTick:
-
+        // check if waiting on new piece
+        if (waitingForNewPiece)
+        {
+            spawnNextPiece();
+            applySilhouette();
+            waitingForNewPiece = false;
+        }
+        else
+        {
+            if (mergePieceDown())
+                applySilhouette();
+            else
+            {
+                waitingForNewPiece = true;
+                return; // no need to trigger a view update since nothing actually happened on the board
+            }
+        }
         break;
     case Left:
-
+        if (mergePieceLeft())
+            applySilhouette();
+        else
+            return;
         break;
     case Right:
-
+        if (mergePieceRight())
+            applySilhouette();
+        else
+            return;
         break;
     case Down:
-
+        if (mergePieceDown())
+            applySilhouette();
+        else
+        {
+            waitingForNewPiece = true;
+            return;
+        }
         break;
     case Rotate:
-
+        if (mergePieceRotate())
+            applySilhouette();
+        else
+            return;
         break;
     case Slam:
-
+        while (mergePieceDown()); // repeatedly move the piece down until it can't anymore
+        waitingForNewPiece = true;
         break;
     case Hold:
-
+        if (swapHold())
+            applySilhouette();
+        else
+            return;
         break;
     }
 
