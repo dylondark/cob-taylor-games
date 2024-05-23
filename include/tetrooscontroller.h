@@ -182,6 +182,14 @@ private:
     bool mergePieceRotate();
 
     /*
+        Swaps out the active piece with the currently holding piece.
+        Checks the piece to be swapped for collision.
+
+        Returns whether or not the swap was successful.
+    */
+    bool swapHold();
+
+    /*
         Randomly chooses a PieceType to be the next piece and sets it to currentPiece.
     */
     void calculateNextPiece();
