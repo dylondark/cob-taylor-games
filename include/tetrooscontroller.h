@@ -196,6 +196,7 @@ private:
 
     /*
         Randomly chooses a PieceType to be the next piece and spawns it.
+        Sets gameOver to true if it can't spawn a piece.
     */
     void spawnNextPiece();
 
