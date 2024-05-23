@@ -190,6 +190,11 @@ private:
     bool swapHold();
 
     /*
+        Calculates the position of and applies the silhouette to the board.
+    */
+    void applySilhouette();
+
+    /*
         Randomly chooses a PieceType to be the next piece and sets it to currentPiece.
     */
     void calculateNextPiece();
