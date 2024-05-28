@@ -251,7 +251,7 @@ bool TetroosController::mergePieceRight()
 */
 bool TetroosController::mergePieceRotate()
 {
-
+    return rewriteActivePiece(0, 0, true);
 }
 
 /*
