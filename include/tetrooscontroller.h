@@ -220,10 +220,12 @@ private:
     /*
         Erases the current active piece and then rewrites it again at the specified coordinates.
 
-        unsigned startPosX: X value of the bottom left corner of the grid area on the board.
-        unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
+        int xOffset: number to offset the X value of the piece by (it gets added to the piece's current X).
+        int yOffset: number to offset the Y value of the piece by (it gets added to the piece's current Y).
+        bool rotate: whether to rotate the piece 90 degrees clockwise.
+        Returns whether the rewrite was a success.
     */
-    void rewriteActivePiece(unsigned startPosX, unsigned startPosY);
+    bool rewriteActivePiece(int xOffset, int yOffset, bool rotate);
 
     /*
         Returns a PieceGrid for a specified piece with specified rotation.

@@ -118,14 +118,7 @@ void TetroosController::updateGame(GameAction trigger)
 */
 bool TetroosController::mergePieceDown()
 {
-    // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
-    if (!checkActivePieceCollision(activePiece.posX, activePiece.posY - 1, false))
-    {
-        rewriteActivePiece(activePiece.posX, --activePiece.posY);
-        return true;
-    }
-    else
-        return false;
+    return rewriteActivePiece(0, -1, false);
 }
 
 /*
@@ -135,14 +128,7 @@ bool TetroosController::mergePieceDown()
 */
 bool TetroosController::mergePieceLeft()
 {
-    // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
-    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY, false))
-    {
-        rewriteActivePiece(--activePiece.posX, activePiece.posY);
-        return true;
-    }
-    else
-        return false;
+    return rewriteActivePiece(-1, 0, false);
 }
 
 /*
@@ -152,14 +138,17 @@ bool TetroosController::mergePieceLeft()
 */
 bool TetroosController::mergePieceRight()
 {
-    // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
-    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY, false))
-    {
-        rewriteActivePiece(++activePiece.posX, activePiece.posY);
-        return true;
-    }
-    else
-        return false;
+    return rewriteActivePiece(1, 0, false);
+}
+
+/*
+    Internal action to rotate the active piece clockwise and merge it into the board.
+
+    Returns whether or not the rotate was successful.
+*/
+bool TetroosController::mergePieceRotate()
+{
+
 }
 
 /*
@@ -223,13 +212,22 @@ bool TetroosController::checkActivePieceCollision(unsigned startPosX, unsigned s
 /*
     Erases the current active piece and then rewrites it again at the specified coordinates.
 
-    unsigned startPosX: X value of the bottom left corner of the grid area on the board.
-    unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
+    int xOffset: number to offset the X value of the piece by (it gets added to the piece's current X).
+    int yOffset: number to offset the Y value of the piece by (it gets added to the piece's current Y).
+    bool rotate: whether to rotate the piece 90 degrees clockwise.
+    Returns whether the rewrite was a success.
 */
-void TetroosController::rewriteActivePiece(unsigned startPosX, unsigned startPosY)
+bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate)
 {
+    unsigned startPosX = (int)activePiece.posX + xOffset;
+    unsigned startPosY = (int)activePiece.posY + yOffset;
+
+    // check if we can do the rewrite
+    if (!checkActivePieceCollision(startPosX, startPosY, rotate))
+        return false;
+
     // get the grid for the active piece type
-    PieceGrid newPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation);
+    PieceGrid newPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
 
     unsigned pieceX = 0, pieceY = 0;
     // erase the active piece from its current position
@@ -261,4 +259,10 @@ void TetroosController::rewriteActivePiece(unsigned startPosX, unsigned startPos
         }
         ++pieceY;
     }
+
+    // update the position values of the active piece
+    activePiece.posX = startPosX;
+    activePiece.posY = startPosY;
+
+    return true;
 }
