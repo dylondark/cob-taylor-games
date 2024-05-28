@@ -118,10 +118,6 @@ void TetroosController::updateGame(GameAction trigger)
 */
 bool TetroosController::mergePieceDown()
 {
-    // check that the piece isn't going to go out of bounds
-    if (activePiece.posY == 0)
-        return false;
-
     // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
     if (!checkActivePieceCollision(activePiece.posX, activePiece.posY - 1, false))
     {
@@ -139,10 +135,6 @@ bool TetroosController::mergePieceDown()
 */
 bool TetroosController::mergePieceLeft()
 {
-    // check that the piece isn't going to go out of bounds
-    if (activePiece.posX == 0)
-        return false;
-
     // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
     if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY, false))
     {
@@ -160,31 +152,6 @@ bool TetroosController::mergePieceLeft()
 */
 bool TetroosController::mergePieceRight()
 {
-    // get the width of the current piece
-    unsigned pieceWidth = 0;
-    switch (activePiece.pieceType)
-    {
-    case I:
-        pieceWidth = 1;
-        break;
-    case J:
-    case L:
-    case O:
-        pieceWidth = 2;
-        break;
-    case S:
-    case T:
-    case Z:
-        pieceWidth = 3;
-        break;
-    case empty: // active piece should never be empty so this is here just to suppress a warning
-        break;
-    }
-
-    // check that the piece isn't going to go out of bounds
-    if (activePiece.posX + pieceWidth >= 19)
-        return false;
-
     // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
     if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY, false))
     {
@@ -205,8 +172,34 @@ bool TetroosController::mergePieceRight()
 */
 bool TetroosController::checkActivePieceCollision(unsigned startPosX, unsigned startPosY, bool rotate)
 {
+    // start by checking if startpos values are out of the desired range
+    if (startPosY >= 20 || startPosX >= 10) // must be 0-19 for Y and 0-9 for X, if it goes below 0 it will wrap over to 4bil because unsigned
+        return false;
+
     // get the grid for the active piece type
     PieceGrid checkPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
+
+    // get the max width of the check piece and ensure it doesnt go out of bounds
+    unsigned maxWidth = 4;
+    bool isBlockInColumn = false;
+    for (unsigned x = 0; x < 4; x++)
+    {
+        for (unsigned y = 0; y < 4; y++)
+        {
+            if (checkPiece[y][x] == true)
+            {
+                isBlockInColumn = true;
+                break;
+            }
+        }
+        if (!isBlockInColumn)
+        {
+            maxWidth = x;
+            break;
+        }
+    }
+    if (maxWidth > 20U - startPosX)
+        return false;
 
     unsigned pieceX = 0, pieceY = 0;
     for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
