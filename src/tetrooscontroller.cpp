@@ -33,7 +33,110 @@ TetroosController::TetroosController()
 
     // start game timer with 1 second interval
     gameTimer.start(1000);
+
+/*
+    Returns the current holding piece type (or empty if not holding).
+*/
 }
+unsigned TetroosController::getScore()
+{
+    return score;
+}
+
+/*
+    Returns the current holding piece type (or empty if not holding).
+*/
+PieceType TetroosController::getHoldPiece()
+{
+    return holdPiece;
+}
+
+/*
+    Returns the currently active piece type.
+*/
+PieceType TetroosController::getActivePiece()
+{
+    return activePiece.pieceType;
+}
+
+/*
+    Returns the type of the next piece.
+*/
+PieceType TetroosController::getNextPiece()
+{
+    return nextPiece;
+}
+
+/*
+    Move piece down action.
+*/
+void TetroosController::down()
+{
+    // Move piece down
+    if (!gameOver && !waitingForNewPiece) {
+        // Update game state
+        updateGame(Down);
+    }
+}
+/*
+    Move piece left action.
+*/
+void TetroosController::left()
+{
+    // Move piece down
+    if (!gameOver && !waitingForNewPiece) {
+        // Update game state
+        updateGame(Left);
+    }
+}
+/*
+    Move piece right action.
+*/
+void TetroosController::right()
+{
+    // Move piece down
+    if (!gameOver && !waitingForNewPiece) {
+        // Update game state
+        updateGame(Right);
+    }
+}
+
+/*
+    Rotate piece clockwise action.
+*/
+void TetroosController::rotate()
+{
+    // Rotate piece clockwise
+    if (!gameOver && !waitingForNewPiece) {
+        // Update game state
+        updateGame(Rotate);
+    }
+}
+
+/*
+    Slam piece to the bottom action.
+*/
+void TetroosController::slam()
+{
+    // Move piece down
+    if (!gameOver && !waitingForNewPiece) {
+        // Update game state
+        updateGame(Slam);
+    }
+}
+
+/*
+    Hold active piece action.
+*/
+void TetroosController::hold()
+{
+    // Move piece down
+    if (!gameOver && !waitingForNewPiece) {
+        // Update game state
+        updateGame(Hold);
+    }
+}
+
 
 /*
     Main game loop. Called every time a new action has happened.
