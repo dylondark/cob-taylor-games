@@ -255,6 +255,34 @@ bool TetroosController::mergePieceRotate()
 }
 
 /*
+    Swaps out the active piece with the currently holding piece.
+    Checks the piece to be swapped for collision.
+
+    Returns whether or not the swap was successful.
+*/
+bool TetroosController::swapHold()
+{
+    if (holdPiece != empty)
+    {
+        std::swap(holdPiece, activePiece.pieceType);
+
+        // attempt to rewrite the piece with the hold and active swapped out
+        if (!rewriteActivePiece(0, 0, false))
+        {
+            // swap back if the rewrite didnt succeed
+            std::swap(holdPiece, activePiece.pieceType);
+            return false;
+        }
+        return true;
+    }
+    else
+    {
+        // @TODO: implement what happens if there is no currently holding piece
+        return true;
+    }
+}
+
+/*
     Erases the current active piece and then rewrites it again at the specified coordinates.
 
     int xOffset: number to offset the X value of the piece by (it gets added to the piece's current X).
