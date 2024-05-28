@@ -255,64 +255,6 @@ bool TetroosController::mergePieceRotate()
 }
 
 /*
-    Checks that a given piece would not collide with any filled blocks were it to be applied to the board at the provided location.
-
-    unsigned startPosX: X value of the bottom left corner of the grid area on the board.
-    unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
-    bool rotate: whether to rotate the piece 90 degrees clockwise before checking.
-    Returns whether there was a collision.
-*/
-bool TetroosController::checkActivePieceCollision(unsigned startPosX, unsigned startPosY, bool rotate)
-{
-    // start by checking if startpos values are out of the desired range
-    if (startPosY >= 20 || startPosX >= 10) // must be 0-19 for Y and 0-9 for X, if it goes below 0 it will wrap over to 4bil because unsigned
-        return false;
-
-    // get the grid for the active piece type
-    PieceGrid checkPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
-
-    // get the max width of the check piece and ensure it doesnt go out of bounds
-    unsigned maxWidth = 4;
-    bool isBlockInColumn = false;
-    for (unsigned x = 0; x < 4; x++)
-    {
-        for (unsigned y = 0; y < 4; y++)
-        {
-            if (checkPiece[y][x] == true)
-            {
-                isBlockInColumn = true;
-                break;
-            }
-        }
-        if (!isBlockInColumn)
-        {
-            maxWidth = x;
-            break;
-        }
-    }
-    if (maxWidth > 20U - startPosX)
-        return false;
-
-    unsigned pieceX = 0, pieceY = 0;
-    for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
-    {
-        for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
-        {
-            // get the two blocks we are examining
-            Block currentBlockInBoard = board[boardY][boardX];
-            bool currentBlockInPiece = checkPiece[pieceY][pieceX];
-
-            if (currentBlockInBoard.pieceType != empty && currentBlockInPiece == true)
-                return true;
-
-            ++pieceX;
-        }
-        ++pieceY;
-    }
-    return false;
-}
-
-/*
     Erases the current active piece and then rewrites it again at the specified coordinates.
 
     int xOffset: number to offset the X value of the piece by (it gets added to the piece's current X).
@@ -325,17 +267,61 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     unsigned startPosX = (int)activePiece.posX + xOffset;
     unsigned startPosY = (int)activePiece.posY + yOffset;
 
-    // check if we can do the rewrite
-    if (!checkActivePieceCollision(startPosX, startPosY, rotate))
+    // start by checking if startpos values are out of the desired range
+    if (startPosY >= 20 || startPosX >= 10) // must be 0-19 for Y and 0-9 for X, if it goes below 0 it will wrap over to 4bil because unsigned
         return false;
 
     // get the grid for the active piece type
     PieceGrid newPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
 
+    // get the max width of the new piece and ensure it doesnt go out of bounds
+    if (xOffset > 0 && startPosX > 15) // only do this part if we are moving right and we are within 4 blocks away from the right edge
+    {
+        unsigned maxWidth = 4;
+        bool isBlockInColumn = false;
+        for (unsigned x = 0; x < 4; x++)
+        {
+            for (unsigned y = 0; y < 4; y++)
+            {
+                if (newPiece[y][x] == true)
+                {
+                    isBlockInColumn = true;
+                    break;
+                }
+            }
+            if (!isBlockInColumn)
+            {
+                maxWidth = x;
+                break;
+            }
+        }
+        if (maxWidth > 20U - startPosX)
+            return false;
+    }
+
+    // check for collision with other pieces
     unsigned pieceX = 0, pieceY = 0;
-    // erase the active piece from its current position
-    for (unsigned boardY = startPosY + 1; boardY < std::min(startPosY + 6, 20U); boardY++)
+    for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
+    {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
+        {
+            // get the two blocks we are examining
+            Block currentBlockInBoard = board[boardY][boardX];
+            bool currentBlockInPiece = newPiece[pieceY][pieceX];
+
+            if (currentBlockInBoard.pieceType != empty && currentBlockInPiece == true)
+                return false;
+
+            ++pieceX;
+        }
+        ++pieceY;
+    }
+
+    // ---at this point we are assuming there are no conflicts and it is good to start making changes to the board---
+
+    // erase the active piece from its current position
+    for (unsigned boardY = activePiece.posY; boardY < std::min(activePiece.posY + 5, 20U); boardY++)
+        for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
         {
             // get reference to block since we are modifying it
             Block* currentBlockInBoard = &board[boardY][boardX];

@@ -208,16 +208,6 @@ private:
     void clearRow(unsigned row);
 
     /*
-        Checks that a given piece would not collide with any filled blocks were it to be applied to the board at the provided location.
-
-        unsigned startPosX: X value of the bottom left corner of the grid area on the board.
-        unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
-        bool rotate: whether to rotate the piece 90 degrees clockwise before checking.
-        Returns whether there was a collision.
-    */
-    bool checkActivePieceCollision(unsigned startPosX, unsigned startPosY, bool rotate);
-
-    /*
         Erases the current active piece and then rewrites it again at the specified coordinates.
 
         int xOffset: number to offset the X value of the piece by (it gets added to the piece's current X).
