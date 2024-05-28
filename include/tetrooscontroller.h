@@ -212,9 +212,10 @@ private:
 
         unsigned startPosX: X value of the bottom left corner of the grid area on the board.
         unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
+        bool rotate: whether to rotate the piece 90 degrees clockwise before checking.
         Returns whether there was a collision.
     */
-    bool checkActivePieceCollision(unsigned startPosX, unsigned startPosY);
+    bool checkActivePieceCollision(unsigned startPosX, unsigned startPosY, bool rotate);
 
     /*
         Erases the current active piece and then rewrites it again at the specified coordinates.

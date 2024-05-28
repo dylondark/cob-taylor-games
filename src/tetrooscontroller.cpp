@@ -123,7 +123,7 @@ bool TetroosController::mergePieceDown()
         return false;
 
     // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
-    if (!checkActivePieceCollision(activePiece.posX, activePiece.posY - 1))
+    if (!checkActivePieceCollision(activePiece.posX, activePiece.posY - 1, false))
     {
         rewriteActivePiece(activePiece.posX, --activePiece.posY);
         return true;
@@ -144,7 +144,7 @@ bool TetroosController::mergePieceLeft()
         return false;
 
     // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
-    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY))
+    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY, false))
     {
         rewriteActivePiece(--activePiece.posX, activePiece.posY);
         return true;
@@ -186,7 +186,7 @@ bool TetroosController::mergePieceRight()
         return false;
 
     // get the PieceGrid for the active piece and check for collision in the place that it will be merged into
-    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY))
+    if (!checkActivePieceCollision(activePiece.posX - 1, activePiece.posY, false))
     {
         rewriteActivePiece(++activePiece.posX, activePiece.posY);
         return true;
@@ -200,12 +200,13 @@ bool TetroosController::mergePieceRight()
 
     unsigned startPosX: X value of the bottom left corner of the grid area on the board.
     unsigned startPosY: Y value of the bottom left corner of the grid area on the board.
+    bool rotate: whether to rotate the piece 90 degrees clockwise before checking.
     Returns whether there was a collision.
 */
-bool TetroosController::checkActivePieceCollision(unsigned startPosX, unsigned startPosY)
+bool TetroosController::checkActivePieceCollision(unsigned startPosX, unsigned startPosY, bool rotate)
 {
     // get the grid for the active piece type
-    PieceGrid checkPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation);
+    PieceGrid checkPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
 
     unsigned pieceX = 0, pieceY = 0;
     for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
