@@ -63,6 +63,9 @@ struct Block
     unsigned posX, posY;
 };
 
+// Empty block constant.
+const Block EMPTY_BLOCK = {empty, 0, 0, false, 0, 0};
+
 /*
     Struct that holds all relevant data about the currently active piece.
 */
