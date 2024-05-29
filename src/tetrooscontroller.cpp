@@ -283,6 +283,30 @@ bool TetroosController::swapHold()
 }
 
 /*
+    Randomly chooses a PieceType to be the next piece and spawns it.
+    Sets gameOver to true if it can't spawn a piece.
+*/
+void TetroosController::spawnNextPiece()
+{
+    // swap next piece into active
+    std::swap(activePiece.pieceType, nextPiece);
+
+    // update active piece metadata
+    activePiece.rotation = 0;
+    activePiece.posX = 4;
+    activePiece.posY = 16;  // @TODO: dynamically adjust starting Y so that piece always spawns with no empty blocks overhead
+    ++activePiece.pieceID;
+
+    // generate new nextPiece
+    const PieceType PIECES[] = {I, J, L, O, S, T, Z};
+    nextPiece = PIECES[rand() % 7];
+
+    // attempt to write it into the board
+    if (!rewriteActivePiece(0, 0, false))
+        gameOver = true;
+}
+
+/*
     Erases the current active piece and then rewrites it again at the specified coordinates.
 
     int xOffset: number to offset the X value of the piece by (it gets added to the piece's current X).
