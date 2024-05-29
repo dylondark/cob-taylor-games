@@ -277,8 +277,29 @@ bool TetroosController::swapHold()
     }
     else
     {
-        // @TODO: implement what happens if there is no currently holding piece
-        return true;
+        // swap active into hold piece
+        std::swap(holdPiece, activePiece.pieceType);
+        // active will now be empty
+
+        // swap next piece into active
+        std::swap(activePiece.pieceType, nextPiece);
+        // next piece will now be empty
+
+        // attempt to write it into the board
+        if (rewriteActivePiece(0, 0, false))
+        {
+            // generate new nextPiece
+            const PieceType PIECES[] = {I, J, L, O, S, T, Z};
+            nextPiece = PIECES[rand() % 7];
+            return true;
+        }
+        else
+        {
+            // undo swaps if it failed
+            std::swap(activePiece.pieceType, nextPiece);
+            std::swap(holdPiece, activePiece.pieceType);
+            return false;
+        }
     }
 }
 
