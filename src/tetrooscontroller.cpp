@@ -21,7 +21,7 @@ TetroosController::TetroosController()
     // populate board with empty values
     for (int y = 0; y < 10; y++)
         for (int x = 0; x < 20; x++)
-            board[y][x] = {empty, 0, 0, false, 0, 0}; // empty block
+            board[y][x] = EMPTY_BLOCK;
 
     // init other data members
     gameOver = false;
@@ -483,12 +483,9 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     for (unsigned boardY = activePiece.posY; boardY < std::min(activePiece.posY + 5, 20U); boardY++)
         for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
         {
-            // get reference to block since we are modifying it
-            Block* currentBlockInBoard = &board[boardY][boardX];
-
-            if (currentBlockInBoard->pieceID == activePiece.pieceID)
+            if (board[boardY][boardX].pieceID == activePiece.pieceID)
                 // blank the block
-                *currentBlockInBoard = {empty, 0, 0, false, 0, 0};
+                board[boardY][boardX] = EMPTY_BLOCK;
         }
 
     // rewrite the active piece into its new position
