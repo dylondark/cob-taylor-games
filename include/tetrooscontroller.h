@@ -201,11 +201,11 @@ private:
     void spawnNextPiece();
 
     /*
-        Clears a row and shifts everything above it down to fill the space.
+        Checks the board for filled rows and clears them. Adds to the player's score.
 
-        unsigned row: row to clear. Can be 0-19 with 0 being the bottom row and 19 being the top row.
+        Returns whether there were any filled rows.
     */
-    void clearRow(unsigned row);
+    bool clearFilledRows();
 
     /*
         Erases the current active piece and then rewrites it again at the specified coordinates.

@@ -162,12 +162,14 @@ void TetroosController::updateGame(GameAction trigger)
         }
         else
         {
+            // TODO: replace with recursive function call for down action?
             if (mergePieceDown())
                 applySilhouette();
             else
             {
                 waitingForNewPiece = true;
-                return; // no need to trigger a view update since nothing actually happened on the board
+                if (!clearFilledRows())
+                    return; // we don't need to trigger a qml update since nothing changed in the game state
             }
         }
         break;
@@ -189,7 +191,8 @@ void TetroosController::updateGame(GameAction trigger)
         else
         {
             waitingForNewPiece = true;
-            return;
+            if (!clearFilledRows())
+                return;
         }
         break;
     case Rotate:
@@ -200,7 +203,6 @@ void TetroosController::updateGame(GameAction trigger)
         break;
     case Slam:
         while (mergePieceDown()); // repeatedly move the piece down until it can't anymore
-        waitingForNewPiece = true;
         break;
     case Hold:
         if (swapHold())
@@ -325,6 +327,91 @@ void TetroosController::spawnNextPiece()
     // attempt to write it into the board
     if (!rewriteActivePiece(0, 0, false))
         gameOver = true;
+}
+
+/*
+    Checks the board for filled rows and clears them. Adds to the player's score.
+
+    Returns whether there were any filled rows.
+*/
+bool TetroosController::clearFilledRows()
+{
+    // loop through all rows and check for filled rows
+    bool isFilled = true;
+    unsigned filledRows = 0;
+    for (unsigned y = 0; y < 20; y++)
+    {
+        isFilled = true;
+        // check the row
+        for (unsigned x = 0; x < 10; x++)
+        {
+            if (board[y][x].pieceType == empty)
+            {
+                isFilled = false;
+                break;
+            }
+        }
+
+        if (isFilled)
+        {
+            ++filledRows;
+
+            // clear the row
+            for (unsigned x = 0; x < 10; x++)
+                board[y][x] = EMPTY_BLOCK;
+        }
+    }
+
+    // apply points
+    // @TODO: make the score to be added increase the longer the player is playing (level system?)
+    switch (filledRows)
+    {
+    case 0:
+        return false;
+    case 1:
+        score += 100;
+        break;
+    case 2:
+        score += 300;
+        break;
+    case 3:
+        score += 500;
+        break;
+    case 4:
+        score += 800;
+        break;
+    }
+
+    // shift all blocks down
+    bool isRowEmpty = true;
+    for (unsigned y = 19; y >= 0; y--) // go from bottom to top
+    {
+        // get whether this row is empty or not
+        for (unsigned x = 0; x < 10; x++)
+        {
+            if (board[y][x].pieceType != empty)
+            {
+                isRowEmpty = false;
+                break;
+            }
+        }
+
+        // stop this logic when we have already moved all of the previously filled rows
+        if (filledRows-- > 0)
+        {
+            // bring all other rows down if row is empty
+            if (isRowEmpty)
+            {
+                for (unsigned y2 = y; y2 > 0; y2--) // starting at the empty row y value going all the way to the top
+                    // swap the empty row all the way up to the top (i feel like a genius for thinking of this)
+                    std::swap(board[y2], board[y2 - 1]);
+            }
+        }
+        else
+            break;
+    }
+
+    return true;
 }
 
 /*
