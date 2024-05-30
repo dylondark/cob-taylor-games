@@ -497,7 +497,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
         return false;
 
     // get the grid for the active piece type
-    PieceGrid newPiece = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
+    const PieceGrid NEW_PIECE = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
 
     // get the max width of the new piece and ensure it doesnt go out of bounds
     if (xOffset > 0 && startPosX > 15) // only do this part if we are moving right and we are within 4 blocks away from the right edge
@@ -508,7 +508,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
         {
             for (unsigned y = 0; y < 4; y++)
             {
-                if (newPiece[y][x] == true)
+                if (NEW_PIECE[y][x] == true)
                 {
                     isBlockInColumn = true;
                     break;
@@ -530,11 +530,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
         {
-            // get the two blocks we are examining
-            Block currentBlockInBoard = board[boardY][boardX];
-            bool currentBlockInPiece = newPiece[pieceY][pieceX];
-
-            if (currentBlockInBoard.pieceType != empty && currentBlockInBoard.pieceID != activePiece.pieceID && currentBlockInPiece == true)
+            if (board[boardY][boardX].pieceType != empty && board[boardY][boardX].pieceID != activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
                 return false;
 
             ++pieceX;
@@ -559,12 +555,8 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
         {
-            // get reference to block since we are modifying it
-            Block* currentBlockInBoard = &board[boardY][boardX];
-            bool currentBlockInPiece = newPiece[pieceY][pieceX];
-
-            if (currentBlockInPiece == true)
-                *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
+            if (NEW_PIECE[pieceY][pieceX])
+                board[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
 
             ++pieceX;
         }
