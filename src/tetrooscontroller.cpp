@@ -257,6 +257,71 @@ bool TetroosController::mergePieceRotate()
 }
 
 /*
+    Calculates the position of and applies the silhouette to the board.
+*/
+void TetroosController::applySilhouette()
+{
+    // get the grid for the active piece type
+    const PieceGrid NEW_PIECE = getPieceGrid(activePiece.pieceType, activePiece.rotation);
+
+    // go from bottom up to the active piece Y checking for the first Y value where we can write the silhouette
+    unsigned silhouetteY = 0;
+    bool collision = false;
+    for (unsigned y = 0; y < activePiece.posY; y++) // go from bottom to top
+    {
+        // check for collision with other pieces
+        unsigned pieceX = 0, pieceY = 0;
+        collision = false;
+        for (unsigned boardY = y; boardY < std::min(y + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
+        {
+            for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
+            {
+                // get the two blocks we are examining
+                Block currentBlockInBoard = board[boardY][boardX];
+                bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
+
+                if (currentBlockInBoard.pieceType != empty && currentBlockInBoard.pieceID != activePiece.pieceID && currentBlockInPiece == true)
+                    collision = true;
+
+                ++pieceX;
+            }
+            ++pieceY;
+        }
+
+        // if we got through this Y with no collision
+        if (!collision)
+        {
+            silhouetteY = y; // save the y value so we can start writing the silhouette at it
+            break;
+        }
+    }
+
+    // if collision was true at every Y value then don't write anything
+    if (collision)
+        return;
+
+    // ---at this point we are assuming there are no conflicts and it is good to start making changes to the board---
+
+    // rewrite the silhouette piece into its new position
+    unsigned pieceX = 0, pieceY = 0;
+    for (unsigned boardY = silhouetteY; boardY < std::min(silhouetteY + 5, 20U); boardY++)
+    {
+        for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
+        {
+            // get reference to block since we are modifying it
+            Block* currentBlockInBoard = &board[boardY][boardX];
+            bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
+
+            if (currentBlockInPiece == true)
+                *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, true, pieceX, pieceY};
+
+            ++pieceX;
+        }
+        ++pieceY;
+    }
+}
+
+/*
     Swaps out the active piece with the currently holding piece.
     Checks the piece to be swapped for collision.
 
