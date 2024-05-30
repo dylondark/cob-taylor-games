@@ -10,8 +10,9 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <array>
+#include "flippedarray.h"
 
-typedef std::array<std::array<bool, 4>, 4> PieceGrid;
+typedef FlippedArray<std::array<bool, 4>, 4> PieceGrid;
 
 /*
     Enum that neatly defines all of the piece types (or empty).

@@ -128,7 +128,7 @@ private:
     bool waitingForNewPiece;
 
     // Contains the internal representation of the board grid.
-    Block board[20][10];
+    FlippedArray<std::array<Block, 10>, 20> board;
 
     // Current active piece. Holds all relevant data about the piece on the board.
     ActivePiece activePiece;

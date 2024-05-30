@@ -384,7 +384,7 @@ bool TetroosController::clearFilledRows()
 
     // shift all blocks down
     bool isRowEmpty = true;
-    for (unsigned y = 19; y >= 0; y--) // go from bottom to top
+    for (unsigned y = 0; y < 20; y++) // go from bottom to top
     {
         // get whether this row is empty or not
         for (unsigned x = 0; x < 10; x++)
@@ -402,9 +402,9 @@ bool TetroosController::clearFilledRows()
             // bring all other rows down if row is empty
             if (isRowEmpty)
             {
-                for (unsigned y2 = y; y2 > 0; y2--) // starting at the empty row y value going all the way to the top
+                for (unsigned y2 = y; y2 < 19; y2++) // starting at the empty row y value going all the way to the top
                     // swap the empty row all the way up to the top (i feel like a genius for thinking of this)
-                    std::swap(board[y2], board[y2 - 1]);
+                    std::swap(board[y2], board[y2 + 1]);
             }
         }
         else
