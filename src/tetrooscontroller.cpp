@@ -469,7 +469,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
             Block currentBlockInBoard = board[boardY][boardX];
             bool currentBlockInPiece = newPiece[pieceY][pieceX];
 
-            if (currentBlockInBoard.pieceType != empty && currentBlockInPiece == true)
+            if (currentBlockInBoard.pieceType != empty && currentBlockInBoard.pieceID != activePiece.pieceID && currentBlockInPiece == true)
                 return false;
 
             ++pieceX;
