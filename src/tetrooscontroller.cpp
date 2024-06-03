@@ -166,15 +166,8 @@ void TetroosController::updateGame(GameAction trigger)
         }
         else
         {
-            // TODO: replace with recursive function call for down action?
-            if (mergePieceDown())
-                applySilhouette();
-            else
-            {
-                waitingForNewPiece = true;
-                if (!clearFilledRows())
-                    return; // we don't need to trigger a qml update since nothing changed in the game state
-            }
+            updateGame(Down);
+            return;
         }
         break;
     case Left:
@@ -196,7 +189,7 @@ void TetroosController::updateGame(GameAction trigger)
         {
             waitingForNewPiece = true;
             if (!clearFilledRows())
-                return;
+                return; // we don't need to trigger a qml update since nothing changed in the game state
         }
         break;
     case Rotate:
