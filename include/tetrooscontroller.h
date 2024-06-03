@@ -114,6 +114,9 @@ private:
     // The amount of textures to hold in the textures array.
     const static unsigned TEXTURE_COUNT = 29;
 
+    // How many row clears until a new level.
+    const unsigned LEVEL_ROW_CLEARS = 5;
+
     // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
     const std::array<QImage, TEXTURE_COUNT> textures;
 
@@ -141,6 +144,15 @@ private:
 
     // Player's current score.
     unsigned score;
+
+    // The current level the game is on.
+    unsigned level;
+
+    // How many lines have been cleared since the last level increase.
+    unsigned clearedRows;
+
+    // The current interval of the timer in ms (how many ms it takes for the piece to fall 1 row naturally).
+    unsigned timerInterval;
 
     // Timer that causes the block to fall. Gets increasingly faster according to an exponential function.
     QTimer gameTimer;
@@ -226,12 +238,9 @@ private:
     PieceGrid getPieceGrid(PieceType piece, unsigned rotation);
 
     /*
-        Updates the interval for gameTimer. Should be called every time the timer ticks.
-        This will decrease the timer tick interval a little bit every time its called according to an exponential function.
-        The idea is to start off slow and then gradually get faster. The exponential nature of the function provides a soft
-        limit for the amount of time someone can play the game, as it will start to get impossibly fast after a time.
+        Does the operations for going to the next level. Ups the level counter and decreases the timer
     */
-    void updateTimerInterval();
+    void levelUp();
 
     /*
         Load the texture images and initialize the textures array with them.

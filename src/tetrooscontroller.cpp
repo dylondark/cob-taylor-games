@@ -30,9 +30,13 @@ TetroosController::TetroosController()
     holdPiece = empty;
     nextPiece = empty;
     score = 0;
+    level = 1;
+    clearedRows = 0;
 
-    // start game timer with 1 second interval
-    gameTimer.start(1000);
+    // start timer
+    gameTimer.setSingleShot(true);
+    timerInterval = 1000; // this should be whatever the interval is at at level 1 according to the equation
+    timerTick(); // kick off the game loop
 
 /*
     Returns the current holding piece type (or empty if not holding).
@@ -420,6 +424,7 @@ bool TetroosController::clearFilledRows()
         if (isFilled)
         {
             ++filledRows;
+            ++clearedRows;
 
             // clear the row
             for (unsigned x = 0; x < 10; x++)
@@ -427,23 +432,32 @@ bool TetroosController::clearFilledRows()
         }
     }
 
+    // increment level if needed
+    if (clearedRows >= LEVEL_ROW_CLEARS)
+    {
+        ++level;
+        clearedRows -= LEVEL_ROW_CLEARS;
+
+        // decrease timer interval
+        timerInterval = 1 / (0.0004 * (level + 2)); // equation for calculating the timing
+    }
+
     // apply points
-    // @TODO: make the score to be added increase the longer the player is playing (level system?)
     switch (filledRows)
     {
     case 0:
         return false;
     case 1:
-        score += 100;
+        score += 100 * level;
         break;
     case 2:
-        score += 300;
+        score += 300 * level;
         break;
     case 3:
-        score += 500;
+        score += 500 * level;
         break;
     case 4:
-        score += 800;
+        score += 800 * level;
         break;
     }
 
@@ -480,6 +494,17 @@ bool TetroosController::clearFilledRows()
 }
 
 /*
+    Slot function that is called when gameTimer ticks. Calls updateGame with the TimerTick action.
+*/
+void TetroosController::timerTick()
+{
+    if (!gameOver)
+        gameTimer.start(timerInterval); // start the timer again
+
+    updateGame(TimerTick);
+}
+
+/*
     Returns a PieceGrid for a specified piece with specified rotation.
 
     PieceType piece: The type of piece to return the grid for.
@@ -506,8 +531,8 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         break;
     }
     PieceGrid returnGrid;
-    for (int i = 0; i < GRID_SIZE; ++i) {
-        for (int j = 0; j < GRID_SIZE; ++j)
+    //for (int i = 0; i < GRID_SIZE; ++i) {
+    //    for (int j = 0; j < GRID_SIZE; ++j)
 }
 
 /*
