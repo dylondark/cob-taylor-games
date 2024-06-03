@@ -480,6 +480,37 @@ bool TetroosController::clearFilledRows()
 }
 
 /*
+    Returns a PieceGrid for a specified piece with specified rotation.
+
+    PieceType piece: The type of piece to return the grid for.
+    unsigned rotation: The rotation to apply to the grid before returning. Uses same logic as the rotation values in the Block struct.
+*/
+PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
+{
+    PieceGrid newGrid;
+    switch (piece)
+    {
+    case I: newGrid = I_PIECE;
+        break;
+    case J: newGrid = J_PIECE;
+        break;
+    case L: newGrid = L_PIECE;
+        break;
+    case O: newGrid = O_PIECE;
+        break;
+    case S: newGrid = S_PIECE;
+        break;
+    case T: newGrid = T_PIECE;
+        break;
+    case Z: newGrid = Z_PIECE;
+        break;
+    }
+    PieceGrid returnGrid;
+    for (int i = 0; i < GRID_SIZE; ++i) {
+        for (int j = 0; j < GRID_SIZE; ++j)
+}
+
+/*
     Erases the current active piece and then rewrites it again at the specified coordinates.
 
     int xOffset: number to offset the X value of the piece by (it gets added to the piece's current X).
