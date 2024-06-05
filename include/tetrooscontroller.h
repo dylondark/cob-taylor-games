@@ -118,7 +118,7 @@ private:
     const unsigned LEVEL_ROW_CLEARS = 5;
 
     // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
-    const std::array<QImage, TEXTURE_COUNT> textures;
+    const std::array<QImage, TEXTURE_COUNT> TEXTURES;
 
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
