@@ -238,11 +238,6 @@ private:
     PieceGrid getPieceGrid(PieceType piece, unsigned rotation);
 
     /*
-        Does the operations for going to the next level. Ups the level counter and decreases the timer
-    */
-    void levelUp();
-
-    /*
         Load the texture images and initialize the textures array with them.
     */
     std::array<QImage, TEXTURE_COUNT> loadTextures();
