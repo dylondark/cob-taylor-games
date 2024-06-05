@@ -5,6 +5,7 @@
 */
 
 #include <algorithm>
+#include <QPainter>
 #include "tetrooscontroller.h"
 
 /*
@@ -54,6 +55,55 @@ std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadText
         QImage(":/game/gamefiles/Tetroos/images/25-Z-x0y1.png"), QImage(":/game/gamefiles/Tetroos/images/26-Z-x1y1.png"), QImage(":/game/gamefiles/Tetroos/images/27-Z-x1y0.png"), QImage(":/game/gamefiles/Tetroos/images/28-Z-x2y0.png"),
         QImage(":/game/gamefiles/Tetroos/images/29-blank.png")
     };
+}
+
+/*
+    Calculates and returns the block texture at a given block.
+    Calculation is based on the values of the block struct at the given block.
+
+    Currently the plan is to apply rotation and silhouette dynamically on the preexisting images if needed before passing to QML
+    to simplify the amount of textures we need to create and store.
+    However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
+    This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
+*/
+QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
+{
+    // THIS IS A PROTOTYPE IMPLEMENTATION FOR USE WITH THE PROTOTYPE TEXTURES
+    // block-specific textures and rotation are not implemented yet
+
+    QImage texture;
+
+    switch (board[posY][posX].pieceType)
+    {
+    case I:
+        texture = TEXTURES[0];
+    case J:
+        texture = TEXTURES[4];
+    case L:
+        texture = TEXTURES[8];
+    case O:
+        texture = TEXTURES[12];
+    case S:
+        texture = TEXTURES[16];
+    case T:
+        texture = TEXTURES[20];
+    case Z:
+        texture = TEXTURES[24];
+    case empty:
+        texture = TEXTURES[28];
+    }
+
+    if (board[posY][posX].silhouette)
+    {
+        // overlay blank texture with half transparency
+        QImage blank = TEXTURES[28];
+        QPainter painter(&texture);
+        painter.setOpacity(0.5);
+        painter.drawImage(0, 0, blank);
+        painter.end();
+    }
+
+    return texture;
 }
 
 /*
