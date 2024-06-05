@@ -208,6 +208,13 @@ void TetroosController::hold()
     }
 }
 
+/*
+    Returns whether game is over or not.
+*/
+bool TetroosController::isGameOver()
+{
+    return gameOver;
+}
 
 /*
     Main game loop. Called every time a new action has happened.
@@ -591,8 +598,18 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         break;
     }
     PieceGrid returnGrid;
-    //for (int i = 0; i < GRID_SIZE; ++i) {
-    //    for (int j = 0; j < GRID_SIZE; ++j)
+    int N = newGrid.size();
+    rotation = rotation % 4;
+
+    for (int r = 0; r <= rotation; r++) {
+        for (int y = 0; y < N; y++) {
+            for (int x = 0; x < N; x++) {
+                newGrid[N - 1 - y][x] = returnGrid[y][x];
+            }
+        }
+        newGrid = newGrid;
+    }
+    return returnGrid;
 }
 
 /*
