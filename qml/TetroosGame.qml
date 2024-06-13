@@ -24,6 +24,19 @@ Item {
     property string username: ""
     property int gameEnum: 0
 
+    Item { // Since layouts can only inherit text properties, I'm defining them here for the text in the score boxes.
+        id: textProperties
+        property alias bodoniFont: bodoniText.font
+        property color textColor: "#fff7e9"
+
+        Text {
+            id: bodoniText
+            font.family: "Bodoni MT Heavy Italic"
+            font.bold: true
+            font.pointSize: 60 * scaleFactor
+        }
+    }
+
     ColumnLayout {
         id: baseLayout
         anchors.fill: parent
@@ -49,165 +62,177 @@ Item {
                 }
             }
 
-            // The screen-width rectangle for data at the top.
-            Rectangle {
-                id: dataRect
-                width: background.width
-                height: background.height / 8
-                color: "#FFF7E9"
-                anchors.top: parent.top
+            // Column for the data being laid out.
+            ColumnLayout {
+            anchors.fill: background
+            spacing: 0
 
+                // The screen-width grid for data at the top.
                 RowLayout {
-                    //anchors.centerIn: parent
-                    spacing: 10
+                    id: dataRow
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 1
+                    Layout.verticalStretchFactor: 1
+                    Layout.fillHeight: true
+                    spacing: 0
 
-                    // The rectangle for # of lines cleared.
                     Rectangle {
                         id: linesRect
-                        width: dataRect.width / 3 - 10
-                        height: dataRect.height - 20
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignHCenter
+                        color: "#fff7e9"
 
-                        Column {
-                            spacing: 10
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
+                            anchors.centerIn: parent
+                            spacing: 10 * scaleFactor
 
-                            Rectangle {
-                                id: linesTextRect
-                                width: linesRect.width
-                                height: linesRect.height / 2 - 5
-                                color: "#041E42"
-
-                                Text {
-                                    id: linesText
+                                Label {
+                                    id: linesTextLabel
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
                                     text: "L i n e s"
-                                    font.family: "Bodoni MT Black"
-                                    font.italic: true
-                                    verticalAlignment: Text.AlignVCenter
-                                    style: Text.Outline
-                                    horizontalAlignment: Text.AlignHCenter
-                                    font.pointSize: 55
-                                    color: "#FFF7E9"
-                                    anchors.centerIn: parent
+                                    font.family: textProperties.bodoniFont.family
+                                    font.pointSize: textProperties.bodoniFont.pointSize
+                                    font.bold: textProperties.bodoniFont.bold
+                                    color: textProperties.textColor
+                                    background: Rectangle {
+                                        color: "#041e42"
+                                    }
                                 }
-                            }
 
-                            // This is the part with the actual number of lines cleared, it's a stub.
-                            Rectangle {
-                                id: linesVar
-                                width: levelRect.width
-                                height: levelRect.height / 2 - 5
-                                color: "#041E42"
-                            }
+                                Label { // The label for the actual variable of lines.
+                                    id: linesVar
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    background: Rectangle {
+                                        color: "#ffffff"
+                                    }
+                                }
                         }
-                    }
+                    } // LinesRect bracket
 
-                    // The rectangle for the score.
                     Rectangle {
                         id: scoreRect
-                        width: dataRect.width / 3 - 10
-                        height: dataRect.height  - 20
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredHeight: 1
+                        color: "#fff7e9"
 
-                        Column {
-                            spacing: 10
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
+                            anchors.centerIn: parent
+                            spacing: 10 * scaleFactor
 
-                            Rectangle {
-                                id: scoreTextRect
-                                width: scoreRect.width
-                                height: scoreRect.height / 2 - 5
-                                color: "#041E42"
-                                Text {
-                                    id: scoreText
-                                    text: "S c o r e"
-                                    font.family: "Bodoni MT Black"
-                                    font.italic: true
-                                    verticalAlignment: Text.AlignVCenter
-                                    style: Text.Outline
-                                    horizontalAlignment: Text.AlignHCenter
-                                    font.pointSize: 55
-                                    color: "#FFF7E9"
-                                    anchors.centerIn: parent
+                            Label {
+                                id: scoreTextLabel
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                text: "S c o r e"
+                                font.family: textProperties.bodoniFont.family
+                                font.pointSize: textProperties.bodoniFont.pointSize
+                                font.bold: textProperties.bodoniFont.bold
+                                color: textProperties.textColor
+                                background: Rectangle {
+                                    color: "#041e42"
                                 }
                             }
 
-                            // This is the part with the actual data for the score, this is a stub.
-                            Rectangle {
+                            Label { // The label for the actual variable of the score.
                                 id: scoreVar
-                                width: scoreRect.width
-                                height: scoreRect.height / 2 - 5
-                                color: "#041E42"
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                background: Rectangle {
+                                    color: "#ffffff"
+                                }
                             }
                         }
-                    }
+                    } // scoreRect bracket
 
-                    // The rectangle for the level.
                     Rectangle {
                         id: levelRect
-                        width: dataRect.width / 3 - 10
-                        height: dataRect.height - 20
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredHeight: 1
+                        color: "#fff7e9"
 
-                        Column {
-                            spacing: 10
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
+                            anchors.centerIn: parent
+                            spacing: 10 * scaleFactor
 
-                            Rectangle {
-                                id:levelTextRect
-                                width: levelRect.width - 10
-                                height: levelRect.height / 2 - 5
-                                color: "#041E42"
-                                Text {
-                                    id: levelText
-                                    text: "L e v e l"
-                                    font.family: "Bodoni MT Black"
-                                    font.italic: true
-                                    verticalAlignment: Text.AlignVCenter
-                                    style: Text.Outline
-                                    horizontalAlignment: Text.AlignHCenter
-                                    font.pointSize: 55
-                                    color: "#FFF7E9"
-                                    anchors.centerIn: parent
+                            Label {
+                                id: levelTextLabel
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                text: "L e v e l"
+                                font.family: textProperties.bodoniFont.family
+                                font.pointSize: textProperties.bodoniFont.pointSize
+                                font.bold: textProperties.bodoniFont.bold
+                                color: textProperties.textColor
+                                background: Rectangle {
+                                    color: "#041e42"
                                 }
                             }
 
-                            // This is the part with the actual data for the levels, it's a stub.
-                            Rectangle {
+                            Label { // The label for the actual variable of the level.
                                 id: levelVar
-                                width: levelRect.width - 10
-                                height: levelRect.height / 2 - 5
-                                color: "#041E42"
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                background: Rectangle {
+                                    color: "#ffffff"
+                                }
                             }
                         }
-                    }
-                }
-            }
-            /*
-            // TODO: Hold rectangle next to game rectangle next to "next" rectangle
-            Row {
+                    } // levelRect bracket
+                } // dataRow RowLayout bracket.
+
+
+                // TODO: Hold rectangle next to game rectangle next to "next" rectangle
                 Rectangle {
-                    id: holdRectangle
-                    width: 100
-                    height: 100
-
-                    Column {
+                    Layout.verticalStretchFactor: 5
+                    Layout.preferredHeight: 1
+                    Layout.fillHeight: true
+                    color: "#ffffff"
+                /*
+                    Row {
 
                         Rectangle {
-                            id: holdRect
-                            color: "#041E42"
+                            id: holdRectangle
+                            width: 100
+                            height: 100
+                            Layout.alignment: Qt.AlignLeft
 
-                            Text {
-                            text: "HOLD"
-                            font.bold: true
-                            font.pointSize: 25
-                            horizontalAlignment: Text.AlignHCenter
+                            Column {
+
+                                Rectangle {
+                                    id: holdRect
+                                    color: "#041E42"
+
+                                    Text {
+                                    text: "HOLD"
+                                    font.bold: true
+                                    font.pointSize: 25
+                                    horizontalAlignment: Text.AlignHCenter
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: holdPieceRect
+                                    color: "#FFF7E9"
+                                }
                             }
                         }
-
-                        Rectangle {
-                            id: holdPieceRect
-                            color: "#FFF7E9"
-                        }
-                    }
+                    }*/
                 }
-            }
-        }
-*/
+            } // ColumnLayout bracket
         }
 
         HomeBarBase {
