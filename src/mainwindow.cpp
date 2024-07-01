@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <QIcon>
 #include <QListWidget>
+#include "cliparser.h"
 #include "feedbackcontroller.h"
 #include "guessthelogocontroller.h"
 #include "profanitychecker.h"
@@ -18,6 +19,7 @@
 #include <QKeySequence>
 #include <QStackedLayout>
 #include <QQmlContext>
+#include <QQuickView>
 #include <triviacontroller.h>
 
 /*
@@ -493,18 +495,41 @@ void MainWindow::enterScore(int game, QString userName, int score)
 */
 void MainWindow::showGame(game game)
 {
-    // assign create the game widget and assign to pointer
-    gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+    if (CliParser::getWindow())
+    {
+        // assign create the game widget and assign to pointer
+        gameWidget = new QQuickView(Utilities::getGameQML(game));
 
-    // connect the required signals and slots
-    connect((QObject*)gameWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
-    connect((QObject*)gameWidget->rootObject(), SIGNAL(saveScore(int,QString,int)), this, SLOT(enterScore(int,QString,int)));
+        // create pointer with proper type for easy usage
+        QQuickWidget* currentView = static_cast<QQuickWidget*>(gameWidget);
 
-    // set size mode
-    gameWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+        currentView->setBaseSize(this->size());
 
-    // add the widget to the window
-    ui->canvas->layout()->addWidget(gameWidget);
+        // connect the required signals and slots
+        connect((QObject*)currentView->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
+        connect((QObject*)currentView->rootObject(), SIGNAL(saveScore(int,QString,int)), this, SLOT(enterScore(int,QString,int)));
+
+        // show the window
+        currentView->show();
+    }
+    else
+    {
+        // create new widget and store in gamewidget pointer
+        gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
+
+        // create pointer with proper type for easy usage
+        QQuickWidget* currentWidget = static_cast<QQuickWidget*>(gameWidget);
+
+        // set size mode
+        currentWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+
+        // connect the required signals and slots
+        connect((QObject*)currentWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
+        connect((QObject*)currentWidget->rootObject(), SIGNAL(saveScore(int,QString,int)), this, SLOT(enterScore(int,QString,int)));
+
+        // add the widget to the window
+        ui->canvas->layout()->addWidget(currentWidget);
+    }
 
     // stop menu timers, for performance
     titleClickTimer->stop();
@@ -517,10 +542,25 @@ void MainWindow::showGame(game game)
 */
 void MainWindow::exitGame()
 {
-    // remove the widget
-    ui->canvas->layout()->removeWidget(gameWidget);
-    gameWidget->close();
-    gameWidget->deleteLater();
+    if (CliParser::getWindow())
+    {
+        // create pointer with proper type for easy usage
+        QQuickWidget* currentView = static_cast<QQuickWidget*>(gameWidget);
+
+        // close and purge the window
+        currentView->close();
+        currentView->deleteLater();
+    }
+    else
+    {
+        // create pointer with proper type for easy usage
+        QQuickWidget* currentWidget = static_cast<QQuickWidget*>(gameWidget);
+
+        // remove the widget
+        ui->canvas->layout()->removeWidget(currentWidget);
+        currentWidget->close();
+        currentWidget->deleteLater();
+    }
 
     // restart the timers
     titleClickTimer->start();
