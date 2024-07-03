@@ -533,7 +533,8 @@ void MainWindow::showGame(game game)
         ui->canvas->layout()->addWidget(currentWidget);
     }
 
-    // stop menu timers, for performance
+    // stop menu timers, for performance]
+    lbSwitchTimer->stop();
     titleClickTimer->stop();
     bgUpdateTimer->stop();
 }
@@ -565,6 +566,7 @@ void MainWindow::exitGame()
     }
 
     // restart the timers
+    lbSwitchTimer->start();
     titleClickTimer->start();
     bgUpdateTimer->start();
 }
