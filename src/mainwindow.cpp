@@ -501,16 +501,18 @@ void MainWindow::showGame(game game)
         gameWidget = new QQuickView(Utilities::getGameQML(game));
 
         // create pointer with proper type for easy usage
-        QQuickWidget* currentView = static_cast<QQuickWidget*>(gameWidget);
+        QQuickView* currentView = static_cast<QQuickView*>(gameWidget);
 
-        currentView->setBaseSize(this->size());
+        // set size parameters for the window
+        currentView->setResizeMode(QQuickView::SizeRootObjectToView); // size the internal qml view to the same size as the window
+        currentView->setBaseSize(this->size()); // set window size to the size of the main window
 
         // connect the required signals and slots
         connect((QObject*)currentView->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
         connect((QObject*)currentView->rootObject(), SIGNAL(saveScore(int,QString,int)), this, SLOT(enterScore(int,QString,int)));
 
         // show the window
-        currentView->show();
+        currentView->showFullScreen();
     }
     else
     {
@@ -545,7 +547,7 @@ void MainWindow::exitGame()
     if (CliParser::getWindow())
     {
         // create pointer with proper type for easy usage
-        QQuickWidget* currentView = static_cast<QQuickWidget*>(gameWidget);
+        QQuickView* currentView = static_cast<QQuickView*>(gameWidget);
 
         // close and purge the window
         currentView->close();
