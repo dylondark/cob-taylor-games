@@ -501,7 +501,7 @@ void MainWindow::showGame(game game)
         gameWidget = new QQuickView(Utilities::getGameQML(game));
 
         // create pointer with proper type for easy usage
-        QQuickView* currentView = static_cast<QQuickView*>(gameWidget);
+        QPointer<QQuickView> currentView = qobject_cast<QQuickView*>(gameWidget);
 
         // set size parameters for the window
         currentView->setResizeMode(QQuickView::SizeRootObjectToView); // size the internal qml view to the same size as the window
@@ -520,7 +520,7 @@ void MainWindow::showGame(game game)
         gameWidget = new QQuickWidget(Utilities::getGameQML(game), this);
 
         // create pointer with proper type for easy usage
-        QQuickWidget* currentWidget = static_cast<QQuickWidget*>(gameWidget);
+        QPointer<QQuickWidget> currentWidget = qobject_cast<QQuickWidget*>(gameWidget);
 
         // set size mode
         currentWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
@@ -548,7 +548,7 @@ void MainWindow::exitGame()
     if (CliParser::getWindow())
     {
         // create pointer with proper type for easy usage
-        QQuickView* currentView = static_cast<QQuickView*>(gameWidget);
+        QPointer<QQuickView> currentView = qobject_cast<QQuickView*>(gameWidget);
 
         // close and purge the window
         currentView->close();
@@ -557,7 +557,7 @@ void MainWindow::exitGame()
     else
     {
         // create pointer with proper type for easy usage
-        QQuickWidget* currentWidget = static_cast<QQuickWidget*>(gameWidget);
+        QPointer<QQuickWidget> currentWidget = qobject_cast<QQuickWidget*>(gameWidget);
 
         // remove the widget
         ui->canvas->layout()->removeWidget(currentWidget);

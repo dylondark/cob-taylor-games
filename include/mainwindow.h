@@ -183,7 +183,7 @@ private:
     ClickDetector* lbDetector;
 
     // Pointer to the quickwidget of the current game (if there is a game running).
-    QObject* gameWidget;
+    QPointer<QObject> gameWidget;
 
     // Vector containing pointers to all leaderboard page objects.
     std::vector<QWidget*> lbPages;
