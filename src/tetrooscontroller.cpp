@@ -598,20 +598,41 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         break;
     }
     PieceGrid returnGrid;
-    int N = newGrid.size();
-    rotation = rotation % 4;
 
-    for (int r = 0; r <= rotation; r++) {
-        for (int y = 0; y < N; y++) {
-            for (int x = 0; x < N; x++) {
-                newGrid[N - 1 - y][x] = returnGrid[y][x];
+    rotation = rotation % 4;
+    // This will run for how many times it needs to be rotated at 90 degrees clockwise
+    for (unsigned iteration = 0; iteration <= rotation; iteration++)
+    {
+        for (unsigned y = 0; y <= 3; y++)
+        {
+            for (unsigned x = 0; x <= 3; x++)
+                returnGrid[x][3 - y] = newGrid[y][x];
+        }
+    }
+
+    // Checking rows and swapping if needed
+    for (unsigned z = 0; z <= 3; z++)
+    {
+        // Checks if row is empty, if empty will swap up the row
+        bool check = false;
+        for (bool cell : returnGrid[0])
+        {
+            if (cell)
+            {
+                check = true;
+                break;
             }
         }
-        newGrid = newGrid;
-    }
-    return returnGrid;
-}
 
+        // If row is empty, then it will stop swapping
+        if (check)
+            break;
+
+        // Swapping the bottom row to the top
+        for(unsigned swapper = 0; swapper <= 2; swapper++)
+            std::swap(returnGrid[swapper], returnGrid[swapper + 1]);
+    }
+}
 /*
     Erases the current active piece and then rewrites it again at the specified coordinates.
 
