@@ -631,6 +631,35 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         // Swapping the bottom row to the top
         for(unsigned swapper = 0; swapper <= 2; swapper++)
             std::swap(returnGrid[swapper], returnGrid[swapper + 1]);
+
+        // Checking columns and swapping if needed
+        for (unsigned z = 0; z <= 3; z++)
+        {
+            // Checks if column is empty, if empty will swap left the column
+            bool check = false;
+            for (unsigned row = 0; row <= 3; row++)
+            {
+                if (returnGrid[row][0])
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            // If column is empty, then it will stop swapping
+            if (check)
+                break;
+
+            // Swapping the rightmost column to the left
+            for(unsigned swapper = 0; swapper <= 2; swapper++)
+            {
+                for (unsigned row = 0; row <= 3; row++)
+                {
+                    std::swap(returnGrid[row][swapper], returnGrid[row][swapper + 1]);
+                }
+            }
+        }
+
     }
 }
 /*
