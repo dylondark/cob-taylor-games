@@ -110,6 +110,8 @@ Item {
                                 Layout.fillHeight: true
                                 background: Rectangle {
                                     color: "#ffffff"
+                                    border.color: "black"
+                                    border.width: 1
                                 }
                             }
                         }
@@ -149,6 +151,8 @@ Item {
                                 Layout.fillHeight: true
                                 background: Rectangle {
                                     color: "#ffffff"
+                                    border.color: "black"
+                                    border.width: 1
                                 }
                             }
                         }
@@ -179,6 +183,8 @@ Item {
                                 color: textProperties.textColor
                                 background: Rectangle {
                                     color: "#041e42"
+                                    border.color: "black"
+                                    border.width: 1
                                 }
                             }
 
@@ -188,6 +194,8 @@ Item {
                                 Layout.fillHeight: true
                                 background: Rectangle {
                                     color: "#ffffff"
+                                    border.color: "black"
+                                    border.width: 1
                                 }
                             }
                         }
@@ -203,11 +211,14 @@ Item {
                     Layout.fillHeight: true
                     color: "transparent"
 
+                    RowLayout {
+                        spacing: 15
+
                     Rectangle {
                         id: holdRectangle
-                        width: 400 * scaleFactor
-                        height: 400 * scaleFactor
-                        Layout.alignment: Qt.AlignLeft
+                        Layout.preferredWidth: 350 * scaleFactor
+                        Layout.preferredHeight: 350 * scaleFactor
+                        Layout.alignment: parent.top
                         color: "#fff7e9"
 
                         ColumnLayout {
@@ -240,6 +251,8 @@ Item {
                                 Layout.preferredHeight: 200 * scaleFactor
                                 Layout.preferredWidth: 200 * scaleFactor
                                 color: "#ffffff"
+                                border.color: "black"
+                                border.width: 1
                             }
                         }
                     }
@@ -250,19 +263,20 @@ Item {
                         columns: 10
                         rows: 20
                         spacing: 0
-                        width: 1500 * scaleFactor
-                        height: 2500 * scaleFactor
+                        width: 700 * scaleFactor
+                        height: 1400 * scaleFactor
 
-
-                        //Define the cell component
-                        Component {
-                            id: cellComponent
+                        Repeater {
+                            model: 200 // 10 columns by 20 rows
 
                             Item {
                                 width: gameGrid.width / gameGrid.columns
                                 height: gameGrid.height / gameGrid.rows
-                                property string color: "white"
+
+                                property int row: index / gameGrid.columns
+                                property int col: index % gameGrid.columns
                                 property bool occupied: false
+                                property string imagePath: "qrc:/game/gamefiles/Tetroos/empty_image.png"
 
                                 Rectangle {
                                     id: rect
@@ -270,48 +284,29 @@ Item {
                                     color: "white"
                                     border.color: "black"
                                     border.width: 1
-                                    visible: occupied
-                                }
 
-                            }
-                        }
-
-                        function updateCell(row, col, color, occupied) {
-                                    let cellIndex = row * gameGrid.columns + col;
-                                    if (cellIndex >= 0 && cellIndex < gameGrid.children.length) {
-                                        let cell = gameGrid.children[cellIndex];
-                                        cell.color = color;
-                                        cell.occupied = occupied;
+                                    Image {
+                                        id: cellImage
+                                        anchors.fill: parent
+                                        source: imagePath
                                     }
                                 }
-                    }
-
-                    //Dynamically create grid cells.
-                    Component.onCompleted: {
-                        for (let row = 0; row < gameGrid.rows; row++) {
-                            for (let col = 0; col < gameGrid.columns; col++) {
-                                let cell = cellComponent.createObject (gameGrid);
-                                cell.color = "white";
-                                cell.occupied = false;
-                            }
-                        }
-                    }
-
-
-                    // Example usage to update a cell's color and occupied status
-                        Timer {
-                            interval: 10
-                            running: true
-                            repeat: true
-                            onTriggered: {
-                                let row = Math.floor(Math.random() * gameGrid.rows);
-                                let col = Math.floor(Math.random() * gameGrid.columns);
-                                gameGrid.updateCell(row, col, "red", true);
                             }
                         }
 
-                    // End game grid
-                }
+                        function updateCell(row, col, imagePath, occupied) {
+                            let cellIndex = row * gameGrid.columns + col;
+                            if(cellIndex >= 0 && cellIndex < gameGrid.children.length) {
+                                let cell = gameGrid.children[cellIndex];
+                                cell.imagePath = imagePath;
+                                cell.occupied = occupied;
+                            }
+                        }
+                    }
+                }   // End game grid
+
+            }
+
             } // LineScoreLevel ColumnLayout bracket
 
 
