@@ -644,31 +644,37 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         for(unsigned swapper = 0; swapper <= 2; swapper++)
             std::swap(returnGrid[swapper], returnGrid[swapper + 1]);
 
-        // Checking columns and swapping if needed
-        for (unsigned z = 0; z <= 3; z++)
+        // Checking columns and shifting if needed
+        for (unsigned shiftCount = 0; shiftCount < 4; shiftCount++)
         {
-            // Checks if column is empty, if empty will swap left the column
-            bool check = false;
-            for (unsigned row = 0; row <= 3; row++)
+            // Checks if the leftmost column is empty
+            bool isLeftColumnEmpty = true;
+            for (unsigned row = 0; row < 4; row++)
             {
-                if (returnGrid[row][0])
+                if (returnGrid[row][0] != 0) // Assuming non-zero values mean non-empty cells
                 {
-                    check = true;
+                    isLeftColumnEmpty = false;
                     break;
                 }
             }
 
-            // If column is empty, then it will stop swapping
-            if (check)
+            // If the leftmost column is not empty, stop shifting
+            if (!isLeftColumnEmpty)
                 break;
 
-            // Swapping the rightmost column to the left
-            for(unsigned swapper = 0; swapper <= 2; swapper++)
+            // Shifting columns to the left
+            for (unsigned col = 0; col < 3; col++)
             {
-                for (unsigned row = 0; row <= 3; row++)
+                for (unsigned row = 0; row < 4; row++)
                 {
-                    std::swap(returnGrid[row][swapper], returnGrid[row][swapper + 1]);
+                    returnGrid[row][col] = returnGrid[row][col + 1];
                 }
+            }
+
+            // Clear the rightmost column after shifting
+            for (unsigned row = 0; row < 4; row++)
+            {
+                returnGrid[row][3] = 0;
             }
         }
     }

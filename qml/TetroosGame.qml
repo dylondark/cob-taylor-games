@@ -81,6 +81,30 @@ Item {
                     controller.startGame();
                 }
 
+                Connections {
+                    target: controller
+
+                    onUpdateView: {
+                        if (controller.isGameOver())
+                        {
+                            // TODO: do game over actions
+                        }
+
+                        scoreTextLabel.text = controller.getScore();
+
+                        // fill in hold and next pieces
+
+                        // update board
+                        for (var x = 0; x <= 10; x++)
+                        {
+                            for (var y = 0; y <= 20; y++)
+                            {
+                                controller.getTextureAt()
+                            }
+                        }
+                    }
+                }
+
                 // Column for the data being laid out.
                 ColumnLayout {
                     id: gameLayout
