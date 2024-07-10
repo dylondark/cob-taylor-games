@@ -17,12 +17,12 @@ TetroosController::TetroosController()
     // connect gameTimer timeout signal to timerTick slot method
     connect(&gameTimer, &QTimer::timeout, this, &TetroosController::timerTick);
 
-    // connect updateView signal to slot in QML
-
     // populate board with empty values
+    board = new FlippedArray<std::array<Block, 10>, 20>;
+
     for (int y = 0; y < 10; y++)
         for (int x = 0; x < 20; x++)
-            board[y][x] = EMPTY_BLOCK;
+            (*board)[y][x] = EMPTY_BLOCK;
 
     // init other data members
     gameOver = false;
@@ -78,7 +78,7 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
 
     QImage texture;
 
-    switch (board[posY][posX].pieceType)
+    switch ((*board)[posY][posX].pieceType)
     {
     case I:
         texture = TEXTURES[0];
@@ -98,7 +98,7 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         texture = TEXTURES[28];
     }
 
-    if (board[posY][posX].silhouette)
+    if ((*board)[posY][posX].silhouette)
     {
         // overlay blank texture with half transparency
         QImage blank = TEXTURES[28];
@@ -353,7 +353,7 @@ void TetroosController::applySilhouette()
             for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 4, 10U); boardX++)
             {
                 // get the two blocks we are examining
-                Block currentBlockInBoard = board[boardY][boardX];
+                Block currentBlockInBoard = (*board)[boardY][boardX];
                 bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
 
                 if (currentBlockInBoard.pieceType != empty && currentBlockInBoard.pieceID != activePiece.pieceID && currentBlockInPiece == true)
@@ -386,7 +386,7 @@ void TetroosController::applySilhouette()
         for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 4, 10U); boardX++)
         {
             // get reference to block since we are modifying it
-            Block* currentBlockInBoard = &board[boardY][boardX];
+            Block* currentBlockInBoard = &(*board)[boardY][boardX];
             bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
 
             if (currentBlockInPiece == true)
@@ -488,7 +488,7 @@ bool TetroosController::clearFilledRows()
         // check the row
         for (unsigned x = 0; x < 10; x++)
         {
-            if (board[y][x].pieceType == empty)
+            if ((*board)[y][x].pieceType == empty)
             {
                 isFilled = false;
                 break;
@@ -502,7 +502,7 @@ bool TetroosController::clearFilledRows()
 
             // clear the row
             for (unsigned x = 0; x < 10; x++)
-                board[y][x] = EMPTY_BLOCK;
+                (*board)[y][x] = EMPTY_BLOCK;
         }
     }
 
@@ -542,7 +542,7 @@ bool TetroosController::clearFilledRows()
         // get whether this row is empty or not
         for (unsigned x = 0; x < 10; x++)
         {
-            if (board[y][x].pieceType != empty)
+            if ((*board)[y][x].pieceType != empty)
             {
                 isRowEmpty = false;
                 break;
@@ -557,7 +557,7 @@ bool TetroosController::clearFilledRows()
             {
                 for (unsigned y2 = y; y2 < 19; y2++) // starting at the empty row y value going all the way to the top
                     // swap the empty row all the way up to the top (i feel like a genius for thinking of this)
-                    std::swap(board[y2], board[y2 + 1]);
+                    std::swap((*board)[y2], (*board)[y2 + 1]);
             }
         }
         else
@@ -671,8 +671,8 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
                 }
             }
         }
-
     }
+    return returnGrid;
 }
 /*
     Erases the current active piece and then rewrites it again at the specified coordinates.
@@ -725,7 +725,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
-            if (board[boardY][boardX].pieceType != empty && board[boardY][boardX].pieceID == activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
+            if ((*board)[boardY][boardX].pieceType != empty && (*board)[boardY][boardX].pieceID == activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
                 return false;
 
             ++pieceX;
@@ -740,9 +740,9 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     for (unsigned boardY = activePiece.posY; boardY < std::min(activePiece.posY + 5, 20U); boardY++)
         for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
         {
-            if (board[boardY][boardX].pieceID == activePiece.pieceID)
+            if ((*board)[boardY][boardX].pieceID == activePiece.pieceID)
                 // blank the block
-                board[boardY][boardX] = EMPTY_BLOCK;
+                (*board)[boardY][boardX] = EMPTY_BLOCK;
         }
 
     // rewrite the active piece into its new position
@@ -752,7 +752,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
             if (NEW_PIECE[pieceY][pieceX])
-                board[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
+                (*board)[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
 
             ++pieceX;
         }
