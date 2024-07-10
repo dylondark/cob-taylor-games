@@ -8,6 +8,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQml
+import QMLControllers
 
 // this game is in PREVIEW STATE
 Item {
@@ -23,6 +24,10 @@ Item {
     property string strName: "Tetroos"
     property string username: ""
     property int gameEnum: 0
+
+    TetroosController {
+        id: controller
+    }
 
     Item { // Since layouts can only inherit text properties, I'm defining them here for the text in the score boxes.
         id: textProperties
