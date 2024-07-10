@@ -67,254 +67,262 @@ Item {
                 }
             }
 
-            // Column for the data being laid out.
-            ColumnLayout {
-                anchors.fill: background
-                spacing: 10
+            MenuBase {
+                id: menuBase
+                imageSource: "qrc:/menu/menufiles/TetroosPreview.png"
+            }
 
-                // The screen-width grid for data at the top.
-                RowLayout {
-                    id: dataRow
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 1
-                    Layout.verticalStretchFactor: 1
-                    Layout.fillHeight: true
-                    spacing: 0
+            Item {
+                id: gameBase
+                anchors.fill: parent
+                visible: false
 
-                    Rectangle {
-                        id: linesRect
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignHCenter
-                        color: "#fff7e9"
+                // Column for the data being laid out.
+                ColumnLayout {
+                    id: gameLayout
+                    anchors.fill: parent
+                    spacing: 10
 
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.alignment: Qt.AlignHCenter
-                            anchors.centerIn: parent
-                            spacing: 10 * scaleFactor
-
-                            Label {
-                                id: linesTextLabel
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                text: " L i n e s "
-                                font.family: textProperties.bodoniFont.family
-                                font.pointSize: textProperties.bodoniFont.pointSize
-                                font.bold: textProperties.bodoniFont.bold
-                                color: textProperties.textColor
-                                background: Rectangle {
-                                    color: "#041e42"
-                                }
-                            }
-
-                            Label { // The label for the actual variable of lines.
-                                id: linesVar
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                background: Rectangle {
-                                    color: "#ffffff"
-                                    border.color: "black"
-                                    border.width: 1
-                                }
-                            }
-                        }
-                    } // LinesRect bracket
-
-                    Rectangle {
-                        id: scoreRect
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.preferredHeight: 1
-                        color: "#fff7e9"
-
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.alignment: Qt.AlignHCenter
-                            anchors.centerIn: parent
-                            spacing: 10 * scaleFactor
-
-                            Label {
-                                id: scoreTextLabel
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                text: " S c o r e "
-                                font.family: textProperties.bodoniFont.family
-                                font.pointSize: textProperties.bodoniFont.pointSize
-                                font.bold: textProperties.bodoniFont.bold
-                                color: textProperties.textColor
-                                background: Rectangle {
-                                    color: "#041e42"
-                                }
-                            }
-
-                            Label { // The label for the actual variable of the score.
-                                id: scoreVar
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                background: Rectangle {
-                                    color: "#ffffff"
-                                    border.color: "black"
-                                    border.width: 1
-                                }
-                            }
-                        }
-                    } // scoreRect bracket
-
-                    Rectangle {
-                        id: levelRect
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.preferredHeight: 1
-                        color: "#fff7e9"
-
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.alignment: Qt.AlignHCenter
-                            anchors.centerIn: parent
-                            spacing: 10 * scaleFactor
-
-                            Label {
-                                id: levelTextLabel
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                text: " L e v e l "
-                                font.family: textProperties.bodoniFont.family
-                                font.pointSize: textProperties.bodoniFont.pointSize
-                                font.bold: textProperties.bodoniFont.bold
-                                color: textProperties.textColor
-                                background: Rectangle {
-                                    color: "#041e42"
-                                    border.color: "black"
-                                    border.width: 1
-                                }
-                            }
-
-                            Label { // The label for the actual variable of the level.
-                                id: levelVar
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                background: Rectangle {
-                                    color: "#ffffff"
-                                    border.color: "black"
-                                    border.width: 1
-                                }
-                            }
-                        }
-                    } // levelRect bracket
-                } // dataRow RowLayout bracket.
-
-
-                // TODO: Hold rectangle next to game rectangle next to "next" rectangle
-                Rectangle {
-                    id: midRect
-                    Layout.verticalStretchFactor: 5
-                    Layout.preferredHeight: 1
-                    Layout.fillHeight: true
-                    color: "transparent"
-
+                    // The screen-width grid for data at the top.
                     RowLayout {
-                        spacing: 15
+                        id: dataRow
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 1
+                        Layout.verticalStretchFactor: 1
+                        Layout.fillHeight: true
+                        spacing: 0
 
-                    Rectangle {
-                        id: holdRectangle
-                        Layout.preferredWidth: 350 * scaleFactor
-                        Layout.preferredHeight: 350 * scaleFactor
-                        Layout.alignment: parent.top
-                        color: "#fff7e9"
-
-                        ColumnLayout {
-                            Layout.fillWidth: true
+                        Rectangle {
+                            id: linesRect
                             Layout.fillHeight: true
+                            Layout.fillWidth: true
                             Layout.alignment: Qt.AlignHCenter
-                            anchors.centerIn: parent
-                            spacing: 10 * scaleFactor
+                            color: "#fff7e9"
 
-                            Label {
-                                id: holdLabel
+                            ColumnLayout {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                Layout.verticalStretchFactor: 1
-                                text: " Hold "
-                                font.family: textProperties.bodoniFont.family
-                                font.pointSize: textProperties.bodoniFont.pointSize
-                                font.bold: textProperties.bodoniFont.bold
-                                color: textProperties.textColor
-                                background: Rectangle {
-                                    color: "#041e42"
+                                Layout.alignment: Qt.AlignHCenter
+                                anchors.centerIn: parent
+                                spacing: 10 * scaleFactor
+
+                                Label {
+                                    id: linesTextLabel
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    text: " L i n e s "
+                                    font.family: textProperties.bodoniFont.family
+                                    font.pointSize: textProperties.bodoniFont.pointSize
+                                    font.bold: textProperties.bodoniFont.bold
+                                    color: textProperties.textColor
+                                    background: Rectangle {
+                                        color: "#041e42"
+                                    }
+                                }
+
+                                Label { // The label for the actual variable of lines.
+                                    id: linesVar
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    background: Rectangle {
+                                        color: "#ffffff"
+                                        border.color: "black"
+                                        border.width: 1
+                                    }
                                 }
                             }
+                        } // LinesRect bracket
+
+                        Rectangle {
+                            id: scoreRect
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.preferredHeight: 1
+                            color: "#fff7e9"
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Layout.alignment: Qt.AlignHCenter
+                                anchors.centerIn: parent
+                                spacing: 10 * scaleFactor
+
+                                Label {
+                                    id: scoreTextLabel
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    text: " S c o r e "
+                                    font.family: textProperties.bodoniFont.family
+                                    font.pointSize: textProperties.bodoniFont.pointSize
+                                    font.bold: textProperties.bodoniFont.bold
+                                    color: textProperties.textColor
+                                    background: Rectangle {
+                                        color: "#041e42"
+                                    }
+                                }
+
+                                Label { // The label for the actual variable of the score.
+                                    id: scoreVar
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    background: Rectangle {
+                                        color: "#ffffff"
+                                        border.color: "black"
+                                        border.width: 1
+                                    }
+                                }
+                            }
+                        } // scoreRect bracket
+
+                        Rectangle {
+                            id: levelRect
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.preferredHeight: 1
+                            color: "#fff7e9"
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Layout.alignment: Qt.AlignHCenter
+                                anchors.centerIn: parent
+                                spacing: 10 * scaleFactor
+
+                                Label {
+                                    id: levelTextLabel
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    text: " L e v e l "
+                                    font.family: textProperties.bodoniFont.family
+                                    font.pointSize: textProperties.bodoniFont.pointSize
+                                    font.bold: textProperties.bodoniFont.bold
+                                    color: textProperties.textColor
+                                    background: Rectangle {
+                                        color: "#041e42"
+                                        border.color: "black"
+                                        border.width: 1
+                                    }
+                                }
+
+                                Label { // The label for the actual variable of the level.
+                                    id: levelVar
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    background: Rectangle {
+                                        color: "#ffffff"
+                                        border.color: "black"
+                                        border.width: 1
+                                    }
+                                }
+                            }
+                        } // levelRect bracket
+                    } // dataRow RowLayout bracket.
+
+
+                    // TODO: Hold rectangle next to game rectangle next to "next" rectangle
+                    Rectangle {
+                        id: midRect
+                        Layout.verticalStretchFactor: 5
+                        Layout.preferredHeight: 1
+                        Layout.fillHeight: true
+                        color: "transparent"
+
+                        RowLayout {
+                            spacing: 15
 
                             Rectangle {
-                                id: holdPieceRect
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                Layout.verticalStretchFactor: 4
-                                Layout.preferredHeight: 200 * scaleFactor
-                                Layout.preferredWidth: 200 * scaleFactor
-                                color: "#ffffff"
-                                border.color: "black"
-                                border.width: 1
+                                id: holdRectangle
+                                Layout.preferredWidth: 350 * scaleFactor
+                                Layout.preferredHeight: 350 * scaleFactor
+                                Layout.alignment: parent.top
+                                color: "#fff7e9"
+
+                                ColumnLayout {
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    Layout.alignment: Qt.AlignHCenter
+                                    anchors.centerIn: parent
+                                    spacing: 10 * scaleFactor
+
+                                    Label {
+                                        id: holdLabel
+                                        Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                        Layout.verticalStretchFactor: 1
+                                        text: " Hold "
+                                        font.family: textProperties.bodoniFont.family
+                                        font.pointSize: textProperties.bodoniFont.pointSize
+                                        font.bold: textProperties.bodoniFont.bold
+                                        color: textProperties.textColor
+                                        background: Rectangle {
+                                            color: "#041e42"
+                                        }
+                                    }
+
+                                    Rectangle {
+                                        id: holdPieceRect
+                                        Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                        Layout.verticalStretchFactor: 4
+                                        Layout.preferredHeight: 200 * scaleFactor
+                                        Layout.preferredWidth: 200 * scaleFactor
+                                        color: "#ffffff"
+                                        border.color: "black"
+                                        border.width: 1
+                                    }
+                                }
                             }
-                        }
-                    }
 
-                    // Begin game rectangle
-                    Grid {
-                        id: gameGrid
-                        columns: 10
-                        rows: 20
-                        spacing: 0
-                        width: 700 * scaleFactor
-                        height: 1400 * scaleFactor
+                            // Begin game rectangle
+                            Grid {
+                                id: gameGrid
+                                columns: 10
+                                rows: 20
+                                spacing: 0
+                                width: 700 * scaleFactor
+                                height: 1400 * scaleFactor
 
-                        Repeater {
-                            model: 200 // 10 columns by 20 rows
+                                Repeater {
+                                    model: 200 // 10 columns by 20 rows
 
-                            Item {
-                                width: gameGrid.width / gameGrid.columns
-                                height: gameGrid.height / gameGrid.rows
+                                    Item {
+                                        width: gameGrid.width / gameGrid.columns
+                                        height: gameGrid.height / gameGrid.rows
 
-                                property int row: index / gameGrid.columns
-                                property int col: index % gameGrid.columns
-                                property bool occupied: false
-                                property string imagePath: "qrc:/game/gamefiles/Tetroos/empty_image.png"
+                                        property int row: index / gameGrid.columns
+                                        property int col: index % gameGrid.columns
+                                        property bool occupied: false
+                                        property string imagePath: "qrc:/game/gamefiles/Tetroos/empty_image.png"
 
-                                Rectangle {
-                                    id: rect
-                                    anchors.fill: parent
-                                    color: "white"
-                                    border.color: "black"
-                                    border.width: 1
+                                        Rectangle {
+                                            id: rect
+                                            anchors.fill: parent
+                                            color: "white"
+                                            border.color: "black"
+                                            border.width: 1
 
-                                    Image {
-                                        id: cellImage
-                                        anchors.fill: parent
-                                        source: imagePath
+                                            Image {
+                                                id: cellImage
+                                                anchors.fill: parent
+                                                source: imagePath
+                                            }
+                                        }
+                                    }
+                                }
+
+                                function updateCell(row, col, imagePath, occupied) {
+                                    let cellIndex = row * gameGrid.columns + col;
+                                    if(cellIndex >= 0 && cellIndex < gameGrid.children.length) {
+                                        let cell = gameGrid.children[cellIndex];
+                                        cell.imagePath = imagePath;
+                                        cell.occupied = occupied;
                                     }
                                 }
                             }
                         }
-
-                        function updateCell(row, col, imagePath, occupied) {
-                            let cellIndex = row * gameGrid.columns + col;
-                            if(cellIndex >= 0 && cellIndex < gameGrid.children.length) {
-                                let cell = gameGrid.children[cellIndex];
-                                cell.imagePath = imagePath;
-                                cell.occupied = occupied;
-                            }
-                        }
                     }
-                }   // End game grid
-
+                }
             }
-
-            } // LineScoreLevel ColumnLayout bracket
-
-
         } // Gradient background rectangle.
 
         HomeBarBase {
