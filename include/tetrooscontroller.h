@@ -33,6 +33,11 @@ public:
     explicit TetroosController();
 
     /*
+        Kicks off the game loop. To be called by QML after entering the game.
+    */
+    Q_INVOKABLE void startGame();
+
+    /*
         Returns whether game is over or not.
     */
     Q_INVOKABLE bool isGameOver();

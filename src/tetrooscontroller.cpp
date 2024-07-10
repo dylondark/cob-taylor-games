@@ -12,7 +12,7 @@
     Constructor for TetroosController.
 */
 TetroosController::TetroosController()
-    : TEXTURES(loadTextures())
+    : TEXTURES(loadTextures()), gameTimer(QTimer(this))
 {
     // connect gameTimer timeout signal to timerTick slot method
     connect(&gameTimer, &QTimer::timeout, this, &TetroosController::timerTick);
@@ -33,12 +33,17 @@ TetroosController::TetroosController()
     score = 0;
     level = 1;
     clearedRows = 0;
-
-    // start timer
-    gameTimer.setSingleShot(true);
-    timerInterval = 1000; // this should be whatever the interval is at at level 1 according to the equation
-    timerTick(); // kick off the game loop
 }
+
+/*
+    Kicks off the game loop. To be called by QML after entering the game.
+*/
+void TetroosController::startGame()
+{
+    // start timer
+    gameTimer.start(1000); // this should be whatever the interval is at at level 1 according to the equation
+}
+
 
 /*
     Load the texture images and initialize the textures array with them.
@@ -567,10 +572,15 @@ bool TetroosController::clearFilledRows()
 */
 void TetroosController::timerTick()
 {
-    if (!gameOver)
-        gameTimer.start(timerInterval); // start the timer again
+    if (gameOver)
+    {
+        gameTimer.stop();
+        return;
+    }
 
     updateGame(TimerTick);
+
+    gameTimer.setInterval(timerInterval);
 }
 
 /*
