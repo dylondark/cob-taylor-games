@@ -77,6 +77,10 @@ Item {
                 anchors.fill: parent
                 visible: false
 
+                function startGame() {
+                    controller.startGame();
+                }
+
                 // Column for the data being laid out.
                 ColumnLayout {
                     id: gameLayout
