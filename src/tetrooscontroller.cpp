@@ -343,9 +343,9 @@ void TetroosController::applySilhouette()
         // check for collision with other pieces
         unsigned pieceX = 0, pieceY = 0;
         collision = false;
-        for (unsigned boardY = y; boardY < std::min(y + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
+        for (unsigned boardY = y; boardY < std::min(y + 4, 20U); boardY++) // use min to ensure we don't go out of bounds
         {
-            for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
+            for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 4, 10U); boardX++)
             {
                 // get the two blocks we are examining
                 Block currentBlockInBoard = board[boardY][boardX];
@@ -356,6 +356,7 @@ void TetroosController::applySilhouette()
 
                 ++pieceX;
             }
+            pieceX = 0;
             ++pieceY;
         }
 
@@ -375,9 +376,9 @@ void TetroosController::applySilhouette()
 
     // rewrite the silhouette piece into its new position
     unsigned pieceX = 0, pieceY = 0;
-    for (unsigned boardY = silhouetteY; boardY < std::min(silhouetteY + 5, 20U); boardY++)
+    for (unsigned boardY = silhouetteY; boardY < std::min(silhouetteY + 4, 20U); boardY++)
     {
-        for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
+        for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 4, 10U); boardX++)
         {
             // get reference to block since we are modifying it
             Block* currentBlockInBoard = &board[boardY][boardX];
@@ -388,6 +389,7 @@ void TetroosController::applySilhouette()
 
             ++pieceX;
         }
+        pieceX = 0;
         ++pieceY;
     }
 }
@@ -659,15 +661,16 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
 
     // check for collision with other pieces
     unsigned pieceX = 0, pieceY = 0;
-    for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++) // use min to ensure we don't go out of bounds
+    for (unsigned boardY = startPosY; boardY < std::min(startPosY + 4, 20U); boardY++) // use min to ensure we don't go out of bounds
     {
-        for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
+        for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
-            if (board[boardY][boardX].pieceType != empty && board[boardY][boardX].pieceID != activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
+            if (board[boardY][boardX].pieceType != empty && board[boardY][boardX].pieceID == activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
                 return false;
 
             ++pieceX;
         }
+        pieceX = 0;
         ++pieceY;
     }
 
@@ -684,15 +687,16 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
 
     // rewrite the active piece into its new position
     pieceX = pieceY = 0;
-    for (unsigned boardY = startPosY; boardY < std::min(startPosY + 5, 20U); boardY++)
+    for (unsigned boardY = startPosY; boardY < std::min(startPosY + 4, 20U); boardY++)
     {
-        for (unsigned boardX = startPosX; boardX < std::min(startPosX + 5, 10U); boardX++)
+        for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
             if (NEW_PIECE[pieceY][pieceX])
                 board[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
 
             ++pieceX;
         }
+        pieceX = 0;
         ++pieceY;
     }
 
