@@ -35,6 +35,7 @@ TetroosController::TetroosController()
     score = 0;
     level = 1;
     clearedRows = 0;
+    timerInterval = 1000;
 }
 
 /*
