@@ -349,6 +349,144 @@ Item {
                             }
                         }
                     }
+
+                    Rectangle {
+                        id: buttonRect
+                        Layout.verticalStretchFactor: 2
+                        Layout.preferredHeight: 1
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        color: "transparent"
+
+                        RowLayout {
+                            spacing: 30
+
+                            Button {
+                                id: holdBtn
+
+                                Text {
+                                    text: "HOLD"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
+
+                            Button {
+                                id: slamBtn
+
+                                Text {
+                                    text: "SLAM"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
+
+                            Rectangle {
+                                id: fourBtnsRect
+
+                            Button {
+                                id: leftBtn
+
+                                Text {
+                                    text: "Left"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
+
+                            Button {
+                                id: rightBtn
+
+                                Text {
+                                    text: "Right"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
+
+                            Button {
+                                id: downBtn
+
+                                Text {
+                                    text: "Down"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
+
+                            Button {
+                                id: rotateBtn
+
+                                Text {
+                                    text: "Rotate"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
+
+                            }
+                        }
+                    }
                 }
             }
         } // Gradient background rectangle.
