@@ -30,7 +30,8 @@ TetroosController::TetroosController()
     waitingForNewPiece = true;
     activePiece = {empty, 0, 0, 0, 0};
     holdPiece = empty;
-    nextPiece = empty;
+    const PieceType PIECES[] = {I, J, L, O, S, T, Z};
+    nextPiece = PIECES[rand() % 7];
     score = 0;
     level = 1;
     clearedRows = 0;
