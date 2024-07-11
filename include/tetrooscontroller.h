@@ -51,7 +51,7 @@ public:
         However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
         This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
     */
-    Q_INVOKABLE QImage getTextureAt(unsigned posX, unsigned posY);
+    Q_INVOKABLE QString getTextureAt(unsigned posX, unsigned posY);
 
     /*
         Returns the current score.

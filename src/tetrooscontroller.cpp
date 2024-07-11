@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <QPainter>
+#include <QBuffer>
 #include "tetrooscontroller.h"
 
 /*
@@ -71,7 +72,7 @@ std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadText
     However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
     This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
 */
-QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
+QString TetroosController::getTextureAt(unsigned posX, unsigned posY)
 {
     // THIS IS A PROTOTYPE IMPLEMENTATION FOR USE WITH THE PROTOTYPE TEXTURES
     // block-specific textures and rotation are not implemented yet
@@ -108,7 +109,15 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         painter.end();
     }
 
-    return texture;
+    // convert image to string URL representation because QML only takes image sources
+    // this is barbarian but it saves a lottt of code reworking
+    QByteArray byteArray;
+    QBuffer buffer(&byteArray);
+    buffer.open(QIODevice::WriteOnly);
+    texture.save(&buffer, "PNG");
+    QString url("data:image/png;base64,");
+    url.append(QString::fromLatin1(byteArray.toBase64().data()));
+    return url;
 }
 
 /*

@@ -99,7 +99,7 @@ Item {
                         {
                             for (var y = 0; y <= 20; y++)
                             {
-                                controller.getTextureAt()
+                                gameGrid.updateCell(x, y, controller.getTextureAt(x, y), true);
                             }
                         }
                     }
