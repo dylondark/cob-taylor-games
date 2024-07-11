@@ -84,18 +84,25 @@ QString TetroosController::getTextureAt(unsigned posX, unsigned posY)
     {
     case I:
         texture = TEXTURES[0];
+        break;
     case J:
         texture = TEXTURES[4];
+        break;
     case L:
         texture = TEXTURES[8];
+        break;
     case O:
         texture = TEXTURES[12];
+        break;
     case S:
         texture = TEXTURES[16];
+        break;
     case T:
         texture = TEXTURES[20];
+        break;
     case Z:
         texture = TEXTURES[24];
+        break;
     case empty:
         texture = TEXTURES[28];
     }
