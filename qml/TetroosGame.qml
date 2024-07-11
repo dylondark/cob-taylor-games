@@ -95,11 +95,11 @@ Item {
                         // fill in hold and next pieces
 
                         // update board
-                        for (var x = 0; x <= 10; x++)
+                        for (var y = 0; y <= 20; y++)
                         {
-                            for (var y = 0; y <= 20; y++)
+                            for (var x = 0; x <= 10; x++)
                             {
-                                gameGrid.updateCell(x, y, controller.getTextureAt(x, y), true);
+                                gameGrid.updateCell(y, x, controller.getTextureAt(x, y), true);
                             }
                         }
                     }
@@ -339,7 +339,7 @@ Item {
                                 }
 
                                 function updateCell(row, col, imagePath, occupied) {
-                                    let cellIndex = row * gameGrid.columns + col;
+                                    let cellIndex = row * 10 + col;
                                     if(cellIndex >= 0 && cellIndex < gameGrid.children.length) {
                                         let cell = gameGrid.children[cellIndex];
                                         cell.imagePath = imagePath;
