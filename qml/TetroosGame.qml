@@ -262,7 +262,7 @@ Item {
                                 id: holdRectangle
                                 Layout.preferredWidth: 350 * scaleFactor
                                 Layout.preferredHeight: 350 * scaleFactor
-                                Layout.alignment: parent.top
+                                Layout.alignment: Qt.AlignTop
                                 color: "#fff7e9"
 
                                 ColumnLayout {
@@ -403,87 +403,88 @@ Item {
 
                             Rectangle {
                                 id: fourBtnsRect
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
 
-                            Button {
-                                id: leftBtn
+                                Button {
+                                    id: leftBtn
 
-                                Text {
-                                    text: "Left"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
+                                    Text {
+                                        text: "Left"
+                                        font.family: "Bodoni MT Black"
+                                        font.bold: true
+                                        font.pointSize: 20
+                                    }
+
+                                    background: Rectangle {
+                                        color: "white"
+                                        opacity: 70
+                                        border.color: "black"
+                                        radius: 10
+                                        implicitWidth: 150
+                                        implicitHeight: 100
+                                    }
                                 }
 
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                            }
+                                Button {
+                                    id: rightBtn
 
-                            Button {
-                                id: rightBtn
+                                    Text {
+                                        text: "Right"
+                                        font.family: "Bodoni MT Black"
+                                        font.bold: true
+                                        font.pointSize: 20
+                                    }
 
-                                Text {
-                                    text: "Right"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                            }
-
-                            Button {
-                                id: downBtn
-
-                                Text {
-                                    text: "Down"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
+                                    background: Rectangle {
+                                        color: "white"
+                                        opacity: 70
+                                        border.color: "black"
+                                        radius: 10
+                                        implicitWidth: 150
+                                        implicitHeight: 100
+                                    }
                                 }
 
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
+                                Button {
+                                    id: downBtn
+
+                                    Text {
+                                        text: "Down"
+                                        font.family: "Bodoni MT Black"
+                                        font.bold: true
+                                        font.pointSize: 20
+                                    }
+
+                                    background: Rectangle {
+                                        color: "white"
+                                        opacity: 70
+                                        border.color: "black"
+                                        radius: 10
+                                        implicitWidth: 150
+                                        implicitHeight: 100
+                                    }
                                 }
-                            }
 
-                            Button {
-                                id: rotateBtn
+                                Button {
+                                    id: rotateBtn
 
-                                Text {
-                                    text: "Rotate"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
+                                    Text {
+                                        text: "Rotate"
+                                        font.family: "Bodoni MT Black"
+                                        font.bold: true
+                                        font.pointSize: 20
+                                    }
+
+                                    background: Rectangle {
+                                        color: "white"
+                                        opacity: 70
+                                        border.color: "black"
+                                        radius: 10
+                                        implicitWidth: 150
+                                        implicitHeight: 100
+                                    }
                                 }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                            }
-
                             }
                         }
                     }
