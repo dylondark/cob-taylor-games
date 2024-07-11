@@ -21,8 +21,8 @@ TetroosController::TetroosController()
     // populate board with empty values
     board = new FlippedArray<std::array<Block, 10>, 20>;
 
-    for (int y = 0; y < 10; y++)
-        for (int x = 0; x < 20; x++)
+    for (int y = 0; y < 20; y++)
+        for (int x = 0; x < 10; x++)
             (*board)[y][x] = EMPTY_BLOCK;
 
     // init other data members
