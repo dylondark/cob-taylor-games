@@ -401,85 +401,85 @@ Item {
                                 }
                             }
 
-                                Button {
-                                    id: leftBtn
+                            Button {
+                                id: leftBtn
 
-                                    Text {
-                                        text: "Left"
-                                        font.family: "Bodoni MT Black"
-                                        font.bold: true
-                                        font.pointSize: 20
-                                    }
-
-                                    background: Rectangle {
-                                        color: "white"
-                                        opacity: 70
-                                        border.color: "black"
-                                        radius: 10
-                                        implicitWidth: 150
-                                        implicitHeight: 100
-                                    }
+                                Text {
+                                    text: "Left"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
                                 }
 
-                                Button {
-                                    id: rightBtn
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
 
-                                    Text {
-                                        text: "Right"
-                                        font.family: "Bodoni MT Black"
-                                        font.bold: true
-                                        font.pointSize: 20
-                                    }
+                            Button {
+                                id: rightBtn
 
-                                    background: Rectangle {
-                                        color: "white"
-                                        opacity: 70
-                                        border.color: "black"
-                                        radius: 10
-                                        implicitWidth: 150
-                                        implicitHeight: 100
-                                    }
+                                Text {
+                                    text: "Right"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
                                 }
 
-                                Button {
-                                    id: downBtn
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
 
-                                    Text {
-                                        text: "Down"
-                                        font.family: "Bodoni MT Black"
-                                        font.bold: true
-                                        font.pointSize: 20
-                                    }
+                            Button {
+                                id: downBtn
 
-                                    background: Rectangle {
-                                        color: "white"
-                                        opacity: 70
-                                        border.color: "black"
-                                        radius: 10
-                                        implicitWidth: 150
-                                        implicitHeight: 100
-                                    }
+                                Text {
+                                    text: "Down"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
                                 }
 
-                                Button {
-                                    id: rotateBtn
-
-                                    Text {
-                                        text: "Rotate"
-                                        font.family: "Bodoni MT Black"
-                                        font.bold: true
-                                        font.pointSize: 20
-                                    }
-
-                                    background: Rectangle {
-                                        color: "white"
-                                        opacity: 70
-                                        border.color: "black"
-                                        radius: 10
-                                        implicitWidth: 150
-                                        implicitHeight: 100
-                                    }
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
                                 }
+                            }
+
+                            Button {
+                                id: rotateBtn
+
+                                Text {
+                                    text: "Rotate"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    implicitWidth: 150
+                                    implicitHeight: 100
+                                }
+                            }
                         }
                     }
                 }
