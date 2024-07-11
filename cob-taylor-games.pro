@@ -25,8 +25,8 @@ HEADERS += \
     cliparser.h \
     flippedarray.h \
     tetroosdata.h \
-    profanitychecker.h \
     tetrooscontroller.h \
+    profanitychecker.h \
     utilities.h \
     leaderboardtools.h \
     mainwindow.h \
@@ -46,9 +46,9 @@ SOURCES += \
     clickdetector.cpp \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
+    tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
-    tetrooscontroller.cpp \
     triviacontroller.cpp
 
 RESOURCES += \
