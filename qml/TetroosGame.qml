@@ -401,11 +401,6 @@ Item {
                                 }
                             }
 
-                            Rectangle {
-                                id: fourBtnsRect
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-
                                 Button {
                                     id: leftBtn
 
@@ -485,7 +480,6 @@ Item {
                                         implicitHeight: 100
                                     }
                                 }
-                            }
                         }
                     }
                 }
