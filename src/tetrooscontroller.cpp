@@ -752,7 +752,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
-            if ((*board)[boardY][boardX].pieceType != empty && (*board)[boardY][boardX].pieceID == activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
+            if ((*board)[boardY][boardX].pieceType != empty && (*board)[boardY][boardX].pieceID != activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
                 return false;
 
             ++pieceX;
