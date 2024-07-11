@@ -262,7 +262,7 @@ Item {
                                 id: holdRectangle
                                 Layout.preferredWidth: 350 * scaleFactor
                                 Layout.preferredHeight: 350 * scaleFactor
-                                Layout.alignment: parent.top
+                                Layout.alignment: Qt.AlignTop
                                 color: "#fff7e9"
 
                                 ColumnLayout {
@@ -401,9 +401,6 @@ Item {
                                 }
                             }
 
-                            Rectangle {
-                                id: fourBtnsRect
-
                             Button {
                                 id: leftBtn
 
@@ -482,8 +479,6 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
-                            }
-
                             }
                         }
                     }
