@@ -761,8 +761,8 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     // ---at this point we are assuming there are no conflicts and it is good to start making changes to the board---
 
     // erase the active piece from its current position
-    for (unsigned boardY = activePiece.posY; boardY < std::min(activePiece.posY + 5, 20U); boardY++)
-        for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 5, 10U); boardX++)
+    for (unsigned boardY = activePiece.posY; boardY < std::min(activePiece.posY + 4, 20U); boardY++)
+        for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 4, 10U); boardX++)
         {
             if ((*board)[boardY][boardX].pieceID == activePiece.pieceID)
                 // blank the block
