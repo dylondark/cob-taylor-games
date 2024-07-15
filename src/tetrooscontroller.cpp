@@ -293,7 +293,7 @@ void TetroosController::updateGame(GameAction trigger)
         }
         break;
     case Rotate:
-        if (mergePieceRotate())
+        if (mergePieceRotate())     
             applySilhouette();
         else
             return;
@@ -636,17 +636,18 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
     case Z: newGrid = Z_PIECE;
         break;
     }
-    PieceGrid returnGrid;
+    PieceGrid returnGrid = newGrid;
 
     rotation = rotation % 4;
     // This will run for how many times it needs to be rotated at 90 degrees clockwise
-    for (unsigned iteration = 0; iteration <= rotation; iteration++)
+    for (unsigned iteration = 1; iteration <= rotation; iteration++)
     {
         for (unsigned y = 0; y <= 3; y++)
         {
             for (unsigned x = 0; x <= 3; x++)
-                returnGrid[x][3 - y] = newGrid[y][x];
+                returnGrid[x][y] = newGrid[y][3 - x];
         }
+        newGrid = returnGrid;
     }
 
     // Checking rows and swapping if needed
@@ -768,6 +769,8 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     }
 
     // ---at this point we are assuming there are no conflicts and it is good to start making changes to the board---
+
+    activePiece.rotation = activePiece.rotation + rotate;
 
     // erase the active piece from its current position
     for (unsigned boardY = activePiece.posY; boardY < std::min(activePiece.posY + 4, 20U); boardY++)
