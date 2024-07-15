@@ -416,7 +416,7 @@ void TetroosController::applySilhouette()
             Block* currentBlockInBoard = &(*board)[boardY][boardX];
             bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
 
-            if (currentBlockInPiece == true)
+            if (currentBlockInPiece == true && currentBlockInBoard->pieceID != activePiece.pieceID)
                 *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, true, pieceX, pieceY};
 
             ++pieceX;
