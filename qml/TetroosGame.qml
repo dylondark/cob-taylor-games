@@ -379,6 +379,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
+                                 onPressed:controller.hold()
                             }
 
                             Button {
@@ -399,6 +400,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
+                                onPressed:controller.slam()
                             }
 
                             Button {
@@ -419,6 +421,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
+                                onPressed:controller.left()
                             }
 
                             Button {
@@ -438,7 +441,9 @@ Item {
                                     radius: 10
                                     implicitWidth: 150
                                     implicitHeight: 100
+
                                 }
+                                onPressed:controller.right()
                             }
 
                             Button {
@@ -459,6 +464,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
+                                onPressed:controller.down()
                             }
 
                             Button {
@@ -479,6 +485,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
+                                onPressed:controller.rotate()
                             }
                         }
                     }
