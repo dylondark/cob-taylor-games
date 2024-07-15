@@ -333,6 +333,8 @@ Item {
                                                 id: cellImage
                                                 anchors.fill: parent
                                                 source: imagePath
+                                                asynchronous: true
+                                                smooth: false
                                             }
                                         }
                                     }
