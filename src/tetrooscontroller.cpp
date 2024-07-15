@@ -358,6 +358,12 @@ bool TetroosController::mergePieceRotate()
 */
 void TetroosController::applySilhouette()
 {
+    // erase the current silhouette
+    for (unsigned y = 0; y < 20; y++)
+        for (unsigned x = 0; x < 10; x++)
+            if ((*board)[y][x].silhouette == true)
+                (*board)[y][x] = EMPTY_BLOCK;
+
     // get the grid for the active piece type
     const PieceGrid NEW_PIECE = getPieceGrid(activePiece.pieceType, activePiece.rotation);
 
