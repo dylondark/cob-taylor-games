@@ -15,6 +15,9 @@
 TetroosController::TetroosController()
     : TEXTURES(loadTextures()), gameTimer(QTimer(this))
 {
+    // seed the rng
+    srand(time(NULL));
+
     // connect gameTimer timeout signal to timerTick slot method
     connect(&gameTimer, &QTimer::timeout, this, &TetroosController::timerTick);
 
