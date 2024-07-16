@@ -126,8 +126,8 @@ QString TetroosController::getTextureAt(unsigned posX, unsigned posY)
     QByteArray byteArray;
     QBuffer buffer(&byteArray);
     buffer.open(QIODevice::WriteOnly);
-    texture.save(&buffer, "PNG");
-    QString url("data:image/png;base64,");
+    texture.save(&buffer, "BMP", 100);
+    QString url("data:image/bmp;base64,");
     url.append(QString::fromLatin1(byteArray.toBase64().data()));
     return url;
 }
