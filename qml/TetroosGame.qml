@@ -90,7 +90,8 @@ Item {
                             // TODO: do game over actions
                         }
 
-                        scoreTextLabel.text = controller.getScore();
+                        root.points = controller.getScore();
+                        homeBarBase.updatePoints();
 
                         // fill in hold and next pieces
 
