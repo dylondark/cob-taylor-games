@@ -321,7 +321,7 @@ Item {
                                         property int row: index / gameGrid.columns
                                         property int col: index % gameGrid.columns
                                         property bool occupied: false
-                                        property string imagePath: "qrc:/game/gamefiles/Tetroos/empty_image.png"
+                                        property string imagePath: "qrc:/game/gamefiles/Tetroos/images/29-blank.png"
 
                                         Rectangle {
                                             id: rect
