@@ -577,18 +577,20 @@ bool TetroosController::clearFilledRows()
         }
 
         // stop this logic when we have already moved all of the previously filled rows
-        if (filledRows-- > 0)
+        if (filledRows > 0)
         {
             // bring all other rows down if row is empty
             if (isRowEmpty)
             {
-                for (unsigned y2 = y; y2 < 19; y2++) // starting at the empty row y value going all the way to the top
+                for (unsigned y2 = y--; y2 < 19; y2++) // starting at the empty row y value going all the way to the top
                     // swap the empty row all the way up to the top (i feel like a genius for thinking of this)
                     std::swap((*board)[y2], (*board)[y2 + 1]);
+                --filledRows;
             }
         }
         else
             break;
+        isRowEmpty = true;
     }
 
     return true;
