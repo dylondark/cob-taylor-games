@@ -672,38 +672,39 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         for(unsigned swapper = 0; swapper <= 2; swapper++)
             std::swap(returnGrid[swapper], returnGrid[swapper + 1]);
 
-        // Checking columns and shifting if needed
-        for (unsigned shiftCount = 0; shiftCount < 4; shiftCount++)
+    }
+
+    // Checking columns and shifting if needed
+    for (unsigned shiftCount = 0; shiftCount < 4; shiftCount++)
+    {
+        // Checks if the leftmost column is empty
+        bool isLeftColumnEmpty = true;
+        for (unsigned row = 0; row < 4; row++)
         {
-            // Checks if the leftmost column is empty
-            bool isLeftColumnEmpty = true;
-            for (unsigned row = 0; row < 4; row++)
+            if (returnGrid[row][0] != 0) // Assuming non-zero values mean non-empty cells
             {
-                if (returnGrid[row][0] != 0) // Assuming non-zero values mean non-empty cells
-                {
-                    isLeftColumnEmpty = false;
-                    break;
-                }
-            }
-
-            // If the leftmost column is not empty, stop shifting
-            if (!isLeftColumnEmpty)
+                isLeftColumnEmpty = false;
                 break;
-
-            // Shifting columns to the left
-            for (unsigned col = 0; col < 3; col++)
-            {
-                for (unsigned row = 0; row < 4; row++)
-                {
-                    returnGrid[row][col] = returnGrid[row][col + 1];
-                }
             }
+        }
 
-            // Clear the rightmost column after shifting
+        // If the leftmost column is not empty, stop shifting
+        if (!isLeftColumnEmpty)
+            break;
+
+        // Shifting columns to the left
+        for (unsigned col = 0; col < 3; col++)
+        {
             for (unsigned row = 0; row < 4; row++)
             {
-                returnGrid[row][3] = 0;
+                returnGrid[row][col] = returnGrid[row][col + 1];
             }
+        }
+
+        // Clear the rightmost column after shifting
+        for (unsigned row = 0; row < 4; row++)
+        {
+            returnGrid[row][3] = 0;
         }
     }
     return returnGrid;
