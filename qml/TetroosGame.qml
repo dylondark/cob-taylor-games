@@ -100,7 +100,7 @@ Item {
                         {
                             for (var x = 0; x <= 10; x++)
                             {
-                                gameGrid.updateCell(y, x, controller.getTextureAt(x, y), true);
+                                gameGrid.updateCell(y, x, controller.getTextureAt(x, y));
                             }
                         }
                     }
@@ -341,13 +341,12 @@ Item {
                                     }
                                 }
 
-                                function updateCell(row, col, imagePath, occupied) {
+                                function updateCell(row, col, imagePath) {
                                     let cellIndex = row * 10 + col;
                                     if(cellIndex >= 0 && cellIndex < gameGrid.children.length) {
                                         let cell = gameGrid.children[cellIndex];
                                         if (cell.imagePath != imagePath)
                                             cell.imagePath = imagePath;
-                                        cell.occupied = occupied;
                                     }
                                 }
                             }
