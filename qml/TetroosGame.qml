@@ -23,7 +23,7 @@ Item {
     property int points: 0
     property string strName: "Tetroos"
     property string username: ""
-    property int gameEnum: 0
+    property int gameEnum: 2
 
     TetroosController {
         id: controller
@@ -87,7 +87,8 @@ Item {
                     onUpdateView: {
                         if (controller.isGameOver())
                         {
-                            // TODO: do game over actions
+                            gameBase.visible = false;
+                            gameOverBase.gameOverOps();
                         }
 
                         root.points = controller.getScore();
@@ -493,6 +494,10 @@ Item {
                         }
                     }
                 }
+            }
+
+            GameOverBase {
+                id: gameOverBase
             }
         } // Gradient background rectangle.
 
