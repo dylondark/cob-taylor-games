@@ -729,7 +729,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     const PieceGrid NEW_PIECE = getPieceGrid(activePiece.pieceType, activePiece.rotation + rotate);
 
     // get the max width of the new piece and ensure it doesnt go out of bounds
-    if ((xOffset > 0 || rotate) && startPosX > 5) // only do this part if we are moving right and we are within 4 blocks away from the right edge
+    if (startPosX > 5) // only do this part if we are moving right and we are within 4 blocks away from the right edge
     {
         unsigned maxWidth = 4;
         bool isBlockInColumn = false;
