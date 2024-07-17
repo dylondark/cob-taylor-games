@@ -345,7 +345,7 @@ Item {
                                     let cellIndex = row * 10 + col;
                                     if(cellIndex >= 0 && cellIndex < gameGrid.children.length) {
                                         let cell = gameGrid.children[cellIndex];
-                                        if (cell.imagePath != imagePath)
+                                        if (cell.imagePath !== imagePath)
                                             cell.imagePath = imagePath;
                                     }
                                 }
