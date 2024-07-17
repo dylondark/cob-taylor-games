@@ -484,7 +484,7 @@ void TetroosController::spawnNextPiece()
     // update active piece metadata
     activePiece.rotation = 0;
     activePiece.posX = 4;
-    activePiece.posY = 16;  // @TODO: dynamically adjust starting Y so that piece always spawns with no empty blocks overhead
+    activePiece.posY = 16 + (4 - getPieceDim(activePiece.pieceType, 0).second); // get max height of piece and spawn as close to top as possible
     ++activePiece.pieceID;
 
     // generate new nextPiece
