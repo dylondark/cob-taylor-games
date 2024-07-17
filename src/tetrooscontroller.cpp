@@ -120,7 +120,7 @@ QString TetroosController::getTextureAt(unsigned posX, unsigned posY)
         // overlay blank texture with half transparency
         QImage blank = TEXTURES[28];
         QPainter painter(&texture);
-        painter.setOpacity(0.5);
+        painter.setOpacity(0.7);
         painter.drawImage(0, 0, blank);
         painter.end();
     }
