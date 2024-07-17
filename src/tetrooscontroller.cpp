@@ -800,3 +800,52 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
 
     return true;
 }
+
+/*
+    Gets the max width and height that a piece occupies at a given rotation.
+
+    PieceType piece: the type of piece.
+    unsigned rotation: the rotation value of the piece.
+    Returns a pair of unsigned in the order (width, height).
+*/
+std::pair<unsigned, unsigned> TetroosController::getPieceDim(PieceType piece, unsigned rotation)
+{
+    const PieceGrid NEW_PIECE = getPieceGrid(piece, rotation);
+    std::pair<unsigned, unsigned> wh(4, 4);
+
+    // test for width
+    bool isBlockInColumn = false;
+    for (unsigned x = 0; x < 4; x++)
+    {
+        for (unsigned y = 0; y < 4; y++)
+        {
+            if (NEW_PIECE[y][x])
+            {
+                isBlockInColumn = true;
+                break;
+            }
+        }
+        if (isBlockInColumn)
+            wh.first = x + 1;
+        isBlockInColumn = false;
+    }
+
+    // test for height
+    bool isBlockInRow = false;
+    for (unsigned y = 0; y < 4; y++)
+    {
+        for (unsigned x = 0; x < 4; x++)
+        {
+            if (NEW_PIECE[y][x])
+            {
+                isBlockInRow = true;
+                break;
+            }
+        }
+        if (isBlockInRow)
+            wh.second = y + 1;
+        isBlockInRow = false;
+    }
+
+    return wh;
+}

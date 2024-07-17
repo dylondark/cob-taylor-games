@@ -243,6 +243,15 @@ private:
     PieceGrid getPieceGrid(PieceType piece, unsigned rotation);
 
     /*
+        Gets the max width and height that a piece occupies at a given rotation.
+
+        PieceType piece: the type of piece.
+        unsigned rotation: the rotation value of the piece.
+        Returns a pair of unsigned in the order (width, height).
+    */
+    std::pair<unsigned, unsigned> getPieceDim(PieceType piece, unsigned rotation);
+
+    /*
         Load the texture images and initialize the textures array with them.
     */
     std::array<QImage, TEXTURE_COUNT> loadTextures();
