@@ -370,10 +370,10 @@ void TetroosController::applySilhouette()
     // get the grid for the active piece type
     const PieceGrid NEW_PIECE = getPieceGrid(activePiece.pieceType, activePiece.rotation);
 
-    // go from bottom up to the active piece Y checking for the first Y value where we can write the silhouette
+    // go from the active piece to the bottom and save the last y value where the silhouette can be written
     unsigned silhouetteY = 0;
     bool collision = false;
-    for (unsigned y = 0; y < activePiece.posY; y++) // go from bottom to top
+    for (unsigned y = activePiece.posY; y < 20; y--) // go from activepiece to bottom
     {
         // check for collision with other pieces
         unsigned pieceX = 0, pieceY = 0;
@@ -395,19 +395,13 @@ void TetroosController::applySilhouette()
             ++pieceY;
         }
 
-        // if we got through this Y with no collision
-        if (!collision)
+        // if we collided at this Y
+        if (collision)
         {
-            silhouetteY = y; // save the y value so we can start writing the silhouette at it
+            silhouetteY = y + 1; // save the y value so we can start writing the silhouette at it
             break;
         }
     }
-
-    // if collision was true at every Y value then don't write anything
-    if (collision)
-        return;
-
-    // ---at this point we are assuming there are no conflicts and it is good to start making changes to the board---
 
     // rewrite the silhouette piece into its new position
     unsigned pieceX = 0, pieceY = 0;
