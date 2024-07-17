@@ -483,8 +483,9 @@ void TetroosController::spawnNextPiece()
 
     // update active piece metadata
     activePiece.rotation = 0;
-    activePiece.posX = 4;
-    activePiece.posY = 16 + (4 - getPieceDim(activePiece.pieceType, 0).second); // get max height of piece and spawn as close to top as possible
+    std::pair<unsigned, unsigned> pieceWH = getPieceDim(activePiece.pieceType, 0);
+    activePiece.posX = 5 - pieceWH.first / 2; // spawn in middle (ish)
+    activePiece.posY = 20 - pieceWH.second; // spawn as close to top as possible
     ++activePiece.pieceID;
 
     // generate new nextPiece
