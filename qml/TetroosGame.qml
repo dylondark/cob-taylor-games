@@ -94,6 +94,9 @@ Item {
                         root.points = controller.getScore();
                         homeBarBase.updatePoints();
 
+                        linesVar.text = controller.getLinesCleared();
+                        levelVar.text = controller.getLevel();
+
                         // fill in hold and next pieces
 
                         // update board
@@ -154,6 +157,7 @@ Item {
                                     id: linesVar
                                     Layout.fillWidth: true
                                     Layout.fillHeight: true
+                                    color: "black"
                                     background: Rectangle {
                                         color: "#ffffff"
                                         border.color: "black"
@@ -238,6 +242,7 @@ Item {
                                     id: levelVar
                                     Layout.fillWidth: true
                                     Layout.fillHeight: true
+                                    color: "black"
                                     background: Rectangle {
                                         color: "#ffffff"
                                         border.color: "black"

@@ -74,6 +74,16 @@ public:
     Q_INVOKABLE PieceType getNextPiece();
 
     /*
+        Returns the current level.
+    */
+    Q_INVOKABLE unsigned getLevel();
+
+    /*
+        Returns the total amount of lines cleared.
+    */
+    Q_INVOKABLE unsigned getLinesCleared();
+
+    /*
         Move piece left action.
     */
     Q_INVOKABLE void left();
@@ -155,6 +165,9 @@ private:
 
     // How many lines have been cleared since the last level increase.
     unsigned clearedRows;
+
+    // How many lines have been cleared since the start of the game.
+    unsigned clearedRowsTotal;
 
     // The current interval of the timer in ms (how many ms it takes for the piece to fall 1 row naturally).
     unsigned timerInterval;

@@ -38,6 +38,7 @@ TetroosController::TetroosController()
     score = 0;
     level = 1;
     clearedRows = 0;
+    clearedRowsTotal = 0;
     timerInterval = 1000;
 }
 
@@ -165,6 +166,22 @@ PieceType TetroosController::getActivePiece()
 PieceType TetroosController::getNextPiece()
 {
     return nextPiece;
+}
+
+/*
+    Returns the current level.
+*/
+Q_INVOKABLE unsigned TetroosController::getLevel()
+{
+    return level;
+}
+
+/*
+    Returns the total amount of lines cleared.
+*/
+Q_INVOKABLE unsigned TetroosController::getLinesCleared()
+{
+    return clearedRowsTotal;
 }
 
 /*
@@ -524,6 +541,7 @@ bool TetroosController::clearFilledRows()
         {
             ++filledRows;
             ++clearedRows;
+            ++clearedRowsTotal;
 
             // clear the row
             for (unsigned x = 0; x < 10; x++)
