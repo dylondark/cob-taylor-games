@@ -138,13 +138,6 @@ private:
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
 
-    /*
-        This value is set to true when the active piece has just been laid down and the game is about to spawn a new active piece.
-        When this is true, the game will not respond to any user actions and will wait for the next gameTimer tick,
-        at which it will spawn a new piece and set this value back to false.
-    */
-    bool waitingForNewPiece;
-
     // Contains the internal representation of the board grid.
     std::array<std::array<Block, 10>, 20>* board;
 

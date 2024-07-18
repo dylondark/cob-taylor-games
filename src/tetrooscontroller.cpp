@@ -30,7 +30,6 @@ TetroosController::TetroosController()
 
     // init other data members
     gameOver = false;
-    waitingForNewPiece = true;
     activePiece = {empty, 0, 0, 0, 0};
     holdPiece = empty;
     const PieceType PIECES[] = {I, J, L, O, S, T, Z};
@@ -190,7 +189,7 @@ Q_INVOKABLE unsigned TetroosController::getLinesCleared()
 void TetroosController::down()
 {
     // Move piece down
-    if (!gameOver && !waitingForNewPiece) {
+    if (!gameOver) {
         // Update game state
         updateGame(Down);
     }
@@ -201,7 +200,7 @@ void TetroosController::down()
 void TetroosController::left()
 {
     // Move piece down
-    if (!gameOver && !waitingForNewPiece) {
+    if (!gameOver) {
         // Update game state
         updateGame(Left);
     }
@@ -212,7 +211,7 @@ void TetroosController::left()
 void TetroosController::right()
 {
     // Move piece down
-    if (!gameOver && !waitingForNewPiece) {
+    if (!gameOver) {
         // Update game state
         updateGame(Right);
     }
@@ -224,7 +223,7 @@ void TetroosController::right()
 void TetroosController::rotate()
 {
     // Rotate piece clockwise
-    if (!gameOver && !waitingForNewPiece) {
+    if (!gameOver) {
         // Update game state
         updateGame(Rotate);
     }
@@ -236,7 +235,7 @@ void TetroosController::rotate()
 void TetroosController::slam()
 {
     // Move piece down
-    if (!gameOver && !waitingForNewPiece) {
+    if (!gameOver) {
         // Update game state
         updateGame(Slam);
     }
@@ -248,7 +247,7 @@ void TetroosController::slam()
 void TetroosController::hold()
 {
     // Move piece down
-    if (!gameOver && !waitingForNewPiece) {
+    if (!gameOver) {
         // Update game state
         updateGame(Hold);
     }
@@ -276,19 +275,9 @@ void TetroosController::updateGame(GameAction trigger)
 
     switch (trigger)
     {
-    case TimerTick:
-        // check if waiting on new piece
-        if (waitingForNewPiece)
-        {
-            spawnNextPiece();
-            applySilhouette();
-            waitingForNewPiece = false;
-        }
-        else
-        {
-            updateGame(Down);
-            return;
-        }
+    case NewPiece:
+        spawnNextPiece();
+        applySilhouette();
         break;
     case Left:
         if (mergePieceLeft())
@@ -307,9 +296,9 @@ void TetroosController::updateGame(GameAction trigger)
             applySilhouette();
         else
         {
-            waitingForNewPiece = true;
-            if (!clearFilledRows())
-                return; // we don't need to trigger a qml update since nothing changed in the game state
+            clearFilledRows();
+            updateGame(NewPiece);
+            return;
         }
         break;
     case Rotate:
@@ -320,7 +309,9 @@ void TetroosController::updateGame(GameAction trigger)
         break;
     case Slam:
         while (mergePieceDown()); // repeatedly move the piece down until it can't anymore
-        break;
+        clearFilledRows();
+        updateGame(NewPiece);
+        return;
     case Hold:
         if (swapHold())
             applySilhouette();
@@ -623,7 +614,7 @@ void TetroosController::timerTick()
         return;
     }
 
-    updateGame(TimerTick);
+    updateGame(Down);
 
     gameTimer.setInterval(timerInterval);
 }
