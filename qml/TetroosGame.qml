@@ -501,6 +501,31 @@ Item {
                 }
             }
 
+            Keys.onPressed: {
+                switch (event.key) {
+                    case Qt.Key_Left:
+                        controller.left();
+                        break;
+                    case Qt.Key_Right:
+                        controller.right();
+                        break;
+                    case Qt.Key_Down:
+                        controller.down();
+                        break;
+                    case Qt.Key_Up:
+                        controller.rotate();
+                        break;
+                    case Qt.Key_X:
+                        controller.slam();
+                        break;
+                    case Qt.Key_C:
+                        controller.hold();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             GameOverBase {
                 id: gameOverBase
             }
