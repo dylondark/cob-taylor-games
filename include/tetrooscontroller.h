@@ -12,6 +12,8 @@
 #include <QTimer>
 #include <QImage>
 #include <array>
+#include <QThread>
+#include "threadworker.h"
 #include "tetroosdata.h"
 
 /*
@@ -134,6 +136,12 @@ private:
 
     // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
     const std::array<QImage, TEXTURE_COUNT> TEXTURES;
+
+    // The main thread used to execute game logic calculations.
+    QThread logicThread;
+
+    // Worker for the main thread.
+    ThreadWorker logicThreadWorker;
 
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;

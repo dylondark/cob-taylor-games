@@ -24,6 +24,7 @@ HEADERS += \
     feedbackcontroller.h \
     cliparser.h \
     flippedarray.h \
+    threadworker.h \
     tetroosdata.h \
     tetrooscontroller.h \
     profanitychecker.h \

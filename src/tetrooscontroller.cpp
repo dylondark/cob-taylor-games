@@ -39,6 +39,11 @@ TetroosController::TetroosController()
     clearedRows = 0;
     clearedRowsTotal = 0;
     timerInterval = 1000;
+
+    // init threads
+    logicThreadWorker.moveToThread(&logicThread);
+    logicThread.setObjectName("TetroosLogic");
+    logicThread.start();
 }
 
 /*
@@ -189,9 +194,12 @@ Q_INVOKABLE unsigned TetroosController::getLinesCleared()
 void TetroosController::down()
 {
     // Move piece down
-    if (!gameOver) {
+    if (!gameOver)
+    {
         // Update game state
-        updateGame(Down);
+        QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+            updateGame(Down);
+        });
     }
 }
 /*
@@ -200,9 +208,12 @@ void TetroosController::down()
 void TetroosController::left()
 {
     // Move piece down
-    if (!gameOver) {
+    if (!gameOver)
+    {
         // Update game state
-        updateGame(Left);
+        QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+            updateGame(Left);
+        });
     }
 }
 /*
@@ -211,9 +222,12 @@ void TetroosController::left()
 void TetroosController::right()
 {
     // Move piece down
-    if (!gameOver) {
+    if (!gameOver)
+    {
         // Update game state
-        updateGame(Right);
+        QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+            updateGame(Right);
+        });
     }
 }
 
@@ -223,9 +237,12 @@ void TetroosController::right()
 void TetroosController::rotate()
 {
     // Rotate piece clockwise
-    if (!gameOver) {
+    if (!gameOver)
+    {
         // Update game state
-        updateGame(Rotate);
+        QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+            updateGame(Rotate);
+        });
     }
 }
 
@@ -235,9 +252,12 @@ void TetroosController::rotate()
 void TetroosController::slam()
 {
     // Move piece down
-    if (!gameOver) {
+    if (!gameOver)
+    {
         // Update game state
-        updateGame(Slam);
+        QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+            updateGame(Slam);
+        });
     }
 }
 
@@ -247,9 +267,12 @@ void TetroosController::slam()
 void TetroosController::hold()
 {
     // Move piece down
-    if (!gameOver) {
+    if (!gameOver)
+    {
         // Update game state
-        updateGame(Hold);
+        QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+            updateGame(Hold);
+        });
     }
 }
 
@@ -614,7 +637,9 @@ void TetroosController::timerTick()
         return;
     }
 
-    updateGame(Down);
+    QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+        updateGame(Down);
+    });
 
     gameTimer.setInterval(timerInterval);
 }
