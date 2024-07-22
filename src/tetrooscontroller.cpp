@@ -13,7 +13,7 @@
     Constructor for TetroosController.
 */
 TetroosController::TetroosController()
-    : TEXTURES(loadTextures()), gameTimer(QTimer(this))
+    : TEXTURES(loadTextures()), screenBuffer(1400, 2800, QImage::Format_RGB32), gameTimer(QTimer(this))
 {
     // seed the rng
     srand(time(NULL));
@@ -44,6 +44,13 @@ TetroosController::TetroosController()
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.setObjectName("TetroosLogic");
     logicThread.start();
+    for (int x = 0; x < 5; ++x)
+    {
+        renderWorkers[x].moveToThread(&renderThreads[x]);
+        renderThreads[x].setObjectName("TetroosRender" + std::to_string(x));
+        renderThreads[x].start();
+    }
+    connect(this, &TetroosController::rendererFinished, this, &TetroosController::doneRendering);
 }
 
 /*
@@ -74,6 +81,71 @@ std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadText
 }
 
 /*
+    Returns image url of the last rendered frame.
+*/
+QString TetroosController::getScreen()
+{
+    return screenBufferUrl;
+}
+
+/*
+    Splits board into 4 chunks (5 rows each) and invokes renderThreads 1-4 to calculate the images for each of these chunks asynchronously.
+    Each time one of the threads gets done calculating the image it invokes renderThread 0 to apply it to the screen buffer image.
+*/
+void TetroosController::render()
+{
+    for (unsigned thread = 1; thread < 5; ++thread)
+    {
+        QMetaObject::invokeMethod(&renderWorkers[thread], [&, thread]() {
+            unsigned width = screenBuffer.width() / 10;
+            unsigned height = screenBuffer.height() / 20;
+
+            // find this thread's 5 row chunk
+            for (unsigned row = 5 * (thread - 1); row < 5 * thread; ++row)
+            {
+                // columns
+                for (unsigned col = 0; col < 10; ++col)
+                {
+                    QImage currentTexture = getTextureAt(row, col);
+
+                    QMetaObject::invokeMethod(&renderWorkers[0], [&, col, row]() {
+                        unsigned x = width * col;
+                        unsigned y = height * row;
+
+                        QPainter painter(&screenBuffer);
+                        painter.drawImage(x, y, currentTexture, 0, 0, width, height);
+                    });
+                }
+            }
+            emit rendererFinished();
+        });
+    }
+}
+
+void TetroosController::doneRendering()
+{
+    static unsigned complete = 0;
+
+    if (++complete == 4)
+    {
+        // if all threads have completed
+        complete = 0;
+
+        // convert the buffer into base64 and store in screenBufferUrl
+        QMetaObject::invokeMethod(&renderWorkers[0], [&]() {
+            QByteArray byteArray;
+            QBuffer buffer(&byteArray);
+            buffer.open(QIODevice::WriteOnly);
+            screenBuffer.save(&buffer, "BMP", 100);
+            screenBufferUrl = "data:image/bmp;base64,";
+            screenBufferUrl.append(QString::fromLatin1(byteArray.toBase64().data()));
+
+            emit updateView();
+        });
+    }
+}
+
+/*
     Calculates and returns the block texture at a given block.
     Calculation is based on the values of the block struct at the given block.
 
@@ -82,7 +154,7 @@ std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadText
     However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
     This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
 */
-QString TetroosController::getTextureAt(unsigned posX, unsigned posY)
+QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
 {
     // THIS IS A PROTOTYPE IMPLEMENTATION FOR USE WITH THE PROTOTYPE TEXTURES
     // block-specific textures and rotation are not implemented yet
@@ -129,15 +201,7 @@ QString TetroosController::getTextureAt(unsigned posX, unsigned posY)
         painter.end();
     }
 
-    // convert image to string URL representation because QML only takes image sources
-    // this is barbarian but it saves a lottt of code reworking
-    QByteArray byteArray;
-    QBuffer buffer(&byteArray);
-    buffer.open(QIODevice::WriteOnly);
-    texture.save(&buffer, "BMP", 100);
-    QString url("data:image/bmp;base64,");
-    url.append(QString::fromLatin1(byteArray.toBase64().data()));
-    return url;
+    return texture;
 }
 
 /*
@@ -343,8 +407,7 @@ void TetroosController::updateGame(GameAction trigger)
         break;
     }
 
-    // tell QML to update
-    emit updateView();
+    render();
 }
 
 /*

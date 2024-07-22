@@ -45,20 +45,14 @@ public:
     Q_INVOKABLE bool isGameOver();
 
     /*
-        Calculates and returns the block texture at a given block.
-        Calculation is based on the values of the block struct at the given block.
-
-        Currently the plan is to apply rotation and silhouette dynamically on the preexisting images if needed before passing to QML
-        to simplify the amount of textures we need to create and store.
-        However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
-        This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
-    */
-    Q_INVOKABLE QString getTextureAt(unsigned posX, unsigned posY);
-
-    /*
         Returns the current score.
     */
     Q_INVOKABLE unsigned getScore();
+
+    /*
+        Returns image url of the last rendered frame.
+    */
+    Q_INVOKABLE QString getScreen();
 
     /*
         Returns the current holding piece type (or empty if not holding).
@@ -121,11 +115,15 @@ signals:
     */
     void updateView();
 
+    void rendererFinished();
+
 private slots:
     /*
         Slot function that is called when gameTimer ticks. Calls updateGame with the TimerTick action.
     */
     void timerTick();
+
+    void doneRendering();
 
 private:
     // The amount of textures to hold in the textures array.
@@ -143,11 +141,21 @@ private:
     // Worker for the main thread.
     ThreadWorker logicThreadWorker;
 
+    QThread renderThreads[5];
+
+    ThreadWorker renderWorkers[5];
+
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
 
     // Contains the internal representation of the board grid.
     std::array<std::array<Block, 10>, 20>* board;
+
+    // Holds the most recently re
+    QImage screenBuffer;
+
+    // Holds the most recently rendered frame as a base64 image url.
+    QString screenBufferUrl;
 
     // Current active piece. Holds all relevant data about the piece on the board.
     ActivePiece activePiece;
@@ -183,6 +191,19 @@ private:
         GameAction trigger: what action is triggering the game update.
     */
     void updateGame(GameAction trigger);
+
+    void render();
+
+    /*
+        Calculates and returns the block texture at a given block.
+        Calculation is based on the values of the block struct at the given block.
+
+        Currently the plan is to apply rotation and silhouette dynamically on the preexisting images if needed before passing to QML
+        to simplify the amount of textures we need to create and store.
+        However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
+        This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
+    */
+    QImage getTextureAt(unsigned posX, unsigned posY);
 
     /*
         Internal action to move the active piece left and merge it into the board.

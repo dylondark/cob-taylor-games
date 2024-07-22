@@ -100,13 +100,7 @@ Item {
                         // fill in hold and next pieces
 
                         // update board
-                        for (var y = 0; y <= 20; y++)
-                        {
-                            for (var x = 0; x <= 10; x++)
-                            {
-                                gameGrid.updateCell(y, x, controller.getTextureAt(x, y));
-                            }
-                        }
+                        gameGrid.source = controller.getScreen();
                     }
                 }
 
@@ -267,8 +261,8 @@ Item {
 
                             Rectangle {
                                 id: holdRectangle
-                                Layout.preferredWidth: 350 * scaleFactor
-                                Layout.preferredHeight: 350 * scaleFactor
+                                Layout.preferredWidth: 350 * root.scaleFactor
+                                Layout.preferredHeight: 350 * root.scaleFactor
                                 Layout.alignment: Qt.AlignTop
                                 color: "#fff7e9"
 
@@ -277,7 +271,7 @@ Item {
                                     Layout.fillHeight: true
                                     Layout.alignment: Qt.AlignHCenter
                                     anchors.centerIn: parent
-                                    spacing: 10 * scaleFactor
+                                    spacing: 10 * root.scaleFactor
 
                                     Label {
                                         id: holdLabel
@@ -299,8 +293,8 @@ Item {
                                         Layout.fillWidth: true
                                         Layout.fillHeight: true
                                         Layout.verticalStretchFactor: 4
-                                        Layout.preferredHeight: 200 * scaleFactor
-                                        Layout.preferredWidth: 200 * scaleFactor
+                                        Layout.preferredHeight: 200 * root.scaleFactor
+                                        Layout.preferredWidth: 200 * root.scaleFactor
                                         color: "#ffffff"
                                         border.color: "black"
                                         border.width: 1
@@ -309,52 +303,14 @@ Item {
                             }
 
                             // Begin game rectangle
-                            Grid {
+                            Image {
                                 id: gameGrid
-                                columns: 10
-                                rows: 20
-                                spacing: 0
-                                width: 700 * scaleFactor
-                                height: 1400 * scaleFactor
-
-                                Repeater {
-                                    model: 200 // 10 columns by 20 rows
-
-                                    Item {
-                                        width: gameGrid.width / gameGrid.columns
-                                        height: gameGrid.height / gameGrid.rows
-
-                                        property int row: index / gameGrid.columns
-                                        property int col: index % gameGrid.columns
-                                        property bool occupied: false
-                                        property string imagePath: "qrc:/game/gamefiles/Tetroos/images/29-blank.png"
-
-                                        Rectangle {
-                                            id: rect
-                                            anchors.fill: parent
-                                            color: "white"
-                                            border.color: "black"
-                                            border.width: 1
-
-                                            Image {
-                                                id: cellImage
-                                                anchors.fill: parent
-                                                source: imagePath
-                                                asynchronous: true
-                                                smooth: false
-                                            }
-                                        }
-                                    }
-                                }
-
-                                function updateCell(row, col, imagePath) {
-                                    let cellIndex = row * 10 + col;
-                                    if(cellIndex >= 0 && cellIndex < gameGrid.children.length) {
-                                        let cell = gameGrid.children[cellIndex];
-                                        if (cell.imagePath !== imagePath)
-                                            cell.imagePath = imagePath;
-                                    }
-                                }
+                                source: "qrc:/game/gamefiles/Tetroos/TetroosInGamePreview.png"
+                                width: 1400 * root.scaleFactor
+                                height: 2800 * root.scaleFactor
+                                asynchronous: true
+                                smooth: false
+                                fillMode: Image.PreserveAspectFit
                             }
                         }
                     }
