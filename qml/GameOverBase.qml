@@ -76,11 +76,40 @@ ColumnLayout {
             anchors.fill: parent
             font.pointSize: 72 * root.scaleFactor
             font.bold: true
-            text: "Your score: " + root.points + "\n" + gameBase.questionsCorrect
-                  + "/" + gameBase.maxQuestions + " questions correct!"
+            text: "Your score: " + root.points
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+            layer.enabled: true
+            layer.effect: DropShadow {
+                horizontalOffset: 4 * root.scaleFactor
+                verticalOffset: 4 * root.scaleFactor
+                radius: 12.0 * root.scaleFactor
+                samples: (radius * 2) + 1
+                color: "#aa000000"
+                cached: false
+                transparentBorder: true
+            }
+        }
+    }
+
+    Item {
+        Layout.preferredHeight: -1
+        Layout.preferredWidth: -1
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+
+        Text {
+            id: gameOverQuestions
+            anchors.fill: parent
+            font.pointSize: 72 * root.scaleFactor
+            font.bold: true
+            text: gameBase.questionsCorrect + "/" + gameBase.maxQuestions + " questions correct!"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            visible: root.gameEnum === 0 || root.gameEnum === 1
 
             layer.enabled: true
             layer.effect: DropShadow {
