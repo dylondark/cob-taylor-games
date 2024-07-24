@@ -106,14 +106,15 @@ void TetroosController::render()
                 // columns
                 for (unsigned col = 0; col < 10; ++col)
                 {
-                    QImage currentTexture = getTextureAt(row, col);
+                    QImage* currentTexture = new QImage(getTextureAt(col, row));
 
-                    QMetaObject::invokeMethod(&renderWorkers[0], [&, col, row]() {
+                    QMetaObject::invokeMethod(&renderWorkers[0], [&, col, row, currentTexture]() {
                         unsigned x = width * col;
                         unsigned y = height * row;
 
-                        QPainter painter(&screenBuffer);
-                        painter.drawImage(x, y, currentTexture, 0, 0, width, height);
+                        QPainter painter = QPainter(&screenBuffer);
+                        painter.drawImage(x, y, *currentTexture, 0, 0, width, height);
+                        delete currentTexture;
                     });
                 }
             }
