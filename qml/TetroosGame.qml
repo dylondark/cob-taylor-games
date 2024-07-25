@@ -315,61 +315,70 @@ Item {
                         }
                     }
 
-                    Rectangle {
-                        id: buttonRect
+                    RowLayout {
+                        id: buttonRowLayout
                         Layout.verticalStretchFactor: 2
                         Layout.preferredHeight: 1
-                        Layout.fillHeight: true
                         Layout.fillWidth: true
-                        color: "transparent"
+                        Layout.fillHeight: true
+                        spacing: 140
 
-                        RowLayout {
-                            spacing: 30
+                        Button {
+                            id: holdBtn
 
-                            Button {
-                                id: holdBtn
-
-                                Text {
-                                    text: "HOLD"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                                 onPressed:controller.hold()
+                            Text {
+                                text: "HOLD"
+                                font.family: "Bodoni MT Black"
+                                font.bold: true
+                                font.pointSize: 20
                             }
 
-                            Button {
-                                id: slamBtn
-
-                                Text {
-                                    text: "SLAM"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                                onPressed:controller.slam()
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                implicitWidth: 150
+                                implicitHeight: 100
                             }
+                            onPressed:controller.hold()
+                        }
+
+                        Button {
+                            id: slamBtn
+
+                            Text {
+                                text: "SLAM"
+                                font.family: "Bodoni MT Black"
+                                font.bold: true
+                                font.pointSize: 20
+                            }
+
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                implicitWidth: 150
+                                implicitHeight: 100
+                            }
+                            onPressed:controller.slam()
+                        }
+
+                        GridLayout {
+                            columns: 3
+                            rowSpacing: 20
+                            columnSpacing: 20
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignTop
+
 
                             Button {
                                 id: leftBtn
+                                Layout.row: 1
+                                Layout.column: 0
+                                Layout.alignment: Qt.AlignCenter
 
                                 Text {
                                     text: "Left"
@@ -391,6 +400,8 @@ Item {
 
                             Button {
                                 id: rightBtn
+                                Layout.row: 1
+                                Layout.column: 2
 
                                 Text {
                                     text: "Right"
@@ -413,7 +424,8 @@ Item {
 
                             Button {
                                 id: downBtn
-
+                                Layout.row: 1
+                                Layout.column: 1
                                 Text {
                                     text: "Down"
                                     font.family: "Bodoni MT Black"
@@ -434,7 +446,8 @@ Item {
 
                             Button {
                                 id: rotateBtn
-
+                                Layout.row: 0
+                                Layout.column: 1
                                 Text {
                                     text: "Rotate"
                                     font.family: "Bodoni MT Black"
@@ -459,26 +472,26 @@ Item {
 
             Keys.onPressed: {
                 switch (event.key) {
-                    case Qt.Key_Left:
-                        controller.left();
-                        break;
-                    case Qt.Key_Right:
-                        controller.right();
-                        break;
-                    case Qt.Key_Down:
-                        controller.down();
-                        break;
-                    case Qt.Key_Up:
-                        controller.rotate();
-                        break;
-                    case Qt.Key_X:
-                        controller.slam();
-                        break;
-                    case Qt.Key_C:
-                        controller.hold();
-                        break;
-                    default:
-                        break;
+                case Qt.Key_Left:
+                    controller.left();
+                    break;
+                case Qt.Key_Right:
+                    controller.right();
+                    break;
+                case Qt.Key_Down:
+                    controller.down();
+                    break;
+                case Qt.Key_Up:
+                    controller.rotate();
+                    break;
+                case Qt.Key_X:
+                    controller.slam();
+                    break;
+                case Qt.Key_C:
+                    controller.hold();
+                    break;
+                default:
+                    break;
                 }
             }
 
