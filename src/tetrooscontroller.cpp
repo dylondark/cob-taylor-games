@@ -39,6 +39,9 @@ TetroosController::TetroosController()
     clearedRows = 0;
     clearedRowsTotal = 0;
     timerInterval = 1000;
+
+    logicThreadWorker.moveToThread(&logicThread);
+    logicThread.start(QThread::HighPriority);
 }
 
 /*
