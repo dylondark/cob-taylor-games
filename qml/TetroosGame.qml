@@ -25,10 +25,6 @@ Item {
     property string username: ""
     property int gameEnum: 2
 
-    TetroosController {
-        id: controller
-    }
-
     Item { // Since layouts can only inherit text properties, I'm defining them here for the text in the score boxes.
         id: textProperties
         property alias bodoniFont: bodoniText.font
@@ -98,9 +94,6 @@ Item {
                         levelVar.text = controller.getLevel();
 
                         // fill in hold and next pieces
-
-                        // update board
-                        gameGrid.source = controller.getScreen();
                     }
                 }
 
@@ -303,14 +296,11 @@ Item {
                             }
 
                             // Begin game rectangle
-                            Image {
-                                id: gameGrid
-                                source: "qrc:/game/gamefiles/Tetroos/TetroosInGamePreview.png"
+                            TetroosController {
+                                id: controller
                                 width: 1400 * root.scaleFactor
                                 height: 2800 * root.scaleFactor
-                                asynchronous: true
                                 smooth: false
-                                fillMode: Image.PreserveAspectFit
                             }
                         }
                     }
@@ -341,7 +331,7 @@ Item {
                                 implicitWidth: 150
                                 implicitHeight: 100
                             }
-                            onPressed:controller.hold()
+                            onPressed:controller.holdAction()
                         }
 
                         Button {
@@ -362,7 +352,7 @@ Item {
                                 implicitWidth: 150
                                 implicitHeight: 100
                             }
-                            onPressed:controller.slam()
+                            onPressed:controller.slamAction()
                         }
 
                         GridLayout {
@@ -395,7 +385,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
-                                onPressed:controller.left()
+                                onPressed: controller.leftAction()
                             }
 
                             Button {
@@ -419,7 +409,7 @@ Item {
                                     implicitHeight: 100
 
                                 }
-                                onPressed:controller.right()
+                                onPressed:controller.rightAction()
                             }
 
                             Button {
@@ -441,7 +431,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
-                                onPressed:controller.down()
+                                onPressed:controller.downAction()
                             }
 
                             Button {
@@ -463,7 +453,7 @@ Item {
                                     implicitWidth: 150
                                     implicitHeight: 100
                                 }
-                                onPressed:controller.rotate()
+                                onPressed:controller.rotateAction()
                             }
                         }
                     }
@@ -473,22 +463,22 @@ Item {
             Keys.onPressed: {
                 switch (event.key) {
                 case Qt.Key_Left:
-                    controller.left();
+                    controller.leftAction();
                     break;
                 case Qt.Key_Right:
-                    controller.right();
+                    controller.rightAction();
                     break;
                 case Qt.Key_Down:
-                    controller.down();
+                    controller.downAction();
                     break;
                 case Qt.Key_Up:
-                    controller.rotate();
+                    controller.rotateAction();
                     break;
                 case Qt.Key_X:
-                    controller.slam();
+                    controller.slamAction();
                     break;
                 case Qt.Key_C:
-                    controller.hold();
+                    controller.holdAction();
                     break;
                 default:
                     break;

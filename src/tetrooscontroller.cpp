@@ -13,7 +13,7 @@
     Constructor for TetroosController.
 */
 TetroosController::TetroosController()
-    : TEXTURES(loadTextures()), screenBuffer(1400, 2800, QImage::Format_RGB32), gameTimer(QTimer(this))
+    : QQuickPaintedItem(), TEXTURES(loadTextures()), gameTimer(QTimer(this))
 {
     // seed the rng
     srand(time(NULL));
@@ -39,18 +39,6 @@ TetroosController::TetroosController()
     clearedRows = 0;
     clearedRowsTotal = 0;
     timerInterval = 1000;
-
-    // init threads
-    logicThreadWorker.moveToThread(&logicThread);
-    logicThread.setObjectName("TetroosLogic");
-    logicThread.start();
-    for (int x = 0; x < 5; ++x)
-    {
-        renderWorkers[x].moveToThread(&renderThreads[x]);
-        renderThreads[x].setObjectName("TetroosRender" + std::to_string(x));
-        renderThreads[x].start();
-    }
-    connect(this, &TetroosController::rendererFinished, this, &TetroosController::doneRendering);
 }
 
 /*
@@ -81,69 +69,16 @@ std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadText
 }
 
 /*
-    Returns image url of the last rendered frame.
+    Paint a new frame onto the canvas.
 */
-QString TetroosController::getScreen()
+void TetroosController::paint(QPainter* painter)
 {
-    return screenBufferUrl;
-}
+    unsigned width = this->width() / 10;
+    unsigned height = this->height() / 20;
 
-/*
-    Splits board into 4 chunks (5 rows each) and invokes renderThreads 1-4 to calculate the images for each of these chunks asynchronously.
-    Each time one of the threads gets done calculating the image it invokes renderThread 0 to apply it to the screen buffer image.
-*/
-void TetroosController::render()
-{
-    for (unsigned thread = 1; thread < 5; ++thread)
-    {
-        QMetaObject::invokeMethod(&renderWorkers[thread], [&, thread]() {
-            unsigned width = screenBuffer.width() / 10;
-            unsigned height = screenBuffer.height() / 20;
-
-            // find this thread's 5 row chunk
-            for (unsigned row = 5 * (thread - 1); row < 5 * thread; ++row)
-            {
-                // columns
-                for (unsigned col = 0; col < 10; ++col)
-                {
-                    QImage* currentTexture = new QImage(getTextureAt(col, row));
-
-                    QMetaObject::invokeMethod(&renderWorkers[0], [&, col, row, currentTexture]() {
-                        unsigned x = width * col;
-                        unsigned y = height * row;
-
-                        QPainter painter = QPainter(&screenBuffer);
-                        painter.drawImage(x, y, *currentTexture, 0, 0, width, height);
-                        delete currentTexture;
-                    });
-                }
-            }
-            emit rendererFinished();
-        });
-    }
-}
-
-void TetroosController::doneRendering()
-{
-    static unsigned complete = 0;
-
-    if (++complete == 4)
-    {
-        // if all threads have completed
-        complete = 0;
-
-        // convert the buffer into base64 and store in screenBufferUrl
-        QMetaObject::invokeMethod(&renderWorkers[0], [&]() {
-            QByteArray byteArray;
-            QBuffer buffer(&byteArray);
-            buffer.open(QIODevice::WriteOnly);
-            screenBuffer.save(&buffer, "BMP", 100);
-            screenBufferUrl = "data:image/bmp;base64,";
-            screenBufferUrl.append(QString::fromLatin1(byteArray.toBase64().data()));
-
-            emit updateView();
-        });
-    }
+    for (unsigned row = 0; row < 20; ++row)
+        for (unsigned col = 0; col < 10; ++col)
+            painter->drawImage(width * col, height * row, getTextureAt(col, row), 0, 0, width, height);
 }
 
 /*
@@ -256,42 +191,42 @@ Q_INVOKABLE unsigned TetroosController::getLinesCleared()
 /*
     Move piece down action.
 */
-void TetroosController::down()
+void TetroosController::downAction()
 {
     // Move piece down
     if (!gameOver)
     {
         // Update game state
         QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-            updateGame(Down);
+            updateGame(GameAction::Down);
         });
     }
 }
 /*
     Move piece left action.
 */
-void TetroosController::left()
+void TetroosController::leftAction()
 {
     // Move piece down
     if (!gameOver)
     {
         // Update game state
         QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-            updateGame(Left);
+            updateGame(GameAction::Left);
         });
     }
 }
 /*
     Move piece right action.
 */
-void TetroosController::right()
+void TetroosController::rightAction()
 {
     // Move piece down
     if (!gameOver)
     {
         // Update game state
         QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-            updateGame(Right);
+            updateGame(GameAction::Right);
         });
     }
 }
@@ -299,14 +234,14 @@ void TetroosController::right()
 /*
     Rotate piece clockwise action.
 */
-void TetroosController::rotate()
+void TetroosController::rotateAction()
 {
     // Rotate piece clockwise
     if (!gameOver)
     {
         // Update game state
         QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-            updateGame(Rotate);
+            updateGame(GameAction::Rotate);
         });
     }
 }
@@ -314,14 +249,14 @@ void TetroosController::rotate()
 /*
     Slam piece to the bottom action.
 */
-void TetroosController::slam()
+void TetroosController::slamAction()
 {
     // Move piece down
     if (!gameOver)
     {
         // Update game state
         QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-            updateGame(Slam);
+            updateGame(GameAction::Slam);
         });
     }
 }
@@ -329,14 +264,14 @@ void TetroosController::slam()
 /*
     Hold active piece action.
 */
-void TetroosController::hold()
+void TetroosController::holdAction()
 {
     // Move piece down
     if (!gameOver)
     {
         // Update game state
         QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-            updateGame(Hold);
+            updateGame(GameAction::Hold);
         });
     }
 }
@@ -363,44 +298,44 @@ void TetroosController::updateGame(GameAction trigger)
 
     switch (trigger)
     {
-    case NewPiece:
+    case GameAction::NewPiece:
         spawnNextPiece();
         applySilhouette();
         break;
-    case Left:
+    case GameAction::Left:
         if (mergePieceLeft())
             applySilhouette();
         else
             return;
         break;
-    case Right:
+    case GameAction::Right:
         if (mergePieceRight())
             applySilhouette();
         else
             return;
         break;
-    case Down:
+    case GameAction::Down:
         if (mergePieceDown())
             applySilhouette();
         else
         {
             clearFilledRows();
-            updateGame(NewPiece);
+            updateGame(GameAction::NewPiece);
             return;
         }
         break;
-    case Rotate:
+    case GameAction::Rotate:
         if (mergePieceRotate())     
             applySilhouette();
         else
             return;
         break;
-    case Slam:
+    case GameAction::Slam:
         while (mergePieceDown()); // repeatedly move the piece down until it can't anymore
         clearFilledRows();
-        updateGame(NewPiece);
+        updateGame(GameAction::NewPiece);
         return;
-    case Hold:
+    case GameAction::Hold:
         if (swapHold())
             applySilhouette();
         else
@@ -408,7 +343,8 @@ void TetroosController::updateGame(GameAction trigger)
         break;
     }
 
-    render();
+    emit updateView(); // tell QML it is time to update the game information
+    update(); // begin painting a new frame (call paint())
 }
 
 /*
@@ -702,7 +638,7 @@ void TetroosController::timerTick()
     }
 
     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-        updateGame(Down);
+        updateGame(GameAction::Down);
     });
 
     gameTimer.setInterval(timerInterval);

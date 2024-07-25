@@ -13,6 +13,7 @@
 #include <QImage>
 #include <array>
 #include <QThread>
+#include <QQuickPaintedItem>
 #include "threadworker.h"
 #include "tetroosdata.h"
 
@@ -23,7 +24,7 @@
     This class contains all of the logic for the Tetroos game. The QML file calls this class's input methods when buttons are pressed in the
     game, and this class sends signals to the QML file to update its view of the game state.
 */
-class TetroosController : public QObject
+class TetroosController : public QQuickPaintedItem
 {
     Q_OBJECT
     QML_ELEMENT
@@ -33,6 +34,11 @@ public:
         Constructor for TetroosController.
     */
     explicit TetroosController();
+
+    /*
+        Paint a new frame onto the canvas.
+    */
+    void paint(QPainter* painter) override;
 
     /*
         Kicks off the game loop. To be called by QML after entering the game.
@@ -48,11 +54,6 @@ public:
         Returns the current score.
     */
     Q_INVOKABLE unsigned getScore();
-
-    /*
-        Returns image url of the last rendered frame.
-    */
-    Q_INVOKABLE QString getScreen();
 
     /*
         Returns the current holding piece type (or empty if not holding).
@@ -82,32 +83,32 @@ public:
     /*
         Move piece left action.
     */
-    Q_INVOKABLE void left();
+    Q_INVOKABLE void leftAction();
 
     /*
         Move piece right action.
     */
-    Q_INVOKABLE void right();
+    Q_INVOKABLE void rightAction();
 
     /*
         Move piece down action.
     */
-    Q_INVOKABLE void down();
+    Q_INVOKABLE void downAction();
 
     /*
         Rotate piece clockwise action.
     */
-    Q_INVOKABLE void rotate();
+    Q_INVOKABLE void rotateAction();
 
     /*
         Slam piece to the bottom action.
     */
-    Q_INVOKABLE void slam();
+    Q_INVOKABLE void slamAction();
 
     /*
         Hold active piece action.
     */
-    Q_INVOKABLE void hold();
+    Q_INVOKABLE void holdAction();
 
 signals:
     /*
@@ -115,15 +116,11 @@ signals:
     */
     void updateView();
 
-    void rendererFinished();
-
 private slots:
     /*
         Slot function that is called when gameTimer ticks. Calls updateGame with the TimerTick action.
     */
     void timerTick();
-
-    void doneRendering();
 
 private:
     // The amount of textures to hold in the textures array.
@@ -141,21 +138,11 @@ private:
     // Worker for the main thread.
     ThreadWorker logicThreadWorker;
 
-    QThread renderThreads[5];
-
-    ThreadWorker renderWorkers[5];
-
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
 
     // Contains the internal representation of the board grid.
     std::array<std::array<Block, 10>, 20>* board;
-
-    // Holds the most recently re
-    QImage screenBuffer;
-
-    // Holds the most recently rendered frame as a base64 image url.
-    QString screenBufferUrl;
 
     // Current active piece. Holds all relevant data about the piece on the board.
     ActivePiece activePiece;
@@ -191,8 +178,6 @@ private:
         GameAction trigger: what action is triggering the game update.
     */
     void updateGame(GameAction trigger);
-
-    void render();
 
     /*
         Calculates and returns the block texture at a given block.
