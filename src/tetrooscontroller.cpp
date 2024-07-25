@@ -137,7 +137,7 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         painter.end();
     }
 
-    return texture;
+    return texture.scaled(QSize(this->height() / 20, this->width() / 10));
 }
 
 /*
