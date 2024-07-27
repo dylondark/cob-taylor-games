@@ -109,6 +109,7 @@ Item {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 1
                         Layout.verticalStretchFactor: 1
+                        Layout.maximumWidth: parent.width
                         Layout.fillHeight: true
                         spacing: 0
 
@@ -245,63 +246,63 @@ Item {
                     Rectangle {
                         id: midRect
                         Layout.verticalStretchFactor: 5
-                        Layout.preferredHeight: 1
+                        Layout.fillWidth: true
+                        Layout.maximumWidth: parent.width
                         Layout.fillHeight: true
                         color: "transparent"
 
-                        RowLayout {
-                            spacing: 15
+                        Rectangle {
+                            id: holdRectangle
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.right: controller.left // lord knows why this doesnt work
+                            color: "#fff7e9"
 
-                            Rectangle {
-                                id: holdRectangle
-                                Layout.preferredWidth: 350 * root.scaleFactor
-                                Layout.preferredHeight: 350 * root.scaleFactor
-                                Layout.alignment: Qt.AlignTop
-                                color: "#fff7e9"
+                            ColumnLayout {
+                                anchors.fill: parent
+                                Layout.alignment: Qt.AlignHCenter
+                                anchors.centerIn: parent
+                                spacing: 10 * root.scaleFactor
 
-                                ColumnLayout {
+                                Label {
+                                    id: holdLabel
                                     Layout.fillWidth: true
                                     Layout.fillHeight: true
-                                    Layout.alignment: Qt.AlignHCenter
-                                    anchors.centerIn: parent
-                                    spacing: 10 * root.scaleFactor
-
-                                    Label {
-                                        id: holdLabel
-                                        Layout.fillWidth: true
-                                        Layout.fillHeight: true
-                                        Layout.verticalStretchFactor: 1
-                                        text: " Hold "
-                                        font.family: textProperties.bodoniFont.family
-                                        font.pointSize: textProperties.bodoniFont.pointSize
-                                        font.bold: textProperties.bodoniFont.bold
-                                        color: textProperties.textColor
-                                        background: Rectangle {
-                                            color: "#041e42"
-                                        }
+                                    Layout.verticalStretchFactor: 1
+                                    text: " Hold "
+                                    font.family: textProperties.bodoniFont.family
+                                    font.pointSize: textProperties.bodoniFont.pointSize
+                                    font.bold: textProperties.bodoniFont.bold
+                                    color: textProperties.textColor
+                                    background: Rectangle {
+                                        color: "#041e42"
                                     }
+                                }
 
-                                    Rectangle {
-                                        id: holdPieceRect
-                                        Layout.fillWidth: true
-                                        Layout.fillHeight: true
-                                        Layout.verticalStretchFactor: 4
-                                        Layout.preferredHeight: 200 * root.scaleFactor
-                                        Layout.preferredWidth: 200 * root.scaleFactor
-                                        color: "#ffffff"
-                                        border.color: "black"
-                                        border.width: 1
-                                    }
+                                Rectangle {
+                                    id: holdPieceRect
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    Layout.verticalStretchFactor: 4
+                                    Layout.preferredHeight: 200 * root.scaleFactor
+                                    Layout.preferredWidth: 200 * root.scaleFactor
+                                    color: "#ffffff"
+                                    border.color: "black"
+                                    border.width: 1
                                 }
                             }
 
-                            // Begin game rectangle
-                            TetroosController {
-                                id: controller
-                                width: 1400 * root.scaleFactor
-                                height: 2800 * root.scaleFactor
-                                smooth: false
-                            }
+                        }
+
+                        // Begin game rectangle
+                        TetroosController {
+                            id: controller
+                            anchors.top: parent.top
+                            anchors.left: holdRectangle.right
+                            anchors.centerIn: parent
+                            height: parent.height
+                            width: height / 2
+                            smooth: false
                         }
                     }
 
@@ -309,6 +310,7 @@ Item {
                         id: buttonRowLayout
                         Layout.verticalStretchFactor: 2
                         Layout.preferredHeight: 1
+                        Layout.maximumWidth: parent.width
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         spacing: 140
