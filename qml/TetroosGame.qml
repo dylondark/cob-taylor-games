@@ -94,6 +94,9 @@ Item {
                         levelVar.text = controller.getLevel();
 
                         // fill in hold and next pieces
+                        holdView.setPiece(controller.getHoldPiece());
+                        nextView.setPiece(controller.getNextPiece());
+
                     }
                 }
 
@@ -258,6 +261,10 @@ Item {
                             anchors.right: controller.left
                             height: width
                             labelText: "Hold"
+                            fontFamily: textProperties.bodoniFont.family
+                            fontPointSize: textProperties.bodoniFont.pointSize
+                            fontBold: textProperties.bodoniFont.bold
+                            fontColor: textProperties.textColor
                         }
 
                         // Begin game rectangle
@@ -278,6 +285,10 @@ Item {
                             anchors.right: parent.right
                             height: width
                             labelText: "Next"
+                            fontFamily: textProperties.bodoniFont.family
+                            fontPointSize: textProperties.bodoniFont.pointSize
+                            fontBold: textProperties.bodoniFont.bold
+                            fontColor: textProperties.textColor
                         }
                     }
 

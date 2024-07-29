@@ -47,6 +47,13 @@
         <file>gamefiles/Tetroos/images/3-I-x0y2.png</file>
         <file>gamefiles/Tetroos/images/2-I-x0y1.png</file>
         <file>gamefiles/Tetroos/images/1-I-x0y0.png</file>
+        <file>gamefiles/Tetroos/images/Z.png</file>
+        <file>gamefiles/Tetroos/images/T.png</file>
+        <file>gamefiles/Tetroos/images/S.png</file>
+        <file>gamefiles/Tetroos/images/O.png</file>
+        <file>gamefiles/Tetroos/images/L.png</file>
+        <file>gamefiles/Tetroos/images/J.png</file>
+        <file>gamefiles/Tetroos/images/I.png</file>
     </qresource>
     <qresource prefix="/menu">
         <file>menufiles/PongMotionPreview.png</file>

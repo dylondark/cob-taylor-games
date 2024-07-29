@@ -58,17 +58,17 @@ public:
     /*
         Returns the current holding piece type (or empty if not holding).
     */
-    Q_INVOKABLE PieceType getHoldPiece();
+    Q_INVOKABLE QString getHoldPiece();
 
     /*
         Returns the currently active piece type.
     */
-    Q_INVOKABLE PieceType getActivePiece();
+    Q_INVOKABLE QString getActivePiece();
 
     /*
         Returns the type of the next piece.
     */
-    Q_INVOKABLE PieceType getNextPiece();
+    Q_INVOKABLE QString getNextPiece();
 
     /*
         Returns the current level.

@@ -154,25 +154,25 @@ unsigned TetroosController::getScore()
 /*
     Returns the current holding piece type (or empty if not holding).
 */
-PieceType TetroosController::getHoldPiece()
+QString TetroosController::getHoldPiece()
 {
-    return holdPiece;
+    return QString(holdPiece);
 }
 
 /*
     Returns the currently active piece type.
 */
-PieceType TetroosController::getActivePiece()
+QString TetroosController::getActivePiece()
 {
-    return activePiece.pieceType;
+    return QString(activePiece.pieceType);
 }
 
 /*
     Returns the type of the next piece.
 */
-PieceType TetroosController::getNextPiece()
+QString TetroosController::getNextPiece()
 {
-    return nextPiece;
+    return QString(nextPiece);
 }
 
 /*

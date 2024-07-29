@@ -8,35 +8,77 @@ Rectangle {
     color: "#fff7e9"
 
     property string labelText: "unset"
+    property var fontFamily
+    property var fontPointSize
+    property var fontBold
+    property var fontColor
+
+    function setPiece(piece) {
+        switch (piece) {
+        case 'I':
+            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/I.png";
+            break;
+        case 'J':
+            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/J.png";
+            break;
+        case 'L':
+            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/L.png";
+            break;
+        case 'O':
+            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/O.png";
+            break;
+        case 'S':
+            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/S.png";
+            break;
+        case 'T':
+            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/T.png";
+            break;
+        case 'Z':
+            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/Z.png";
+            break;
+        default:
+            pieceImg.source = "";
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
         spacing: 10 * root.scaleFactor
 
         Label {
-            id: holdLabel
+            id: label
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.verticalStretchFactor: 1
             text: base.labelText
             horizontalAlignment: Text.AlignHCenter
-            font.family: textProperties.bodoniFont.family
-            font.pointSize: textProperties.bodoniFont.pointSize
-            font.bold: textProperties.bodoniFont.bold
-            color: textProperties.textColor
+            font.family: base.fontFamily
+            font.pointSize: base.fontPointSize
+            font.bold: base.fontBold
+            color: base.fontColor
             background: Rectangle {
                 color: "#041e42"
             }
         }
 
         Rectangle {
-            id: holdPieceRect
+            id: pieceImgBg
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.verticalStretchFactor: 4
             color: "#ffffff"
             border.color: "black"
             border.width: 1
+
+
+            Image {
+                id: pieceImg
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectFit
+                smooth: false
+                asynchronous: true
+                source: ""
+            }
         }
     }
 }
