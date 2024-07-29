@@ -11,6 +11,7 @@
         <file>qml/PongGame.qml</file>
         <file>qml/CheckersGame.qml</file>
         <file>qml/PreviewBase.qml</file>
+        <file>qml/TetroosPieceView.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gamefiles/Tetroos/TetroosInGamePreview.png</file>

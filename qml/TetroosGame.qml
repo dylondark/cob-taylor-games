@@ -251,47 +251,13 @@ Item {
                         Layout.fillHeight: true
                         color: "transparent"
 
-                        Rectangle {
-                            id: holdRectangle
-                            anchors.left: parent.left
+                        TetroosPieceView {
+                            id: holdView
                             anchors.top: parent.top
-                            anchors.right: controller.left // lord knows why this doesnt work
-                            color: "#fff7e9"
-
-                            ColumnLayout {
-                                anchors.fill: parent
-                                Layout.alignment: Qt.AlignHCenter
-                                anchors.centerIn: parent
-                                spacing: 10 * root.scaleFactor
-
-                                Label {
-                                    id: holdLabel
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    Layout.verticalStretchFactor: 1
-                                    text: " Hold "
-                                    font.family: textProperties.bodoniFont.family
-                                    font.pointSize: textProperties.bodoniFont.pointSize
-                                    font.bold: textProperties.bodoniFont.bold
-                                    color: textProperties.textColor
-                                    background: Rectangle {
-                                        color: "#041e42"
-                                    }
-                                }
-
-                                Rectangle {
-                                    id: holdPieceRect
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    Layout.verticalStretchFactor: 4
-                                    Layout.preferredHeight: 200 * root.scaleFactor
-                                    Layout.preferredWidth: 200 * root.scaleFactor
-                                    color: "#ffffff"
-                                    border.color: "black"
-                                    border.width: 1
-                                }
-                            }
-
+                            anchors.left: parent.left
+                            anchors.right: controller.left
+                            height: width
+                            labelText: "Hold"
                         }
 
                         // Begin game rectangle
@@ -303,6 +269,15 @@ Item {
                             height: parent.height
                             width: height / 2
                             smooth: false
+                        }
+
+                        TetroosPieceView {
+                            id: nextView
+                            anchors.top: parent.top
+                            anchors.left: controller.right
+                            anchors.right: parent.right
+                            height: width
+                            labelText: "Next"
                         }
                     }
 
