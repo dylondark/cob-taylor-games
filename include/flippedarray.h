@@ -37,7 +37,7 @@ public:
         {
             throw std::invalid_argument("Initializer list size must match array size");
         }
-        std::reverse_copy(init.begin(), init.end(), this->begin());
+        std::copy(init.begin(), init.end(), this->begin());
     }
 
     /*

@@ -22,7 +22,7 @@ TetroosController::TetroosController()
     connect(&gameTimer, &QTimer::timeout, this, &TetroosController::timerTick);
 
     // populate board with empty values
-    board = new std::array<std::array<Block, 10>, 20>;
+    board = new FlippedArray<std::array<Block, 10>, 20>;
 
     for (int y = 0; y < 20; y++)
         for (int x = 0; x < 10; x++)

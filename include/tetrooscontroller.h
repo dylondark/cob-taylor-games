@@ -142,7 +142,7 @@ private:
     bool gameOver;
 
     // Contains the internal representation of the board grid.
-    std::array<std::array<Block, 10>, 20>* board;
+    FlippedArray<std::array<Block, 10>, 20>* board;
 
     // Current active piece. Holds all relevant data about the piece on the board.
     ActivePiece activePiece;
