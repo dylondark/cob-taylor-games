@@ -100,212 +100,255 @@ Item {
                     }
                 }
 
-                // Column for the data being laid out.
-                ColumnLayout {
-                    id: gameLayout
-                    anchors.fill: parent
-                    spacing: 10
+                // The screen-width grid for data at the top.
+                RowLayout {
+                    id: dataRow
+                    anchors.top: parent.top
+                    width: parent.width
+                    height: parent.height / 10
+                    spacing: 0
 
-                    // The screen-width grid for data at the top.
-                    RowLayout {
-                        id: dataRow
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 1
-                        Layout.verticalStretchFactor: 1
-                        Layout.maximumWidth: parent.width
-                        Layout.fillHeight: true
-                        spacing: 0
-
-                        Rectangle {
-                            id: linesRect
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignHCenter
-                            color: "#fff7e9"
-
-                            ColumnLayout {
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                Layout.alignment: Qt.AlignHCenter
-                                anchors.centerIn: parent
-                                spacing: 10 * scaleFactor
-
-                                Label {
-                                    id: linesTextLabel
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    text: " L i n e s "
-                                    font.family: textProperties.bodoniFont.family
-                                    font.pointSize: textProperties.bodoniFont.pointSize
-                                    font.bold: textProperties.bodoniFont.bold
-                                    color: textProperties.textColor
-                                    background: Rectangle {
-                                        color: "#041e42"
-                                    }
-                                }
-
-                                Label { // The label for the actual variable of lines.
-                                    id: linesVar
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    color: "black"
-                                    background: Rectangle {
-                                        color: "#ffffff"
-                                        border.color: "black"
-                                        border.width: 1
-                                    }
-                                }
-                            }
-                        } // LinesRect bracket
-
-                        Rectangle {
-                            id: scoreRect
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.preferredHeight: 1
-                            color: "#fff7e9"
-
-                            ColumnLayout {
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                Layout.alignment: Qt.AlignHCenter
-                                anchors.centerIn: parent
-                                spacing: 10 * scaleFactor
-
-                                Label {
-                                    id: scoreTextLabel
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    text: " S c o r e "
-                                    font.family: textProperties.bodoniFont.family
-                                    font.pointSize: textProperties.bodoniFont.pointSize
-                                    font.bold: textProperties.bodoniFont.bold
-                                    color: textProperties.textColor
-                                    background: Rectangle {
-                                        color: "#041e42"
-                                    }
-                                }
-
-                                Label { // The label for the actual variable of the score.
-                                    id: scoreVar
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    background: Rectangle {
-                                        color: "#ffffff"
-                                        border.color: "black"
-                                        border.width: 1
-                                    }
-                                }
-                            }
-                        } // scoreRect bracket
-
-                        Rectangle {
-                            id: levelRect
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.preferredHeight: 1
-                            color: "#fff7e9"
-
-                            ColumnLayout {
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                Layout.alignment: Qt.AlignHCenter
-                                anchors.centerIn: parent
-                                spacing: 10 * scaleFactor
-
-                                Label {
-                                    id: levelTextLabel
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    text: " L e v e l "
-                                    font.family: textProperties.bodoniFont.family
-                                    font.pointSize: textProperties.bodoniFont.pointSize
-                                    font.bold: textProperties.bodoniFont.bold
-                                    color: textProperties.textColor
-                                    background: Rectangle {
-                                        color: "#041e42"
-                                        border.color: "black"
-                                        border.width: 1
-                                    }
-                                }
-
-                                Label { // The label for the actual variable of the level.
-                                    id: levelVar
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    color: "black"
-                                    background: Rectangle {
-                                        color: "#ffffff"
-                                        border.color: "black"
-                                        border.width: 1
-                                    }
-                                }
-                            }
-                        } // levelRect bracket
-                    } // dataRow RowLayout bracket.
-
-
-                    // TODO: Hold rectangle next to game rectangle next to "next" rectangle
                     Rectangle {
-                        id: midRect
-                        Layout.verticalStretchFactor: 5
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: parent.width
+                        id: linesRect
                         Layout.fillHeight: true
-                        color: "transparent"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignHCenter
+                        color: "#fff7e9"
 
-                        TetroosPieceView {
-                            id: holdView
-                            anchors.top: parent.top
-                            anchors.left: parent.left
-                            anchors.right: controller.left
-                            height: width
-                            labelText: "Hold"
-                            fontFamily: textProperties.bodoniFont.family
-                            fontPointSize: textProperties.bodoniFont.pointSize
-                            fontBold: textProperties.bodoniFont.bold
-                            fontColor: textProperties.textColor
-                        }
-
-                        // Begin game rectangle
-                        TetroosController {
-                            id: controller
-                            anchors.top: parent.top
-                            anchors.left: holdRectangle.right
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
                             anchors.centerIn: parent
-                            height: parent.height
-                            width: height / 2
-                            smooth: false
-                        }
+                            spacing: 10 * scaleFactor
 
-                        TetroosPieceView {
-                            id: nextView
-                            anchors.top: parent.top
-                            anchors.left: controller.right
-                            anchors.right: parent.right
-                            height: width
-                            labelText: "Next"
-                            fontFamily: textProperties.bodoniFont.family
-                            fontPointSize: textProperties.bodoniFont.pointSize
-                            fontBold: textProperties.bodoniFont.bold
-                            fontColor: textProperties.textColor
+                            Label {
+                                id: linesTextLabel
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                text: " L i n e s "
+                                font.family: textProperties.bodoniFont.family
+                                font.pointSize: textProperties.bodoniFont.pointSize
+                                font.bold: textProperties.bodoniFont.bold
+                                color: textProperties.textColor
+                                background: Rectangle {
+                                    color: "#041e42"
+                                }
+                            }
+
+                            Label { // The label for the actual variable of lines.
+                                id: linesVar
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                color: "black"
+                                background: Rectangle {
+                                    color: "#ffffff"
+                                    border.color: "black"
+                                    border.width: 1
+                                }
+                            }
                         }
+                    } // LinesRect bracket
+
+                    Rectangle {
+                        id: scoreRect
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredHeight: 1
+                        color: "#fff7e9"
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
+                            anchors.centerIn: parent
+                            spacing: 10 * scaleFactor
+
+                            Label {
+                                id: scoreTextLabel
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                text: " S c o r e "
+                                font.family: textProperties.bodoniFont.family
+                                font.pointSize: textProperties.bodoniFont.pointSize
+                                font.bold: textProperties.bodoniFont.bold
+                                color: textProperties.textColor
+                                background: Rectangle {
+                                    color: "#041e42"
+                                }
+                            }
+
+                            Label { // The label for the actual variable of the score.
+                                id: scoreVar
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                background: Rectangle {
+                                    color: "#ffffff"
+                                    border.color: "black"
+                                    border.width: 1
+                                }
+                            }
+                        }
+                    } // scoreRect bracket
+
+                    Rectangle {
+                        id: levelRect
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredHeight: 1
+                        color: "#fff7e9"
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
+                            anchors.centerIn: parent
+                            spacing: 10 * scaleFactor
+
+                            Label {
+                                id: levelTextLabel
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                text: " L e v e l "
+                                font.family: textProperties.bodoniFont.family
+                                font.pointSize: textProperties.bodoniFont.pointSize
+                                font.bold: textProperties.bodoniFont.bold
+                                color: textProperties.textColor
+                                background: Rectangle {
+                                    color: "#041e42"
+                                    border.color: "black"
+                                    border.width: 1
+                                }
+                            }
+
+                            Label { // The label for the actual variable of the level.
+                                id: levelVar
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                color: "black"
+                                background: Rectangle {
+                                    color: "#ffffff"
+                                    border.color: "black"
+                                    border.width: 1
+                                }
+                            }
+                        }
+                    } // levelRect bracket
+                } // dataRow RowLayout bracket.
+
+
+                // TODO: Hold rectangle next to game rectangle next to "next" rectangle
+                Rectangle {
+                    id: midRect
+                    anchors.top: dataRow.bottom
+                    width: parent.width
+                    height: parent.height / 1.3
+                    color: "transparent"
+
+                    TetroosPieceView {
+                        id: holdView
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.right: controller.left
+                        height: width
+                        labelText: "Hold"
+                        fontFamily: textProperties.bodoniFont.family
+                        fontPointSize: textProperties.bodoniFont.pointSize
+                        fontBold: textProperties.bodoniFont.bold
+                        fontColor: textProperties.textColor
                     }
 
-                    RowLayout {
-                        id: buttonRowLayout
-                        Layout.verticalStretchFactor: 2
-                        Layout.preferredHeight: 1
-                        Layout.maximumWidth: parent.width
+                    // Begin game rectangle
+                    TetroosController {
+                        id: controller
+                        anchors.top: parent.top
+                        anchors.left: holdRectangle.right
+                        anchors.centerIn: parent
+                        height: parent.height
+                        width: height / 2
+                        smooth: false
+                    }
+
+                    TetroosPieceView {
+                        id: nextView
+                        anchors.top: parent.top
+                        anchors.left: controller.right
+                        anchors.right: parent.right
+                        height: width
+                        labelText: "Next"
+                        fontFamily: textProperties.bodoniFont.family
+                        fontPointSize: textProperties.bodoniFont.pointSize
+                        fontBold: textProperties.bodoniFont.bold
+                        fontColor: textProperties.textColor
+                    }
+                }
+
+                RowLayout {
+                    id: buttonRowLayout
+                    anchors.top: midRect.bottom
+                    anchors.bottom: parent.bottom
+                    width: parent.width
+                    spacing: 140
+
+                    Button {
+                        id: holdBtn
+
+                        Text {
+                            text: "HOLD"
+                            font.family: "Bodoni MT Black"
+                            font.bold: true
+                            font.pointSize: 20
+                        }
+
+                        background: Rectangle {
+                            color: "white"
+                            opacity: 70
+                            border.color: "black"
+                            radius: 10
+                            implicitWidth: 150
+                            implicitHeight: 100
+                        }
+                        onPressed:controller.holdAction()
+                    }
+
+                    Button {
+                        id: slamBtn
+
+                        Text {
+                            text: "SLAM"
+                            font.family: "Bodoni MT Black"
+                            font.bold: true
+                            font.pointSize: 20
+                        }
+
+                        background: Rectangle {
+                            color: "white"
+                            opacity: 70
+                            border.color: "black"
+                            radius: 10
+                            implicitWidth: 150
+                            implicitHeight: 100
+                        }
+                        onPressed:controller.slamAction()
+                    }
+
+                    GridLayout {
+                        columns: 3
+                        rowSpacing: 20
+                        columnSpacing: 20
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        spacing: 140
+                        Layout.alignment: Qt.AlignTop
+
 
                         Button {
-                            id: holdBtn
+                            id: leftBtn
+                            Layout.row: 1
+                            Layout.column: 0
+                            Layout.alignment: Qt.AlignCenter
 
                             Text {
-                                text: "HOLD"
+                                text: "Left"
                                 font.family: "Bodoni MT Black"
                                 font.bold: true
                                 font.pointSize: 20
@@ -319,14 +362,39 @@ Item {
                                 implicitWidth: 150
                                 implicitHeight: 100
                             }
-                            onPressed:controller.holdAction()
+                            onPressed: controller.leftAction()
                         }
 
                         Button {
-                            id: slamBtn
+                            id: rightBtn
+                            Layout.row: 1
+                            Layout.column: 2
 
                             Text {
-                                text: "SLAM"
+                                text: "Right"
+                                font.family: "Bodoni MT Black"
+                                font.bold: true
+                                font.pointSize: 20
+                            }
+
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                implicitWidth: 150
+                                implicitHeight: 100
+
+                            }
+                            onPressed:controller.rightAction()
+                        }
+
+                        Button {
+                            id: downBtn
+                            Layout.row: 1
+                            Layout.column: 1
+                            Text {
+                                text: "Down"
                                 font.family: "Bodoni MT Black"
                                 font.bold: true
                                 font.pointSize: 20
@@ -340,109 +408,29 @@ Item {
                                 implicitWidth: 150
                                 implicitHeight: 100
                             }
-                            onPressed:controller.slamAction()
+                            onPressed:controller.downAction()
                         }
 
-                        GridLayout {
-                            columns: 3
-                            rowSpacing: 20
-                            columnSpacing: 20
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.alignment: Qt.AlignTop
-
-
-                            Button {
-                                id: leftBtn
-                                Layout.row: 1
-                                Layout.column: 0
-                                Layout.alignment: Qt.AlignCenter
-
-                                Text {
-                                    text: "Left"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                                onPressed: controller.leftAction()
+                        Button {
+                            id: rotateBtn
+                            Layout.row: 0
+                            Layout.column: 1
+                            Text {
+                                text: "Rotate"
+                                font.family: "Bodoni MT Black"
+                                font.bold: true
+                                font.pointSize: 20
                             }
 
-                            Button {
-                                id: rightBtn
-                                Layout.row: 1
-                                Layout.column: 2
-
-                                Text {
-                                    text: "Right"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-
-                                }
-                                onPressed:controller.rightAction()
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                implicitWidth: 150
+                                implicitHeight: 100
                             }
-
-                            Button {
-                                id: downBtn
-                                Layout.row: 1
-                                Layout.column: 1
-                                Text {
-                                    text: "Down"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                                onPressed:controller.downAction()
-                            }
-
-                            Button {
-                                id: rotateBtn
-                                Layout.row: 0
-                                Layout.column: 1
-                                Text {
-                                    text: "Rotate"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
-                                background: Rectangle {
-                                    color: "white"
-                                    opacity: 70
-                                    border.color: "black"
-                                    radius: 10
-                                    implicitWidth: 150
-                                    implicitHeight: 100
-                                }
-                                onPressed:controller.rotateAction()
-                            }
+                            onPressed:controller.rotateAction()
                         }
                     }
                 }
