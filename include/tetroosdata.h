@@ -127,8 +127,8 @@ const PieceGrid S_PIECE = {{{0,0,0,0},
 // Grid representation of the T piece
 const PieceGrid T_PIECE = {{{0,0,0,0},
                             {0,0,0,0},
-                            {1,1,1,0},
-                            {0,1,0,0}}};
+                            {0,1,0,0},
+                            {1,1,1,0}}};
 
 // Grid representation of the Z piece
 const PieceGrid Z_PIECE = {{{0,0,0,0},
