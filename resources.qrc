@@ -54,6 +54,11 @@
         <file>gamefiles/Tetroos/images/L.png</file>
         <file>gamefiles/Tetroos/images/J.png</file>
         <file>gamefiles/Tetroos/images/I.png</file>
+        <file>gamefiles/Tetroos/SlamArrow.png</file>
+        <file>gamefiles/Tetroos/RtArrow.png</file>
+        <file>gamefiles/Tetroos/RotateArrow.png</file>
+        <file>gamefiles/Tetroos/LftArrow.png</file>
+        <file>gamefiles/Tetroos/DwnArrow.png</file>
     </qresource>
     <qresource prefix="/menu">
         <file>menufiles/PongMotionPreview.png</file>

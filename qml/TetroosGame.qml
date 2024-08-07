@@ -337,19 +337,19 @@ Item {
                             anchors.leftMargin: 100 * root.scaleFactor
                             anchors.rightMargin: 100 * root.scaleFactor
 
-                            Text {
-                                text: "SLAM"
-                                font.family: "Bodoni MT Black"
-                                font.bold: true
-                                font.pointSize: 20
-                            }
-
                             background: Rectangle {
                                 color: "white"
                                 opacity: 70
                                 border.color: "black"
                                 radius: 10
                                 anchors.fill: parent
+
+                                Image {
+                                    anchors.fill: parent
+                                    source: "qrc:/game/gamefiles/Tetroos/SlamArrow.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    smooth: true
+                                }
                             }
                             onPressed:controller.slamAction()
                         }
@@ -379,19 +379,20 @@ Item {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
 
-                                Text {
-                                    text: "Left"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
                                 background: Rectangle {
                                     color: "white"
                                     opacity: 70
                                     border.color: "black"
                                     radius: 10
                                     anchors.fill: parent
+
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "qrc:/game/gamefiles/Tetroos/LftArrow.png"
+                                        fillMode: Image.PreserveAspectFit
+                                        smooth: true
+                                        anchors.margins: 20 * root.scaleFactor
+                                    }
                                 }
                                 onPressed: controller.leftAction()
                             }
@@ -403,13 +404,6 @@ Item {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
 
-                                Text {
-                                    text: "Right"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
                                 background: Rectangle {
                                     color: "white"
                                     opacity: 70
@@ -417,6 +411,13 @@ Item {
                                     radius: 10
                                     anchors.fill: parent
 
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "qrc:/game/gamefiles/Tetroos/RtArrow.png"
+                                        fillMode: Image.PreserveAspectFit
+                                        smooth: true
+                                        anchors.margins: 20 * root.scaleFactor
+                                    }
                                 }
                                 onPressed:controller.rightAction()
                             }
@@ -428,19 +429,20 @@ Item {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
 
-                                Text {
-                                    text: "Down"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
                                 background: Rectangle {
                                     color: "white"
                                     opacity: 70
                                     border.color: "black"
                                     radius: 10
                                     anchors.fill: parent
+
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "qrc:/game/gamefiles/Tetroos/DwnArrow.png"
+                                        fillMode: Image.PreserveAspectFit
+                                        smooth: true
+                                        anchors.margins: 20 * root.scaleFactor
+                                    }
                                 }
                                 onPressed:controller.downAction()
                             }
@@ -452,19 +454,20 @@ Item {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
 
-                                Text {
-                                    text: "Rotate"
-                                    font.family: "Bodoni MT Black"
-                                    font.bold: true
-                                    font.pointSize: 20
-                                }
-
                                 background: Rectangle {
                                     color: "white"
                                     opacity: 70
                                     border.color: "black"
                                     radius: 10
                                     anchors.fill: parent
+
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "qrc:/game/gamefiles/Tetroos/RotateArrow.png"
+                                        fillMode: Image.PreserveAspectFit
+                                        smooth: true
+                                        anchors.margins: 20 * root.scaleFactor
+                                    }
                                 }
                                 onPressed:controller.rotateAction()
                             }
