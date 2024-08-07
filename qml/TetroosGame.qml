@@ -46,11 +46,10 @@ Item {
         // The gradient background rectangle.
         Rectangle {
             id: background
-            Layout.preferredHeight: -1
-            Layout.preferredWidth: -1
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.verticalStretchFactor: 6
+            Layout.minimumHeight: 1
 
             gradient: Gradient {
                 GradientStop {
@@ -288,67 +287,58 @@ Item {
                     anchors.top: midRect.bottom
                     anchors.bottom: parent.bottom
                     width: parent.width
-                    spacing: 140
 
-                    Button {
-                        id: holdBtn
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.horizontalStretchFactor: 2
+                        Layout.preferredWidth: 1
 
-                        Text {
-                            text: "HOLD"
-                            font.family: "Bodoni MT Black"
-                            font.bold: true
-                            font.pointSize: 20
+                        Button {
+                            id: holdBtn
+                            anchors.fill: parent
+                            anchors.topMargin: 100 * root.scaleFactor
+                            anchors.bottomMargin: 100 * root.scaleFactor
+                            anchors.leftMargin: 100 * root.scaleFactor
+                            anchors.rightMargin: 100 * root.scaleFactor
+
+                            Text {
+                                text: "HOLD"
+                                font.family: "Bodoni MT Black"
+                                font.bold: true
+                                font.pointSize: 20
+                            }
+
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+
+                                anchors.fill: parent
+                            }
+                            onPressed:controller.holdAction()
                         }
-
-                        background: Rectangle {
-                            color: "white"
-                            opacity: 70
-                            border.color: "black"
-                            radius: 10
-                            implicitWidth: 150
-                            implicitHeight: 100
-                        }
-                        onPressed:controller.holdAction()
                     }
 
-                    Button {
-                        id: slamBtn
 
-                        Text {
-                            text: "SLAM"
-                            font.family: "Bodoni MT Black"
-                            font.bold: true
-                            font.pointSize: 20
-                        }
-
-                        background: Rectangle {
-                            color: "white"
-                            opacity: 70
-                            border.color: "black"
-                            radius: 10
-                            implicitWidth: 150
-                            implicitHeight: 100
-                        }
-                        onPressed:controller.slamAction()
-                    }
-
-                    GridLayout {
-                        columns: 3
-                        rowSpacing: 20
-                        columnSpacing: 20
+                    Item {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        Layout.alignment: Qt.AlignTop
-
+                        Layout.horizontalStretchFactor: 2
+                        Layout.preferredWidth: 1
 
                         Button {
-                            id: leftBtn
-                            Layout.row: 1
-                            Layout.column: 0
-                            Layout.alignment: Qt.AlignCenter
+                            id: slamBtn
+
+                            anchors.fill: parent
+                            anchors.topMargin: 100 * root.scaleFactor
+                            anchors.bottomMargin: 100 * root.scaleFactor
+                            anchors.leftMargin: 100 * root.scaleFactor
+                            anchors.rightMargin: 100 * root.scaleFactor
 
                             Text {
-                                text: "Left"
+                                text: "SLAM"
                                 font.family: "Bodoni MT Black"
                                 font.bold: true
                                 font.pointSize: 20
@@ -359,78 +349,125 @@ Item {
                                 opacity: 70
                                 border.color: "black"
                                 radius: 10
-                                implicitWidth: 150
-                                implicitHeight: 100
+                                anchors.fill: parent
                             }
-                            onPressed: controller.leftAction()
+                            onPressed:controller.slamAction()
                         }
+                    }
 
-                        Button {
-                            id: rightBtn
-                            Layout.row: 1
-                            Layout.column: 2
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.horizontalStretchFactor: 3
+                        Layout.preferredWidth: 1
 
-                            Text {
-                                text: "Right"
-                                font.family: "Bodoni MT Black"
-                                font.bold: true
-                                font.pointSize: 20
+                        GridLayout {
+                            columns: 3
+                            rowSpacing: 20
+                            columnSpacing: 20
+                            anchors.fill: parent
+                            anchors.topMargin: 20 * root.scaleFactor
+                            anchors.bottomMargin: 20 * root.scaleFactor
+                            anchors.leftMargin: 100 * root.scaleFactor
+                            anchors.rightMargin: 100 * root.scaleFactor
+
+                            Button {
+                                id: leftBtn
+                                Layout.row: 1
+                                Layout.column: 0
+                                Layout.alignment: Qt.AlignCenter
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+
+                                Text {
+                                    text: "Left"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    anchors.fill: parent
+                                }
+                                onPressed: controller.leftAction()
                             }
 
-                            background: Rectangle {
-                                color: "white"
-                                opacity: 70
-                                border.color: "black"
-                                radius: 10
-                                implicitWidth: 150
-                                implicitHeight: 100
+                            Button {
+                                id: rightBtn
+                                Layout.row: 1
+                                Layout.column: 2
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
 
-                            }
-                            onPressed:controller.rightAction()
-                        }
+                                Text {
+                                    text: "Right"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
 
-                        Button {
-                            id: downBtn
-                            Layout.row: 1
-                            Layout.column: 1
-                            Text {
-                                text: "Down"
-                                font.family: "Bodoni MT Black"
-                                font.bold: true
-                                font.pointSize: 20
-                            }
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    anchors.fill: parent
 
-                            background: Rectangle {
-                                color: "white"
-                                opacity: 70
-                                border.color: "black"
-                                radius: 10
-                                implicitWidth: 150
-                                implicitHeight: 100
-                            }
-                            onPressed:controller.downAction()
-                        }
-
-                        Button {
-                            id: rotateBtn
-                            Layout.row: 0
-                            Layout.column: 1
-                            Text {
-                                text: "Rotate"
-                                font.family: "Bodoni MT Black"
-                                font.bold: true
-                                font.pointSize: 20
+                                }
+                                onPressed:controller.rightAction()
                             }
 
-                            background: Rectangle {
-                                color: "white"
-                                opacity: 70
-                                border.color: "black"
-                                radius: 10
-                                implicitWidth: 150
-                                implicitHeight: 100
+                            Button {
+                                id: downBtn
+                                Layout.row: 1
+                                Layout.column: 1
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+
+                                Text {
+                                    text: "Down"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    anchors.fill: parent
+                                }
+                                onPressed:controller.downAction()
                             }
-                            onPressed:controller.rotateAction()
+
+                            Button {
+                                id: rotateBtn
+                                Layout.row: 0
+                                Layout.column: 1
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+
+                                Text {
+                                    text: "Rotate"
+                                    font.family: "Bodoni MT Black"
+                                    font.bold: true
+                                    font.pointSize: 20
+                                }
+
+                                background: Rectangle {
+                                    color: "white"
+                                    opacity: 70
+                                    border.color: "black"
+                                    radius: 10
+                                    anchors.fill: parent
+                                }
+                                onPressed:controller.rotateAction()
+                            }
                         }
                     }
                 }
@@ -469,10 +506,9 @@ Item {
         HomeBarBase {
             id: homeBarBase
             Layout.verticalStretchFactor: 1
-            Layout.preferredHeight: 1
-            Layout.preferredWidth: 1
             Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.minimumHeight: 1
         }
     } // columnLayout for whole screen
 }
