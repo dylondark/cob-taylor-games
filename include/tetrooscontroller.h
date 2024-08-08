@@ -141,6 +141,9 @@ private:
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
 
+    // Whether the player just used hold (blocks them from using it again until the current piece has been dropped).
+    bool holdUsed;
+
     // Contains the internal representation of the board grid.
     FlippedArray<std::array<Block, 10>, 20>* board;
 

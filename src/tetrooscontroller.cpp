@@ -465,44 +465,36 @@ void TetroosController::applySilhouette()
 */
 bool TetroosController::swapHold()
 {
-    if (holdPiece != empty)
-    {
-        std::swap(holdPiece, activePiece.pieceType);
-
-        // attempt to rewrite the piece with the hold and active swapped out
-        if (!rewriteActivePiece(0, 0, false))
-        {
-            // swap back if the rewrite didnt succeed
-            std::swap(holdPiece, activePiece.pieceType);
-            return false;
-        }
-        return true;
-    }
+    if (holdUsed)
+        return false;
     else
     {
+        bool holdState = holdPiece != empty;
         // swap active into hold piece
         std::swap(holdPiece, activePiece.pieceType);
-        // active will now be empty
 
-        // swap next piece into active
-        std::swap(activePiece.pieceType, nextPiece);
-        // next piece will now be empty
+        // clear the old piece from the board
+        for (unsigned boardY = activePiece.posY; boardY < std::min(activePiece.posY + 4, 20U); boardY++)
+            for (unsigned boardX = activePiece.posX; boardX < std::min(activePiece.posX + 4, 10U); boardX++)
+            {
+                if ((*board)[boardY][boardX].pieceID == activePiece.pieceID)
+                    // blank the block
+                    (*board)[boardY][boardX] = EMPTY_BLOCK;
+            }
 
-        // attempt to write it into the board
-        if (rewriteActivePiece(0, 0, false))
+        if (holdState)
         {
-            // generate new nextPiece
-            const PieceType PIECES[] = {I, J, L, O, S, T, Z};
-            nextPiece = PIECES[rand() % 7];
-            return true;
+            // we need to get the current active piece (that was the holding piece) into next so that spawnNextPiece will spawn it
+            PieceType currentNext = nextPiece; // save the current next piece to put it back after (so spawnNextPiece doesnt generate a new next piece)
+            std::swap(activePiece.pieceType, nextPiece);
+            spawnNextPiece();
+            nextPiece = currentNext;
         }
         else
-        {
-            // undo swaps if it failed
-            std::swap(activePiece.pieceType, nextPiece);
-            std::swap(holdPiece, activePiece.pieceType);
-            return false;
-        }
+            spawnNextPiece();
+
+        holdUsed = true;
+        return true;
     }
 }
 
@@ -512,6 +504,8 @@ bool TetroosController::swapHold()
 */
 void TetroosController::spawnNextPiece()
 {
+    holdUsed = false;
+
     // swap next piece into active
     std::swap(activePiece.pieceType, nextPiece);
 
