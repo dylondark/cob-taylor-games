@@ -306,7 +306,8 @@ Item {
                                 text: "HOLD"
                                 font.family: "Bodoni MT Black"
                                 font.bold: true
-                                font.pointSize: 20
+                                font.pointSize: 30
+                                anchors.centerIn: parent
                             }
 
                             background: Rectangle {
