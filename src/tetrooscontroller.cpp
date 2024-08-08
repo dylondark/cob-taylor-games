@@ -527,8 +527,15 @@ void TetroosController::spawnNextPiece()
     nextPiece = PIECES[rand() % 7];
 
     // attempt to write it into the board
-    if (!rewriteActivePiece(0, 0, false))
-        gameOver = true;
+    // if it cant fit, go offscreen until the piece can fit
+    // if it goes fully offscreen then end the game
+    for (int spawnY = activePiece.posY; spawnY < 20; spawnY++)
+    {
+        activePiece.posY = spawnY;
+        if (rewriteActivePiece(0, 0, false))
+            return;
+    }
+    gameOver = true;
 }
 
 /*
