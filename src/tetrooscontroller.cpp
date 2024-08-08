@@ -773,8 +773,18 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     // get the max width of the new piece and ensure it doesnt go out of bounds
     if (startPosX > 5) // only do this part if we are moving right and we are within 4 blocks away from the right edge
     {
-        if (getPieceDim(activePiece.pieceType, activePiece.rotation + rotate).first > 10U - startPosX)
-            return false;
+        unsigned edgeSpace = 10 - startPosX;
+
+        if (rotate)
+        {
+            // adjust the piece x so that we can write it at the rightmost possible position
+            unsigned widthAfterRotate = getPieceDim(activePiece.pieceType, activePiece.rotation + rotate).first;
+            if (widthAfterRotate > edgeSpace)
+                startPosX = 10 - widthAfterRotate;
+        }
+        else // if we are not rotating and just bumping into the edge, dont write anything
+            if (getPieceDim(activePiece.pieceType, activePiece.rotation).first > edgeSpace)
+                return false;
     }
 
     // get the grid for the active piece type
