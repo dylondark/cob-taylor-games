@@ -36,6 +36,11 @@ public:
     explicit TetroosController();
 
     /*
+        Destructor for TetroosController.
+    */
+    ~TetroosController();
+
+    /*
         Paint a new frame onto the canvas.
     */
     void paint(QPainter* painter) override;

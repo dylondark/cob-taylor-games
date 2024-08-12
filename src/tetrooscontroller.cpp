@@ -53,6 +53,16 @@ void TetroosController::startGame()
     gameTimer.start(1000); // this should be whatever the interval is at at level 1 according to the equation
 }
 
+TetroosController::~TetroosController()
+{
+    // Stop the logic thread
+    logicThread.quit();
+    logicThread.wait();
+
+    // Delete the dynamically allocated board
+    delete board;
+}
+
 
 /*
     Load the texture images and initialize the textures array with them.
