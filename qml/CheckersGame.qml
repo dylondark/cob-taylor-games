@@ -1,3 +1,9 @@
+/*
+    CheckersGame.qml
+
+    Main QML file for the Checkers game.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
