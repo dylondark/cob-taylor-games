@@ -357,7 +357,7 @@ void TetroosController::updateGame(GameAction trigger)
     }
 
     emit updateView(); // tell QML it is time to update the game information
-    update(); // begin painting a new frame (call paint())
+    QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
 }
 
 /*
