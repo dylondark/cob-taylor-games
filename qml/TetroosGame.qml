@@ -347,7 +347,7 @@ Item {
 
                                 Image {
                                     anchors.fill: parent
-                                    source: "qrc:/game/gamefiles/Tetroos/SlamArrow.png"
+                                    source: "gamefiles/Tetroos/SlamArrow.png"
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                 }
@@ -389,7 +389,7 @@ Item {
 
                                     Image {
                                         anchors.fill: parent
-                                        source: "qrc:/game/gamefiles/Tetroos/LftArrow.png"
+                                        source: "gamefiles/Tetroos/LftArrow.png"
                                         fillMode: Image.PreserveAspectFit
                                         smooth: true
                                         anchors.margins: 20 * root.scaleFactor
@@ -414,7 +414,7 @@ Item {
 
                                     Image {
                                         anchors.fill: parent
-                                        source: "qrc:/game/gamefiles/Tetroos/RtArrow.png"
+                                        source: "gamefiles/Tetroos/RtArrow.png"
                                         fillMode: Image.PreserveAspectFit
                                         smooth: true
                                         anchors.margins: 20 * root.scaleFactor
@@ -439,7 +439,7 @@ Item {
 
                                     Image {
                                         anchors.fill: parent
-                                        source: "qrc:/game/gamefiles/Tetroos/DwnArrow.png"
+                                        source: "gamefiles/Tetroos/DwnArrow.png"
                                         fillMode: Image.PreserveAspectFit
                                         smooth: true
                                         anchors.margins: 20 * root.scaleFactor
@@ -464,7 +464,7 @@ Item {
 
                                     Image {
                                         anchors.fill: parent
-                                        source: "qrc:/game/gamefiles/Tetroos/RotateArrow.png"
+                                        source: "gamefiles/Tetroos/RotateArrow.png"
                                         fillMode: Image.PreserveAspectFit
                                         smooth: true
                                         anchors.margins: 20 * root.scaleFactor

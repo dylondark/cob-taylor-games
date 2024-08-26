@@ -70,14 +70,14 @@ TetroosController::~TetroosController()
 std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadTextures()
 {
     return {
-        QImage(":/game/gamefiles/Tetroos/images/1-I-x0y0.png"), QImage(":/game/gamefiles/Tetroos/images/2-I-x0y1.png"), QImage(":/game/gamefiles/Tetroos/images/3-I-x0y2.png"), QImage(":/game/gamefiles/Tetroos/images/4-I-x0y3.png"),
-        QImage(":/game/gamefiles/Tetroos/images/5-J-x0y0.png"), QImage(":/game/gamefiles/Tetroos/images/6-J-x1y0.png"), QImage(":/game/gamefiles/Tetroos/images/7-J-x1y1.png"), QImage(":/game/gamefiles/Tetroos/images/8-J-x1y2.png"),
-        QImage(":/game/gamefiles/Tetroos/images/9-L-x0y0.png"), QImage(":/game/gamefiles/Tetroos/images/10-L-x1y0.png"), QImage(":/game/gamefiles/Tetroos/images/11-L-x0y1.png"), QImage(":/game/gamefiles/Tetroos/images/12-L-x0y2.png"),
-        QImage(":/game/gamefiles/Tetroos/images/13-O-x0y0.png"), QImage(":/game/gamefiles/Tetroos/images/14-O-x1y0.png"), QImage(":/game/gamefiles/Tetroos/images/15-O-x1y1.png"), QImage(":/game/gamefiles/Tetroos/images/16-O-x0y1.png"),
-        QImage(":/game/gamefiles/Tetroos/images/17-S-x0y0.png"), QImage(":/game/gamefiles/Tetroos/images/18-S-x1y0.png"), QImage(":/game/gamefiles/Tetroos/images/19-S-x1y1.png"), QImage(":/game/gamefiles/Tetroos/images/20-S-x2y1.png"),
-        QImage(":/game/gamefiles/Tetroos/images/21-T-x0y1.png"), QImage(":/game/gamefiles/Tetroos/images/22-T-x1y1.png"), QImage(":/game/gamefiles/Tetroos/images/23-T-x1y0.png"), QImage(":/game/gamefiles/Tetroos/images/24-T-x2y1.png"),
-        QImage(":/game/gamefiles/Tetroos/images/25-Z-x0y1.png"), QImage(":/game/gamefiles/Tetroos/images/26-Z-x1y1.png"), QImage(":/game/gamefiles/Tetroos/images/27-Z-x1y0.png"), QImage(":/game/gamefiles/Tetroos/images/28-Z-x2y0.png"),
-        QImage(":/game/gamefiles/Tetroos/images/29-blank.png")
+        QImage("gamefiles/Tetroos/images/1-I-x0y0.png"), QImage("gamefiles/Tetroos/images/2-I-x0y1.png"), QImage("gamefiles/Tetroos/images/3-I-x0y2.png"), QImage("gamefiles/Tetroos/images/4-I-x0y3.png"),
+        QImage("gamefiles/Tetroos/images/5-J-x0y0.png"), QImage("gamefiles/Tetroos/images/6-J-x1y0.png"), QImage("gamefiles/Tetroos/images/7-J-x1y1.png"), QImage("gamefiles/Tetroos/images/8-J-x1y2.png"),
+        QImage("gamefiles/Tetroos/images/9-L-x0y0.png"), QImage("gamefiles/Tetroos/images/10-L-x1y0.png"), QImage("gamefiles/Tetroos/images/11-L-x0y1.png"), QImage("gamefiles/Tetroos/images/12-L-x0y2.png"),
+        QImage("gamefiles/Tetroos/images/13-O-x0y0.png"), QImage("gamefiles/Tetroos/images/14-O-x1y0.png"), QImage("gamefiles/Tetroos/images/15-O-x1y1.png"), QImage("gamefiles/Tetroos/images/16-O-x0y1.png"),
+        QImage("gamefiles/Tetroos/images/17-S-x0y0.png"), QImage("gamefiles/Tetroos/images/18-S-x1y0.png"), QImage("gamefiles/Tetroos/images/19-S-x1y1.png"), QImage("gamefiles/Tetroos/images/20-S-x2y1.png"),
+        QImage("gamefiles/Tetroos/images/21-T-x0y1.png"), QImage("gamefiles/Tetroos/images/22-T-x1y1.png"), QImage("gamefiles/Tetroos/images/23-T-x1y0.png"), QImage("gamefiles/Tetroos/images/24-T-x2y1.png"),
+        QImage("gamefiles/Tetroos/images/25-Z-x0y1.png"), QImage("gamefiles/Tetroos/images/26-Z-x1y1.png"), QImage("gamefiles/Tetroos/images/27-Z-x1y0.png"), QImage("gamefiles/Tetroos/images/28-Z-x2y0.png"),
+        QImage("gamefiles/Tetroos/images/29-blank.png")
     };
 }
 
