@@ -23,6 +23,10 @@ HEADERS += \
     debuglabel.h \
     feedbackcontroller.h \
     cliparser.h \
+    flippedarray.h \
+    threadworker.h \
+    tetroosdata.h \
+    tetrooscontroller.h \
     profanitychecker.h \
     utilities.h \
     leaderboardtools.h \
@@ -43,6 +47,7 @@ SOURCES += \
     clickdetector.cpp \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
+    tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
     triviacontroller.cpp

@@ -11,12 +11,54 @@
         <file>qml/PongGame.qml</file>
         <file>qml/CheckersGame.qml</file>
         <file>qml/PreviewBase.qml</file>
+        <file>qml/TetroosPieceView.qml</file>
     </qresource>
     <qresource prefix="/game">
         <file>gamefiles/Tetroos/TetroosInGamePreview.png</file>
         <file>gamefiles/Zoccer/Zoccer.png</file>
         <file>gamefiles/Checkers/CheckersInGamePreview.png</file>
         <file>gamefiles/Hopper/Hopper.png</file>
+        <file>gamefiles/Tetroos/images/29-blank.png</file>
+        <file>gamefiles/Tetroos/images/28-Z-x2y0.png</file>
+        <file>gamefiles/Tetroos/images/27-Z-x1y0.png</file>
+        <file>gamefiles/Tetroos/images/26-Z-x1y1.png</file>
+        <file>gamefiles/Tetroos/images/25-Z-x0y1.png</file>
+        <file>gamefiles/Tetroos/images/24-T-x2y1.png</file>
+        <file>gamefiles/Tetroos/images/23-T-x1y0.png</file>
+        <file>gamefiles/Tetroos/images/22-T-x1y1.png</file>
+        <file>gamefiles/Tetroos/images/21-T-x0y1.png</file>
+        <file>gamefiles/Tetroos/images/20-S-x2y1.png</file>
+        <file>gamefiles/Tetroos/images/19-S-x1y1.png</file>
+        <file>gamefiles/Tetroos/images/18-S-x1y0.png</file>
+        <file>gamefiles/Tetroos/images/17-S-x0y0.png</file>
+        <file>gamefiles/Tetroos/images/16-O-x0y1.png</file>
+        <file>gamefiles/Tetroos/images/15-O-x1y1.png</file>
+        <file>gamefiles/Tetroos/images/14-O-x1y0.png</file>
+        <file>gamefiles/Tetroos/images/13-O-x0y0.png</file>
+        <file>gamefiles/Tetroos/images/12-L-x0y2.png</file>
+        <file>gamefiles/Tetroos/images/11-L-x0y1.png</file>
+        <file>gamefiles/Tetroos/images/10-L-x1y0.png</file>
+        <file>gamefiles/Tetroos/images/9-L-x0y0.png</file>
+        <file>gamefiles/Tetroos/images/8-J-x1y2.png</file>
+        <file>gamefiles/Tetroos/images/7-J-x1y1.png</file>
+        <file>gamefiles/Tetroos/images/6-J-x1y0.png</file>
+        <file>gamefiles/Tetroos/images/5-J-x0y0.png</file>
+        <file>gamefiles/Tetroos/images/4-I-x0y3.png</file>
+        <file>gamefiles/Tetroos/images/3-I-x0y2.png</file>
+        <file>gamefiles/Tetroos/images/2-I-x0y1.png</file>
+        <file>gamefiles/Tetroos/images/1-I-x0y0.png</file>
+        <file>gamefiles/Tetroos/images/Z.png</file>
+        <file>gamefiles/Tetroos/images/T.png</file>
+        <file>gamefiles/Tetroos/images/S.png</file>
+        <file>gamefiles/Tetroos/images/O.png</file>
+        <file>gamefiles/Tetroos/images/L.png</file>
+        <file>gamefiles/Tetroos/images/J.png</file>
+        <file>gamefiles/Tetroos/images/I.png</file>
+        <file>gamefiles/Tetroos/SlamArrow.png</file>
+        <file>gamefiles/Tetroos/RtArrow.png</file>
+        <file>gamefiles/Tetroos/RotateArrow.png</file>
+        <file>gamefiles/Tetroos/LftArrow.png</file>
+        <file>gamefiles/Tetroos/DwnArrow.png</file>
     </qresource>
     <qresource prefix="/menu">
         <file>menufiles/PongMotionPreview.png</file>
@@ -34,4 +76,5 @@
         <file>menufiles/projecticons/zippy2.png</file>
         <file>menufiles/projecticons/seal1.png</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

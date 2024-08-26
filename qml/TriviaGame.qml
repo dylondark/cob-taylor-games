@@ -375,6 +375,13 @@ Item {
                 }
 
                 /*
+                    Operations for starting the game.
+                */
+                function startGame() {
+                    newQuestion();
+                }
+
+                /*
                     Operations for when the game ends.
                 */
                 function endGame() {

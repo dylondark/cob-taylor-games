@@ -151,7 +151,7 @@ Item {
                                 // Proceed with the game logic
                                 base.visible = false
                                 gameBase.visible = true
-                                gameBase.newQuestion()
+                                gameBase.startGame()
                             }
                         }
                     }
@@ -204,7 +204,7 @@ Item {
                         // Proceed with the game logic
                         base.visible = false
                         gameBase.visible = true
-                        gameBase.newQuestion()
+                        gameBase.startGame()
                     }
                 }
             }

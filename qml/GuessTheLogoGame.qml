@@ -338,6 +338,13 @@ Item {
                     questionCountdown.beginCountdown();
                 }
 
+                /*
+                    Operations for starting the game.
+                */
+                function startGame() {
+                    newQuestion();
+                }
+
                 function endGame() {
                     gameBase.visible = false;
                     gameOverBase.gameOverOps();
