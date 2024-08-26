@@ -49,7 +49,7 @@ Item {
                 anchors.fill: parent
 
                 logoSource: "qrc:/menu/menufiles/HopperPreview.png"
-                conceptSource: "qrc:/game/gamefiles/Hopper/Hopper.png"
+                conceptSource: "gamefiles/Hopper/Hopper.png"
             }
         }
 
