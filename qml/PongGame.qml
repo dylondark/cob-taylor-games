@@ -49,7 +49,7 @@ Item {
                 anchors.fill: parent
 
                 logoSource: "qrc:/menu/menufiles/PongMotionPreview.png"
-                conceptSource: "qrc:/game/gamefiles/Zoccer/Zoccer.png"
+                conceptSource: "gamefiles/Zoccer/Zoccer.png"
             }
         }
 

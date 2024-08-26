@@ -15,7 +15,6 @@
     </qresource>
     <qresource prefix="/game">
         <file>gamefiles/Tetroos/TetroosInGamePreview.png</file>
-        <file>gamefiles/Zoccer/Zoccer.png</file>
         <file>gamefiles/Tetroos/images/29-blank.png</file>
         <file>gamefiles/Tetroos/images/28-Z-x2y0.png</file>
         <file>gamefiles/Tetroos/images/27-Z-x1y0.png</file>
