@@ -166,22 +166,22 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     {
         // check if neighboring blocks are part of the same piece
         // left
-        if (posX > 0 && (*board)[posY][posX - 1].pieceID != (*board)[posY][posX].pieceID)
+        if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != (*board)[posY][posX].pieceID)))
         {
             borderPainter.fillRect(0, 0, texture.width() / 8, texture.height(), blockColor); // left side
         }
         // top
-        if (posY > 0 && (*board)[posY - 1][posX].pieceID != (*board)[posY][posX].pieceID)
+        if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != (*board)[posY][posX].pieceID)))
         {
             borderPainter.fillRect(0, texture.height() - texture.height() / 8, texture.width(), texture.height() / 8, blockColor); // top side
         }
         // right
-        if (posX < 9 && (*board)[posY][posX + 1].pieceID != (*board)[posY][posX].pieceID)
+        if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != (*board)[posY][posX].pieceID)))
         {
             borderPainter.fillRect(texture.width() - texture.width() / 8, 0, texture.width() / 8, texture.height(), blockColor); // right side
         }
         // bottom
-        if (posY < 19 && (*board)[posY + 1][posX].pieceID != (*board)[posY][posX].pieceID)
+        if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != (*board)[posY][posX].pieceID)))
         {
             borderPainter.fillRect(0, 0, texture.width(), texture.height() / 8, blockColor); // bottom side
         }
