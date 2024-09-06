@@ -149,7 +149,21 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         texture = TEXTURES[28];
         blockColor = QColor(40, 20, 0);
     }
+    blockColor = blockColor.lighter(130);
 
+    // calculate and apply borders
+    if ((*board)[posY][posX].pieceType == empty)
+    {
+        // apply borders to all sides
+        QPainter borderPainter(&texture);
+        borderPainter.setOpacity(0.7);
+        borderPainter.fillRect(0, 0, texture.width() / 8, texture.height(), blockColor); // left side
+        borderPainter.fillRect(0, 0, texture.width(), texture.height() / 8, blockColor); // top side
+        borderPainter.fillRect(texture.width() - texture.width() / 8, 0, texture.width() / 8, texture.height(), blockColor); // right side
+        borderPainter.fillRect(0, texture.height() - texture.height() / 8, texture.width(), texture.height() / 8, blockColor); // bottom side
+    }
+
+    // apply silhouette
     if ((*board)[posY][posX].silhouette)
     {
         // overlay blank texture with half transparency
