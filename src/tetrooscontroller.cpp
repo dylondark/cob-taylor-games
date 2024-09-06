@@ -149,7 +149,7 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         texture = TEXTURES[28];
         blockColor = QColor(40, 20, 0);
     }
-    blockColor = blockColor.lighter(130);
+    blockColor = blockColor.darker(150);
 
     // calculate and apply borders
     QPainter borderPainter(&texture);
