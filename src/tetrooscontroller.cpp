@@ -152,15 +152,39 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     blockColor = blockColor.lighter(130);
 
     // calculate and apply borders
+    QPainter borderPainter(&texture);
+    borderPainter.setOpacity(0.7);
     if ((*board)[posY][posX].pieceType == empty)
     {
         // apply borders to all sides
-        QPainter borderPainter(&texture);
-        borderPainter.setOpacity(0.7);
         borderPainter.fillRect(0, 0, texture.width() / 8, texture.height(), blockColor); // left side
         borderPainter.fillRect(0, 0, texture.width(), texture.height() / 8, blockColor); // top side
         borderPainter.fillRect(texture.width() - texture.width() / 8, 0, texture.width() / 8, texture.height(), blockColor); // right side
         borderPainter.fillRect(0, texture.height() - texture.height() / 8, texture.width(), texture.height() / 8, blockColor); // bottom side
+    }
+    else
+    {
+        // check if neighboring blocks are part of the same piece
+        // left
+        if (posX > 0 && (*board)[posY][posX - 1].pieceID != (*board)[posY][posX].pieceID)
+        {
+            borderPainter.fillRect(0, 0, texture.width() / 8, texture.height(), blockColor); // left side
+        }
+        // top
+        if (posY > 0 && (*board)[posY - 1][posX].pieceID != (*board)[posY][posX].pieceID)
+        {
+            borderPainter.fillRect(0, texture.height() - texture.height() / 8, texture.width(), texture.height() / 8, blockColor); // top side
+        }
+        // right
+        if (posX < 9 && (*board)[posY][posX + 1].pieceID != (*board)[posY][posX].pieceID)
+        {
+            borderPainter.fillRect(texture.width() - texture.width() / 8, 0, texture.width() / 8, texture.height(), blockColor); // right side
+        }
+        // bottom
+        if (posY < 19 && (*board)[posY + 1][posX].pieceID != (*board)[posY][posX].pieceID)
+        {
+            borderPainter.fillRect(0, 0, texture.width(), texture.height() / 8, blockColor); // bottom side
+        }
     }
 
     // apply silhouette
