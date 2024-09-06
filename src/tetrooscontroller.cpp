@@ -113,31 +113,41 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // flip posY
     posY = 19 - posY;
 
+    // get texture and colors based on block type
+    QColor blockColor;
     switch ((*board)[posY][posX].pieceType)
     {
     case I:
         texture = TEXTURES[0];
+        blockColor = QColor(0, 242, 255);
         break;
     case J:
         texture = TEXTURES[4];
+        blockColor = QColor(255, 0, 225);
         break;
     case L:
         texture = TEXTURES[8];
+        blockColor = QColor(255, 123, 0);
         break;
     case O:
         texture = TEXTURES[12];
+        blockColor = QColor(255, 204, 0);
         break;
     case S:
         texture = TEXTURES[16];
+        blockColor = QColor(255, 0, 0);
         break;
     case T:
         texture = TEXTURES[20];
+        blockColor = QColor(172, 0, 255);
         break;
     case Z:
         texture = TEXTURES[24];
+        blockColor = QColor(0, 255, 0);
         break;
     case empty:
         texture = TEXTURES[28];
+        blockColor = QColor(40, 20, 0);
     }
 
     if ((*board)[posY][posX].silhouette)
