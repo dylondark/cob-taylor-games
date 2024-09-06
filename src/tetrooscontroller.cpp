@@ -154,6 +154,10 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // calculate and apply borders
     QPainter borderPainter(&texture);
     borderPainter.setOpacity(0.7);
+    int w = texture.width();
+    int h = texture.height();
+    int w8 = w / 8;
+    int h8 = h / 8;
     if ((*board)[posY][posX].pieceType == empty)
     {
         // apply borders to all sides
@@ -168,22 +172,22 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         // left
         if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(0, 0, texture.width() / 8, texture.height(), blockColor); // left side
+            borderPainter.fillRect(0, 0, w8, h, blockColor); // left side
         }
         // top
         if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(0, texture.height() - texture.height() / 8, texture.width(), texture.height() / 8, blockColor); // top side
+            borderPainter.fillRect(0, h - h8, w, h8, blockColor); // top side
         }
         // right
         if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(texture.width() - texture.width() / 8, 0, texture.width() / 8, texture.height(), blockColor); // right side
+            borderPainter.fillRect(w - w8, 0, w8, h, blockColor); // right side
         }
         // bottom
         if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(0, 0, texture.width(), texture.height() / 8, blockColor); // bottom side
+            borderPainter.fillRect(0, 0, w, h8, blockColor); // bottom side
         }
     }
 
