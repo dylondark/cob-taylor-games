@@ -172,22 +172,22 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         // left
         if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(0, 0, w8, h, blockColor); // left side
+            borderPainter.fillRect(0, h8, w8, h - h8 * 2, blockColor); // left side
         }
         // top
         if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(0, h - h8, w, h8, blockColor); // top side
+            borderPainter.fillRect(w8, h - h8, w - w8 * 2, h8, blockColor); // top side
         }
         // right
         if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(w - w8, 0, w8, h, blockColor); // right side
+            borderPainter.fillRect(w - w8, h8, w8, h - h8 * 2, blockColor); // right side
         }
         // bottom
         if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != (*board)[posY][posX].pieceID)))
         {
-            borderPainter.fillRect(0, 0, w, h8, blockColor); // bottom side
+            borderPainter.fillRect(w8, 0, w - w8 * 2, h8, blockColor); // bottom side
         }
     }
 
