@@ -8,12 +8,13 @@
 #include <QPainter>
 #include <QBuffer>
 #include "tetrooscontroller.h"
+#include "cliparser.h"
 
 /*
     Constructor for TetroosController.
 */
 TetroosController::TetroosController()
-    : QQuickPaintedItem(), TEXTURES(loadTextures()), gameTimer(QTimer(this))
+    : QQuickPaintedItem(), TEXTURES(loadTextures()), gameTimer(QTimer(this)), filepath(CliParser::getPath())
 {
     // seed the rng
     srand(time(NULL));
