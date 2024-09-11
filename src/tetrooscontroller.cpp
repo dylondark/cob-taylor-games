@@ -154,10 +154,11 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // calculate and apply borders
     QPainter borderPainter(&texture);
     borderPainter.setOpacity(0.7);
-    int w = texture.width();
-    int h = texture.height();
-    int w8 = w / 8;
-    int h8 = h / 8;
+    unsigned w = texture.width();
+    unsigned h = texture.height();
+    unsigned w8 = w / 8;
+    unsigned h8 = h / 8;
+    unsigned thisPieceID = (*board)[posY][posX].pieceID;
     if ((*board)[posY][posX].pieceType == empty)
     {
         // apply borders to all sides
@@ -170,26 +171,60 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     {
         // check if neighboring blocks are part of the same piece
         // left
-        if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != (*board)[posY][posX].pieceID)))
+        if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != thisPieceID)))
         {
             borderPainter.fillRect(0, h8, w8, h - h8 * 2, blockColor); // left side
         }
         // top
-        if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != (*board)[posY][posX].pieceID)))
+        if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != thisPieceID)))
         {
             borderPainter.fillRect(w8, h - h8, w - w8 * 2, h8, blockColor); // top side
         }
         // right
-        if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != (*board)[posY][posX].pieceID)))
+        if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != thisPieceID)))
         {
             borderPainter.fillRect(w - w8, h8, w8, h - h8 * 2, blockColor); // right side
         }
         // bottom
-        if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != (*board)[posY][posX].pieceID)))
+        if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != thisPieceID)))
         {
             borderPainter.fillRect(w8, 0, w - w8 * 2, h8, blockColor); // bottom side
         }
     }
+    // calculate and apply corners
+    // apply corner unless the block is fully surrounded by other blocks in the same piece
+    // top left
+    if (((posX - 1 <= 9) && (posY + 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY][posX - 1].pieceID) && (thisPieceID == (*board)[posY + 1][posX - 1].pieceID) && (thisPieceID == (*board)[posY + 1][posX].pieceID)))
+            borderPainter.fillRect(0, 0, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(0, 0, w8, h8, blockColor);
+    // top right
+    if (((posX + 1 <= 9) && (posY + 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY + 1][posX].pieceID) && (thisPieceID == (*board)[posY + 1][posX + 1].pieceID) && (thisPieceID == (*board)[posY][posX + 1].pieceID)))
+            borderPainter.fillRect(w - w8, 0, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(w - w8, 0, w8, h8, blockColor);
+    // bottom right
+    if (((posX + 1 <= 9) && (posY - 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY][posX + 1].pieceID) && (thisPieceID == (*board)[posY - 1][posX + 1].pieceID) && (thisPieceID == (*board)[posY - 1][posX].pieceID)))
+            borderPainter.fillRect(w - w8, h - h8, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(w - w8, h - h8, w8, h8, blockColor);
+    // bottom left
+    if (((posX - 1 <= 9) && (posY - 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY - 1][posX].pieceID) && (thisPieceID == (*board)[posY - 1][posX - 1].pieceID) && (thisPieceID == (*board)[posY][posX - 1].pieceID)))
+            borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
 
     // apply silhouette
     if ((*board)[posY][posX].silhouette)
