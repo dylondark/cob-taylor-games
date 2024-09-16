@@ -6,12 +6,13 @@
 
 #include "bgwidget.h"
 #include <QPainter>
+#include "cliparser.h"
 
 /*
     Constructor for bgWidget.
 */
 bgWidget::bgWidget(QWidget* parent)
-    : QOpenGLWidget(parent), LOOP_SECONDS(60), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_LOOPS(2)
+    : QOpenGLWidget(parent), filepath(CliParser::getPath()), LOOP_SECONDS(60), LOOP_MS(LOOP_SECONDS * 1000), GRADIENT_LOOPS(2)
 {
 
 }
