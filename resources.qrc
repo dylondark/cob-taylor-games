@@ -14,21 +14,6 @@
         <file>qml/TetroosPieceView.qml</file>
     </qresource>
     <qresource prefix="/game"/>
-    <qresource prefix="/menu">
-        <file>menufiles/PongMotionPreview.png</file>
-        <file>menufiles/HopperPreview.png</file>
-        <file>menufiles/TetroosPreview.png</file>
-        <file>menufiles/CheckersPreview.png</file>
-        <file>menufiles/trivia.png</file>
-        <file>menufiles/GuessTheLogoNEW.png</file>
-        <file>menufiles/title_splash.png</file>
-        <file>menufiles/projecticons/controller1.png</file>
-        <file>menufiles/projecticons/controller3.png</file>
-        <file>menufiles/projecticons/aroo1.png</file>
-        <file>menufiles/projecticons/z4.png</file>
-        <file>menufiles/projecticons/roo1.png</file>
-        <file>menufiles/projecticons/zippy2.png</file>
-        <file>menufiles/projecticons/seal1.png</file>
-    </qresource>
+    <qresource prefix="/menu"/>
     <qresource prefix="/"/>
 </RCC>
