@@ -172,7 +172,7 @@ Item {
 
             MenuBase {
                 id: menuBase
-                imageSource: "qrc:/menu/menufiles/trivia.png"
+                imageSource: filepath + "/menufiles/trivia.png"
             }
 
             Item {
@@ -619,7 +619,6 @@ Item {
                             id: questionImage
                             width: imageRect.width
                             height: imageRect.height
-                            source: "qrc:/game/gameassets/trivia/testimage.png"
                             fillMode: Image.PreserveAspectFit
                             smooth: true
 
