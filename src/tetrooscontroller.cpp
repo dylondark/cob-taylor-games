@@ -108,7 +108,7 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // THIS IS A PROTOTYPE IMPLEMENTATION FOR USE WITH THE PROTOTYPE TEXTURES
     // block-specific textures and rotation are not implemented yet
 
-    QImage texture;
+    QImage texture(TEXTURES[0].size(), QImage::Format_ARGB32);
 
     // flip posY
     posY = 19 - posY;
@@ -226,15 +226,22 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     else
         borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
 
-    // apply silhouette
+    // halve the opacity of the block if it is a silhouette
     if ((*board)[posY][posX].silhouette)
     {
-        // overlay blank texture with half transparency
-        QImage blank = TEXTURES[28];
-        QPainter painter(&texture);
-        painter.setOpacity(0.7);
-        painter.drawImage(0, 0, blank);
-        painter.end();
+        int width = texture.width();
+        int height = texture.height();
+        uchar *data = texture.bits();
+
+        // Each pixel is represented by 4 bytes (BGRA format)
+        for (int y = 0; y < height; ++y) {
+            QRgb *line = reinterpret_cast<QRgb *>(data + y * texture.bytesPerLine());
+            for (int x = 0; x < width; ++x) {
+                QRgb pixel = line[x];
+                int alpha = qAlpha(pixel) / 2; // Halve the alpha value
+                line[x] = qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), alpha);
+            }
+        }
     }
 
     return texture.scaled(QSize(this->height() / 20, this->width() / 10));
