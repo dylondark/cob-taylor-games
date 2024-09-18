@@ -159,6 +159,7 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     unsigned w8 = w / 8;
     unsigned h8 = h / 8;
     unsigned thisPieceID = (*board)[posY][posX].pieceID;
+    bool thisPieceSilhouette = (*board)[posY][posX].silhouette;
     if ((*board)[posY][posX].pieceType == empty)
     {
         // apply borders to all sides
@@ -171,22 +172,22 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     {
         // check if neighboring blocks are part of the same piece
         // left
-        if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != thisPieceID)))
+        if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != thisPieceID || (*board)[posY][posX - 1].silhouette != thisPieceSilhouette)))
         {
             borderPainter.fillRect(0, h8, w8, h - h8 * 2, blockColor); // left side
         }
         // top
-        if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != thisPieceID)))
+        if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != thisPieceID || (*board)[posY - 1][posX].silhouette != thisPieceSilhouette)))
         {
             borderPainter.fillRect(w8, h - h8, w - w8 * 2, h8, blockColor); // top side
         }
         // right
-        if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != thisPieceID)))
+        if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != thisPieceID || (*board)[posY][posX + 1].silhouette != thisPieceSilhouette)))
         {
             borderPainter.fillRect(w - w8, h8, w8, h - h8 * 2, blockColor); // right side
         }
         // bottom
-        if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != thisPieceID)))
+        if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != thisPieceID || (*board)[posY + 1][posX].silhouette != thisPieceSilhouette)))
         {
             borderPainter.fillRect(w8, 0, w - w8 * 2, h8, blockColor); // bottom side
         }
@@ -196,7 +197,9 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // top left
     if (((posX - 1 <= 9) && (posY + 1 <= 19)))
     {
-        if (!((thisPieceID == (*board)[posY][posX - 1].pieceID) && (thisPieceID == (*board)[posY + 1][posX - 1].pieceID) && (thisPieceID == (*board)[posY + 1][posX].pieceID)))
+        if (!((thisPieceID == (*board)[posY][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY][posX - 1].silhouette)
+             && (thisPieceID == (*board)[posY + 1][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX - 1].silhouette)
+             && (thisPieceID == (*board)[posY + 1][posX].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX].silhouette)))
             borderPainter.fillRect(0, 0, w8, h8, blockColor);
     }
     else
@@ -204,7 +207,9 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // top right
     if (((posX + 1 <= 9) && (posY + 1 <= 19)))
     {
-        if (!((thisPieceID == (*board)[posY + 1][posX].pieceID) && (thisPieceID == (*board)[posY + 1][posX + 1].pieceID) && (thisPieceID == (*board)[posY][posX + 1].pieceID)))
+        if (!((thisPieceID == (*board)[posY + 1][posX].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX].silhouette)
+             && (thisPieceID == (*board)[posY + 1][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX + 1].silhouette)
+             && (thisPieceID == (*board)[posY][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY][posX + 1].silhouette)))
             borderPainter.fillRect(w - w8, 0, w8, h8, blockColor);
     }
     else
@@ -212,7 +217,9 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // bottom right
     if (((posX + 1 <= 9) && (posY - 1 <= 19)))
     {
-        if (!((thisPieceID == (*board)[posY][posX + 1].pieceID) && (thisPieceID == (*board)[posY - 1][posX + 1].pieceID) && (thisPieceID == (*board)[posY - 1][posX].pieceID)))
+        if (!((thisPieceID == (*board)[posY][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY][posX + 1].silhouette)
+             && (thisPieceID == (*board)[posY - 1][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX + 1].silhouette)
+             && (thisPieceID == (*board)[posY - 1][posX].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX].silhouette)))
             borderPainter.fillRect(w - w8, h - h8, w8, h8, blockColor);
     }
     else
@@ -220,7 +227,9 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // bottom left
     if (((posX - 1 <= 9) && (posY - 1 <= 19)))
     {
-        if (!((thisPieceID == (*board)[posY - 1][posX].pieceID) && (thisPieceID == (*board)[posY - 1][posX - 1].pieceID) && (thisPieceID == (*board)[posY][posX - 1].pieceID)))
+        if (!((thisPieceID == (*board)[posY - 1][posX].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX].silhouette)
+             && (thisPieceID == (*board)[posY - 1][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX - 1].silhouette)
+             && (thisPieceID == (*board)[posY][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY][posX - 1].silhouette)))
             borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
     }
     else
