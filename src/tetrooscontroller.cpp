@@ -161,6 +161,14 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     }
     blockColor = blockColor.darker(150);
 
+    // rotate block texture
+    if (thisBlock.rotation != 0)
+    {
+        QTransform transform;
+        transform.rotate(90 * thisBlock.rotation);
+        texture = texture.transformed(transform);
+    }
+
     // calculate and apply borders
     QPainter borderPainter(&texture);
     borderPainter.setOpacity(0.7);
