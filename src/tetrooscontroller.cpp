@@ -226,22 +226,11 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     else
         borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
 
-    // halve the opacity of the block if it is a silhouette
+    // overlay blank texture at half opacity if the block is silhouette
     if ((*board)[posY][posX].silhouette)
     {
-        int width = texture.width();
-        int height = texture.height();
-        uchar *data = texture.bits();
-
-        // Each pixel is represented by 4 bytes (BGRA format)
-        for (int y = 0; y < height; ++y) {
-            QRgb *line = reinterpret_cast<QRgb *>(data + y * texture.bytesPerLine());
-            for (int x = 0; x < width; ++x) {
-                QRgb pixel = line[x];
-                int alpha = qAlpha(pixel) / 2; // Halve the alpha value
-                line[x] = qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), alpha);
-            }
-        }
+        borderPainter.setOpacity(0.5);
+        borderPainter.drawImage(0, 0, TEXTURES[28]);
     }
 
     return texture.scaled(QSize(this->height() / 20, this->width() / 10));
