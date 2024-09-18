@@ -113,9 +113,12 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     // flip posY
     posY = 19 - posY;
 
+    // get block
+    Block thisBlock = (*board)[posY][posX];
+
     // get texture and colors based on block type
     QColor blockColor;
-    switch ((*board)[posY][posX].pieceType)
+    switch (thisBlock.pieceType)
     {
     case I:
         texture = TEXTURES[0];
@@ -130,7 +133,14 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         blockColor = QColor(255, 123, 0);
         break;
     case O:
-        texture = TEXTURES[12];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = TEXTURES[12];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = TEXTURES[13];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = TEXTURES[14];
+        else if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = TEXTURES[15];
         blockColor = QColor(255, 204, 0);
         break;
     case S:
@@ -158,9 +168,9 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     unsigned h = texture.height();
     unsigned w8 = w / 8;
     unsigned h8 = h / 8;
-    unsigned thisPieceID = (*board)[posY][posX].pieceID;
-    bool thisPieceSilhouette = (*board)[posY][posX].silhouette;
-    if ((*board)[posY][posX].pieceType == empty)
+    unsigned thisPieceID = thisBlock.pieceID;
+    bool thisPieceSilhouette = thisBlock.silhouette;
+    if (thisBlock.pieceType == empty)
     {
         // apply borders to all sides
         borderPainter.fillRect(0, 0, texture.width() / 8, texture.height(), blockColor); // left side
@@ -236,7 +246,7 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
 
     // overlay blank texture at half opacity if the block is silhouette
-    if ((*board)[posY][posX].silhouette)
+    if (thisBlock.silhouette)
     {
         borderPainter.setOpacity(0.5);
         borderPainter.drawImage(0, 0, TEXTURES[28]);
