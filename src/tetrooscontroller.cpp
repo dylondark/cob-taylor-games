@@ -538,7 +538,7 @@ void TetroosController::applySilhouette()
             {
                 // get the two blocks we are examining
                 Block currentBlockInBoard = (*board)[boardY][boardX];
-                bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
+                bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX].filled;
 
                 if (currentBlockInBoard.pieceType != empty && currentBlockInBoard.pieceID != activePiece.pieceID && currentBlockInPiece == true)
                     collision = true;
@@ -565,10 +565,10 @@ void TetroosController::applySilhouette()
         {
             // get reference to block since we are modifying it
             Block* currentBlockInBoard = &(*board)[boardY][boardX];
-            bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
+            PieceGridBlock currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
 
-            if (currentBlockInPiece == true && currentBlockInBoard->pieceID != activePiece.pieceID)
-                *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, true, pieceX, pieceY};
+            if (currentBlockInPiece.filled == true && currentBlockInBoard->pieceID != activePiece.pieceID)
+                *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, true, currentBlockInPiece.posX, currentBlockInPiece.posY};
 
             ++pieceX;
         }
@@ -813,9 +813,9 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
     {
         // Checks if row is empty, if empty will swap up the row
         bool check = false;
-        for (bool cell : returnGrid[0])
+        for (PieceGridBlock cell : returnGrid[0])
         {
-            if (cell)
+            if (cell.filled)
             {
                 check = true;
                 break;
@@ -839,7 +839,7 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         bool isLeftColumnEmpty = true;
         for (unsigned row = 0; row < 4; row++)
         {
-            if (returnGrid[row][0] != 0) // Assuming non-zero values mean non-empty cells
+            if (returnGrid[row][0].filled != false)
             {
                 isLeftColumnEmpty = false;
                 break;
@@ -862,7 +862,7 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         // Clear the rightmost column after shifting
         for (unsigned row = 0; row < 4; row++)
         {
-            returnGrid[row][3] = 0;
+            returnGrid[row][3].filled = false;
         }
     }
     return returnGrid;
@@ -910,7 +910,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
-            if ((*board)[boardY][boardX].pieceType != empty && (*board)[boardY][boardX].pieceID != activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
+            if ((*board)[boardY][boardX].pieceType != empty && (*board)[boardY][boardX].pieceID != activePiece.pieceID && NEW_PIECE[pieceY][pieceX].filled)
                 return false;
 
             ++pieceX;
@@ -938,8 +938,8 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
-            if (NEW_PIECE[pieceY][pieceX])
-                (*board)[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
+            if (NEW_PIECE[pieceY][pieceX].filled)
+                (*board)[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, NEW_PIECE[pieceY][pieceX].posX, NEW_PIECE[pieceY][pieceX].posY};
 
             ++pieceX;
         }
@@ -972,7 +972,7 @@ std::pair<unsigned, unsigned> TetroosController::getPieceDim(PieceType piece, un
     {
         for (unsigned y = 0; y < 4; y++)
         {
-            if (NEW_PIECE[y][x])
+            if (NEW_PIECE[y][x].filled)
             {
                 isBlockInColumn = true;
                 break;
@@ -989,7 +989,7 @@ std::pair<unsigned, unsigned> TetroosController::getPieceDim(PieceType piece, un
     {
         for (unsigned x = 0; x < 4; x++)
         {
-            if (NEW_PIECE[y][x])
+            if (NEW_PIECE[y][x].filled)
             {
                 isBlockInRow = true;
                 break;
