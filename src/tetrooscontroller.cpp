@@ -121,15 +121,36 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     switch (thisBlock.pieceType)
     {
     case I:
-        texture = TEXTURES[0];
+        if (thisBlock.posY == 0)
+            texture = TEXTURES[0];
+        else if (thisBlock.posY == 1)
+            texture = TEXTURES[1];
+        else if (thisBlock.posY == 2)
+            texture = TEXTURES[2];
+        else if (thisBlock.posY == 3)
+            texture = TEXTURES[3];
         blockColor = QColor(0, 242, 255);
         break;
     case J:
-        texture = TEXTURES[4];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = TEXTURES[4];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = TEXTURES[5];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = TEXTURES[6];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 2)
+            texture = TEXTURES[7];
         blockColor = QColor(255, 0, 225);
         break;
     case L:
-        texture = TEXTURES[8];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = TEXTURES[8];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = TEXTURES[9];
+        else if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = TEXTURES[10];
+        else if (thisBlock.posX == 0 && thisBlock.posY == 2)
+            texture = TEXTURES[11];
         blockColor = QColor(255, 123, 0);
         break;
     case O:
@@ -144,15 +165,36 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
         blockColor = QColor(255, 204, 0);
         break;
     case S:
-        texture = TEXTURES[16];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = TEXTURES[16];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = TEXTURES[17];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = TEXTURES[18];
+        else if (thisBlock.posX == 2 && thisBlock.posY == 1)
+            texture = TEXTURES[19];
         blockColor = QColor(255, 0, 0);
         break;
     case T:
-        texture = TEXTURES[20];
+        if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = TEXTURES[20];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = TEXTURES[21];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = TEXTURES[22];
+        else if (thisBlock.posX == 2 && thisBlock.posY == 1)
+            texture = TEXTURES[23];
         blockColor = QColor(172, 0, 255);
         break;
     case Z:
-        texture = TEXTURES[24];
+        if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = TEXTURES[24];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = TEXTURES[25];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = TEXTURES[26];
+        else if (thisBlock.posX == 2 && thisBlock.posY == 0)
+            texture = TEXTURES[27];
         blockColor = QColor(0, 255, 0);
         break;
     case empty:
