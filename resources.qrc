@@ -12,6 +12,7 @@
         <file>qml/CheckersGame.qml</file>
         <file>qml/PreviewBase.qml</file>
         <file>qml/TetroosPieceView.qml</file>
+        <file>qml/ZippyHop.qml</file>
     </qresource>
     <qresource prefix="/game"/>
     <qresource prefix="/menu"/>
