@@ -105,9 +105,6 @@ void TetroosController::paint(QPainter* painter)
 */
 QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
 {
-    // THIS IS A PROTOTYPE IMPLEMENTATION FOR USE WITH THE PROTOTYPE TEXTURES
-    // block-specific textures and rotation are not implemented yet
-
     QImage texture(TEXTURES[0].size(), QImage::Format_ARGB32);
 
     // flip posY
