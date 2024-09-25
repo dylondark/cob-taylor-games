@@ -13,13 +13,16 @@
     Constructor for TetroosController.
 */
 TetroosController::TetroosController()
-    : QQuickPaintedItem(), TEXTURES(loadTextures()), gameTimer(QTimer(this))
+    : QQuickPaintedItem(), TEXTURES_ORIGINAL(loadTextures()), gameTimer(QTimer(this))
 {
     // seed the rng
     srand(time(NULL));
 
     // connect gameTimer timeout signal to timerTick slot method
     connect(&gameTimer, &QTimer::timeout, this, &TetroosController::timerTick);
+
+    // connect width changed signal to size changed slot
+    connect(this, &TetroosController::widthChanged, this, &TetroosController::onSizeChanged);
 
     // populate board with empty values
     board = new FlippedArray<std::array<Block, 10>, 20>;
@@ -82,6 +85,16 @@ std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadText
 }
 
 /*
+    Runs when size of the widget changes. Smoothly rescales the textures to fit the new size.
+*/
+void TetroosController::onSizeChanged()
+{
+    // scale each texture to the new size and store in texturesScaled
+    for (unsigned i = 0; i < TEXTURE_COUNT; i++)
+        texturesScaled[i] = TEXTURES_ORIGINAL[i].scaled(QSize(this->height() / 20, this->width() / 10), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+}
+
+/*
     Paint a new frame onto the canvas.
 */
 void TetroosController::paint(QPainter* painter)
@@ -100,7 +113,7 @@ void TetroosController::paint(QPainter* painter)
 */
 QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
 {
-    QImage texture(TEXTURES[0].size(), QImage::Format_ARGB32);
+    QImage texture(texturesScaled[0].size(), QImage::Format_ARGB32);
 
     // flip posY
     posY = 19 - posY;
@@ -114,83 +127,83 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     {
     case I:
         if (thisBlock.posY == 0)
-            texture = TEXTURES[0];
+            texture = texturesScaled[0];
         else if (thisBlock.posY == 1)
-            texture = TEXTURES[1];
+            texture = texturesScaled[1];
         else if (thisBlock.posY == 2)
-            texture = TEXTURES[2];
+            texture = texturesScaled[2];
         else if (thisBlock.posY == 3)
-            texture = TEXTURES[3];
+            texture = texturesScaled[3];
         blockColor = QColor(0, 242, 255);
         break;
     case J:
         if (thisBlock.posX == 0 && thisBlock.posY == 0)
-            texture = TEXTURES[4];
+            texture = texturesScaled[4];
         else if (thisBlock.posX == 1 && thisBlock.posY == 0)
-            texture = TEXTURES[5];
+            texture = texturesScaled[5];
         else if (thisBlock.posX == 1 && thisBlock.posY == 1)
-            texture = TEXTURES[6];
+            texture = texturesScaled[6];
         else if (thisBlock.posX == 1 && thisBlock.posY == 2)
-            texture = TEXTURES[7];
+            texture = texturesScaled[7];
         blockColor = QColor(255, 0, 225);
         break;
     case L:
         if (thisBlock.posX == 0 && thisBlock.posY == 0)
-            texture = TEXTURES[8];
+            texture = texturesScaled[8];
         else if (thisBlock.posX == 1 && thisBlock.posY == 0)
-            texture = TEXTURES[9];
+            texture = texturesScaled[9];
         else if (thisBlock.posX == 0 && thisBlock.posY == 1)
-            texture = TEXTURES[10];
+            texture = texturesScaled[10];
         else if (thisBlock.posX == 0 && thisBlock.posY == 2)
-            texture = TEXTURES[11];
+            texture = texturesScaled[11];
         blockColor = QColor(255, 123, 0);
         break;
     case O:
         if (thisBlock.posX == 0 && thisBlock.posY == 0)
-            texture = TEXTURES[12];
+            texture = texturesScaled[12];
         else if (thisBlock.posX == 1 && thisBlock.posY == 0)
-            texture = TEXTURES[13];
+            texture = texturesScaled[13];
         else if (thisBlock.posX == 1 && thisBlock.posY == 1)
-            texture = TEXTURES[14];
+            texture = texturesScaled[14];
         else if (thisBlock.posX == 0 && thisBlock.posY == 1)
-            texture = TEXTURES[15];
+            texture = texturesScaled[15];
         blockColor = QColor(255, 204, 0);
         break;
     case S:
         if (thisBlock.posX == 0 && thisBlock.posY == 0)
-            texture = TEXTURES[16];
+            texture = texturesScaled[16];
         else if (thisBlock.posX == 1 && thisBlock.posY == 0)
-            texture = TEXTURES[17];
+            texture = texturesScaled[17];
         else if (thisBlock.posX == 1 && thisBlock.posY == 1)
-            texture = TEXTURES[18];
+            texture = texturesScaled[18];
         else if (thisBlock.posX == 2 && thisBlock.posY == 1)
-            texture = TEXTURES[19];
+            texture = texturesScaled[19];
         blockColor = QColor(255, 0, 0);
         break;
     case T:
         if (thisBlock.posX == 0 && thisBlock.posY == 1)
-            texture = TEXTURES[20];
+            texture = texturesScaled[20];
         else if (thisBlock.posX == 1 && thisBlock.posY == 1)
-            texture = TEXTURES[21];
+            texture = texturesScaled[21];
         else if (thisBlock.posX == 1 && thisBlock.posY == 0)
-            texture = TEXTURES[22];
+            texture = texturesScaled[22];
         else if (thisBlock.posX == 2 && thisBlock.posY == 1)
-            texture = TEXTURES[23];
+            texture = texturesScaled[23];
         blockColor = QColor(172, 0, 255);
         break;
     case Z:
         if (thisBlock.posX == 0 && thisBlock.posY == 1)
-            texture = TEXTURES[24];
+            texture = texturesScaled[24];
         else if (thisBlock.posX == 1 && thisBlock.posY == 1)
-            texture = TEXTURES[25];
+            texture = texturesScaled[25];
         else if (thisBlock.posX == 1 && thisBlock.posY == 0)
-            texture = TEXTURES[26];
+            texture = texturesScaled[26];
         else if (thisBlock.posX == 2 && thisBlock.posY == 0)
-            texture = TEXTURES[27];
+            texture = texturesScaled[27];
         blockColor = QColor(0, 255, 0);
         break;
     case empty:
-        texture = TEXTURES[28];
+        texture = texturesScaled[28];
         blockColor = QColor(40, 20, 0);
     }
     blockColor = blockColor.darker(150);
@@ -291,10 +304,10 @@ QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
     if (thisBlock.silhouette)
     {
         borderPainter.setOpacity(0.5);
-        borderPainter.drawImage(0, 0, TEXTURES[28]);
+        borderPainter.drawImage(0, 0, texturesScaled[28]);
     }
 
-    return texture.scaled(QSize(this->height() / 20, this->width() / 10));
+    return texture;
 }
 
 /*

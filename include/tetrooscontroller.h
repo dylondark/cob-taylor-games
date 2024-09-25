@@ -127,6 +127,11 @@ private slots:
     */
     void timerTick();
 
+    /*
+        Runs when size of the widget changes. Smoothly rescales the textures to fit the new size.
+    */
+    void onSizeChanged();
+
 private:
     // The amount of textures to hold in the textures array.
     const static unsigned TEXTURE_COUNT = 29;
@@ -135,7 +140,10 @@ private:
     const unsigned LEVEL_ROW_CLEARS = 5;
 
     // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
-    const std::array<QImage, TEXTURE_COUNT> TEXTURES;
+    const std::array<QImage, TEXTURE_COUNT> TEXTURES_ORIGINAL;
+
+    // Contains the textures for all the blocks scaled to the current size of the widget.
+    std::array<QImage, TEXTURE_COUNT> texturesScaled;
 
     // The main thread used to execute game logic calculations.
     QThread logicThread;
