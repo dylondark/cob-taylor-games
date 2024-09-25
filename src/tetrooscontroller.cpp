@@ -97,11 +97,6 @@ void TetroosController::paint(QPainter* painter)
 /*
     Calculates and returns the block texture at a given block.
     Calculation is based on the values of the block struct at the given block.
-
-    Currently the plan is to apply rotation and silhouette dynamically on the preexisting images if needed before passing to QML
-    to simplify the amount of textures we need to create and store.
-    However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
-    This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
 */
 QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
 {
