@@ -140,6 +140,7 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 color: "black"
+                                font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"
                                     border.color: "black"
@@ -181,6 +182,7 @@ Item {
                                 id: scoreVar
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
+                                font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"
                                     border.color: "black"
@@ -225,6 +227,7 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 color: "black"
+                                font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"
                                     border.color: "black"
