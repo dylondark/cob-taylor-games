@@ -34,7 +34,7 @@ Item {
             id: bodoniText
             font.family: "Bodoni MT Heavy Italic"
             font.bold: true
-            font.pointSize: 60 * scaleFactor
+            font.pointSize: 60 * root.scaleFactor
         }
     }
 
@@ -309,7 +309,7 @@ Item {
                                 text: "HOLD"
                                 font.family: "Bodoni MT Black"
                                 font.bold: true
-                                font.pointSize: 30
+                                font.pointSize: 50 * root.scaleFactor
                                 anchors.centerIn: parent
                             }
 
