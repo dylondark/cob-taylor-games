@@ -28,6 +28,7 @@
 */
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
+    , filepath(CliParser::getPath())
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -200,15 +201,15 @@ void MainWindow::resizeEvent([[maybe_unused]] QResizeEvent* event)
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
 
     // scale and reapply title image
-    ui->lblTitle->setPixmap(QPixmap(":/menu/menufiles/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->lblTitle->setPixmap(QPixmap(filepath + "/menufiles/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     // apply button images
-    setBtnIcon(ui->btnGame1, ":/menu/menufiles/trivia.png");// UATrivia
-    setBtnIcon(ui->btnGame2, ":/menu/menufiles/GuessTheLogoNEW.png");//GuessTheLogo
-    setBtnIcon(ui->btnGame3, ":/menu/menufiles/TetroosPreview.png");//Tetroos
-    setBtnIcon(ui->btnGame4, ":/menu/menufiles/HopperPreview.png"); //ZippyHop
-    setBtnIcon(ui->btnGame5, ":/menu/menufiles/PongMotionPreview.png");//pong
-    setBtnIcon(ui->btnGame6, ":/menu/menufiles/CheckersPreview.png");//checkers
+    setBtnIcon(ui->btnGame1, QString(filepath + "/menufiles/trivia.png").toStdString());// UATrivia
+    setBtnIcon(ui->btnGame2, QString(filepath + "/menufiles/GuessTheLogoNEW.png").toStdString());//GuessTheLogo
+    setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/TetroosPreview.png").toStdString());//Tetroos
+    setBtnIcon(ui->btnGame4, QString(filepath + "/menufiles/HopperPreview.png").toStdString()); //ZippyHop
+    setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/PongMotionPreview.png").toStdString());//pong
+    setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/CheckersPreview.png").toStdString());//checkers
 
     // scale functions
     scaleMenu(wh[1]);
@@ -508,6 +509,7 @@ void MainWindow::showGame(game game)
         // set size parameters for the window
         currentView->setResizeMode(QQuickView::SizeRootObjectToView); // size the internal qml view to the same size as the window
         currentView->setBaseSize(this->size()); // set window size to the size of the main window
+        currentView->rootContext()->setContextProperty("filepath", QString("file://").append(filepath)); // embed filepath as QString context property
 
         // connect the required signals and slots
         connect((QObject*)currentView->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
@@ -526,6 +528,7 @@ void MainWindow::showGame(game game)
 
         // set size mode
         currentWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+        currentWidget->rootContext()->setContextProperty("filepath", QString("file://").append(filepath));
 
         // connect the required signals and slots
         connect((QObject*)currentWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));

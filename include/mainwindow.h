@@ -152,6 +152,13 @@ private slots:
 
 private:
 
+    /*
+        The base of the paths. Should be the location of the folder containing the gamefiles folder.
+        By default it is set to the path of the executable.
+        Will be set to whatever path is specified with the -p CLI parameter if it is used.
+    */
+    const QString filepath;
+
     // Target resolution for the application, 2160x3840.
     const int targetW = 2160, targetH = 3840;
 

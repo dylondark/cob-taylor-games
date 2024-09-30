@@ -48,8 +48,8 @@ Item {
 
                 anchors.fill: parent
 
-                logoSource: "qrc:/menu/menufiles/CheckersPreview.png"
-                conceptSource: "qrc:/game/gamefiles/Checkers/CheckersInGamePreview.png"
+                logoSource: filepath + "/menufiles/CheckersPreview.png"
+                conceptSource: filepath + "/gamefiles/Checkers/CheckersInGamePreview.png"
             }
         }
 

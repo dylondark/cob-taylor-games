@@ -166,7 +166,7 @@ Item {
 
             MenuBase {
                 id: menuBase
-                imageSource: "qrc:/menu/menufiles/GuessTheLogoNEW.png"
+                imageSource: filepath + "/menufiles/GuessTheLogoNEW.png"
             }
 
             Item {
@@ -580,7 +580,6 @@ Item {
                             id: questionImage
                             width: imageRect.width
                             height: imageRect.height
-                            source: "qrc:/game/gameassets/trivia/testimage.png"
                             fillMode: Image.PreserveAspectFit
                             smooth: true
 

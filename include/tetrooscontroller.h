@@ -133,6 +133,14 @@ private slots:
     void onSizeChanged();
 
 private:
+
+    /*
+        The base of the paths. Should be the location of the folder containing the gamefiles folder.
+        By default it is set to the path of the executable.
+        Will be set to whatever path is specified with the -p CLI parameter if it is used.
+    */
+    const QString filepath;
+
     // The amount of textures to hold in the textures array.
     const static unsigned TEXTURE_COUNT = 29;
 

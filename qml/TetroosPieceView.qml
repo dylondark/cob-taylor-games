@@ -16,25 +16,25 @@ Rectangle {
     function setPiece(piece) {
         switch (piece) {
         case 'I':
-            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/I.png";
+            pieceImg.source = filepath + "/gamefiles/Tetroos/images/I.png";
             break;
         case 'J':
-            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/J.png";
+            pieceImg.source = filepath + "/gamefiles/Tetroos/images/J.png";
             break;
         case 'L':
-            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/L.png";
+            pieceImg.source = filepath + "/gamefiles/Tetroos/images/L.png";
             break;
         case 'O':
-            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/O.png";
+            pieceImg.source = filepath + "/gamefiles/Tetroos/images/O.png";
             break;
         case 'S':
-            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/S.png";
+            pieceImg.source = filepath + "/gamefiles/Tetroos/images/S.png";
             break;
         case 'T':
-            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/T.png";
+            pieceImg.source = filepath + "/gamefiles/Tetroos/images/T.png";
             break;
         case 'Z':
-            pieceImg.source = "qrc:/game/gamefiles/Tetroos/images/Z.png";
+            pieceImg.source = filepath + "/gamefiles/Tetroos/images/Z.png";
             break;
         default:
             pieceImg.source = "";

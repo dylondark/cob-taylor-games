@@ -64,6 +64,13 @@ protected:
 
 private:
 
+    /*
+        The base of the paths. Should be the location of the folder containing the gamefiles folder.
+        By default it is set to the path of the executable.
+        Will be set to whatever path is specified with the -p CLI parameter if it is used.
+    */
+    const QString filepath;
+
     // The duration (in seconds) of the loop.
     const int LOOP_SECONDS;
 
@@ -81,13 +88,13 @@ private:
 
     // Contains QPixmaps containing all the images to use for the background.
     std::vector<QPixmap> pictures =
-        {QPixmap(":/menu/menufiles/projecticons/controller1.png"),
-         QPixmap(":/menu/menufiles/projecticons/controller3.png"),
-         QPixmap(":/menu/menufiles/projecticons/aroo1.png"),
-         QPixmap(":/menu/menufiles/projecticons/z4.png"),
-         QPixmap(":/menu/menufiles/projecticons/roo1.png"),
-         QPixmap(":/menu/menufiles/projecticons/zippy2.png"),
-         QPixmap(":/menu/menufiles/projecticons/seal1.png")};
+        {QPixmap(filepath + "/menufiles/projecticons/controller1.png"),
+         QPixmap(filepath + "/menufiles/projecticons/controller3.png"),
+         QPixmap(filepath + "/menufiles/projecticons/aroo1.png"),
+         QPixmap(filepath + "/menufiles/projecticons/z4.png"),
+         QPixmap(filepath + "/menufiles/projecticons/roo1.png"),
+         QPixmap(filepath + "/menufiles/projecticons/zippy2.png"),
+         QPixmap(filepath + "/menufiles/projecticons/seal1.png")};
 
     // Queue that contains the images to be painted on the background.
     imgQueue queue = imgQueue(pictures);

@@ -35,8 +35,8 @@ QString CliParser::getPath()
     }
 
     // If -p is never found or the path isn't valid, then
-    path = ".";
-    return path; // Return empty path.
+    path = QCoreApplication::applicationDirPath();
+    return path; // return path of executable
 }
 
 /*
