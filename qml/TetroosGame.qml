@@ -34,7 +34,7 @@ Item {
             id: bodoniText
             font.family: "Bodoni MT Heavy Italic"
             font.bold: true
-            font.pointSize: 60 * scaleFactor
+            font.pointSize: 60 * root.scaleFactor
         }
     }
 
@@ -140,6 +140,7 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 color: "black"
+                                font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"
                                     border.color: "black"
@@ -181,6 +182,7 @@ Item {
                                 id: scoreVar
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
+                                font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"
                                     border.color: "black"
@@ -225,6 +227,7 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 color: "black"
+                                font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"
                                     border.color: "black"
@@ -306,7 +309,7 @@ Item {
                                 text: "HOLD"
                                 font.family: "Bodoni MT Black"
                                 font.bold: true
-                                font.pointSize: 30
+                                font.pointSize: 50 * root.scaleFactor
                                 anchors.centerIn: parent
                             }
 
