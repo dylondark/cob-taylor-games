@@ -249,7 +249,7 @@ Item {
 
                     TetroosPieceView {
                         id: holdView
-                        anchors.top: parent.top
+                        anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
                         anchors.right: controller.left
                         height: width
@@ -273,7 +273,7 @@ Item {
 
                     TetroosPieceView {
                         id: nextView
-                        anchors.top: parent.top
+                        anchors.verticalCenter: parent.verticalCenter
                         anchors.left: controller.right
                         anchors.right: parent.right
                         height: width

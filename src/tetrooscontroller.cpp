@@ -14,13 +14,16 @@
     Constructor for TetroosController.
 */
 TetroosController::TetroosController()
-    : QQuickPaintedItem(), TEXTURES(loadTextures()), gameTimer(QTimer(this)), filepath(CliParser::getPath())
+    : QQuickPaintedItem(), TEXTURES_ORIGINAL(loadTextures()), gameTimer(QTimer(this)), filepath(CliParser::getPath())
 {
     // seed the rng
     srand(time(NULL));
 
     // connect gameTimer timeout signal to timerTick slot method
     connect(&gameTimer, &QTimer::timeout, this, &TetroosController::timerTick);
+
+    // connect width changed signal to size changed slot
+    connect(this, &TetroosController::widthChanged, this, &TetroosController::onSizeChanged);
 
     // populate board with empty values
     board = new FlippedArray<std::array<Block, 10>, 20>;
@@ -83,6 +86,16 @@ std::array<QImage, TetroosController::TEXTURE_COUNT> TetroosController::loadText
 }
 
 /*
+    Runs when size of the widget changes. Smoothly rescales the textures to fit the new size.
+*/
+void TetroosController::onSizeChanged()
+{
+    // scale each texture to the new size and store in texturesScaled
+    for (unsigned i = 0; i < TEXTURE_COUNT; i++)
+        texturesScaled[i] = TEXTURES_ORIGINAL[i].scaled(QSize(this->height() / 20, this->width() / 10), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+}
+
+/*
     Paint a new frame onto the canvas.
 */
 void TetroosController::paint(QPainter* painter)
@@ -98,60 +111,204 @@ void TetroosController::paint(QPainter* painter)
 /*
     Calculates and returns the block texture at a given block.
     Calculation is based on the values of the block struct at the given block.
-
-    Currently the plan is to apply rotation and silhouette dynamically on the preexisting images if needed before passing to QML
-    to simplify the amount of textures we need to create and store.
-    However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
-    This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
 */
 QImage TetroosController::getTextureAt(unsigned posX, unsigned posY)
 {
-    // THIS IS A PROTOTYPE IMPLEMENTATION FOR USE WITH THE PROTOTYPE TEXTURES
-    // block-specific textures and rotation are not implemented yet
-
-    QImage texture;
+    QImage texture(texturesScaled[0].size(), QImage::Format_ARGB32);
 
     // flip posY
     posY = 19 - posY;
 
-    switch ((*board)[posY][posX].pieceType)
+    // get block
+    Block thisBlock = (*board)[posY][posX];
+
+    // get texture and colors based on block type
+    QColor blockColor;
+    switch (thisBlock.pieceType)
     {
     case I:
-        texture = TEXTURES[0];
+        if (thisBlock.posY == 0)
+            texture = texturesScaled[0];
+        else if (thisBlock.posY == 1)
+            texture = texturesScaled[1];
+        else if (thisBlock.posY == 2)
+            texture = texturesScaled[2];
+        else if (thisBlock.posY == 3)
+            texture = texturesScaled[3];
+        blockColor = QColor(0, 242, 255);
         break;
     case J:
-        texture = TEXTURES[4];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = texturesScaled[4];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = texturesScaled[5];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = texturesScaled[6];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 2)
+            texture = texturesScaled[7];
+        blockColor = QColor(255, 0, 225);
         break;
     case L:
-        texture = TEXTURES[8];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = texturesScaled[8];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = texturesScaled[9];
+        else if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = texturesScaled[10];
+        else if (thisBlock.posX == 0 && thisBlock.posY == 2)
+            texture = texturesScaled[11];
+        blockColor = QColor(255, 123, 0);
         break;
     case O:
-        texture = TEXTURES[12];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = texturesScaled[12];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = texturesScaled[13];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = texturesScaled[14];
+        else if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = texturesScaled[15];
+        blockColor = QColor(255, 204, 0);
         break;
     case S:
-        texture = TEXTURES[16];
+        if (thisBlock.posX == 0 && thisBlock.posY == 0)
+            texture = texturesScaled[16];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = texturesScaled[17];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = texturesScaled[18];
+        else if (thisBlock.posX == 2 && thisBlock.posY == 1)
+            texture = texturesScaled[19];
+        blockColor = QColor(255, 0, 0);
         break;
     case T:
-        texture = TEXTURES[20];
+        if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = texturesScaled[20];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = texturesScaled[21];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = texturesScaled[22];
+        else if (thisBlock.posX == 2 && thisBlock.posY == 1)
+            texture = texturesScaled[23];
+        blockColor = QColor(172, 0, 255);
         break;
     case Z:
-        texture = TEXTURES[24];
+        if (thisBlock.posX == 0 && thisBlock.posY == 1)
+            texture = texturesScaled[24];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 1)
+            texture = texturesScaled[25];
+        else if (thisBlock.posX == 1 && thisBlock.posY == 0)
+            texture = texturesScaled[26];
+        else if (thisBlock.posX == 2 && thisBlock.posY == 0)
+            texture = texturesScaled[27];
+        blockColor = QColor(0, 255, 0);
         break;
     case empty:
-        texture = TEXTURES[28];
+        texture = texturesScaled[28];
+        blockColor = QColor(40, 20, 0);
     }
+    blockColor = blockColor.darker(150);
 
-    if ((*board)[posY][posX].silhouette)
+    // rotate block texture
+    if (thisBlock.rotation != 0)
     {
-        // overlay blank texture with half transparency
-        QImage blank = TEXTURES[28];
-        QPainter painter(&texture);
-        painter.setOpacity(0.7);
-        painter.drawImage(0, 0, blank);
-        painter.end();
+        QTransform transform;
+        transform.rotate(90 * thisBlock.rotation);
+        texture = texture.transformed(transform);
     }
 
-    return texture.scaled(QSize(this->height() / 20, this->width() / 10));
+    // calculate and apply borders
+    QPainter borderPainter(&texture);
+    borderPainter.setOpacity(0.7);
+    unsigned w = texture.width();
+    unsigned h = texture.height();
+    unsigned w8 = w / 8;
+    unsigned h8 = h / 8;
+    unsigned thisPieceID = thisBlock.pieceID;
+    bool thisPieceSilhouette = thisBlock.silhouette;
+    if (thisBlock.pieceType == empty)
+    {
+        // apply borders to all sides
+        borderPainter.fillRect(0, 0, texture.width() / 8, texture.height(), blockColor); // left side
+        borderPainter.fillRect(0, 0, texture.width(), texture.height() / 8, blockColor); // top side
+        borderPainter.fillRect(texture.width() - texture.width() / 8, 0, texture.width() / 8, texture.height(), blockColor); // right side
+        borderPainter.fillRect(0, texture.height() - texture.height() / 8, texture.width(), texture.height() / 8, blockColor); // bottom side
+    }
+    else
+    {
+        // check if neighboring blocks are part of the same piece
+        // left
+        if ((posX == 0) || ((posX > 0) && ((*board)[posY][posX - 1].pieceID != thisPieceID || (*board)[posY][posX - 1].silhouette != thisPieceSilhouette)))
+        {
+            borderPainter.fillRect(0, h8, w8, h - h8 * 2, blockColor); // left side
+        }
+        // top
+        if ((posY == 0) || ((posY > 0) && ((*board)[posY - 1][posX].pieceID != thisPieceID || (*board)[posY - 1][posX].silhouette != thisPieceSilhouette)))
+        {
+            borderPainter.fillRect(w8, h - h8, w - w8 * 2, h8, blockColor); // top side
+        }
+        // right
+        if ((posX == 9) || ((posX < 9) && ((*board)[posY][posX + 1].pieceID != thisPieceID || (*board)[posY][posX + 1].silhouette != thisPieceSilhouette)))
+        {
+            borderPainter.fillRect(w - w8, h8, w8, h - h8 * 2, blockColor); // right side
+        }
+        // bottom
+        if ((posY == 19) || ((posY < 19) && ((*board)[posY + 1][posX].pieceID != thisPieceID || (*board)[posY + 1][posX].silhouette != thisPieceSilhouette)))
+        {
+            borderPainter.fillRect(w8, 0, w - w8 * 2, h8, blockColor); // bottom side
+        }
+    }
+    // calculate and apply corners
+    // apply corner unless the block is fully surrounded by other blocks in the same piece
+    // top left
+    if (((posX - 1 <= 9) && (posY + 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY][posX - 1].silhouette)
+             && (thisPieceID == (*board)[posY + 1][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX - 1].silhouette)
+             && (thisPieceID == (*board)[posY + 1][posX].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX].silhouette)))
+            borderPainter.fillRect(0, 0, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(0, 0, w8, h8, blockColor);
+    // top right
+    if (((posX + 1 <= 9) && (posY + 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY + 1][posX].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX].silhouette)
+             && (thisPieceID == (*board)[posY + 1][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY + 1][posX + 1].silhouette)
+             && (thisPieceID == (*board)[posY][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY][posX + 1].silhouette)))
+            borderPainter.fillRect(w - w8, 0, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(w - w8, 0, w8, h8, blockColor);
+    // bottom right
+    if (((posX + 1 <= 9) && (posY - 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY][posX + 1].silhouette)
+             && (thisPieceID == (*board)[posY - 1][posX + 1].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX + 1].silhouette)
+             && (thisPieceID == (*board)[posY - 1][posX].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX].silhouette)))
+            borderPainter.fillRect(w - w8, h - h8, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(w - w8, h - h8, w8, h8, blockColor);
+    // bottom left
+    if (((posX - 1 <= 9) && (posY - 1 <= 19)))
+    {
+        if (!((thisPieceID == (*board)[posY - 1][posX].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX].silhouette)
+             && (thisPieceID == (*board)[posY - 1][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY - 1][posX - 1].silhouette)
+             && (thisPieceID == (*board)[posY][posX - 1].pieceID && thisPieceSilhouette == (*board)[posY][posX - 1].silhouette)))
+            borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
+    }
+    else
+        borderPainter.fillRect(0, h - h8, w8, h8, blockColor);
+
+    // overlay blank texture at half opacity if the block is silhouette
+    if (thisBlock.silhouette)
+    {
+        borderPainter.setOpacity(0.5);
+        borderPainter.drawImage(0, 0, texturesScaled[28]);
+    }
+
+    return texture;
 }
 
 /*
@@ -429,7 +586,7 @@ void TetroosController::applySilhouette()
             {
                 // get the two blocks we are examining
                 Block currentBlockInBoard = (*board)[boardY][boardX];
-                bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
+                bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX].filled;
 
                 if (currentBlockInBoard.pieceType != empty && currentBlockInBoard.pieceID != activePiece.pieceID && currentBlockInPiece == true)
                     collision = true;
@@ -456,10 +613,10 @@ void TetroosController::applySilhouette()
         {
             // get reference to block since we are modifying it
             Block* currentBlockInBoard = &(*board)[boardY][boardX];
-            bool currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
+            PieceGridBlock currentBlockInPiece = NEW_PIECE[pieceY][pieceX];
 
-            if (currentBlockInPiece == true && currentBlockInBoard->pieceID != activePiece.pieceID)
-                *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, true, pieceX, pieceY};
+            if (currentBlockInPiece.filled == true && currentBlockInBoard->pieceID != activePiece.pieceID)
+                *currentBlockInBoard = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, true, currentBlockInPiece.posX, currentBlockInPiece.posY};
 
             ++pieceX;
         }
@@ -704,9 +861,9 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
     {
         // Checks if row is empty, if empty will swap up the row
         bool check = false;
-        for (bool cell : returnGrid[0])
+        for (PieceGridBlock cell : returnGrid[0])
         {
-            if (cell)
+            if (cell.filled)
             {
                 check = true;
                 break;
@@ -730,7 +887,7 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         bool isLeftColumnEmpty = true;
         for (unsigned row = 0; row < 4; row++)
         {
-            if (returnGrid[row][0] != 0) // Assuming non-zero values mean non-empty cells
+            if (returnGrid[row][0].filled != false)
             {
                 isLeftColumnEmpty = false;
                 break;
@@ -753,7 +910,7 @@ PieceGrid TetroosController::getPieceGrid(PieceType piece, unsigned rotation)
         // Clear the rightmost column after shifting
         for (unsigned row = 0; row < 4; row++)
         {
-            returnGrid[row][3] = 0;
+            returnGrid[row][3].filled = false;
         }
     }
     return returnGrid;
@@ -801,7 +958,7 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
-            if ((*board)[boardY][boardX].pieceType != empty && (*board)[boardY][boardX].pieceID != activePiece.pieceID && NEW_PIECE[pieceY][pieceX])
+            if ((*board)[boardY][boardX].pieceType != empty && (*board)[boardY][boardX].pieceID != activePiece.pieceID && NEW_PIECE[pieceY][pieceX].filled)
                 return false;
 
             ++pieceX;
@@ -829,8 +986,8 @@ bool TetroosController::rewriteActivePiece(int xOffset, int yOffset, bool rotate
     {
         for (unsigned boardX = startPosX; boardX < std::min(startPosX + 4, 10U); boardX++)
         {
-            if (NEW_PIECE[pieceY][pieceX])
-                (*board)[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, pieceX, pieceY};
+            if (NEW_PIECE[pieceY][pieceX].filled)
+                (*board)[boardY][boardX] = {activePiece.pieceType, activePiece.rotation, activePiece.pieceID, false, NEW_PIECE[pieceY][pieceX].posX, NEW_PIECE[pieceY][pieceX].posY};
 
             ++pieceX;
         }
@@ -863,7 +1020,7 @@ std::pair<unsigned, unsigned> TetroosController::getPieceDim(PieceType piece, un
     {
         for (unsigned y = 0; y < 4; y++)
         {
-            if (NEW_PIECE[y][x])
+            if (NEW_PIECE[y][x].filled)
             {
                 isBlockInColumn = true;
                 break;
@@ -880,7 +1037,7 @@ std::pair<unsigned, unsigned> TetroosController::getPieceDim(PieceType piece, un
     {
         for (unsigned x = 0; x < 4; x++)
         {
-            if (NEW_PIECE[y][x])
+            if (NEW_PIECE[y][x].filled)
             {
                 isBlockInRow = true;
                 break;
