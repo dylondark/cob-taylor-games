@@ -7,6 +7,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import QtQml
 
 Image {
@@ -62,5 +63,16 @@ Image {
         PauseAnimation {
             duration: baseImg.pauseDuration
         }
+    }
+
+    layer.enabled: true
+    layer.effect: DropShadow {
+        horizontalOffset: 8 * root.scaleFactor
+        verticalOffset: 8 * root.scaleFactor
+        radius: 28.0 * root.scaleFactor
+        color: "#aa000000"
+        samples: (radius * 2) + 1
+        cached: false
+        transparentBorder: true
     }
 }
