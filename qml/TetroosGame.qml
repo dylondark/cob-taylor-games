@@ -49,17 +49,11 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.verticalStretchFactor: 6
+            color: "#fff7e9"
             Layout.minimumHeight: 1
 
-            gradient: Gradient {
-                GradientStop {
-                    position: 0.0
-                    color: "#3f51b1"
-                }
-                GradientStop {
-                    position: 1.0
-                    color: "#cc6b8e"
-                }
+            TetroosBackgroundPiece {
+                id: img1
             }
 
             MenuBase {
