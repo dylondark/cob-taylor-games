@@ -24,6 +24,7 @@ HEADERS += \
     feedbackcontroller.h \
     cliparser.h \
     flippedarray.h \
+    mazecontroller.h \
     threadworker.h \
     tetroosdata.h \
     tetrooscontroller.h \
@@ -47,6 +48,7 @@ SOURCES += \
     clickdetector.cpp \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
+    mazecontroller.cpp \
     tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
