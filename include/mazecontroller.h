@@ -25,6 +25,11 @@ public:
         Destructor for MazeController.
     */
     ~MazeController();
+
+    /*
+        Paint a new frame onto the canvas.
+    */
+    void paint(QPainter* painter) override;
 };
 
 #endif // MAZECONTROLLER_H

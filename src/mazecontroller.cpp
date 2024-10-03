@@ -21,3 +21,11 @@ MazeController::~MazeController()
 {
 
 }
+
+/*
+    Paint a new frame onto the canvas.
+*/
+void MazeController::paint(QPainter* painter)
+{
+
+}
