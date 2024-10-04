@@ -21,7 +21,7 @@ namespace Utilities
     Enum for selecting games.
     Named in accordance to the "official game names" from the project standards.
 */
-enum game {Trivia = 0, GuessTheLogo = 1, Tetroos = 2, Hopper = 3, Pong = 4, Checkers = 5};
+enum game {Trivia = 0, GuessTheLogo = 1, Tetroos = 2, Hopper = 3, Pong = 4, Checkers = 5, Maze = 6};
 
 /*
     Get the URL of a game QML file to be used in the creation of the game's window/widget.
@@ -44,6 +44,8 @@ inline QUrl getGameQML(game game)
         return QUrl("qrc:/qml/qml/PongGame.qml");
     case Checkers:
         return QUrl("qrc:/qml/qml/CheckersGame.qml");
+    case Maze:
+        return QUrl("qrc:/qml/qml/MazeGame.qml");
     default:
         throw "Requested game QML file does not exist yet!"; // TODO: better error handling than throwing a string
     }
