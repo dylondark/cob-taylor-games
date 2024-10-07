@@ -12,7 +12,6 @@ import QtQml
 
 Image {
     id: baseImg
-    source: filepath + "/gamefiles/Tetroos/images/I.png"
     property real startingX: 0
     property real startingY: 0
     property real endingY: 0

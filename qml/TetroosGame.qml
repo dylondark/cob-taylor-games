@@ -54,6 +54,37 @@ Item {
 
             TetroosBackgroundPiece {
                 id: img1
+                source: filepath + "/gamefiles/Tetroos/images/I.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img2
+                source: filepath + "/gamefiles/Tetroos/images/J.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img3
+                source: filepath + "/gamefiles/Tetroos/images/L.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img4
+                source: filepath + "/gamefiles/Tetroos/images/O.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img5
+                source: filepath + "/gamefiles/Tetroos/images/S.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img6
+                source: filepath + "/gamefiles/Tetroos/images/T.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img7
+                source: filepath + "/gamefiles/Tetroos/images/Z.png"
             }
 
             MenuBase {
