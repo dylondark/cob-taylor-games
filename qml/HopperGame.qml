@@ -43,13 +43,26 @@ Item {
                      GradientStop { position: 1.0; color: "#3f51b1" }
                  }
 
-            PreviewBase {
-                id: preview
+            MenuBase { // This opens the screen to input username at the beginning.
+                id: menuBase
+                imageSource: filepath + "/menufiles/Hopper.png"
+            }
 
-                anchors.fill: parent
+            // Put the code for the scores boxes here
+            Rectangle {
+                id: scoresRect
+            }
 
-                logoSource: filepath + "/menufiles/HopperPreview.png"
-                conceptSource: filepath + "/gamefiles/Hopper/Hopper.png"
+            //Begin game rectangle
+            Rectangle {
+                id: gameRect
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.verticalStretchFactor: 4
+            }
+
+            GameOverBase { // This calls a CPP file which saves the name and score to the leaderboard.
+                id:gameOverBase
             }
         }
 
