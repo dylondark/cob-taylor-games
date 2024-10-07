@@ -511,7 +511,7 @@ void MainWindow::showGame(game game)
         // set size parameters for the window
         currentView->setResizeMode(QQuickView::SizeRootObjectToView); // size the internal qml view to the same size as the window
         currentView->setBaseSize(this->size()); // set window size to the size of the main window
-        currentView->rootContext()->setContextProperty("filepath", QString("file://").append(filepath)); // embed filepath as QString context property
+        currentView->rootContext()->setContextProperty("filepath", QString("file:///").append(filepath)); // embed filepath as QString context property
 
         // connect the required signals and slots
         connect((QObject*)currentView->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
@@ -530,7 +530,7 @@ void MainWindow::showGame(game game)
 
         // set size mode
         currentWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
-        currentWidget->rootContext()->setContextProperty("filepath", QString("file://").append(filepath));
+        currentWidget->rootContext()->setContextProperty("filepath", QString("file:///").append(filepath));
 
         // connect the required signals and slots
         connect((QObject*)currentWidget->rootObject(), SIGNAL(quit()), this, SLOT(exitGame()));
