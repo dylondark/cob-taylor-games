@@ -51,6 +51,7 @@ Item {
             // Put the code for the scores boxes here
             Rectangle {
                 id: scoresRect
+                anchors.top: parent
             }
 
             //Begin game rectangle
