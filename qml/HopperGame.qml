@@ -45,7 +45,7 @@ Item {
 
             MenuBase { // This opens the screen to input username at the beginning.
                 id: menuBase
-                imageSource: "file:///C:/Users/fuzio/OneDrive/Documents/GitHub/cob-taylor-games/menufiles/Hopper.png"
+                imageSource: filepath + "/menufiles/Hopper.png"
             }
 
             // Put the code for the scores boxes here
