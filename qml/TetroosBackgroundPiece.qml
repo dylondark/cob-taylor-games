@@ -15,53 +15,88 @@ Image {
     property real startingX: 0
     property real startingY: 0
     property real endingY: 0
-    property real pauseDuration: 0
+    property real pauseDuration: 2000
+    property real animDuration: (Math.random() * 10000) + 2000
+    opacity: 0
     visible: true
 
-    // animation to move the image
+    // base animation for the cycle of the image
     SequentialAnimation {
         running: true
         loops: Animation.Infinite
+
         // randomly pick a starting x and y and move to random ending y
         ScriptAction {
             script: {
                 baseImg.width = Math.random() * (300 * root.scaleFactor) + 50
                 baseImg.height = baseImg.width / 2
-                baseImg.visible = true
                 // pick starting x between 0 and width
                 baseImg.startingX = Math.random() * root.width
                 // pick starting y in first half of screen
                 baseImg.startingY = Math.random() * root.height / 2
                 // pick ending Y in second half of screen
                 baseImg.endingY = Math.random() * root.height / 2 + root.height / 2
+
+                // play fade in
+                fadeInAnimation.start()
             }
         }
 
-        PathAnimation {
-            running: true
-            target: baseImg
-            path: Path {
-                startX: baseImg.startingX
-                startY: baseImg.startingY
-                PathLine {
-                    x: baseImg.startingX
-                    y: baseImg.endingY
+        ParallelAnimation {
+            // movement
+            PathAnimation {
+                id: moveAnimation
+                target: baseImg
+                path: Path {
+                    startX: baseImg.startingX
+                    startY: baseImg.startingY
+                    PathLine {
+                        x: baseImg.startingX
+                        y: baseImg.endingY
+                    }
+                }
+                duration: baseImg.animDuration
+            }
+
+            // fade out
+            SequentialAnimation {
+                PauseAnimation {
+                    duration: baseImg.animDuration - 1000
+                }
+
+                ScriptAction {
+                    script: {
+                        // play fade out
+                        fadeOutAnimation.start()
+                    }
                 }
             }
-            duration: Math.random() * 10000 + 2000
         }
 
-        // randomly choose a pause duration before restarting the animation
-        ScriptAction {
-            script: {
-                baseImg.pauseDuration = Math.random() * 5000
-                baseImg.visible = false
-            }
-        }
-
+        // pause before starting the next cycle
         PauseAnimation {
             duration: baseImg.pauseDuration
         }
+    }
+
+    NumberAnimation {
+        id: fadeInAnimation
+        running: false
+        loops: 1
+        target: baseImg
+        property: "opacity"
+        to: 1
+        duration: 1000
+    }
+
+    NumberAnimation {
+        id: fadeOutAnimation
+        running: false
+        loops: 1
+        target: baseImg
+        property: "opacity"
+        to: 0
+        duration: 1000
     }
 
     layer.enabled: true
