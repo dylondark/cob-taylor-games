@@ -137,7 +137,7 @@ Item {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignHCenter
-                        color: "#fff7e9"
+                        color: "transparent"
 
                         ColumnLayout {
                             Layout.fillWidth: true
