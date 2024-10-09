@@ -28,6 +28,7 @@ Image {
         // randomly pick a starting x and y and move to random ending y
         ScriptAction {
             script: {
+                baseImg.rotation = 90 * Math.floor(Math.random() * 4)
                 baseImg.width = Math.random() * (300 * root.scaleFactor) + 50
                 baseImg.height = baseImg.width / 2
                 // pick starting x between 0 and width
@@ -101,8 +102,8 @@ Image {
 
     layer.enabled: true
     layer.effect: DropShadow {
-        horizontalOffset: 8 * root.scaleFactor
-        verticalOffset: 8 * root.scaleFactor
+        horizontalOffset: 0
+        verticalOffset: 0
         radius: 28.0 * root.scaleFactor
         color: "#aa000000"
         samples: (radius * 2) + 1
