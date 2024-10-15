@@ -46,6 +46,7 @@ Item {
             MenuBase { // This opens the screen to input username at the beginning.
                 id: menuBase
                 imageSource: filepath + "/menufiles/Hopper.png"
+                z: 1
             }
 
             Item {
@@ -62,9 +63,16 @@ Item {
                 //Begin game rectangle
                 Rectangle {
                     id: gameRect
+                    width: 1750 * root.scaleFactor
+                    height: 2800 * root.scaleFactor
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.verticalStretchFactor: 4
+                    color: "#b5fffe"
+                    x: (parent.width - width) / 2
+                    y: (parent.height - height) / 2
+                    z: 0
+
                 }
 
                 ColumnLayout {
