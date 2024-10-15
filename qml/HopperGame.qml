@@ -72,9 +72,20 @@ Item {
                     x: (parent.width - width) / 2
                     y: (parent.height - height) / 2
                     z: 0
-
                 }
-
+                // Floor Rectangle for Zippy to run on
+                Rectangle {
+                    id: floorRect
+                    width: 1750 * root.scaleFactor
+                    height: 600 * root.scaleFactor
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 4
+                    color: "#16bd10"
+                    x: (parent.width - width) / 2
+                    y: (parent.height - height) / 1.16
+                    z: 0
+                }
                 ColumnLayout {
                     id: btnLayout
                     width: 400 * root.scaleFactor
