@@ -39,27 +39,61 @@ Item {
             Layout.verticalStretchFactor: 6
 
             gradient: Gradient {
-                     GradientStop { position: 0.0; color: "#f3a469" }
-                     GradientStop { position: 1.0; color: "#3f51b1" }
-                 }
+                GradientStop { position: 0.0; color: "#f3a469" }
+                GradientStop { position: 1.0; color: "#3f51b1" }
+            }
 
             MenuBase { // This opens the screen to input username at the beginning.
                 id: menuBase
                 imageSource: filepath + "/menufiles/Hopper.png"
             }
 
-            // Put the code for the scores boxes here
-            Rectangle {
-                id: scoresRect
-                anchors.top: parent
-            }
+            Item {
+                id: gameBase
+                anchors.fill: parent
+                visible: false
 
-            //Begin game rectangle
-            Rectangle {
-                id: gameRect
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.verticalStretchFactor: 4
+                // Put the code for the scores boxes here
+                Rectangle {
+                    id: scoresRect
+                    //anchors.top: parent
+                }
+
+                //Begin game rectangle
+                Rectangle {
+                    id: gameRect
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 4
+                }
+
+                ColumnLayout {
+                    id: btnLayout
+                    width: 400 * root.scaleFactor
+                    height: 800 * root.scaleFactor
+
+                    Button {
+                        id: hopBtn
+                        anchors.topMargin: 100 * root.scaleFactor
+                        anchors.bottomMargin: 100 * root.scaleFactor
+                        anchors.leftMargin: 100 * root.scaleFactor
+                        anchors.rightMargin: 100 * root.scaleFactor
+
+                        background: Rectangle {
+                            color: "white"
+                            opacity: 70
+                            border.color: "black"
+                            radius: 10
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Button {
+                        id: slideBtn
+                        height: 100 * root.scaleFactor
+                        Layout.fillWidth: true
+                    }
+                }
             }
 
             GameOverBase { // This calls a CPP file which saves the name and score to the leaderboard.
