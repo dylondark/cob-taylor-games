@@ -5,12 +5,13 @@ import QtQml
 import QMLControllers
 
 Item {
-    visible: true
+    id: root
     width: 2160
     height: 3840
     //title: "Pong Game Layout"
 
     signal quit  // Signal to go to home screen or quit the game
+    signal saveScore(int game, string username, int score)
 
     ColumnLayout{
         id: baseLayout
@@ -108,23 +109,6 @@ Item {
                 anchors.verticalCenter: playerPaddle.verticalCenter
                 anchors.horizontalCenter: playerPaddle.horizontalCenter
             }
-
-            /* Home Button at the bottom right corner
-            Button {
-                id: homeButton
-                text: "Home"
-                width: 80
-                height: 40
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                anchors.leftMargin: 20
-                anchors.bottomMargin: 20
-
-                onClicked: {
-                    goHome();  // Emit the goHome signal
-                }
-            }
-            */
         }
 
         HomeBarBase {
@@ -134,5 +118,5 @@ Item {
             Layout.fillWidth: true
             Layout.minimumHeight: 1
         }
-    }//Column Layout
+    } // Column Layout
 }
