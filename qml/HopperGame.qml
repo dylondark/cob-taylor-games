@@ -59,7 +59,19 @@ Item {
                     id: scoresRect
                     //anchors.top: parent
                 }
-
+                // Zippy Model
+                Rectangle {
+                    id: zippyModel
+                    width: 150 * root.scaleFactor
+                    height: 400 * root.scaleFactor
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 4
+                    color: "#f19527"
+                    x: (parent.width - width) / 2
+                    y: floorRect.width
+                    z: 1
+                }
                 //Begin game rectangle
                 Rectangle {
                     id: gameRect
