@@ -1,3 +1,9 @@
+/*
+    PongGame.qml
+
+    Main QML file for the Pong game.
+*/
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -12,6 +18,8 @@ Item {
 
     signal quit  // Signal to go to home screen or quit the game
     signal saveScore(int game, string username, int score)
+
+    property real scaleFactor: height / 3840
 
     ColumnLayout{
         id: baseLayout
@@ -162,7 +170,6 @@ Item {
         }
     }
 
-
         HomeBarBase {
             id: homeBarBase
             Layout.verticalStretchFactor: 1
@@ -170,22 +177,6 @@ Item {
             Layout.fillWidth: true
             Layout.minimumHeight: 1
 
-            // Home Button
-            Button {
-                id: homeButton
-                text: "Home"
-                Layout.preferredWidth: 80
-                Layout.preferredHeight: 40
-                onClicked: {
-                    root.quit();  // Emit the quit signal to navigate back home
-                }
-                background: Rectangle {
-                    color: "white"
-                    opacity: 0.7
-                    border.color: "black"
-                    radius: 10
-                }
-            }
         }
     } // Column Layout
 }
