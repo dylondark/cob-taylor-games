@@ -68,8 +68,8 @@ Item {
                     Layout.fillWidth: true
                     Layout.verticalStretchFactor: 4
                     color: "#f19527"
-                    x: (parent.width - width) / 2
-                    y: floorRect.width
+                    x: (parent.width - width) / 4
+                    y: floorRect.y - height
                     z: 1
                 }
                 //Begin game rectangle
