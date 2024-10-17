@@ -77,6 +77,15 @@ Item {
                         PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
                         PropertyAnimation { to: floorRect.y - zippyModel.height; duration: 500; easing.type: Easing.InQuad } // Land
                     }
+                    // Animation for "Sliding"
+                    // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
+                    SequentialAnimation on height {
+                           id: slideAnimation
+                           running: false
+                           loops: 1
+                           PropertyAnimation { to: 150 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
+                           PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+                       }
                 }
                 //Begin game rectangle
                 Rectangle {
@@ -129,12 +138,14 @@ Item {
                     Button {
                         id: slideBtn
                         text: "Slide!"
-                        height: 100 * root.scaleFactor
-                        Layout.fillWidth: true
-
+                        onClicked: {
+                            if (!slideAnimation.running) {
+                                slideAnimation.start(); // Start the slide/duck animation
+                            }
+                        }
                         background: Rectangle {
                             color: "white"
-                            opacity: 70
+                            opacity: 0.7
                             border.color: "black"
                             radius: 10
                             anchors.fill: parent
