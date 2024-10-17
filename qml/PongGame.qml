@@ -36,6 +36,8 @@ Item {
                 height: 50
                 spacing: 20
 
+
+
                 // Score Section
                 Rectangle {
                     id: scoreBox
@@ -87,6 +89,15 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 20
+
+                // Functions to move the paddle
+                function moveLeft() {
+                    playerPaddle.x = Math.max(0, playerPaddle.x - 40 * scaleFactor)
+                }
+
+                function moveRight() {
+                    playerPaddle.x = Math.min(gameArea.width - playerPaddle.width, playerPaddle.x + 40 * scaleFactor)
+                }
             }
 
             // Ball (represented by the dog)
@@ -110,6 +121,47 @@ Item {
                 anchors.horizontalCenter: playerPaddle.horizontalCenter
             }
         }
+        // Control buttons to move the player paddle
+    RowLayout {
+        id: controlButtons
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: 20
+
+        Button {
+            id: leftButton
+            text: "<"
+            Layout.preferredWidth: 200
+            Layout.preferredHeight: 80
+
+            onPressed: playerPaddle.moveLeft()
+
+            background: Rectangle {
+                color: "black"
+                opacity: 0.7
+                border.color: "black"
+                radius: 10
+            }
+        }
+
+        Button {
+            id: rightButton
+            text: ">"
+            Layout.preferredWidth: 200
+            Layout.preferredHeight: 80
+
+            onPressed: playerPaddle.moveRight()
+
+            background: Rectangle {
+                color: "black"
+                opacity: 0.7
+                border.color: "black"
+                radius: 10
+            }
+        }
+    }
+
 
         HomeBarBase {
             id: homeBarBase
@@ -117,6 +169,23 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.minimumHeight: 1
+
+            // Home Button
+            Button {
+                id: homeButton
+                text: "Home"
+                Layout.preferredWidth: 80
+                Layout.preferredHeight: 40
+                onClicked: {
+                    root.quit();  // Emit the quit signal to navigate back home
+                }
+                background: Rectangle {
+                    color: "white"
+                    opacity: 0.7
+                    border.color: "black"
+                    radius: 10
+                }
+            }
         }
     } // Column Layout
 }
