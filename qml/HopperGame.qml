@@ -64,13 +64,19 @@ Item {
                     id: zippyModel
                     width: 150 * root.scaleFactor
                     height: 400 * root.scaleFactor
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 4
                     color: "#f19527"
                     x: (parent.width - width) / 4
-                    y: floorRect.y - height
+                    y: floorRect.y - height // Starting position on the floor
                     z: 1
+
+                    // Animation for Hopping
+                    SequentialAnimation on y {
+                        id: hopAnimation
+                        running: false
+                        loops: 1
+                        PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
+                        PropertyAnimation { to: floorRect.y - zippyModel.height; duration: 500; easing.type: Easing.InQuad } // Land
+                    }
                 }
                 //Begin game rectangle
                 Rectangle {
@@ -105,14 +111,15 @@ Item {
 
                     Button {
                         id: hopBtn
-                        anchors.topMargin: 100 * root.scaleFactor
-                        anchors.bottomMargin: 100 * root.scaleFactor
-                        anchors.leftMargin: 100 * root.scaleFactor
-                        anchors.rightMargin: 100 * root.scaleFactor
-
+                        text: "Hop!"
+                        onClicked: {
+                            if (!hopAnimation.running) {
+                                hopAnimation.start(); // Start the hop animation
+                            }
+                        }
                         background: Rectangle {
                             color: "white"
-                            opacity: 70
+                            opacity: 0.7
                             border.color: "black"
                             radius: 10
                             anchors.fill: parent
@@ -121,8 +128,17 @@ Item {
 
                     Button {
                         id: slideBtn
+                        text: "Slide!"
                         height: 100 * root.scaleFactor
                         Layout.fillWidth: true
+
+                        background: Rectangle {
+                            color: "white"
+                            opacity: 70
+                            border.color: "black"
+                            radius: 10
+                            anchors.fill: parent
+                        }
                     }
                 }
             }
