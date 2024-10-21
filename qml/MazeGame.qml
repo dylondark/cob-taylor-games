@@ -1,7 +1,7 @@
 /*
-    CheckersGame.qml
+    MazeGame.qml
 
-    Main QML file for the Checkers game.
+    Main QML file for the Maze game.
 */
 
 import QtQuick
