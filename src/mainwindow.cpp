@@ -621,5 +621,5 @@ void MainWindow::on_btnGame5_pressed()
 */
 void MainWindow::on_btnGame6_pressed()
 {
-    showGame(game::Checkers);
+    showGame(game::Maze);
 }

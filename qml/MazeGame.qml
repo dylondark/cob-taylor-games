@@ -21,7 +21,7 @@ Item {
     // will be emitted and picked up by mainwindow when the game wants to quit. must be present in every game!
     property real scaleFactor: height / 3840
     property int points: 0
-    property string strName: "Checkers"
+    property string strName: "Maze"
     property string username: ""
     property int gameEnum: 0 //Utilities number.
 
