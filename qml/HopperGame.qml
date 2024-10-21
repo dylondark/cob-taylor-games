@@ -4,9 +4,9 @@
     Main QML file for the Hopper game.
 */
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Controls.Material
+import QtQuick.Layouts 1.15
 import QtQml
 
 // this game is in PREVIEW STATE
@@ -24,6 +24,7 @@ Item {
     property string strName: "Hopper"
     property string username: ""
     property int gameEnum: 0 //Utilities number.
+
 
     ColumnLayout {
         id: baseLayout
@@ -120,38 +121,55 @@ Item {
                     height: 400 * root.scaleFactor
                     anchors.horizontalCenter: floorRect.horizontalCenter
                     anchors.top: floorRect.bottom
+                    spacing: 10 * root.scaleFactor
 
                     Button {
                         id: hopBtn
-                        text: "Hop!"
+
+                        background: Rectangle {
+                            color: "white"
+                            opacity: 0.7
+                            border.color: "black"
+                            radius: 100 * root.scaleFactor
+                            width: parent.width
+                            height: parent.height
+                        }
+
+                        contentItem: Text {
+                                    text: "Hop!"
+                                    font.pointSize: 70 * root.scaleFactor
+                                    anchors.centerIn: parent
+                                }
+
                         onClicked: {
                             if (!hopAnimation.running) {
                                 hopAnimation.start(); // Start the hop animation
                             }
                         }
-                        background: Rectangle {
-                            color: "white"
-                            opacity: 0.7
-                            border.color: "black"
-                            radius: 100 * root.scaleFactor
-                            anchors.fill: parent
-                        }
                     }
 
                     Button {
                         id: slideBtn
-                        text: "Slide!"
-                        onClicked: {
-                            if (!slideAnimation.running) {
-                                slideAnimation.start(); // Start the slide/duck animation
-                            }
-                        }
                         background: Rectangle {
                             color: "white"
                             opacity: 0.7
                             border.color: "black"
                             radius: 100 * root.scaleFactor
                             anchors.fill: parent
+                        }
+
+                        contentItem: Text {
+                            text: "Slide!"
+                            font.pointSize: 70 * root.scaleFactor
+                            anchors.centerIn: parent
+                            width: parent.width
+                            height: parent.height
+                        }
+
+                        onClicked: {
+                            if (!slideAnimation.running) {
+                                slideAnimation.start(); // Start the slide/duck animation
+                            }
                         }
                     }
                 }
