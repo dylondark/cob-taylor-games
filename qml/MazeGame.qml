@@ -41,16 +41,7 @@ Item {
             gradient: Gradient {
                      GradientStop { position: 0.0; color: "#f7c978" }
                      GradientStop { position: 1.0; color: "#f18271" }
-                 }
-
-            PreviewBase {
-                id: preview
-
-                anchors.fill: parent
-
-                logoSource: filepath + "/menufiles/Maze.png"
-                conceptSource: filepath + "/gamefiles/Checkers/CheckersInGamePreview.png"
-            }
+                }
         }
 
         HomeBarBase {
