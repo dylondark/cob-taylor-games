@@ -209,7 +209,7 @@ void MainWindow::resizeEvent([[maybe_unused]] QResizeEvent* event)
     setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/TetroosPreview.png").toStdString());//Tetroos
     setBtnIcon(ui->btnGame4, QString(filepath + "/menufiles/HopperPreview.png").toStdString()); //ZippyHop
     setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/PongMotionPreview.png").toStdString());//pong
-    setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/CheckersPreview.png").toStdString());//checkers
+    setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/Maze.png").toStdString());// maze
 
     // scale functions
     scaleMenu(wh[1]);
