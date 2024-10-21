@@ -206,7 +206,7 @@ void MainWindow::resizeEvent([[maybe_unused]] QResizeEvent* event)
     // apply button images
     setBtnIcon(ui->btnGame1, QString(filepath + "/menufiles/trivia.png").toStdString());// UATrivia
     setBtnIcon(ui->btnGame2, QString(filepath + "/menufiles/GuessTheLogoNEW.png").toStdString());//GuessTheLogo
-    setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/TetroosPreview.png").toStdString());//Tetroos
+    setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/Tetroos.png").toStdString());//Tetroos
     setBtnIcon(ui->btnGame4, QString(filepath + "/menufiles/HopperPreview.png").toStdString()); //ZippyHop
     setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/PongMotionPreview.png").toStdString());//pong
     setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/CheckersPreview.png").toStdString());//checkers
