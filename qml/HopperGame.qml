@@ -113,10 +113,13 @@ Item {
                     y: (parent.height - height) / 1.16
                     z: 0
                 }
+
                 ColumnLayout {
                     id: btnLayout
                     width: 400 * root.scaleFactor
-                    height: 800 * root.scaleFactor
+                    height: 400 * root.scaleFactor
+                    anchors.horizontalCenter: floorRect.horizontalCenter
+                    anchors.top: floorRect.bottom
 
                     Button {
                         id: hopBtn
@@ -130,7 +133,7 @@ Item {
                             color: "white"
                             opacity: 0.7
                             border.color: "black"
-                            radius: 10
+                            radius: 100 * root.scaleFactor
                             anchors.fill: parent
                         }
                     }
@@ -147,7 +150,7 @@ Item {
                             color: "white"
                             opacity: 0.7
                             border.color: "black"
-                            radius: 10
+                            radius: 100 * root.scaleFactor
                             anchors.fill: parent
                         }
                     }
