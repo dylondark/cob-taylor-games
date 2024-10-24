@@ -15,6 +15,7 @@
 #include "guessthelogocontroller.h"
 #include "profanitychecker.h"
 #include "tetrooscontroller.h"
+#include "mazecontroller.h"
 #include <QScrollBar>
 #include <QShortcut>
 #include <QKeySequence>
@@ -158,6 +159,7 @@ void MainWindow::initQML()
     qmlRegisterType<TetroosController>("QMLControllers", 1, 0, "TetroosController");
     qmlRegisterType<FeedbackController>("QMLControllers", 1, 0, "FeedbackController");
     qmlRegisterType<ProfanityChecker>("QMLControllers", 1, 0, "ProfanityChecker");
+    qmlRegisterType<MazeController>("QMLControllers", 1, 0, "MazeController");
     // all qml controllers will eventually be registered here
 }
 
