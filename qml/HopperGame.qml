@@ -61,7 +61,7 @@ Item {
                     width: parent.width
                     height: 150 * root.scaleFactor
                     color: "#333333"
-                    anchors.top: parent.top
+                    anchors.top: anchor.top
                     z: 2
 
             // Shows score ran in meters in score box
@@ -72,7 +72,7 @@ Item {
             color: "white"
             anchors.centerIn: parent
             }
-                  }
+            }
                 // Zippy Model
                 Rectangle {
                     id: zippyModel
