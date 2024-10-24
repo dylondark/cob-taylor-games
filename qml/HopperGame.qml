@@ -55,11 +55,24 @@ Item {
                 anchors.fill: parent
                 visible: false
 
-                // Put the code for the scores boxes here
+                // The code for the scores boxes here
                 Rectangle {
-                    id: scoresRect
-                    //anchors.top: parent
-                }
+                    id: scoreBox
+                    width: parent.width
+                    height: 150 * root.scaleFactor
+                    color: "#333333"
+                    anchors.top: parent.top
+                    z: 2
+
+            // Shows score ran in meters in score box
+            Text {
+            id: scoreText
+            text: "Score: " + root.points + " meters"
+            font.pixelSize: 70 * root.scaleFactor
+            color: "white"
+            anchors.centerIn: parent
+            }
+                  }
                 // Zippy Model
                 Rectangle {
                     id: zippyModel
