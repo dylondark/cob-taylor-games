@@ -53,4 +53,15 @@ Item {
             Layout.fillWidth: true
         }
     }
+
+    // Begin game rectangle
+        MazeController {
+        id: controller
+        anchors.top: parent.top
+        anchors.left: holdRectangle.right
+        anchors.centerIn: parent
+        height: parent.height
+        width: height / 2
+        smooth: false
+    }
 }
