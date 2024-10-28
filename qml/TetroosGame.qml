@@ -116,6 +116,7 @@ Item {
 
                         linesVar.text = controller.getLinesCleared();
                         levelVar.text = controller.getLevel();
+                        scoreVar.text = controller.getScore();
 
                         // fill in hold and next pieces
                         holdView.setPiece(controller.getHoldPiece());
@@ -207,6 +208,7 @@ Item {
                                 id: scoreVar
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
+                                color: "black"
                                 font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"
