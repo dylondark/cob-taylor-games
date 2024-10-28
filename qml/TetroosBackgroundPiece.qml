@@ -19,6 +19,8 @@ Image {
     property real animDuration: (Math.random() * 10000) + 2000
     opacity: 0
     visible: true
+    smooth: true
+    asynchronous: true
 
     // base animation for the cycle of the image
     SequentialAnimation {
