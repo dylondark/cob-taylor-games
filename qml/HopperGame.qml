@@ -60,19 +60,34 @@ Item {
                     id: scoreBox
                     width: parent.width
                     height: 150 * root.scaleFactor
-                    color: "#333333"
-                    anchors.top: anchor.top
-                    z: 2
+                    color: "#3f51b1"
+                    anchors.left: parent.left
+                    anchors.top: parent.top
 
+                    z: 2
             // Shows score ran in meters in score box
             Text {
             id: scoreText
             text: "Score: " + root.points + " meters"
             font.pixelSize: 70 * root.scaleFactor
             color: "white"
-            anchors.centerIn: parent
+            anchors.left: parent.left
+            anchors.leftMargin: 20 * root.scaleFactor
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+
+            // Displays the Timer measuring the time of each turn played
+            Text{
+              id: timeText
+              text: "Time: " + root.elapsedTime + "s"
+              font.pixelSize: 70 * root.scaleFactor
+              color: "white"
+              anchors.right: parent.right
+              anchors.rightMargin: 50 * root.scaleFactor
+              anchors.verticalCenter: parent.verticalCenter
             }
-            }
+    }
                 // Zippy Model
                 Rectangle {
                     id: zippyModel
