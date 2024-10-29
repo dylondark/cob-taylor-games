@@ -145,28 +145,29 @@ Item {
 
                 ColumnLayout {
                     id: btnLayout
-                    width: 400 * root.scaleFactor
+                    width: 800 * root.scaleFactor
                     height: 400 * root.scaleFactor
                     anchors.horizontalCenter: floorRect.horizontalCenter
                     anchors.top: floorRect.bottom
-                    spacing: 10 * root.scaleFactor
 
                     Button {
                         id: hopBtn
+                        implicitWidth: parent.width
+                        implicitHeight: (btnLayout.height - btnLayout.spacing) / 2 // Dynamic height based on layout
 
                         background: Rectangle {
+                            id: hopRect
                             color: "white"
                             opacity: 0.7
                             border.color: "black"
                             radius: 100 * root.scaleFactor
-                            width: parent.width
-                            height: parent.height
+                            anchors.fill: parent
                         }
 
                         contentItem: Text {
                                     text: "Hop!"
                                     font.pointSize: 70 * root.scaleFactor
-                                    anchors.centerIn: parent
+                                    anchors.centerIn: parent.Center
                                 }
 
                         onClicked: {
@@ -178,7 +179,11 @@ Item {
 
                     Button {
                         id: slideBtn
+                        implicitWidth: parent.width
+                        implicitHeight: (btnLayout.height - btnLayout.spacing) / 2 // Dynamic height based on layout
+
                         background: Rectangle {
+                            id:slideRect
                             color: "white"
                             opacity: 0.7
                             border.color: "black"
@@ -190,8 +195,6 @@ Item {
                             text: "Slide!"
                             font.pointSize: 70 * root.scaleFactor
                             anchors.centerIn: parent
-                            width: parent.width
-                            height: parent.height
                         }
 
                         onClicked: {
