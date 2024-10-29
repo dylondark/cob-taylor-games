@@ -8,18 +8,9 @@ Item {
     width: 2160
     height: 3840
 
-    signal quit
-    signal saveScore(int game, string username, int score)
+    property string playerName: ""
 
-    property real scaleFactor: height / 3840
-    property int points: 0
-    property string strName: "Maze"
-    property string username: ""
-    property int gameEnum: 0
-    property int moves: 0
-    property int timer: 0
-
-    // Dark blue background
+    // Background
     Rectangle {
         id: background
         anchors.fill: parent
@@ -27,163 +18,56 @@ Item {
     }
 
     ColumnLayout {
-        id: baseLayout
-        anchors.fill: parent
-        spacing: 20 * scaleFactor
+        id: startScreenLayout
+        anchors.centerIn: parent
+        spacing: 40 * scaleFactor
 
-        // Time and Moves buttons at the upper middle side
+        // Title
+        Text {
+            text: "Maze Game"
+            font.pixelSize: 100 * scaleFactor
+            color: "white"
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        // Name Input Field
         RowLayout {
-            id: statusLayout
-            Layout.fillWidth: true
-            Layout.preferredHeight: 100 * scaleFactor
-            Layout.alignment: Qt.AlignTop | Qt.AlignHCenter // Align top and center horizontally
-            spacing: 20 * scaleFactor
+            Layout.alignment: Qt.AlignHCenter
+            spacing: 10 * scaleFactor
 
-            // Time button with custom style
-            Rectangle {
-                width: 200 * scaleFactor
-                height: 80 * scaleFactor
-                radius: 15 * scaleFactor
-                color: "#005f99" // Aesthetic color
-                border.color: "#003366"
-                border.width: 3
-                Text {
-                    anchors.centerIn: parent
-                    text: "Time: " + timer
-                    font.pixelSize: 40 * scaleFactor
-                    color: "white"
-                }
+            Label {
+                text: "Name:"
+                font.pixelSize: 50 * scaleFactor
+                color: "white"
+                Layout.alignment: Qt.AlignLeft
             }
 
-            // Moves button with custom style
-            Rectangle {
-                width: 200 * scaleFactor
+            TextField {
+                id: nameInput
+                width: 400 * scaleFactor
                 height: 80 * scaleFactor
-                radius: 15 * scaleFactor
-                color: "#005f99"
-                border.color: "#003366"
-                border.width: 3
-                Text {
-                    anchors.centerIn: parent
-                    text: "Moves: " + moves
-                    font.pixelSize: 40 * scaleFactor
-                    color: "white"
-                }
+                font.pixelSize: 40 * scaleFactor
+                placeholderText: "Enter your name"
+                onTextChanged: root.playerName = text
             }
         }
 
-        // Maze grid layout (center of screen)
-        GridLayout {
-            id: mazeGrid
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            columns: 10
-
-            Repeater {
-                model: 100 // Number of cells in the grid
-                Rectangle {
-                    width: parent.width / mazeGrid.columns
-                    height: parent.height / mazeGrid.columns
-                    color: model.index % 2 === 0 ? "#ffffff" : "#000000"
-                    border.color: "#000000"
-                    anchors.margins: 5 * scaleFactor
-                }
+        // Play Button
+        Button {
+            text: "Play"
+            font.pixelSize: 50 * scaleFactor
+            width: 300 * scaleFactor
+            height: 100 * scaleFactor
+            onClicked: {
+                console.log("Play button clicked! Starting game for", root.playerName)
+                // Logic to transition to the game screen
             }
-        }
-
-        // Start button at the bottom center (Bigger than rest) with custom style
-        RowLayout {
-            id: startButtonLayout
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-
-            Rectangle {
-                width: 300 * scaleFactor
-                height: 100 * scaleFactor
+            background: Rectangle {
                 radius: 20 * scaleFactor
-                color: "#00cc66" // Start button green
+                color: "#00cc66"
                 border.color: "#008040"
                 border.width: 3
-                Text {
-                    anchors.centerIn: parent
-                    text: "Start"
-                    font.pixelSize: 60 * scaleFactor
-                    color: "white"
-                }
-            }
-        }
-
-        // Directional buttons (bottom-right corner) with custom style
-        GridLayout {
-            id: controlsLayout
-            columns: 3
-            Layout.preferredHeight: 300 * scaleFactor
-            Layout.preferredWidth: 300 * scaleFactor
-            Layout.alignment: Qt.AlignRight | Qt.AlignBottom // Aligning the directional pad to bottom-right corner
-            //spacing: 10 * scaleFactor
-
-            Item { } // Empty for top-left
-
-            Rectangle {
-                width: 80 * scaleFactor
-                height: 80 * scaleFactor
-                radius: 10 * scaleFactor
-                color: "#3366cc"
-                border.color: "#003399"
-                border.width: 3
-                Text {
-                    anchors.centerIn: parent
-                    text: "Up"
-                    font.pixelSize: 30 * scaleFactor
-                    color: "white"
-                }
-            }
-
-            Item { } // Empty for top-right
-
-            Rectangle {
-                width: 80 * scaleFactor
-                height: 80 * scaleFactor
-                radius: 10 * scaleFactor
-                color: "#3366cc"
-                border.color: "#003399"
-                border.width: 3
-                Text {
-                    anchors.centerIn: parent
-                    text: "Left"
-                    font.pixelSize: 30 * scaleFactor
-                    color: "white"
-                }
-            }
-
-            Rectangle {
-                width: 80 * scaleFactor
-                height: 80 * scaleFactor
-                radius: 10 * scaleFactor
-                color: "#3366cc"
-                border.color: "#003399"
-                border.width: 3
-                Text {
-                    anchors.centerIn: parent
-                    text: "Down"
-                    font.pixelSize: 30 * scaleFactor
-                    color: "white"
-                }
-            }
-
-            Rectangle {
-                width: 80 * scaleFactor
-                height: 80 * scaleFactor
-                radius: 10 * scaleFactor
-                color: "#3366cc"
-                border.color: "#003399"
-                border.width: 3
-                Text {
-                    anchors.centerIn: parent
-                    text: "Right"
-                    font.pixelSize: 30 * scaleFactor
-                    color: "white"
-                }
             }
         }
     }
