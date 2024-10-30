@@ -10,7 +10,6 @@ import QtQuick.Layouts
 import QtQml
 import QMLControllers
 
-// this game is in PREVIEW STATE
 Item {
     id: root
     width: 2160
