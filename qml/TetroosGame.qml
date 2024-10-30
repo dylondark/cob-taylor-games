@@ -89,7 +89,7 @@ Item {
 
             MenuBase {
                 id: menuBase
-                imageSource: filepath + "/menufiles/TetroosPreview.png"
+                imageSource: filepath + "/menufiles/Tetroos.png"
             }
 
             Item {
