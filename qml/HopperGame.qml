@@ -65,29 +65,29 @@ Item {
                     anchors.top: parent.top
 
                     z: 2
-            // Shows score ran in meters in score box
-            Text {
-            id: scoreText
-            text: "Score: " + root.points + " meters"
-            font.pixelSize: 70 * root.scaleFactor
-            color: "white"
-            anchors.left: parent.left
-            anchors.leftMargin: 20 * root.scaleFactor
-            anchors.verticalCenter: parent.verticalCenter
-        }
+                    // Shows score ran in meters in score box
+                    Text {
+                        id: scoreText
+                        text: "Score: " + root.points + " meters"
+                        font.pixelSize: 70 * root.scaleFactor
+                        color: "white"
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20 * root.scaleFactor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
 
 
-            // Displays the Timer measuring the time of each turn played
-            Text{
-              id: timeText
-              text: "Time: " + root.elapsedTime + "s"
-              font.pixelSize: 70 * root.scaleFactor
-              color: "white"
-              anchors.right: parent.right
-              anchors.rightMargin: 50 * root.scaleFactor
-              anchors.verticalCenter: parent.verticalCenter
-            }
-    }
+                    // Displays the Timer measuring the time of each turn played
+                    Text{
+                        id: timeText
+                        text: "Time: " + root.elapsedTime + "s"
+                        font.pixelSize: 70 * root.scaleFactor
+                        color: "white"
+                        anchors.right: parent.right
+                        anchors.rightMargin: 50 * root.scaleFactor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
                 // Zippy Model
                 Rectangle {
                     id: zippyModel
@@ -109,12 +109,12 @@ Item {
                     // Animation for "Sliding"
                     // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
                     SequentialAnimation on height {
-                           id: slideAnimation
-                           running: false
-                           loops: 1
-                           PropertyAnimation { to: 150 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
-                           PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
-                       }
+                        id: slideAnimation
+                        running: false
+                        loops: 1
+                        PropertyAnimation { to: 150 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
+                        PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+                    }
                 }
                 //Begin game rectangle
                 Rectangle {
@@ -165,10 +165,10 @@ Item {
                         }
 
                         contentItem: Text {
-                                    text: "Hop!"
-                                    font.pointSize: 70 * root.scaleFactor
-                                    anchors.centerIn: parent.Center
-                                }
+                            text: "Hop!"
+                            font.pointSize: 70 * root.scaleFactor
+                            anchors.centerIn: parent.Center
+                        }
 
                         onClicked: {
                             if (!hopAnimation.running) {
