@@ -47,10 +47,9 @@ Item {
             MenuBase { // This opens the screen to input username at the beginning.
                 id: menuBase
                 imageSource: filepath + "/menufiles/Hopper.png"
-                z: 1
             }
 
-            Item {
+            Item { // This is the part of the code for all game events to be put in.
                 id: gameBase
                 anchors.fill: parent
                 visible: false
@@ -64,7 +63,6 @@ Item {
                     anchors.left: parent.left
                     anchors.top: parent.top
 
-                    z: 2
                     // Shows score ran in meters in score box
                     Text {
                         id: scoreText
@@ -88,6 +86,32 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
+
+                //Begin game rectangle
+                Rectangle {
+                    id: gameRect
+                    width: 1750 * root.scaleFactor
+                    height: 2800 * root.scaleFactor
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 4
+                    color: "#b5fffe"
+                    x: (parent.width - width) / 2
+                    y: (parent.height - height) / 2
+                }
+                // Floor Rectangle for Zippy to run on
+                Rectangle {
+                    id: floorRect
+                    width: 1750 * root.scaleFactor
+                    height: 600 * root.scaleFactor
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 4
+                    color: "#16bd10"
+                    x: (parent.width - width) / 2
+                    y: (parent.height - height) / 1.16
+                }
+
                 // Zippy Model
                 Rectangle {
                     id: zippyModel
@@ -96,7 +120,6 @@ Item {
                     color: "#f19527"
                     x: (parent.width - width) / 4
                     y: floorRect.y - height // Starting position on the floor
-                    z: 1
 
                     // Animation for Hopping
                     SequentialAnimation on y {
@@ -116,32 +139,7 @@ Item {
                         PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
                     }
                 }
-                //Begin game rectangle
-                Rectangle {
-                    id: gameRect
-                    width: 1750 * root.scaleFactor
-                    height: 2800 * root.scaleFactor
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 4
-                    color: "#b5fffe"
-                    x: (parent.width - width) / 2
-                    y: (parent.height - height) / 2
-                    z: 0
-                }
-                // Floor Rectangle for Zippy to run on
-                Rectangle {
-                    id: floorRect
-                    width: 1750 * root.scaleFactor
-                    height: 600 * root.scaleFactor
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 4
-                    color: "#16bd10"
-                    x: (parent.width - width) / 2
-                    y: (parent.height - height) / 1.16
-                    z: 0
-                }
+
 
                 ColumnLayout {
                     id: btnLayout
