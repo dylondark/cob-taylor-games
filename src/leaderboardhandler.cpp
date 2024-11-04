@@ -60,17 +60,9 @@ void LeaderboardHandler::loadScores(game selectedGame)
 {
     std::ifstream file(filepath + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
 
-    if (!file.is_open()) {
-        std::cerr << "Error opening file: " << FILENAMES[selectedGame] << std::endl <<
-            "Please ensure that this file is present, not corrupt, and has sufficient read/write permissions." << std::endl;
-        std::terminate();
-        /*
-            this failing must end the program because if the program fails to read in a file and continues to save back to that file,
-            it could overwrite the data in that file causing data loss, assuming the file is even writable, which if it isnt then it will cause further error anyway.
-            putting terminate() here is (hopefully) going to be a temporary solution. i would like to have some organized exception system that
-            can notify the user with a nice dialog window or something, but i just tried for 2 hours to implement that and it seems to be biting off more
-            than i can chew at the moment, so this is a reminder to (hopefully) come back and implement that at some point!
-         */
+    if (!file.is_open())
+    {
+        Utilities::throwError(Utilities::FileOpenError);
     }
 
     scoreLists[selectedGame].clear(); // Clear existing scores
@@ -101,9 +93,9 @@ void LeaderboardHandler:: writeScores(game selectedGame)
 {
     std::ofstream outFile(filepath + FILENAMES[selectedGame]); //Substitute all caps words for their respective files
 
-    if (!outFile.is_open()) {
-        std::cerr << "Error opening file for writing: " << FILENAMES[selectedGame] << std::endl;
-        return;
+    if (!outFile.is_open())
+    {
+        Utilities::throwError(Utilities::FileWriteError);
     }
 
     for (const auto& entry : scoreLists[selectedGame])
