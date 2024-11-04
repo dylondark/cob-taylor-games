@@ -20,7 +20,9 @@ Item {
     signal saveScore(int game, string username, int score)
 
     property real scaleFactor: height / 3840
-
+    property int points: 0
+    property string strName: "Pong"
+    property string username: ""
     ColumnLayout{
         id: baseLayout
         anchors.fill: parent
@@ -28,147 +30,99 @@ Item {
 
         // Define the background of the game
         Rectangle {
-            id: gameArea
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            Layout.verticalStretchFactor: 6
-            Layout.minimumHeight: 1
-            //anchors.fill: parent
-            color: "#4CAF50"  // Green background to simulate a field
-
-            // Score and Time display at the top
-            RowLayout {
-                id: topBar
-                anchors.top: parent.top
-                width: parent.width
-                height: 50
-                spacing: 20
-
-
-
-                // Score Section
-                Rectangle {
-                    id: scoreBox
-                    Layout.fillWidth: true
+                    id: background
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
                     Layout.fillHeight: true
-                    color: "#D2B48C"  // Light brown background for the score
-                    border.color: "black"
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Score: 0"
-                        font.pixelSize: 20
-                        color: "navy"
-                    }
-                }
-
-                // Time Section
-                Rectangle {
-                    id: timeBox
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    color: "#D2B48C"  // Light brown background for the time
-                    border.color: "black"
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Time: 0"
-                        font.pixelSize: 20
-                        color: "navy"
+                    Layout.verticalStretchFactor: 6
+
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "#f3a469" }
+                        GradientStop { position: 1.0; color: "#3f51b1" }
                     }
+
+                    MenuBase { // This opens the screen to input username at the beginning.
+                        id: menuBase
+                        imageSource: filepath + "/menufiles/PongMotion.png"
+                        // z: 1
+                    }
+
+                    Item {
+                        id: gameBase
+                        anchors.fill: parent
+                        visible: false
+                        // Put the code for the scores boxes here
+
+                        RowLayout {
+                            id: topBar
+                            anchors.top: parent.top
+                            width: parent.width
+                            height: 50
+                            spacing: 20
+
+                            // Score Section
+                            Rectangle {
+                                id: scoreBox
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                color: "#D2B48C"  // Light brown background for the score
+                                border.color: "black"
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: "Score: 0"
+                                    font.pixelSize: 20
+                                    color: "navy"
+                                }
+                            }
+
+                            // Time Section
+                            Rectangle {
+                                id: timeBox
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                color: "#D2B48C"  // Light brown background for the time
+                                border.color: "black"
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: "Time: 0"
+                                    font.pixelSize: 20
+                                    color: "navy"
+                                }
+                            }
+
+                        }
+                        Rectangle {
+                            id: gameRect
+                            width: 1550 * root.scaleFactor
+                            height: 3040 * root.scaleFactor
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            Layout.verticalStretchFactor: 4
+                            color: "#3AE57F"
+                            x: (parent.width - width) / 2
+                            y: (parent.height - height) / 1.5
+
+                            Repeater {
+                                    model: gameRect.width / 25// Number of dots, adjust as necessary
+                                    Rectangle {
+                                        width: 10 // Width of each dot
+                                        height: 2 // Height of each dot
+                                        color: "white"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        x: index * 25.5 // Spacing between dots, adjust as needed
+                                    }
+                                }
+                        }
+
                 }
-            }
 
-            // AI-controlled paddle at the top
-            Rectangle {
-                id: aiPaddle
-                width: 100
-                height: 20
-                color: "blue"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                anchors.topMargin: 60
-            }
 
-            // Player-controlled paddle at the bottom
-            Rectangle {
-                id: playerPaddle
-                width: 100
-                height: 20
-                color: "red"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 20
-
-                // Functions to move the paddle
-                function moveLeft() {
-                    playerPaddle.x = Math.max(0, playerPaddle.x - 40 * scaleFactor)
-                }
-
-                function moveRight() {
-                    playerPaddle.x = Math.min(gameArea.width - playerPaddle.width, playerPaddle.x + 40 * scaleFactor)
-                }
-            }
-
-            // Ball (represented by the dog)
-            // Image {
-            //     id: ball
-            //     source: "file:///Users/neeleshkatkukojwala/Desktop/QT_COB/cob-taylor-games/build/Qt_6_7_2_for_macOS-Debug/gamefiles/Zoccer/zippy_icon.png"
-            //     width: 30
-            //     height: 30
-            //     anchors.verticalCenter: playerPaddle.verticalCenter
-            //     anchors.horizontalCenter: playerPaddle.horizontalCenter
-            // }
-
-            // Ball (represented as a white circle)
-            Rectangle {
-                id: ball
-                width: 30
-                height: 30
-                color: "white"
-                radius: 15  // Half of width and height to make it a circle
-                anchors.verticalCenter: playerPaddle.verticalCenter
-                anchors.horizontalCenter: playerPaddle.horizontalCenter
-            }
-        }
-        // Control buttons to move the player paddle
-    RowLayout {
-        id: controlButtons
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
-        anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 20
-
-        Button {
-            id: leftButton
-            text: "<"
-            Layout.preferredWidth: 200
-            Layout.preferredHeight: 80
-
-            onPressed: playerPaddle.moveLeft()
-
-            background: Rectangle {
-                color: "black"
-                opacity: 0.7
-                border.color: "black"
-                radius: 10
-            }
-        }
-
-        Button {
-            id: rightButton
-            text: ">"
-            Layout.preferredWidth: 200
-            Layout.preferredHeight: 80
-
-            onPressed: playerPaddle.moveRight()
-
-            background: Rectangle {
-                color: "black"
-                opacity: 0.7
-                border.color: "black"
-                radius: 10
-            }
-        }
     }
+
+
+
+
 
         HomeBarBase {
             id: homeBarBase
