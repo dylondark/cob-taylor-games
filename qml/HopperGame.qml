@@ -145,14 +145,14 @@ Item {
                         running: false
                         loops: 1
 
-                        PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" } // Set image to Jump.png at start
-                        PropertyAction { target: runTimer; property: "running"; value: false } // Stop the Timer
+                        PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" }
+                        PropertyAction { target: runTimer; property: "running"; value: false }
 
                         PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
                         PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
 
-                        PropertyAction { target: runTimer; property: "running"; value: true } // Restart the Timer
-                        PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") } // Revert to running images at end
+                        PropertyAction { target: runTimer; property: "running"; value: true }
+                        PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                     }
 
                     // Animation for "Sliding"
@@ -161,8 +161,16 @@ Item {
                         id: slideAnimation
                         running: false
                         loops: 1
-                        PropertyAnimation { to: 150 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
-                        PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+
+                        PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Slide.png" } // Set image to Jump.png at start
+                        PropertyAction { target: runTimer; property: "running"; value: false } // Stop the Timer
+
+
+                        PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
+                        PropertyAnimation { to: 800 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+
+                        PropertyAction { target: runTimer; property: "running"; value: true }
+                        PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                     }
                 }
 
