@@ -113,13 +113,30 @@ Item {
                 }
 
                 // Zippy Model
-                Rectangle {
+                // Zippy Model
+                Image {
                     id: zippyModel
-                    width: 150 * root.scaleFactor
-                    height: 400 * root.scaleFactor
-                    color: "#f19527"
+                    width: 850 * root.scaleFactor
+                    height: 800 * root.scaleFactor
                     x: (parent.width - width) / 4
                     y: floorRect.y - height // Starting position on the floor
+
+                    property bool isRunning: true
+
+                    // Update source based on the isRun1 property
+                    source: filepath + (isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+
+                    Timer {
+                        interval: 500
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                        zippyModel.isRunning = !zippyModel.isRunning
+
+                        }
+                    }
 
                     // Animation for Hopping
                     SequentialAnimation on y {
@@ -139,6 +156,7 @@ Item {
                         PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
                     }
                 }
+
 
 
                 ColumnLayout {
