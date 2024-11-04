@@ -92,85 +92,90 @@ Item {
                     id: gameRect
                     width: 1750 * root.scaleFactor
                     height: 2800 * root.scaleFactor
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 4
-                    color: "#b5fffe"
-                    x: (parent.width - width) / 2
-                    y: (parent.height - height) / 2
-                }
-                // Floor Rectangle for Zippy to run on
-                Rectangle {
-                    id: floorRect
-                    width: 1750 * root.scaleFactor
-                    height: 600 * root.scaleFactor
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 4
-                    color: "#16bd10"
-                    x: (parent.width - width) / 2
-                    y: (parent.height - height) / 1.16
-                }
+                    anchors.centerIn: parent
 
-                // Zippy Model
-                Image {
-                    id: zippyModel
-                    width: 850 * root.scaleFactor
-                    height: 800 * root.scaleFactor
-                    x: (parent.width - width) / 4
-                    y: floorRect.y - height + 50 // Starting position on the floor
+                    Rectangle {
+                        id: skyRect
+                        width: 1750 * root.scaleFactor
+                        height: 2800 * root.scaleFactor
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.verticalStretchFactor: 3
+                        color: "#b5fffe"
+                    }
 
-                    property bool isRunning: true
+                    // Floor Rectangle for Zippy to run on
+                    Rectangle {
+                        id: floorRect
+                        width: 1750 * root.scaleFactor
+                        height: 600 * root.scaleFactor
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.verticalStretchFactor: 1
+                        anchors.bottom: parent.bottom
+                        color: "#16bd10"
+                    }
 
-                    // Animation for zippy running that changes every 500 ticks
-                    source: filepath + (isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
+                    // Zippy Model
+                    Image {
+                        id: zippyModel
+                        width: 850 * root.scaleFactor
+                        height: 800 * root.scaleFactor
+                        x: (parent.width - width) / 4
+                        y: floorRect.y - height + 50 // Starting position on the floor
 
-                    // Timer for Zippy Running
-                    Timer {
-                        id: runTimer
-                        interval: 500
-                        running: true
-                        repeat: true
-                        onTriggered: {
-                        zippyModel.isRunning = !zippyModel.isRunning
+                        property bool isRunning: true
 
+                        // Animation for zippy running that changes every 500 ticks
+                        source: filepath + (isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
+
+                        // Timer for Zippy Running
+                        Timer {
+                            id: runTimer
+                            interval: 500
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                zippyModel.isRunning = !zippyModel.isRunning
+
+                            }
                         }
-                    }
 
-                    // Animation for Hopping
-                    SequentialAnimation on y {
-                        id: hopAnimation
-                        running: false
-                        loops: 1
+                        // Animation for Hopping
+                        SequentialAnimation on y {
+                            id: hopAnimation
+                            running: false
+                            loops: 1
 
-                        PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" }
-                        PropertyAction { target: runTimer; property: "running"; value: false }
+                            PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" }
+                            PropertyAction { target: runTimer; property: "running"; value: false }
 
-                        PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
-                        PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
+                            PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
+                            PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
 
-                        PropertyAction { target: runTimer; property: "running"; value: true }
-                        PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
-                    }
+                            PropertyAction { target: runTimer; property: "running"; value: true }
+                            PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                        }
 
-                    // Animation for "Sliding"
-                    // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
-                    SequentialAnimation on height {
-                        id: slideAnimation
-                        running: false
-                        loops: 1
+                        // Animation for "Sliding"
+                        // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
+                        SequentialAnimation on height {
+                            id: slideAnimation
+                            running: false
+                            loops: 1
 
-                        PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Slide.png" } // Set image to Jump.png at start
-                        PropertyAction { target: runTimer; property: "running"; value: false } // Stop the Timer
+                            PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Slide.png" } // Set image to Jump.png at start
+                            PropertyAction { target: runTimer; property: "running"; value: false } // Stop the Timer
 
 
-                        PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
-                        PropertyAnimation { to: 800 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+                            PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
+                            PropertyAnimation { to: 800 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
 
-                        PropertyAction { target: runTimer; property: "running"; value: true }
-                        PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                            PropertyAction { target: runTimer; property: "running"; value: true }
+                            PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                        }
                     }
                 }
 
@@ -181,7 +186,7 @@ Item {
                     width: 800 * root.scaleFactor
                     height: 400 * root.scaleFactor
                     anchors.horizontalCenter: floorRect.horizontalCenter
-                    anchors.top: floorRect.bottom
+                    anchors.top: gameRect.bottom
 
                     Button {
                         id: hopBtn
