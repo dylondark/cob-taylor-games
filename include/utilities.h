@@ -23,6 +23,8 @@ namespace Utilities
 */
 enum game {Trivia = 0, GuessTheLogo = 1, Tetroos = 2, Hopper = 3, Pong = 4, Checkers = 5};
 
+enum errorMessages {FileOpenError, FileWriteError};
+
 /*
     Get the URL of a game QML file to be used in the creation of the game's window/widget.
 
