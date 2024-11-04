@@ -185,7 +185,7 @@ Item {
                     id: btnLayout
                     width: 800 * root.scaleFactor
                     height: 400 * root.scaleFactor
-                    anchors.horizontalCenter: floorRect.horizontalCenter
+                    anchors.horizontalCenter: gameRect.horizontalCenter
                     anchors.top: gameRect.bottom
 
                     Button {
