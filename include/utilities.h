@@ -8,6 +8,8 @@
 #define UTILITIES_H
 
 #include <QUrl>
+#include <QMessageBox>
+#include <iostream>
 
 /*
     Utilities namespace
@@ -49,6 +51,28 @@ inline QUrl getGameQML(game game)
     default:
         throw "Requested game QML file does not exist yet!"; // TODO: better error handling than throwing a string
     }
+}
+
+inline void throwError(errorMessages error, QWidget* parent = nullptr)
+{
+    QString message;
+    switch (error)
+    {
+    case FileOpenError:
+        message = "An error occurred while attempting to read a necessary file.\nCheck that the necessary directories are present in the executable directory and/or that the -p CLI argument is correct.\n";
+        QMessageBox::critical(parent, "cob-taylor-games - File Read Error", message);
+        break;
+    case FileWriteError:
+        message = "An error ocurred while attempting to write to a file.\nCheck that the necessary files are in the correct location and have sufficient permissions.\n";
+        QMessageBox::critical(parent, "cob-taylor-games - File Write Error", message);
+        break;
+    default:
+        message = "An unknown error ocurred.\n";
+        QMessageBox::critical(parent, "cob-taylor-games - Unknown Error", message);
+    }
+
+    std::cerr << message.toStdString();
+    std::exit(1);
 }
 }
 
