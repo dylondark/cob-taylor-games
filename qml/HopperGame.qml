@@ -92,7 +92,8 @@ Item {
                     id: gameRect
                     width: 1750 * root.scaleFactor
                     height: 2800 * root.scaleFactor
-                    anchors.centerIn: parent
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: (parent.height - height) / 2 - 200 * root.scaleFactor
 
                     Rectangle {
                         id: skyRect
@@ -139,7 +140,6 @@ Item {
                             repeat: true
                             onTriggered: {
                                 zippyModel.isRunning = !zippyModel.isRunning
-
                             }
                         }
 
@@ -186,7 +186,8 @@ Item {
                     width: 800 * root.scaleFactor
                     height: 400 * root.scaleFactor
                     anchors.horizontalCenter: gameRect.horizontalCenter
-                    anchors.top: gameRect.bottom
+                    y: gameRect.height + 350 * root.scaleFactor
+                    spacing: 100 * root.scaleFactor
 
                     Button {
                         id: hopBtn
