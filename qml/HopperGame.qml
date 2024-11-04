@@ -113,22 +113,23 @@ Item {
                 }
 
                 // Zippy Model
-                // Zippy Model
                 Image {
                     id: zippyModel
                     width: 850 * root.scaleFactor
                     height: 800 * root.scaleFactor
                     x: (parent.width - width) / 4
-                    y: floorRect.y - height // Starting position on the floor
+                    y: floorRect.y - height + 50 // Starting position on the floor
 
                     property bool isRunning: true
 
-                    // Update source based on the isRun1 property
+                    // Animation for zippy running that changes every 500 ticks
                     source: filepath + (isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
                     fillMode: Image.PreserveAspectFit
                     smooth: true
 
+                    // Timer for Zippy Running
                     Timer {
+                        id: runTimer
                         interval: 500
                         running: true
                         repeat: true
@@ -143,9 +144,17 @@ Item {
                         id: hopAnimation
                         running: false
                         loops: 1
+
+                        PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" } // Set image to Jump.png at start
+                        PropertyAction { target: runTimer; property: "running"; value: false } // Stop the Timer
+
                         PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
-                        PropertyAnimation { to: floorRect.y - zippyModel.height; duration: 500; easing.type: Easing.InQuad } // Land
+                        PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
+
+                        PropertyAction { target: runTimer; property: "running"; value: true } // Restart the Timer
+                        PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") } // Revert to running images at end
                     }
+
                     // Animation for "Sliding"
                     // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
                     SequentialAnimation on height {
