@@ -1,4 +1,4 @@
-#include "PongController.h"
+#include "pongcontroller.h"
 
 PongController::PongController(QObject *parent)
     : QObject(parent),

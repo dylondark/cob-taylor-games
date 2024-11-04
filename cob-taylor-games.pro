@@ -35,6 +35,7 @@ HEADERS += \
     clickdetector.h \
     triviacontroller.h \
     guessthelogocontroller.h \
+    pongcontroller.h \
     rapidcsv.h
 FORMS += mainwindow.ui
 SOURCES += \
@@ -50,6 +51,7 @@ SOURCES += \
     tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
+    pongcontroller.cpp \
     triviacontroller.cpp
 
 RESOURCES += \
