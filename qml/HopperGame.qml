@@ -187,7 +187,43 @@ Item {
                             PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
                     }
+                    Image {
+                        id: rock
+                        width: 120
+                        height: 100
+                        source: filepath + "/gamefiles/Hopper/Rock.png"
+                        x: parent.width
+                        y: floorRect.y - 40  // Places the rock on the ground
 
+                        // Animation for rock movement
+                        PropertyAnimation on x {
+                            from: parent.width
+                            to: 0
+                            duration: 3000  // Adjust speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
+
+                        // Rock hit detection timer
+                        Timer {
+                            id: rocktimer
+                            interval: 16  // Roughly 60 FPS
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                // Simple AABB collision detection
+                                if (rock.x < zippyHitBox.x + zippyHitBox.width &&
+                                        rock.x + rock.width > zippyHitBox.x &&
+                                        rock.y < zippyHitBox.y + zippyHitBox.height &&
+                                        rock.y + rock.height > zippyHitBox.y) {
+                                    console.log("Hit detected!")
+                                    floorRect.color = "#FFFFFF"
+
+                                    // You can stop the game or trigger a game-over logic here
+                                }
+                            }
+                        }
+                    }
                     Image {
                         id: bird
                         width: 30
