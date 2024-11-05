@@ -187,6 +187,8 @@ Item {
                             PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
                     }
+
+                    // Rock Obstacle
                     Image {
                         id: rock
                         width: 120
@@ -224,6 +226,46 @@ Item {
                             }
                         }
                     }
+
+                    // Car Obstacle
+                    Image {
+                        id: car
+                        width: 200
+                        height: 150
+                        source: filepath + "/gamefiles/Hopper/car.png"
+                        x: parent.width
+                        y: 2000 * root.scaleFactor  // Place the car at the grass
+
+                        // Animation for car movement
+                        PropertyAnimation on x {
+                            from: parent.width
+                            to: 0
+                            duration: 2000  // Adjust speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
+
+                        // Bird hit detection timer
+                        Timer {
+                            interval: 16  // Roughly 60 FPS
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                // Simple AABB collision detection
+                                if (car.x < zippyHitBox.x + zippyHitBox.width &&
+                                        car.x + car.width > zippyHitBox.x &&
+                                        car.y < zippyHitBox.y + zippyHitBox.height &&
+                                        car.y + car.height > zippyHitBox.y) {
+                                    console.log("Hit detected!")
+                                    floorRect.color = "#FF000"
+
+                                    // You can stop the game or trigger a game-over logic here
+                                }
+                            }
+                        }
+                    }
+
+                    // Bird obstacle
                     Image {
                         id: bird
                         width: 30
