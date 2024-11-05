@@ -177,6 +177,41 @@ Item {
                             PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
                     }
+
+                    Image {
+                        id: bird
+                        width: 30
+                        height: 20
+                        source: filepath + "/gamefiles/Hopper/Bird.png"
+                        x: parent.width
+                        y: 300  // Place the bird at the top of the screen
+
+                        // Animation for bird movement
+                        PropertyAnimation on x {
+                            from: parent.width
+                            to: 0
+                            duration: 3000  // Adjust speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
+
+                        // Bird hit detection timer
+                        Timer {
+                            interval: 16  // Roughly 60 FPS
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                // Simple AABB collision detection
+                                if (bird.x < zippyModel.x + zippyModel.width &&
+                                        bird.x + bird.width > zippyModel.x &&
+                                        bird.y < zippyModel.y + zippyModel.height &&
+                                        bird.y + bird.height > zippyModel.y) {
+                                    console.log("Hit detected!")
+                                    // You can stop the game or trigger a game-over logic here
+                                }
+                            }
+                        }
+                    }
                 }
 
 
