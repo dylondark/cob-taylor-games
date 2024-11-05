@@ -117,7 +117,16 @@ Item {
                         color: "#16bd10"
                     }
 
-                    // Zippy Model
+                    // Zippy Hitbox
+                    Rectangle {
+                        id: zippyHitBox
+                        anchors.centerIn: zippyModel
+                        width: 425 * root.scaleFactor
+                        height: 550 * root.scaleFactor
+                        color: "#FF0000"
+                    }
+
+                    //Zippy Model
                     Image {
                         id: zippyModel
                         width: 850 * root.scaleFactor
@@ -131,6 +140,7 @@ Item {
                         source: filepath + (isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
                         fillMode: Image.PreserveAspectFit
                         smooth: true
+                        asynchronous: true
 
                         // Timer for Zippy Running
                         Timer {
@@ -202,11 +212,13 @@ Item {
                             repeat: true
                             onTriggered: {
                                 // Simple AABB collision detection
-                                if (bird.x < zippyModel.x + zippyModel.width &&
-                                        bird.x + bird.width > zippyModel.x &&
-                                        bird.y < zippyModel.y + zippyModel.height &&
-                                        bird.y + bird.height > zippyModel.y) {
+                                if (bird.x < zippyHitBox.x + zippyHitBox.width &&
+                                        bird.x + bird.width > zippyHitBox.x &&
+                                        bird.y < zippyHitBox.y + zippyHitBox.height &&
+                                        bird.y + bird.height > zippyHitBox.y) {
                                     console.log("Hit detected!")
+                                    floorRect.color = "#FFFFFF"
+
                                     // You can stop the game or trigger a game-over logic here
                                 }
                             }
