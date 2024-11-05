@@ -123,7 +123,7 @@ Item {
                         anchors.centerIn: zippyModel
                         width: 425 * root.scaleFactor
                         height: 550 * root.scaleFactor
-                        color: "#FF0000"
+                        color: "transparent"
                     }
 
                     //Zippy Model
