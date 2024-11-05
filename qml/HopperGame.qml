@@ -121,8 +121,8 @@ Item {
                     Image {
                         id: zippyModel
                         width: 850 * root.scaleFactor
-                        height: 800 * root.scaleFactor
-                        x: (parent.width - width) / 4
+                        height: 700 * root.scaleFactor
+                        x: (parent.width - width) - 950 * root.scaleFactor
                         y: floorRect.y - height + 50 // Starting position on the floor
 
                         property bool isRunning: true
@@ -171,7 +171,7 @@ Item {
 
 
                             PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
-                            PropertyAnimation { to: 800 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+                            PropertyAnimation { to: 700 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
 
                             PropertyAction { target: runTimer; property: "running"; value: true }
                             PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
