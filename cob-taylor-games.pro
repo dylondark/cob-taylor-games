@@ -47,6 +47,7 @@ SOURCES += \
     clickdetector.cpp \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
+    utilities.cpp \
     tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
