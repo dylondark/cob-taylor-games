@@ -188,6 +188,47 @@ Item {
                         }
                     }
 
+
+                    //Cloud Background Image
+                    Image {
+                        id: cloud
+                        width: 250
+                        height: 150
+                        source: filepath + "/gamefiles/Hopper/Cloud.png"
+                        x: parent.width
+                        y: floorRect.y - 1040  // Cloud in the sky
+
+                        // Animation for rock movement
+                        PropertyAnimation on x {
+                            from: 850 * root.scaleFactor
+                            to: 0
+                            duration: 8000  // Adjust speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
+
+                    }
+                    Timer {
+                        id: obstacleTimer
+                        interval: 3000
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            // Generate a random number between 1 and 3
+                            let obstacleType = Math.floor(Math.random() * 3) + 1;
+
+                            console.log(obstacleType)
+                            // Trigger the appropriate obstacle animation
+                            if (obstacleType === 1) {
+                                rockAnimation.running = true;
+                            } else if (obstacleType === 2) {
+                                carAnimation.running = true;
+                            } else if (obstacleType === 3) {
+                                birdAnimation.running = true;
+                            }
+                        }
+                    }
+
                     // Rock Obstacle
                     Image {
                         id: rock
@@ -199,11 +240,12 @@ Item {
 
                         // Animation for rock movement
                         PropertyAnimation on x {
+                            id: rockAnimation
                             from: parent.width
-                            to: 0
+                            to: -300
                             duration: 3000  // Adjust speed
-                            loops: Animation.Infinite
-                            running: true
+                            loops: 1
+                            running: false
                         }
 
                         // Rock hit detection timer
@@ -238,14 +280,15 @@ Item {
 
                         // Animation for car movement
                         PropertyAnimation on x {
+                            id: carAnimation
                             from: parent.width
-                            to: 0
+                            to: -300
                             duration: 2000  // Adjust speed
-                            loops: Animation.Infinite
-                            running: true
+                            loops: 1
+                            running: false
                         }
 
-                        // Bird hit detection timer
+                        // Car hit detection timer
                         Timer {
                             interval: 16  // Roughly 60 FPS
                             running: true
@@ -276,11 +319,12 @@ Item {
 
                         // Animation for bird movement
                         PropertyAnimation on x {
+                            id: birdAnimation
                             from: parent.width
-                            to: 0
+                            to: -300
                             duration: 3000  // Adjust speed
-                            loops: Animation.Infinite
-                            running: true
+                            loops: 1
+                            running: false
                         }
 
                         // Bird hit detection timer
