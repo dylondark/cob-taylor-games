@@ -23,8 +23,8 @@ Item {
     property int points: 0
     property string strName: "Hopper"
     property string username: ""
-    property int gameEnum: 0 //Utilities number.
-
+    property int gameEnum: 0
+    property int metersRan: 0
 
     ColumnLayout {
         id: baseLayout
@@ -53,6 +53,7 @@ Item {
                 id: gameBase
                 anchors.fill: parent
                 visible: false
+                property int elapsedTime: 0
 
                 // The code for the scores boxes here
                 Rectangle {
@@ -78,7 +79,7 @@ Item {
                     // Displays the Timer measuring the time of each turn played
                     Text{
                         id: timeText
-                        text: "Time: " + root.elapsedTime + "s"
+                        text: "Time: " + gameBase.elapsedTime + "s"
                         font.pixelSize: 70 * root.scaleFactor
                         color: "white"
                         anchors.right: parent.right
@@ -140,8 +141,28 @@ Item {
                             repeat: true
                             onTriggered: {
                                 zippyModel.isRunning = !zippyModel.isRunning
+                                root.metersRan += 1;
                             }
                         }
+
+                        // Timer for counting seconds when the round starts
+                           Timer {
+                               id: roundTimer
+                               interval: 1000 // 1000 ms = 1 second
+                               running: false // Initially stopped
+                               repeat: true // Continuously counts up
+                               onTriggered: {
+                                   gameBase.elapsedTime += 1
+                               }
+                           }
+
+                           // Function to start the round and begin the timer
+                           function startRound() {
+                               gameBase.roundTime = 0;// Resets the time
+                               root.metersRan = 0;
+                               roundTimer.start(); // Starts the timer
+                           }
+
 
                         // Animation for Hopping
                         SequentialAnimation on y {
