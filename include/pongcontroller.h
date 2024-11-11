@@ -2,35 +2,54 @@
 #define PONGCONTROLLER_H
 
 #include <QObject>
+#include <QQmlEngine>
+#include <QQuickPaintedItem>
+#include <QTimer>
 
-class PongController : public QObject
+class PongController : public QQuickPaintedItem
 {
     Q_OBJECT
-    Q_PROPERTY(int playerPaddlePosition READ playerPaddlePosition WRITE setPlayerPaddlePosition NOTIFY playerPaddlePositionChanged)
 
 public:
-    explicit PongController(QObject *parent = nullptr);
 
-    // Getter for player's paddle position
-    int playerPaddlePosition() const;
+    /*
+        Constructor for PongController
+    */
+    explicit PongController();
 
-    // Setter for player's paddle position
-    void setPlayerPaddlePosition(int position);
+    /*
+        Destructor for PongController
+    */
+    ~PongController();
+
+    /*
+        Paint a new frame onto the canvas
+    */
+    void paint(QPainter* painter) override;
+
+    /*
+        Kicks off the game loop. To be called by QML after entering the game.
+    */
+    Q_INVOKABLE void startGame();
+
+    /*
+        Returns whether game is over or not.
+    */
+    Q_INVOKABLE bool isGameOver();
+
+    /*
+        Returns the current score.
+    */
+    Q_INVOKABLE unsigned getScore();
 
 signals:
-    // Signal to notify when player's paddle position changes
-    void playerPaddlePositionChanged();
+
 
 public slots:
-    // Slots for moving paddle
-    void movePaddleLeft();
-    void movePaddleRight();
+
 
 private:
-    int m_playerPaddlePosition;  // Current position of the player paddle
-    const int m_paddleStep = 20;  // Distance moved with each press
-    const int m_minPosition = 0;  // Minimum position (left bound)
-    const int m_maxPosition = 700;  // Maximum position (right bound, adjust based on screen width)
+
 };
 
 #endif // PONGCONTROLLER_H
