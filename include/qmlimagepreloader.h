@@ -26,7 +26,21 @@ public:
     /*
         Constructor for QMLImagePreloader
     */
-    explicit QMLImagePreloader(QObject *parent = nullptr);
+    explicit QMLImagePreloader();
+
+    /*
+        Add an image to the list of preloaded images.
+    */
+    Q_INVOKABLE void addImage(const QString& path);
+
+    /*
+        Retrieve a preloaded image as a base 64 encoded URL.
+    */
+    Q_INVOKABLE QString getImage(const QString& path);
+
+private:
+    // Stores the data as key value pairs with the key being the path and the value being the base 64 encoded image.
+    std::map<QString, QString> data;
 };
 
 #endif // QMLIMAGEPRELOADER_H
