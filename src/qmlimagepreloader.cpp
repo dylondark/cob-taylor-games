@@ -1,5 +1,12 @@
+/*
+    qmlimagepreloader.cpp
+
+    Class implementation for QMLImagePreloader.
+*/
+
 #include "qmlimagepreloader.h"
 
-QMLImagePreloader::QMLImagePreloader(QObject *parent)
-    : QObject{parent}
-{}
+/*
+    Constructor for QMLImagePreloader
+*/
+QMLImagePreloader::QMLImagePreloader() {}
