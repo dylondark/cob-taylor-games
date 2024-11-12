@@ -159,10 +159,13 @@ Item {
                            Timer {
                                id: roundTimer
                                interval: 1000 // 1000 ms = 1 second
-                               running: false // Initially stopped
+                               running: true // Initially stopped
                                repeat: true // Continuously counts up
                                onTriggered: {
-                                   gameBase.elapsedTime += 1
+                                   gameBase.elapsedTime += 1;
+                                   root.points++;
+                                   homeBarBase.updatePoints();
+
                                }
                            }
 
