@@ -356,8 +356,8 @@ Item {
 
                     Image {
                         id: bird
-                        width: 30 * root.scaleFactor
-                        height: 20 * root.scaleFactor
+                        width: 350 * root.scaleFactor
+                        height: 330 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
                         y: 300 * root.scaleFactor  // Place the bird at the top of the screen
