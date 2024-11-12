@@ -216,11 +216,11 @@ Item {
                     // Cloud Background Image
                     Image {
                         id: cloud
-                        width: 250
-                        height: 150
+                        width: 250 * root.scaleFactor
+                        height: 150 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Cloud.png"
                         x: parent.width
-                        y: floorRect.y - 1040  // Cloud in the sky
+                        y: floorRect.y - 1040 * root.scaleFactor  // Cloud in the sky
 
                         // Animation for rock movement
                         PropertyAnimation on x {
@@ -268,7 +268,7 @@ Item {
                         height: 100 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Rock.png"
                         x: parent.width
-                        y: floorRect.y - 40  // Places the rock on the ground
+                        y: floorRect.y - 40 * root.scaleFactor  // Places the rock on the ground
 
                         // Animation for rock movement
                         PropertyAnimation on x {
@@ -363,7 +363,7 @@ Item {
                         height: 20 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
-                        y: 300  // Place the bird at the top of the screen
+                        y: 300 * root.scaleFactor  // Place the bird at the top of the screen
 
                         // Animation for bird movement
                         PropertyAnimation on x {
