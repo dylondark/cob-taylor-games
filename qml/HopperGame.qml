@@ -360,7 +360,7 @@ Item {
                         height: 330 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
-                        y: 300 * root.scaleFactor  // Place the bird at the top of the screen
+                        y: 1200 * root.scaleFactor  // Place the bird at the top of the screen
 
                         // Animation for bird movement
                         PropertyAnimation on x {
