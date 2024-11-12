@@ -24,7 +24,6 @@ Item {
     property string strName: "Hopper"
     property string username: ""
     property int gameEnum: 0
-    property int metersRan: 0
 
     ColumnLayout {
         id: baseLayout
@@ -151,7 +150,6 @@ Item {
                             repeat: true
                             onTriggered: {
                                 zippyModel.isRunning = !zippyModel.isRunning
-                                root.metersRan += 1;
                             }
                         }
 
@@ -163,7 +161,7 @@ Item {
                             repeat: true // Continuously counts up
                             onTriggered: {
                                 gameBase.elapsedTime += 1;
-                                root.points++;
+                                root.points += 5;
                                 homeBarBase.updatePoints();
 
                             }
@@ -172,7 +170,6 @@ Item {
                         // Function to start the round and begin the timer
                         function startRound() {
                             gameBase.roundTime = 0;// Resets the time
-                            root.metersRan = 0;
                             roundTimer.start(); // Starts the timer
                         }
 
