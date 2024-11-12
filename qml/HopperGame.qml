@@ -272,7 +272,7 @@ Item {
                             id: rockAnimation
                             from: parent.width
                             to: -300
-                            duration: 3000  // Adjust speed
+                            duration: 2750  // Adjust speed
                             loops: 1
                             running: false
                         }
