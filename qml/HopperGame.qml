@@ -118,12 +118,21 @@ Item {
                         color: "#16bd10"
                     }
 
-                    // Zippy Model
+                    // Zippy Hitbox
+                    Rectangle {
+                        id: zippyHitBox
+                        anchors.centerIn: zippyModel
+                        width: 425 * root.scaleFactor
+                        height: 550 * root.scaleFactor
+                        color: "transparent"
+                    }
+
+                    //Zippy Model
                     Image {
                         id: zippyModel
                         width: 850 * root.scaleFactor
-                        height: 800 * root.scaleFactor
-                        x: (parent.width - width) / 4
+                        height: 700 * root.scaleFactor
+                        x: (parent.width - width) - 950 * root.scaleFactor
                         y: floorRect.y - height + 50 // Starting position on the floor
 
                         property bool isRunning: true
@@ -132,6 +141,7 @@ Item {
                         source: filepath + (isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
                         fillMode: Image.PreserveAspectFit
                         smooth: true
+                        asynchronous: true
 
                         // Timer for Zippy Running
                         Timer {
@@ -192,10 +202,169 @@ Item {
 
 
                             PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
-                            PropertyAnimation { to: 800 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+                            PropertyAnimation { to: 700 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
 
                             PropertyAction { target: runTimer; property: "running"; value: true }
                             PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                        }
+                    }
+
+
+                    //Cloud Background Image
+                    Image {
+                        id: cloud
+                        width: 250
+                        height: 150
+                        source: filepath + "/gamefiles/Hopper/Cloud.png"
+                        x: parent.width
+                        y: floorRect.y - 1040  // Cloud in the sky
+
+                        // Animation for rock movement
+                        PropertyAnimation on x {
+                            from: 850 * root.scaleFactor
+                            to: 0
+                            duration: 8000  // Adjust speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
+
+                    }
+                    Timer {
+                        id: obstacleTimer
+                        interval: 3000
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            // Generate a random number between 1 and 3
+                            let obstacleType = Math.floor(Math.random() * 3) + 1;
+
+                            console.log(obstacleType)
+                            // Trigger the appropriate obstacle animation
+                            if (obstacleType === 1) {
+                                rockAnimation.running = true;
+                            } else if (obstacleType === 2) {
+                                carAnimation.running = true;
+                            } else if (obstacleType === 3) {
+                                birdAnimation.running = true;
+                            }
+                        }
+                    }
+
+                    // Rock Obstacle
+                    Image {
+                        id: rock
+                        width: 120
+                        height: 100
+                        source: filepath + "/gamefiles/Hopper/Rock.png"
+                        x: parent.width
+                        y: floorRect.y - 40  // Places the rock on the ground
+
+                        // Animation for rock movement
+                        PropertyAnimation on x {
+                            id: rockAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjust speed
+                            loops: 1
+                            running: false
+                        }
+
+                        // Rock hit detection timer
+                        Timer {
+                            id: rocktimer
+                            interval: 16  // Roughly 60 FPS
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                // Simple AABB collision detection
+                                if (rock.x < zippyHitBox.x + zippyHitBox.width &&
+                                        rock.x + rock.width > zippyHitBox.x &&
+                                        rock.y < zippyHitBox.y + zippyHitBox.height &&
+                                        rock.y + rock.height > zippyHitBox.y) {
+                                    console.log("Hit detected!")
+                                    floorRect.color = "#FFFFFF"
+
+                                    // You can stop the game or trigger a game-over logic here
+                                }
+                            }
+                        }
+                    }
+
+                    // Car Obstacle
+                    Image {
+                        id: car
+                        width: 200
+                        height: 150
+                        source: filepath + "/gamefiles/Hopper/car.png"
+                        x: parent.width
+                        y: 2000 * root.scaleFactor  // Place the car at the grass
+
+                        // Animation for car movement
+                        PropertyAnimation on x {
+                            id: carAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 2000  // Adjust speed
+                            loops: 1
+                            running: false
+                        }
+
+                        // Car hit detection timer
+                        Timer {
+                            interval: 16  // Roughly 60 FPS
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                // Simple AABB collision detection
+                                if (car.x < zippyHitBox.x + zippyHitBox.width &&
+                                        car.x + car.width > zippyHitBox.x &&
+                                        car.y < zippyHitBox.y + zippyHitBox.height &&
+                                        car.y + car.height > zippyHitBox.y) {
+                                    console.log("Hit detected!")
+                                    floorRect.color = "#FF000"
+
+                                    // You can stop the game or trigger a game-over logic here
+                                }
+                            }
+                        }
+                    }
+
+                    // Bird obstacle
+                    Image {
+                        id: bird
+                        width: 30
+                        height: 20
+                        source: filepath + "/gamefiles/Hopper/Bird.png"
+                        x: parent.width
+                        y: 300  // Place the bird at the top of the screen
+
+                        // Animation for bird movement
+                        PropertyAnimation on x {
+                            id: birdAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjust speed
+                            loops: 1
+                            running: false
+                        }
+
+                        // Bird hit detection timer
+                        Timer {
+                            interval: 16  // Roughly 60 FPS
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                // Simple AABB collision detection
+                                if (bird.x < zippyHitBox.x + zippyHitBox.width &&
+                                        bird.x + bird.width > zippyHitBox.x &&
+                                        bird.y < zippyHitBox.y + zippyHitBox.height &&
+                                        bird.y + bird.height > zippyHitBox.y) {
+                                    console.log("Hit detected!")
+                                    floorRect.color = "#FFFFFF"
+
+                                    // You can stop the game or trigger a game-over logic here
+                                }
+                            }
                         }
                     }
                 }
