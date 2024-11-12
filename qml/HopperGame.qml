@@ -156,25 +156,25 @@ Item {
                         }
 
                         // Timer for counting seconds when the round starts
-                           Timer {
-                               id: roundTimer
-                               interval: 1000 // 1000 ms = 1 second
-                               running: true // Initially stopped
-                               repeat: true // Continuously counts up
-                               onTriggered: {
-                                   gameBase.elapsedTime += 1;
-                                   root.points++;
-                                   homeBarBase.updatePoints();
+                        Timer {
+                            id: roundTimer
+                            interval: 1000 // 1000 ms = 1 second
+                            running: true // Initially stopped
+                            repeat: true // Continuously counts up
+                            onTriggered: {
+                                gameBase.elapsedTime += 1;
+                                root.points++;
+                                homeBarBase.updatePoints();
 
-                               }
-                           }
+                            }
+                        }
 
-                           // Function to start the round and begin the timer
-                           function startRound() {
-                               gameBase.roundTime = 0;// Resets the time
-                               root.metersRan = 0;
-                               roundTimer.start(); // Starts the timer
-                           }
+                        // Function to start the round and begin the timer
+                        function startRound() {
+                            gameBase.roundTime = 0;// Resets the time
+                            root.metersRan = 0;
+                            roundTimer.start(); // Starts the timer
+                        }
 
 
                         // Animation for Hopping
@@ -213,7 +213,7 @@ Item {
                     }
 
 
-                    //Cloud Background Image
+                    // Cloud Background Image
                     Image {
                         id: cloud
                         width: 250
@@ -230,8 +230,8 @@ Item {
                             loops: Animation.Infinite
                             running: true
                         }
-
                     }
+
                     Timer {
                         id: obstacleTimer
                         interval: 3000
@@ -371,8 +371,6 @@ Item {
                         }
                     }
                 }
-
-
 
                 ColumnLayout {
                     id: btnLayout
