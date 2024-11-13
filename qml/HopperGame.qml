@@ -4,10 +4,11 @@
     Main QML file for the Hopper game.
 */
 
-import QtQuick 2.15
+import QtQuick
 import QtQuick.Controls.Material
-import QtQuick.Layouts 1.15
+import QtQuick.Layouts
 import QtQml
+import QMLControllers
 
 // this game is in PREVIEW STATE
 Item {
@@ -54,6 +55,19 @@ Item {
                 anchors.fill: parent
                 visible: false
                 property int elapsedTime: 0
+
+                QMLImagePreloader {
+                    id: loader
+
+                    Component.onCompleted: {
+                        // Add images to preload here
+                        // DONT add filepath in front of the paths here. It is already done in the C++ code.
+                        loader.addImage("/gamefiles/Hopper/Run1.png");
+                        loader.addImage("/gamefiles/Hopper/Run2.png");
+                        loader.addImage("/gamefiles/Hopper/Jump.png");
+                        loader.addImage("/gamefiles/Hopper/Slide.png");
+                    }
+                }
 
                 // The code for the scores boxes here
                 Rectangle {
@@ -138,10 +152,12 @@ Item {
                         property bool isRunning: true
 
                         // Animation for zippy running that changes every 500 ticks
-                        source: filepath + (isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
+                        source: loader.getImage(isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
                         fillMode: Image.PreserveAspectFit
-                        smooth: true
+                        smooth: true // turn off if performance is bad
                         asynchronous: true
+                        cache: false
+                        retainWhileLoading: true // REQUIRES QT 6.8!!!
 
                         // Timer for Zippy Running
                         Timer {
@@ -165,7 +181,6 @@ Item {
                                 gameBase.elapsedTime += 1;
                                 root.points++;
                                 homeBarBase.updatePoints();
-
                             }
                         }
 
@@ -183,14 +198,14 @@ Item {
                             running: false
                             loops: 1
 
-                            PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" }
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Jump.png") } // Set image to Jump.png at start
                             PropertyAction { target: runTimer; property: "running"; value: false }
 
                             PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
                             PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
 
                             PropertyAction { target: runTimer; property: "running"; value: true }
-                            PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
 
                         // Animation for "Sliding"
@@ -200,7 +215,7 @@ Item {
                             running: false
                             loops: 1
 
-                            PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Slide.png" } // Set image to Jump.png at start
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Slide.png") } // Set image to Jump.png at start
                             PropertyAction { target: runTimer; property: "running"; value: false } // Stop the Timer
 
 
@@ -208,7 +223,7 @@ Item {
                             PropertyAnimation { to: 700 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
 
                             PropertyAction { target: runTimer; property: "running"; value: true }
-                            PropertyAction { target: zippyModel; property: "source"; value: filepath + (zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
                     }
 
