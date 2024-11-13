@@ -25,7 +25,6 @@ Item {
     property string strName: "Hopper"
     property string username: ""
     property int gameEnum: 0
-    property int metersRan: 0
 
     ColumnLayout {
         id: baseLayout
@@ -138,7 +137,7 @@ Item {
                         anchors.centerIn: zippyModel
                         width: 425 * root.scaleFactor
                         height: 550 * root.scaleFactor
-                        color: "transparent"
+                        color: "red"
                     }
 
                     //Zippy Model
@@ -167,7 +166,6 @@ Item {
                             repeat: true
                             onTriggered: {
                                 zippyModel.isRunning = !zippyModel.isRunning
-                                root.metersRan += 1;
                             }
                         }
 
@@ -179,7 +177,7 @@ Item {
                             repeat: true // Continuously counts up
                             onTriggered: {
                                 gameBase.elapsedTime += 1;
-                                root.points++;
+                                root.points += 5;
                                 homeBarBase.updatePoints();
                             }
                         }
@@ -187,7 +185,6 @@ Item {
                         // Function to start the round and begin the timer
                         function startRound() {
                             gameBase.roundTime = 0;// Resets the time
-                            root.metersRan = 0;
                             roundTimer.start(); // Starts the timer
                         }
 
@@ -231,11 +228,11 @@ Item {
                     // Cloud Background Image
                     Image {
                         id: cloud
-                        width: 250
-                        height: 150
+                        width: 250 * root.scaleFactor
+                        height: 150 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Cloud.png"
                         x: parent.width
-                        y: floorRect.y - 1040  // Cloud in the sky
+                        y: floorRect.y - 1040 * root.scaleFactor  // Cloud in the sky
 
                         // Animation for rock movement
                         PropertyAnimation on x {
@@ -247,7 +244,7 @@ Item {
                         }
                     }
 
-                    Timer {
+                    Timer { // Timer for obstacles coming out
                         id: obstacleTimer
                         interval: 3000
                         running: true
@@ -269,20 +266,28 @@ Item {
                     }
 
                     // Rock Obstacle
+                    Rectangle {
+                        id: rockhitbox
+                        width: 120 * root.scaleFactor
+                        height: 100 * root.scaleFactor
+                        anchors.centerIn: rock
+                        color: "red"
+                    }
+
                     Image {
                         id: rock
-                        width: 120
-                        height: 100
+                        width: 120 * root.scaleFactor
+                        height: 100 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Rock.png"
                         x: parent.width
-                        y: floorRect.y - 40  // Places the rock on the ground
+                        y: floorRect.y - 40 * root.scaleFactor  // Places the rock on the ground
 
                         // Animation for rock movement
                         PropertyAnimation on x {
                             id: rockAnimation
                             from: parent.width
                             to: -300
-                            duration: 3000  // Adjust speed
+                            duration: 2750  // Adjust speed
                             loops: 1
                             running: false
                         }
@@ -309,10 +314,18 @@ Item {
                     }
 
                     // Car Obstacle
+                    Rectangle {
+                        id: carHitbox
+                        width: 200 * root.scaleFactor
+                        height: 150 * root.scaleFactor
+                        anchors.centerIn: car
+                        color: "red"
+                    }
+
                     Image {
                         id: car
-                        width: 200
-                        height: 150
+                        width: 200 * root.scaleFactor
+                        height: 150 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/car.png"
                         x: parent.width
                         y: 2000 * root.scaleFactor  // Place the car at the grass
@@ -348,13 +361,21 @@ Item {
                     }
 
                     // Bird obstacle
+                    Rectangle {
+                        id: birdHitbox
+                        width: 30 * root.scaleFactor
+                        height: 20 * root.scaleFactor
+                        anchors.centerIn: bird
+                        color: "red"
+                    }
+
                     Image {
                         id: bird
-                        width: 30
-                        height: 20
+                        width: 350 * root.scaleFactor
+                        height: 330 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
-                        y: 300  // Place the bird at the top of the screen
+                        y: 1200 * root.scaleFactor  // Place the bird at the top of the screen
 
                         // Animation for bird movement
                         PropertyAnimation on x {
