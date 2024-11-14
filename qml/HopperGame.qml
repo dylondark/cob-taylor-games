@@ -363,8 +363,8 @@ Item {
                     // Bird obstacle
                     Rectangle {
                         id: birdHitbox
-                        width: 30 * root.scaleFactor
-                        height: 20 * root.scaleFactor
+                        width: 375 * root.scaleFactor
+                        height: 350 * root.scaleFactor
                         anchors.centerIn: bird
                         color: "red"
                     }
