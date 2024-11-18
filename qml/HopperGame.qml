@@ -109,6 +109,21 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     y: (parent.height - height) / 2 - 200 * root.scaleFactor
 
+                    // Function to start the round and begin the timer
+                    function startRound() {
+                        gameBase.roundTime = 0;// Resets the time
+                        roundTimer.start(); // Starts the timer
+                    }
+
+                    function checkCollision(object1, object2) {
+                        return object1.x < object2.x + object2.width &&
+                                object1.x + object1.width > object2.x &&
+                                object1.y < object2.y + object2.height &&
+                                object1.y + object1.height > object2.y;
+                    }
+
+
+
                     Rectangle {
                         id: skyRect
                         width: 1750 * root.scaleFactor
@@ -133,7 +148,7 @@ Item {
 
                     // Zippy Hitbox
                     Rectangle {
-                        id: zippyHitBox
+                        id: zippyHitbox
                         anchors.centerIn: zippyModel
                         width: 425 * root.scaleFactor
                         height: 550 * root.scaleFactor
@@ -181,13 +196,6 @@ Item {
                                 homeBarBase.updatePoints();
                             }
                         }
-
-                        // Function to start the round and begin the timer
-                        function startRound() {
-                            gameBase.roundTime = 0;// Resets the time
-                            roundTimer.start(); // Starts the timer
-                        }
-
 
                         // Animation for Hopping
                         SequentialAnimation on y {
@@ -267,7 +275,7 @@ Item {
 
                     // Rock Obstacle
                     Rectangle {
-                        id: rockhitbox
+                        id: rockHitbox
                         width: 120 * root.scaleFactor
                         height: 100 * root.scaleFactor
                         anchors.centerIn: rock
@@ -300,10 +308,7 @@ Item {
                             repeat: true
                             onTriggered: {
                                 // Simple AABB collision detection
-                                if (rock.x < zippyHitBox.x + zippyHitBox.width &&
-                                        rock.x + rock.width > zippyHitBox.x &&
-                                        rock.y < zippyHitBox.y + zippyHitBox.height &&
-                                        rock.y + rock.height > zippyHitBox.y) {
+                                if (gameRect.checkCollision(rockHitbox, zippyHitbox)) {
                                     console.log("Hit detected!")
                                     floorRect.color = "#FFFFFF"
 
@@ -347,10 +352,7 @@ Item {
                             repeat: true
                             onTriggered: {
                                 // Simple AABB collision detection
-                                if (statue.x < zippyHitBox.x + zippyHitBox.width &&
-                                        statue.x + statue.width > zippyHitBox.x &&
-                                        statue.y < zippyHitBox.y + zippyHitBox.height &&
-                                        statue.y + statue.height > zippyHitBox.y) {
+                                if (gameRect.checkCollision(statueHitbox, zippyHitbox)) {
                                     console.log("Hit detected!")
                                     floorRect.color = "#FF000"
 
@@ -394,10 +396,7 @@ Item {
                             repeat: true
                             onTriggered: {
                                 // Simple AABB collision detection
-                                if (bird.x < zippyHitBox.x + zippyHitBox.width &&
-                                        bird.x + bird.width > zippyHitBox.x &&
-                                        bird.y < zippyHitBox.y + zippyHitBox.height &&
-                                        bird.y + bird.height > zippyHitBox.y) {
+                                if (gameRect.checkCollision(birdHitbox, zippyHitbox)) {
                                     console.log("Hit detected!")
                                     floorRect.color = "#FFFFFF"
 
