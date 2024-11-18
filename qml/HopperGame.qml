@@ -258,7 +258,7 @@ Item {
                             if (obstacleType === 1) {
                                 rockAnimation.running = true;
                             } else if (obstacleType === 2) {
-                                carAnimation.running = true;
+                                statueAnimation.running = true;
                             } else if (obstacleType === 3) {
                                 birdAnimation.running = true;
                             }
@@ -313,44 +313,44 @@ Item {
                         }
                     }
 
-                    // Car Obstacle
+                    // statue Obstacle
                     Rectangle {
-                        id: carHitbox
+                        id: statueHitbox
                         width: 200 * root.scaleFactor
-                        height: 150 * root.scaleFactor
-                        anchors.centerIn: car
+                        height: 500 * root.scaleFactor
+                        anchors.centerIn: statue
                         color: "red"
                     }
 
                     Image {
-                        id: car
+                        id: statue
                         width: 200 * root.scaleFactor
-                        height: 150 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/car.png"
+                        height: 500 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/statue.png"
                         x: parent.width
-                        y: 2000 * root.scaleFactor  // Place the car at the grass
+                        y: floorRect.y - height + 50  // Place the statue at the grass
 
-                        // Animation for car movement
+                        // Animation for statue movement
                         PropertyAnimation on x {
-                            id: carAnimation
+                            id: statueAnimation
                             from: parent.width
                             to: -300
-                            duration: 2000  // Adjust speed
+                            duration: 3000  // Adjust speed
                             loops: 1
                             running: false
                         }
 
-                        // Car hit detection timer
+                        // statue hit detection timer
                         Timer {
                             interval: 16  // Roughly 60 FPS
                             running: true
                             repeat: true
                             onTriggered: {
                                 // Simple AABB collision detection
-                                if (car.x < zippyHitBox.x + zippyHitBox.width &&
-                                        car.x + car.width > zippyHitBox.x &&
-                                        car.y < zippyHitBox.y + zippyHitBox.height &&
-                                        car.y + car.height > zippyHitBox.y) {
+                                if (statue.x < zippyHitBox.x + zippyHitBox.width &&
+                                        statue.x + statue.width > zippyHitBox.x &&
+                                        statue.y < zippyHitBox.y + zippyHitBox.height &&
+                                        statue.y + statue.height > zippyHitBox.y) {
                                     console.log("Hit detected!")
                                     floorRect.color = "#FF000"
 
