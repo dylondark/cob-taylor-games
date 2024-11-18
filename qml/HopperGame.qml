@@ -101,7 +101,7 @@ Item {
                     }
                 }
 
-                //Begin game rectangle
+                // Begin game rectangle
                 Rectangle {
                     id: gameRect
                     width: 1750 * root.scaleFactor
@@ -146,16 +146,25 @@ Item {
                         color: "#16bd10"
                     }
 
-                    // Zippy Hitbox
+                    // Zippy Hitboxes
                     Rectangle {
-                        id: zippyHitbox
+                        id: zippyBHitbox
                         anchors.centerIn: zippyModel
-                        width: 425 * root.scaleFactor
+                        width: 225 * root.scaleFactor
                         height: 550 * root.scaleFactor
                         color: "red"
                     }
 
-                    //Zippy Model
+                    Rectangle {
+                        id: zippyHHitbox
+                        anchors.top: zippyModel.top
+                        anchors.horizontalCenter: zippyModel.horizontalCenter
+                        width: 400 * root.scaleFactor
+                        height: 150 * root.scaleFactor
+                        color: "green"
+                    }
+
+                    // Zippy Model
                     Image {
                         id: zippyModel
                         width: 850 * root.scaleFactor
