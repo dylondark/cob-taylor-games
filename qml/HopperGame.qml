@@ -259,7 +259,7 @@ Item {
                         repeat: true
                         onTriggered: {
                             // Generate a random number between 1 and 3
-                            let obstacleType = Math.floor(Math.random() * 3) + 1;
+                            let obstacleType = Math.floor(Math.random() * 4) + 1;
 
                             console.log(obstacleType)
                             // Trigger the appropriate obstacle animation
@@ -269,6 +269,8 @@ Item {
                                 statueAnimation.running = true;
                             } else if (obstacleType === 3) {
                                 birdAnimation.running = true;
+                            } else if (obstacleType === 4) {
+                                rockCandyAnimation.running = true;
                             }
                         }
                     }
@@ -361,7 +363,49 @@ Item {
                             }
                         }
                     }
+                    // rockCandy Obstacle
+                    Rectangle {
+                        id: rockCandyHitbox
+                        width: 200 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        anchors.centerIn: rockCandy
+                        color: "red"
+                    }
 
+                    Image {
+                        id: rockCandy
+                        width: 200 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/rockCandy.png"
+                        x: parent.width
+                        y: floorRect.y - height + 50  // Place the rockCandy at the grass
+
+                        // Animation for rockCandy movement
+                        PropertyAnimation on x {
+                            id: rockCandyAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjust speed
+                            loops: 1
+                            running: false
+                        }
+
+                        // rockCandy hit detection timer
+                        Timer {
+                            interval: 16  // Roughly 60 FPS
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                // Simple AABB collision detection
+                                if (gameRect.checkCollision(rockCandyHitbox, zippyHitbox)) {
+                                    console.log("Hit detected!")
+                                    floorRect.color = "#FF000"
+
+                                    // You can stop the game or trigger a game-over logic here
+                                }
+                            }
+                        }
+                    }
                     // Bird obstacle
                     Rectangle {
                         id: birdHitbox
