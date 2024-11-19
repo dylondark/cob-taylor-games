@@ -69,37 +69,6 @@ Item {
                 }
 
                 // The code for the scores boxes here
-                Rectangle {
-                    id: scoreBox
-                    width: parent.width
-                    height: 150 * root.scaleFactor
-                    color: "#3f51b1"
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-
-                    // Shows score ran in meters in score box
-                    Text {
-                        id: scoreText
-                        text: "Score: " + root.points + " meters"
-                        font.pixelSize: 70 * root.scaleFactor
-                        color: "white"
-                        anchors.left: parent.left
-                        anchors.leftMargin: 20 * root.scaleFactor
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-
-
-                    // Displays the Timer measuring the time of each turn played
-                    Text{
-                        id: timeText
-                        text: "Time: " + gameBase.elapsedTime + "s"
-                        font.pixelSize: 70 * root.scaleFactor
-                        color: "white"
-                        anchors.right: parent.right
-                        anchors.rightMargin: 50 * root.scaleFactor
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                }
 
                 // Begin game rectangle
                 Rectangle {
@@ -449,6 +418,62 @@ Item {
                             loops: 1
                             running: false
                         }
+                    }
+                }
+                // Left Bar
+                Rectangle {
+                    id: leftBar
+                    width: (parent.width - gameRect.width) / 2
+                    height: parent.height
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "#f3a469" }
+                        GradientStop { position: 1.0; color: "#3f51b1" }
+                    }
+                }
+
+                // Right Bar
+                Rectangle {
+                    id: rightBar
+                    width: (parent.width - gameRect.width) / 2
+                    height: parent.height
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "#f3a469" }
+                        GradientStop { position: 1.0; color: "#3f51b1" }
+                    }
+                }
+                Rectangle {
+                    id: scoreBox
+                    width: parent.width
+                    height: 150 * root.scaleFactor
+                    color: "#3f51b1"
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+
+                    // Shows score ran in meters in score box
+                    Text {
+                        id: scoreText
+                        text: "Score: " + root.points + " meters"
+                        font.pixelSize: 70 * root.scaleFactor
+                        color: "white"
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20 * root.scaleFactor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+
+                    // Displays the Timer measuring the time of each turn played
+                    Text{
+                        id: timeText
+                        text: "Time: " + gameBase.elapsedTime + "s"
+                        font.pixelSize: 70 * root.scaleFactor
+                        color: "white"
+                        anchors.right: parent.right
+                        anchors.rightMargin: 50 * root.scaleFactor
+                        anchors.verticalCenter: parent.verticalCenter
                     }
                 }
 
