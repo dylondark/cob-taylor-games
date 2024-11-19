@@ -233,6 +233,36 @@ Item {
                             PropertyAction { target: runTimer; property: "running"; value: true }
                             PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
+                        Row {
+                            spacing: 10 * root.scaleFactor // Adjust spacing between hearts
+                            anchors.top: zippyModel.top
+                            anchors.horizontalCenter: zippyModel.horizontalCenter
+                            anchors.topMargin: -200 * root.scaleFactor
+
+                            Image {
+                                id: heart1
+                                source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
+                                width: 200 * root.scaleFactor
+                                height: 200 * root.scaleFactor
+                            }
+
+                            Image {
+                                id: heart2
+                                source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
+                                width: 200 * root.scaleFactor
+                                height: 200 * root.scaleFactor
+                            }
+
+                            Image {
+                                id: heart3
+                                source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
+                                width: 200 * root.scaleFactor
+                                height: 200 * root.scaleFactor
+                            }
+                        }
+
+
+
                     }
 
 
