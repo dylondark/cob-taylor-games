@@ -137,7 +137,7 @@ Item {
                         repeat: true
                         onTriggered: {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
-                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
+                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
                                 console.log("Collision detected!");
                                 floorRect.color = "#FFFFFF";
@@ -186,7 +186,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "green"
+                        color: "red"
                     }
 
                     // Zippy Model
@@ -293,7 +293,7 @@ Item {
                         repeat: true
                         onTriggered: {
                             // Generate a random number between 1 and 3
-                            let obstacleType = Math.floor(Math.random() * 4) + 1;
+                            let obstacleType = Math.floor(Math.random() * 5) + 1;
 
                             console.log(obstacleType)
                             // Trigger the appropriate obstacle animation
@@ -305,6 +305,8 @@ Item {
                                 birdAnimation.running = true;
                             } else if (obstacleType === 4) {
                                 rockCandyAnimation.running = true;
+                            } else if (obstacleType === 5) {
+                                clockAnimation.running = true;
                             }
                         }
                     }
@@ -371,7 +373,7 @@ Item {
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "red"
+                        color: "transparent" // was red
                     }
 
                     Image {
@@ -385,6 +387,34 @@ Item {
                         // Animation for rockCandy movement
                         PropertyAnimation on x {
                             id: rockCandyAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjust speed
+                            loops: 1
+                            running: false
+                        }
+                    }
+
+                    // clock Obstacle
+                    Rectangle {
+                        id: clockHitbox
+                        width: 200 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        anchors.centerIn: clock
+                        color: "red"
+                    }
+
+                    Image {
+                        id: clock
+                        width: 200 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/clock.png"
+                        x: parent.width
+                        y: floorRect.y - height + 50  // Place the clock at the grass
+
+                        // Animation for clock movement
+                        PropertyAnimation on x {
+                            id: clockAnimation
                             from: parent.width
                             to: -300
                             duration: 3000  // Adjust speed
