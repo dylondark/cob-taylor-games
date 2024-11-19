@@ -206,7 +206,7 @@ Item {
                             running: false
                             loops: 1
 
-                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Jump.png") } // Set image to Jump.png at start
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Jump.png") } // Sets image to Jump.png at start
                             PropertyAction { target: runTimer; property: "running"; value: false }
 
                             PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
@@ -223,8 +223,8 @@ Item {
                             running: false
                             loops: 1
 
-                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Slide.png") } // Set image to Jump.png at start
-                            PropertyAction { target: runTimer; property: "running"; value: false } // Stop the Timer
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Slide.png") } // Sets image to Slide.png at start
+                            PropertyAction { target: runTimer; property: "running"; value: false } // Stops the Timer
 
 
                             PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
@@ -275,11 +275,11 @@ Item {
                         x: parent.width
                         y: floorRect.y - 1040 * root.scaleFactor  // Cloud in the sky
 
-                        // Animation for rock movement
+                        // Animation for cloud movement
                         PropertyAnimation on x {
                             from: 850 * root.scaleFactor
-                            to: 0
-                            duration: 8000  // Adjust speed
+                            to: -200
+                            duration: 8000  // Adjusts speed
                             loops: Animation.Infinite
                             running: true
                         }
@@ -291,11 +291,11 @@ Item {
                         running: true
                         repeat: true
                         onTriggered: {
-                            // Generate a random number between 1 and 3
+                            // Generates a random number (change random() * X to # of obstacles)
                             let obstacleType = Math.floor(Math.random() * 5) + 1;
 
                             console.log(obstacleType)
-                            // Trigger the appropriate obstacle animation
+                            //Triggers corresponding obstacle
                             if (obstacleType === 1) {
                                 rockAnimation.running = true;
                             } else if (obstacleType === 2) {
@@ -310,7 +310,7 @@ Item {
                         }
                     }
 
-                    // Rock Obstacle
+                    // Rock Hitbox
                     Rectangle {
                         id: rockHitbox
                         width: 120 * root.scaleFactor
@@ -318,21 +318,21 @@ Item {
                         anchors.centerIn: rock
                         color: "red"
                     }
-
+                    // Rock Obstacle
                     Image {
                         id: rock
                         width: 120 * root.scaleFactor
                         height: 100 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Rock.png"
                         x: parent.width
-                        y: floorRect.y - 40 * root.scaleFactor  // Places the rock on the ground
+                        y: floorRect.y - 40 * root.scaleFactor
 
                         // Animation for rock movement
                         PropertyAnimation on x {
                             id: rockAnimation
                             from: parent.width
                             to: -300
-                            duration: 2750  // Adjust speed
+                            duration: 2750  // Adjusts speed
                             loops: 1
                             running: false
                         }
@@ -353,14 +353,14 @@ Item {
                         height: 500 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/statue.png"
                         x: parent.width
-                        y: floorRect.y - height + 50  // Place the statue at the grass
+                        y: floorRect.y - height + 50
 
                         // Animation for statue movement
                         PropertyAnimation on x {
                             id: statueAnimation
                             from: parent.width
                             to: -300
-                            duration: 3000  // Adjust speed
+                            duration: 3000  // Adjusts speed
                             loops: 1
                             running: false
                         }
@@ -381,14 +381,14 @@ Item {
                         height: 500 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/rockCandy.png"
                         x: parent.width
-                        y: floorRect.y - height + 50  // Place the rockCandy at the grass
+                        y: floorRect.y - height + 50
 
                         // Animation for rockCandy movement
                         PropertyAnimation on x {
                             id: rockCandyAnimation
                             from: parent.width
                             to: -300
-                            duration: 3000  // Adjust speed
+                            duration: 3000  // Adjusts speed
                             loops: 1
                             running: false
                         }
@@ -409,14 +409,14 @@ Item {
                         height: 500 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/clock.png"
                         x: parent.width
-                        y: floorRect.y - height + 50  // Place the clock at the grass
+                        y: floorRect.y - height + 50
 
                         // Animation for clock movement
                         PropertyAnimation on x {
                             id: clockAnimation
                             from: parent.width
                             to: -300
-                            duration: 3000  // Adjust speed
+                            duration: 3000  // Adjusts speed
                             loops: 1
                             running: false
                         }
@@ -437,20 +437,20 @@ Item {
                         height: 330 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
-                        y: 1200 * root.scaleFactor  // Place the bird at the top of the screen
+                        y: 1200 * root.scaleFactor
 
                         // Animation for bird movement
                         PropertyAnimation on x {
                             id: birdAnimation
                             from: parent.width
                             to: -300
-                            duration: 3000  // Adjust speed
+                            duration: 3000  // Adjusts speed
                             loops: 1
                             running: false
                         }
                     }
                 }
-                // Left Bar
+                // Blocks obstacles on left side
                 Rectangle {
                     id: leftBar
                     width: (parent.width - gameRect.width) / 2
@@ -463,7 +463,7 @@ Item {
                     }
                 }
 
-                // Right Bar
+                // Blocks obstacles on right side
                 Rectangle {
                     id: rightBar
                     width: (parent.width - gameRect.width) / 2
@@ -495,7 +495,7 @@ Item {
                     }
 
 
-                    // Displays the Timer measuring the time of each turn played
+                    // Displays the Timer measuring the time elapsed
                     Text{
                         id: timeText
                         text: "Time: " + gameBase.elapsedTime + "s"
@@ -537,7 +537,7 @@ Item {
 
                         onClicked: {
                             if (!hopAnimation.running) {
-                                hopAnimation.start(); // Start the hop animation
+                                hopAnimation.start(); // Starts the hop animation
                             }
                         }
                     }
@@ -564,7 +564,7 @@ Item {
 
                         onClicked: {
                             if (!slideAnimation.running) {
-                                slideAnimation.start(); // Start the slide/duck animation
+                                slideAnimation.start(); // Starts the slide animation
                             }
                         }
                     }
