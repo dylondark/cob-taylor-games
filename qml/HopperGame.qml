@@ -111,7 +111,7 @@ Item {
                                 console.log("Collision detected!");
                                 floorRect.color = "#FFFFFF";
                             } else {
-                                floorRect.color = "#000000";
+                                floorRect.color = "#008000";
                             }
                         }
                     }
@@ -372,7 +372,7 @@ Item {
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "transparent" // was red
+                        color: "red" // was red
                     }
 
                     Image {
