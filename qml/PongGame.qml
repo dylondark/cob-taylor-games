@@ -23,6 +23,8 @@ Item {
     property int points: 0
     property string strName: "Pong"
     property string username: ""
+    property int gameEnum: 4
+
     ColumnLayout{
         id: baseLayout
         anchors.fill: parent
@@ -30,96 +32,104 @@ Item {
 
         // Define the background of the game
         Rectangle {
-                    id: background
-                    Layout.preferredHeight: -1
-                    Layout.preferredWidth: -1
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 6
+            id: background
+            Layout.preferredHeight: -1
+            Layout.preferredWidth: -1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.verticalStretchFactor: 6
 
-                    gradient: Gradient {
-                        GradientStop { position: 0.0; color: "#f3a469" }
-                        GradientStop { position: 1.0; color: "#3f51b1" }
-                    }
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#f3a469" }
+                GradientStop { position: 1.0; color: "#3f51b1" }
+            }
 
-                    MenuBase { // This opens the screen to input username at the beginning.
-                        id: menuBase
-                        imageSource: filepath + "/menufiles/PongMotion.png"
-                        // z: 1
-                    }
+            MenuBase { // This opens the screen to input username at the beginning.
+                id: menuBase
+                imageSource: filepath + "/menufiles/PongMotion.png"
+                // z: 1
+            }
 
-                    Item {
-                        id: gameBase
-                        anchors.fill: parent
-                        visible: false
-                        // Put the code for the scores boxes here
+            Item {
+                id: gameBase
+                anchors.fill: parent
+                visible: false
+                // Put the code for the scores boxes here
 
-                        RowLayout {
-                            id: topBar
-                            anchors.top: parent.top
-                            width: parent.width
-                            height: 50
-                            spacing: 20
+                RowLayout {
+                    id: topBar
+                    anchors.top: parent.top
+                    width: parent.width
+                    height: 50
+                    spacing: 20
 
-                            // Score Section
-                            Rectangle {
-                                id: scoreBox
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                color: "#D2B48C"  // Light brown background for the score
-                                border.color: "black"
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: "Score: 0"
-                                    font.pixelSize: 20
-                                    color: "navy"
-                                }
-                            }
-
-                            // Time Section
-                            Rectangle {
-                                id: timeBox
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                color: "#D2B48C"  // Light brown background for the time
-                                border.color: "black"
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: "Time: 0"
-                                    font.pixelSize: 20
-                                    color: "navy"
-                                }
-                            }
-
+                    // Score Section
+                    Rectangle {
+                        id: scoreBox
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        color: "#D2B48C"  // Light brown background for the score
+                        border.color: "black"
+                        Text {
+                            anchors.centerIn: parent
+                            text: "Score: 0"
+                            font.pixelSize: 20
+                            color: "navy"
                         }
-                        Rectangle {
-                            id: gameRect
-                            width: 1550 * root.scaleFactor
-                            height: 3040 * root.scaleFactor
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Layout.verticalStretchFactor: 4
-                            color: "#3AE57F"
-                            x: (parent.width - width) / 2
-                            y: (parent.height - height) / 1.5
+                    }
 
-                            Repeater {
-                                    model: gameRect.width / 25// Number of dots, adjust as necessary
-                                    Rectangle {
-                                        width: 10 // Width of each dot
-                                        height: 2 // Height of each dot
-                                        color: "white"
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        x: index * 25.5 // Spacing between dots, adjust as needed
-                                    }
-                                }
+                    // Time Section
+                    Rectangle {
+                        id: timeBox
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        color: "#D2B48C"  // Light brown background for the time
+                        border.color: "black"
+                        Text {
+                            anchors.centerIn: parent
+                            text: "Time: 0"
+                            font.pixelSize: 20
+                            color: "navy"
                         }
                     }
                 }
 
 
+                PongController {
+                    id: controller
+                    anchors.top: parent.top
+                    anchors.left: holdRectangle.right
+                    anchors.centerIn: parent
+                    height: 3040 * root.scaleFactor
+                    width: 1550 * root.scaleFactor
+                    smooth: false
+                }
 
+                /*
+                Rectangle {
+                    id: gameRect
+                    width: 1550 * root.scaleFactor
+                    height: 3040 * root.scaleFactor
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 4
+                    color: "#3AE57F"
+                    x: (parent.width - width) / 2
+                    y: (parent.height - height) / 1.5
 
+                    Repeater {
+                        model: gameRect.width / 25// Number of dots, adjust as necessary
+                        Rectangle {
+                            width: 10 // Width of each dot
+                            height: 2 // Height of each dot
+                            color: "white"
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: index * 25.5 // Spacing between dots, adjust as needed
+                        }
+                    }
+                }*/
+            }
+        }
 
         HomeBarBase {
             id: homeBarBase
