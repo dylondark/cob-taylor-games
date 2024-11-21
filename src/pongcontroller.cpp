@@ -33,12 +33,18 @@ PongController::~PongController()
 
 void PongController::paint(QPainter* painter)
 {
-    unsigned width = this->width() / 10;
-    unsigned height = this->height() / 20;
+    painter->drawRect(0, 0, width(), height());
 
-    for (unsigned row = 0; row < 20; ++row)
-        for (unsigned col =0; col < 10; ++col)
-            painter->drawRect(width * col, height * row, width, height);
+    // Draw the dotted horizontal line
+    painter->setPen(QPen(Qt::white, 2)); // Set pen color and thickness
+    int dotWidth = 5;                   // Width of each dot
+    int dotHeight = 1;                   // Height of each dot
+    int dotSpacing = 15;                 // Space between dots
+
+    int centerY = height() / 2;          // Vertical center of the board
+    for (int x = 0; x < width(); x += dotWidth + dotSpacing) {
+        painter->drawRect(x, centerY - dotHeight / 2, dotWidth, dotHeight);
+    }
 }
 
 /*
