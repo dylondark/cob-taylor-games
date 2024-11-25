@@ -33,6 +33,7 @@ PongController::~PongController()
 
 void PongController::paint(QPainter* painter)
 {
+    painter->setBrush(QBrush(Qt::darkGreen)); // Set brush color
     painter->drawRect(0, 0, width(), height());
 
     // Draw the dotted horizontal line
