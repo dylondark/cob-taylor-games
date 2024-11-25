@@ -5,6 +5,7 @@
 */
 
 #include "mazecontroller.h"
+#include "qpainter.h"
 
 /*
     Constructor for MazeController.
@@ -27,5 +28,6 @@ MazeController::~MazeController()
 */
 void MazeController::paint(QPainter* painter)
 {
+
 
 }
