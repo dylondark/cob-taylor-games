@@ -8,6 +8,7 @@
 #include <random>
 #include <algorithm>
 #include "rapidcsv.h"
+#include "utilities.h"
 #include <QApplication>
 
 /*
@@ -26,7 +27,15 @@ TriviaController::TriviaController()
     // all strings must be enclosed in quotation marks
     TriviaQuestion current;
     std::string strTemp;
-    rapidcsv::Document file(filepath + QUESTION_PATH);
+    rapidcsv::Document file;
+    try
+    {
+        file = rapidcsv::Document(filepath + QUESTION_PATH);
+    }
+    catch (...)
+    {
+        Utilities::throwError(Utilities::FileOpenError);
+    }
     for (unsigned x = 0; x < file.GetRowCount(); x++)
     {
         // get question text
