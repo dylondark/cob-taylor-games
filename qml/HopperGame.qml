@@ -151,13 +151,30 @@ Item {
                         // Animation for cloud movement
                         PropertyAnimation on x {
                             from: rightBar.x
-                            to: -200
+                            to: leftBar.x - 800 * root.scaleFactor
                             duration: 8000  // Adjusts speed
                             loops: Animation.Infinite
                             running: true
                         }
                     }
+                    Image {
+                        id: cloud2
+                        width: 650 * root.scaleFactor
+                        height: 450 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Cloud2.png"
+                        opacity: 0.4
+                        x: parent.width
+                        y: floorRect.y - 2140 * root.scaleFactor  // Cloud in the sky
 
+                        // Animation for cloud movement
+                        PropertyAnimation on x {
+                            from: rightBar.x
+                            to: leftBar.x - 800 * root.scaleFactor
+                            duration: 14000  // Adjusts speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
+                    }
                     // Zippy Hitboxes
                     Rectangle {
                         id: zippyBHitbox
