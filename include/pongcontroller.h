@@ -49,7 +49,7 @@ signals:
     /*
         Signal to tell QML when it's time to update the game field
     */
-    void updateField();
+    void updateQML();
 
 private slots:
 
@@ -96,7 +96,6 @@ private:
     */
     unsigned timerInterval;
 
-    std::vector<std::vector<int>>* board = new std::vector<std::vector<int>>();
 
     //Paddle playerPaddle;
     //Paddle aiPaddle;
