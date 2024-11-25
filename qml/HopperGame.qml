@@ -110,6 +110,7 @@ Item {
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
                                 console.log("Collision detected!");
                                 floorRect.color = "#FFFFFF";
+
                             } else {
                                 floorRect.color = "#008000";
                             }
@@ -137,6 +138,24 @@ Item {
                         Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
                         color: "#16bd10"
+                    }
+                    // Cloud Background Image
+                    Image {
+                        id: cloud
+                        width: 650 * root.scaleFactor
+                        height: 650 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Cloud.png"
+                        x: parent.width
+                        y: floorRect.y - 1540 * root.scaleFactor  // Cloud in the sky
+
+                        // Animation for cloud movement
+                        PropertyAnimation on x {
+                            from: rightBar.x
+                            to: -200
+                            duration: 8000  // Adjusts speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
                     }
 
                     // Zippy Hitboxes
@@ -266,24 +285,6 @@ Item {
                     }
 
 
-                    // Cloud Background Image
-                    Image {
-                        id: cloud
-                        width: 250 * root.scaleFactor
-                        height: 150 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/Cloud.png"
-                        x: parent.width
-                        y: floorRect.y - 1040 * root.scaleFactor  // Cloud in the sky
-
-                        // Animation for cloud movement
-                        PropertyAnimation on x {
-                            from: 850 * root.scaleFactor
-                            to: -200
-                            duration: 8000  // Adjusts speed
-                            loops: Animation.Infinite
-                            running: true
-                        }
-                    }
 
                     Timer { // Timer for obstacles coming out
                         id: obstacleTimer
@@ -313,19 +314,19 @@ Item {
                     // Rock Hitbox
                     Rectangle {
                         id: rockHitbox
-                        width: 120 * root.scaleFactor
-                        height: 100 * root.scaleFactor
+                        width: 350 * root.scaleFactor
+                        height: 350 * root.scaleFactor
                         anchors.centerIn: rock
                         color: "red"
                     }
                     // Rock Obstacle
                     Image {
                         id: rock
-                        width: 120 * root.scaleFactor
-                        height: 100 * root.scaleFactor
+                        width: 450 * root.scaleFactor
+                        height: 400 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Rock.png"
                         x: parent.width
-                        y: floorRect.y - 40 * root.scaleFactor
+                        y: floorRect.y - height + 50
 
                         // Animation for rock movement
                         PropertyAnimation on x {
