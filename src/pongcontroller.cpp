@@ -23,8 +23,6 @@ PongController::~PongController()
     logicThread.quit();
     logicThread.wait();
 
-    // Delete the dynamically allocated board
-    delete board;
 }
 
 /*
