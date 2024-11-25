@@ -11,7 +11,7 @@
 class PongController : public QQuickPaintedItem
 {
     Q_OBJECT
-
+    QML_ELEMENT
 public:
 
     /*
