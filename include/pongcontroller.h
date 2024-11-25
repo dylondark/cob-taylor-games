@@ -60,6 +60,13 @@ private slots:
 
 private:
 
+    /*
+        The base of the paths. Should be the location of the folder containing the gamefiles folder.
+        By default it is "." which (should) mean "wherever the game executable was launched from" but this doesn't always work (ahem, mac).
+        Will be set to whatever path is specified with the -p CLI parameter if it is used.
+    */
+    const QString filepath = ".";
+
     // The main thread used to execute game logic calculations.
     QThread logicThread;
 

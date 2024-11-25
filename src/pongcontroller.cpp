@@ -1,11 +1,12 @@
 #include "pongcontroller.h"
+#include "cliparser.h"
 #include <QPainter>
 
 /*
     Constructor for PongController
 */
 PongController::PongController()
-    : QQuickPaintedItem(), gameTimer(QTimer(this))
+    : QQuickPaintedItem(), gameTimer(QTimer(this)), filepath(CliParser::getPath())
 {
     gameOver = false;
     movingRight = false;
