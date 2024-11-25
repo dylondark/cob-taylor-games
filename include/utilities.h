@@ -33,7 +33,7 @@ enum errorMessages {FileOpenError, FileWriteError, QMLNotFoundError};
 */
 QUrl getGameQML(game game);
 
-void throwError(errorMessages error, QWidget* parent = nullptr);
+void throwError(errorMessages error, QString file = "", QWidget* parent = nullptr);
 }
 
 #endif // UTILITIES_H

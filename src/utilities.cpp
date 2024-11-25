@@ -33,21 +33,27 @@ QUrl Utilities::getGameQML(game game)
     }
 }
 
-void Utilities::throwError(errorMessages error, QWidget* parent)
+void Utilities::throwError(errorMessages error, QString file, QWidget* parent)
 {
     QString message;
     switch (error)
     {
     case FileOpenError:
         message = "An error occurred while attempting to read a necessary file.\nCheck that the necessary directories are present in the executable directory and/or that the -p CLI argument is correct.\n";
+        if (file != "")
+            message.append("File: ").append(file).append("\n");
         QMessageBox::critical(parent, "cob-taylor-games - File Read Error", message);
         break;
     case FileWriteError:
         message = "An error ocurred while attempting to write to a file.\nCheck that the necessary files are in the correct location and have sufficient permissions.\n";
+        if (file != "")
+            message.append("File: ").append(file).append("\n");
         QMessageBox::critical(parent, "cob-taylor-games - File Write Error", message);
         break;
     case QMLNotFoundError:
         message = "An error ocurred while attempting to load a QML file that doesn't exist.\nCheck your usage of the Utilities::getGameQML() function.\n";
+        if (file != "")
+            message.append("File: ").append(file).append("\n");
         QMessageBox::critical(parent, "cob-taylor-games - QML File Not Found Error", message);
         break;
     default:

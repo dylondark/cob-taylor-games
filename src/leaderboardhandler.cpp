@@ -62,7 +62,7 @@ void LeaderboardHandler::loadScores(game selectedGame)
 
     if (!file.is_open())
     {
-        Utilities::throwError(Utilities::FileOpenError);
+        Utilities::throwError(Utilities::FileOpenError, QString(FILENAMES[selectedGame].c_str()).prepend("/leaderboard/"));
     }
 
     scoreLists[selectedGame].clear(); // Clear existing scores
@@ -95,7 +95,7 @@ void LeaderboardHandler:: writeScores(game selectedGame)
 
     if (!outFile.is_open())
     {
-        Utilities::throwError(Utilities::FileWriteError);
+        Utilities::throwError(Utilities::FileWriteError, QString(FILENAMES[selectedGame].c_str()).prepend("/leaderboard/"));
     }
 
     for (const auto& entry : scoreLists[selectedGame])

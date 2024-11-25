@@ -34,7 +34,7 @@ TriviaController::TriviaController()
     }
     catch (...)
     {
-        Utilities::throwError(Utilities::FileOpenError);
+        Utilities::throwError(Utilities::FileOpenError, QUESTION_PATH.c_str());
     }
     for (unsigned x = 0; x < file.GetRowCount(); x++)
     {
