@@ -1,7 +1,6 @@
 #ifndef PONGCONTROLLER_H
 #define PONGCONTROLLER_H
 
-#include "tetroosdata.h"
 #include "threadworker.h"
 #include <QObject>
 #include <QQmlEngine>
@@ -115,10 +114,8 @@ private:
     /*
         Main game loop. Called every time a new action has happened.
         Calculates the new game state in response to the action and sends the signal to QML to display it.
-
-        GameAction trigger: what action is triggering the game update.
     */
-    void updateGame(GameAction trigger);
+    void updateGame();
 
     /*
         checks to track player's input for paddle movement

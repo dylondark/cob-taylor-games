@@ -81,7 +81,7 @@ void PongController::timerTick()
     }
 
     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-        updateGame(GameAction::Down);
+        updateGame();
     });
 
     gameTimer.setInterval(timerInterval);
@@ -102,7 +102,7 @@ void PongController::aiOperation()
 
 }
 
-void PongController::updateGame(GameAction trigger)
+void PongController::updateGame()
 {
 
 }
