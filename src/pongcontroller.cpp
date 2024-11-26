@@ -12,7 +12,10 @@ PongController::PongController()
     movingRight = false;
     movingLeft = false;
     score = 0;
-    timerInterval = 1000;
+    timerInterval = 16; // ~60fps
+
+    // Connect timer
+    connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
 
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
