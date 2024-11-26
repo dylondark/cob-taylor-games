@@ -106,6 +106,56 @@ Item {
                     smooth: false
                 }
 
+                RowLayout {
+                    id: paddleControls
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: 20
+
+                    // Timer for continuous movement
+                    Timer {
+                        id: moveTimer
+                        interval: 50  // Set the interval in milliseconds (50 ms = 20 frames per second)
+                        running: false
+                        repeat: true
+                        onTriggered: {
+                            if (leftButton.pressed) {
+                                controller.moveLeft();
+                            } else if (rightButton.pressed) {
+                                controller.moveRight();
+                            }
+                        }
+                    }
+
+                    Button {
+                        id: leftButton
+                        text: "Left"
+                        onPressed: {
+                            moveTimer.start();  // Start continuous movement when button is pressed
+                        }
+                        onReleased: {
+                            moveTimer.stop();   // Stop movement when button is released
+                        }
+                        width: 200
+                        height: 100
+                    }
+
+                    Button {
+                        id: rightButton
+                        text: "Right"
+                        onPressed: {
+                            moveTimer.start();  // Start continuous movement when button is pressed
+                        }
+                        onReleased: {
+                            moveTimer.stop();   // Stop movement when button is released
+                        }
+                        width: 200
+                        height: 100
+                    }
+                }
+
+
+
 
                 /*
                 Rectangle {
