@@ -60,7 +60,7 @@ Item {
                     id: topBar
                     anchors.top: parent.top
                     width: parent.width
-                    height: 50
+                    height: 100
                     spacing: 20
 
                     // Score Section
