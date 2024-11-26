@@ -92,6 +92,7 @@ Item {
                             color: "navy"
                         }
                     }
+
                 }
 
 
@@ -104,6 +105,7 @@ Item {
                     width: 1550 * root.scaleFactor
                     smooth: false
                 }
+
 
                 /*
                 Rectangle {

@@ -1,6 +1,7 @@
 #ifndef PONGCONTROLLER_H
 #define PONGCONTROLLER_H
 
+#include "pongdata.h"
 #include "threadworker.h"
 #include <QObject>
 #include <QQmlEngine>
@@ -33,6 +34,10 @@ public:
         Kicks off the game loop. To be called by QML after entering the game.
     */
     Q_INVOKABLE void startGame();
+
+
+    Q_INVOKABLE void moveLeft();  // Move player paddle left
+    Q_INVOKABLE void moveRight(); // Move player paddle right
 
     /*
         Returns whether game is over or not.
@@ -103,10 +108,10 @@ private:
     unsigned timerInterval;
 
 
-    //Paddle playerPaddle;
-    //Paddle aiPaddle;
-    //Ball ball;
-    //AI ai;
+    Paddle playerPaddle;
+    Paddle aiPaddle;
+    Ball ball;
+    AI ai;
 
     // Timer for the game
     QTimer gameTimer;
