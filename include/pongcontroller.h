@@ -1,6 +1,7 @@
 #ifndef PONGCONTROLLER_H
 #define PONGCONTROLLER_H
 
+#include "pongdata.h"
 #include "threadworker.h"
 #include <QObject>
 #include <QQmlEngine>
@@ -103,10 +104,11 @@ private:
     unsigned timerInterval;
 
 
-    //Paddle playerPaddle;
-    //Paddle aiPaddle;
-    //Ball ball;
-    //AI ai;
+    Paddle p1Paddle;
+    Paddle p2Paddle;
+    Paddle aiPaddle;
+    Ball ball;
+    AI ai;
 
     // Timer for the game
     QTimer gameTimer;
