@@ -110,13 +110,42 @@ Item {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
                             const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
-                                console.log("Collision detected!");
+                                    console.log("Collision detected!");
+                                    gameRect.reduceHearts();
+
                                 floorRect.color = "#FFFFFF";
 
                             } else {
                                 floorRect.color = "#008000";
                             }
                         }
+                    }
+
+                    // Timer to handle the 1-second cooldown
+                    Timer {
+                        id: heartTimer
+                        interval: 1000 // 1 second
+                        running: false
+                        repeat: false
+                    }
+
+                    // Function to reduce hearts
+                    function reduceHearts() {
+                        if (heartTimer.running) {
+                            return; // Skip if the timer is still running
+                        }
+
+                        // Check visibility of each heart and hide them one by one
+                        if (heart3.visible) {
+                            heart3.visible = false;
+                        } else if (heart2.visible) {
+                            heart2.visible = false;
+                        } else if (heart1.visible) {
+                            heart1.visible = false;
+                        }
+
+                        // Start the timer after reducing a heart
+                        heartTimer.restart();
                     }
 
 
