@@ -111,13 +111,8 @@ Item {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
                             const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
-                                    console.log("Collision detected!");
+                                    //console.log("Collision detected!");
                                     gameRect.reduceHearts();
-
-                                floorRect.color = "#FFFFFF";
-
-                            } else {
-                                floorRect.color = "#008000";
                             }
                         }
                     }
