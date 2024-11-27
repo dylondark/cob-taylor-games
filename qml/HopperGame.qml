@@ -118,14 +118,15 @@ Item {
                     }
 
 
-                    Rectangle {
-                        id: skyRect
+                    Image {
+                        id: skyImage
                         width: 1750 * root.scaleFactor
                         height: 2800 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Sky.png"
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Layout.verticalStretchFactor: 3
-                        color: "#b5fffe"
+
                     }
 
                     // Floor Rectangle for Zippy to run on
