@@ -146,6 +146,7 @@ Item {
                         width: 650 * root.scaleFactor
                         height: 650 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Cloud.png"
+                        opacity: 0.6
                         x: parent.width
                         y: floorRect.y - 1540 * root.scaleFactor  // Cloud in the sky
 
