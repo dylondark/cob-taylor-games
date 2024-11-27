@@ -65,6 +65,8 @@ Item {
                         loader.addImage("/gamefiles/Hopper/Run2.png");
                         loader.addImage("/gamefiles/Hopper/Jump.png");
                         loader.addImage("/gamefiles/Hopper/Slide.png");
+                        loader.addImage("/gamefiles/Hopper/Sky.png");
+                        loader.addImage("/gamefiles/Hopper/Sky2.png");
                     }
                 }
 
@@ -122,11 +124,40 @@ Item {
                         id: skyImage
                         width: 1750 * root.scaleFactor
                         height: 2800 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/Sky.png"
+                        source: filepath + "/gamefiles/Hopper/Sky.png" // Initial background
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Layout.verticalStretchFactor: 3
+                    }
 
+                    Image {
+                        id: sunsetImage
+                        width: 1750 * root.scaleFactor
+                        height: 2800 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Sky2.png" // Second background
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.verticalStretchFactor: 3
+                        opacity: 0 // Starts at 0 opacity for transition
+                        visible: false // Starts invisible
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 3000 // duration of sunset transition
+                                easing.type: Easing.InOutQuad // MAKES TRANSITION SMOOTH
+                            }
+                        }
+                    }
+
+                    Timer {
+                        id: sunsetChangeTimer
+                        interval: 10000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                        running: true
+                        repeat: false // Only run once
+                        onTriggered: {
+                            sunsetImage.visible = true; // Makes sunset visible
+                            sunsetImage.opacity = 1; // Starts the animation
+                        }
                     }
 
                     // Floor Rectangle for Zippy to run on
@@ -210,7 +241,6 @@ Item {
                         source: loader.getImage(isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
                         fillMode: Image.PreserveAspectFit
                         smooth: true // turn off if performance is bad
-                        asynchronous: true
                         cache: false
                         retainWhileLoading: true // REQUIRES QT 6.8!!!
 
@@ -524,6 +554,8 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: 50 * root.scaleFactor
                         anchors.verticalCenter: parent.verticalCenter
+
+
                     }
                 }
 
