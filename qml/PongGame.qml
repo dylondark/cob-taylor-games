@@ -107,52 +107,110 @@ Item {
                 }
 
                 RowLayout {
-                    id: paddleControls
+                    id: playerControls
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: 20
+                    spacing: 50
 
-                    // Timer for continuous movement
-                    Timer {
-                        id: moveTimer
-                        interval: 50  // Set the interval in milliseconds (50 ms = 20 frames per second)
-                        running: false
-                        repeat: true
-                        onTriggered: {
-                            if (leftButton.pressed) {
-                                controller.moveLeft();
-                            } else if (rightButton.pressed) {
-                                controller.moveRight();
+                    // Player 1 Controls
+                    ColumnLayout {
+                        spacing: 10
+
+                        Text {
+                            text: "Player 1 Controls"
+                            font.pixelSize: 20
+                            color: "white"
+                            horizontalAlignment: Text.AlignHCenter
+                        }
+
+                        RowLayout {
+                            spacing: 10
+
+                            // Timer for Player 1 Movement
+                            Timer {
+                                id: moveTimerPlayer1
+                                interval: 50
+                                running: false
+                                repeat: true
+                                onTriggered: {
+                                    if (leftButtonPlayer1.pressed) {
+                                        controller.moveLeftPaddle1();
+                                    } else if (rightButtonPlayer1.pressed) {
+                                        controller.moveRightPaddle1();
+                                    }
+                                }
+                            }
+
+                            Button {
+                                id: leftButtonPlayer1
+                                text: "Left"
+                                onPressed: moveTimerPlayer1.start()
+                                onReleased: moveTimerPlayer1.stop()
+                                width: 200
+                                height: 100
+                            }
+
+                            Button {
+                                id: rightButtonPlayer1
+                                text: "Right"
+                                onPressed: moveTimerPlayer1.start()
+                                onReleased: moveTimerPlayer1.stop()
+                                width: 200
+                                height: 100
                             }
                         }
                     }
 
-                    Button {
-                        id: leftButton
-                        text: "Left"
-                        onPressed: {
-                            moveTimer.start();  // Start continuous movement when button is pressed
-                        }
-                        onReleased: {
-                            moveTimer.stop();   // Stop movement when button is released
-                        }
-                        width: 200
-                        height: 100
-                    }
+                    // Player 2 Controls
+                    ColumnLayout {
+                        spacing: 10
 
-                    Button {
-                        id: rightButton
-                        text: "Right"
-                        onPressed: {
-                            moveTimer.start();  // Start continuous movement when button is pressed
+                        Text {
+                            text: "Player 2 Controls"
+                            font.pixelSize: 20
+                            color: "white"
+                            horizontalAlignment: Text.AlignHCenter
                         }
-                        onReleased: {
-                            moveTimer.stop();   // Stop movement when button is released
+
+                        RowLayout {
+                            spacing: 10
+
+                            // Timer for Player 2 Movement
+                            Timer {
+                                id: moveTimerPlayer2
+                                interval: 50
+                                running: false
+                                repeat: true
+                                onTriggered: {
+                                    if (leftButtonPlayer2.pressed) {
+                                        controller.moveLeftPaddle2();
+                                    } else if (rightButtonPlayer2.pressed) {
+                                        controller.moveRightPaddle2();
+                                    }
+                                }
+                            }
+
+                            Button {
+                                id: leftButtonPlayer2
+                                text: "Left"
+                                onPressed: moveTimerPlayer2.start()
+                                onReleased: moveTimerPlayer2.stop()
+                                width: 200
+                                height: 100
+                            }
+
+                            Button {
+                                id: rightButtonPlayer2
+                                text: "Right"
+                                onPressed: moveTimerPlayer2.start()
+                                onReleased: moveTimerPlayer2.stop()
+                                width: 200
+                                height: 100
+                            }
                         }
-                        width: 200
-                        height: 100
                     }
                 }
+
 
 
 

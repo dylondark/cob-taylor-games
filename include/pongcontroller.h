@@ -36,8 +36,10 @@ public:
     Q_INVOKABLE void startGame();
 
 
-    Q_INVOKABLE void moveLeft();  // Move player paddle left
-    Q_INVOKABLE void moveRight(); // Move player paddle right
+    Q_INVOKABLE void moveLeftPaddle1();
+    Q_INVOKABLE void moveRightPaddle1();
+    Q_INVOKABLE void moveLeftPaddle2();
+    Q_INVOKABLE void moveRightPaddle2();
 
     /*
         Returns whether game is over or not.
@@ -108,8 +110,8 @@ private:
     unsigned timerInterval;
 
 
-    Paddle playerPaddle;
-    Paddle aiPaddle;
+    Paddle playerPaddle1;
+    Paddle playerPaddle2;
     Ball ball;
     AI ai;
 

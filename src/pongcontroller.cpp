@@ -15,9 +15,9 @@ PongController::PongController()
     timerInterval = 1000;
 
 
-    // Initialize paddles
-    playerPaddle = {10, 100, 20, false}; // x-position, width, height, isPlayer2
-    aiPaddle = {10, 100, 20, true};     // x-position, width, height, isPlayer2
+    // Initialize both paddles
+    playerPaddle1 = {10, 100, 20, false}; // x-position, width, height, isPlayer2
+    playerPaddle2 = {10, 100, 20, true};     // x-position, width, height, isPlayer2
 
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
@@ -53,12 +53,12 @@ void PongController::paint(QPainter* painter)
 
     // Draw paddles
     painter->setBrush(QBrush(Qt::blue)); // Set paddle color for player
-    painter->drawRect(playerPaddle.x, height() - playerPaddle.height - 10,
-                      playerPaddle.width, playerPaddle.height);
+    painter->drawRect(playerPaddle1.x, height() - playerPaddle1.height - 10,
+                      playerPaddle1.width, playerPaddle1.height);
 
     painter->setBrush(QBrush(Qt::red)); // Set paddle color for AI
-    painter->drawRect(width() - aiPaddle.x - aiPaddle.width, 10,
-                      aiPaddle.width, aiPaddle.height);
+    painter->drawRect(width() - playerPaddle2.x - playerPaddle2.width, 10,
+                      playerPaddle2.width, playerPaddle2.height);
 }
 
 /*
@@ -78,20 +78,39 @@ bool PongController::isGameOver()
     return gameOver;
 }
 
+//moves paddle 1 and 2 left and right
 
-void PongController::moveLeft()
-{
-    if (playerPaddle.x > 0) // Ensure paddle stays within bounds
-        playerPaddle.x -= 10; // Move left by 10 units
-    update(); // Trigger a repaint
+void PongController::moveLeftPaddle1() {
+    if (playerPaddle1.x > 0) {
+        playerPaddle1.x -= 10; // Move left by 10 units
+    }
+    update();
 }
 
-void PongController::moveRight()
-{
-    if (playerPaddle.x + playerPaddle.width < width()) // Ensure paddle stays within bounds
-        playerPaddle.x += 10; // Move right by 10 units
-    update(); // Trigger a repaint
+void PongController::moveRightPaddle1() {
+    if (playerPaddle1.x < width() - playerPaddle1.width) {
+        playerPaddle1.x += 10; // Move right by 10 units
+    }
+    update();
 }
+
+void PongController::moveLeftPaddle2() {
+    if (playerPaddle2.x < width() - playerPaddle2.width) {
+        playerPaddle2.x += 10; // Move right by 10 units
+    }
+    update();
+
+}
+
+void PongController::moveRightPaddle2() {
+    if (playerPaddle2.x > 0) {
+        playerPaddle2.x -= 10; // Move left by 10 units
+    }
+    update();
+
+}
+
+
 
 
 unsigned PongController::getScore()
