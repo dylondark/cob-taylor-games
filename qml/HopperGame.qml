@@ -67,6 +67,7 @@ Item {
                         loader.addImage("/gamefiles/Hopper/Slide.png");
                         loader.addImage("/gamefiles/Hopper/Sky.png");
                         loader.addImage("/gamefiles/Hopper/Sky2.png");
+                        loader.addImage("/gamefiles/Hopper/grass.zippyhopp.jpg");
                     }
                 }
 
@@ -190,7 +191,7 @@ Item {
                     }
 
                     // Floor Rectangle for Zippy to run on
-                    Rectangle {
+                    Image {
                         id: floorRect
                         width: 1750 * root.scaleFactor
                         height: 600 * root.scaleFactor
@@ -198,7 +199,9 @@ Item {
                         Layout.fillWidth: true
                         Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
-                        color: "#16bd10"
+                        source: filepath + "/gamefiles/Hopper/grass.zippyhopp.jpg"
+
+
                     }
                     // Cloud Background Image
                     Image {
