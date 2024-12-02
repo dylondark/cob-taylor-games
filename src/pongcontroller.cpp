@@ -17,6 +17,11 @@ PongController::PongController()
     // Connect timer
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
 
+
+    // Initialize both paddles
+    playerPaddle1 = {10, 100, 20, false}; // x-position, width, height, isPlayer2
+    playerPaddle2 = {10, 100, 20, true};     // x-position, width, height, isPlayer2
+
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
 }
@@ -48,6 +53,15 @@ void PongController::paint(QPainter* painter)
     for (int x = 0; x < width(); x += dotWidth + dotSpacing) {
         painter->drawRect(x, centerY - dotHeight / 2, dotWidth, dotHeight);
     }
+
+    // Draw paddles
+    painter->setBrush(QBrush(Qt::blue)); // Set paddle color for player
+    painter->drawRect(playerPaddle1.x, height() - playerPaddle1.height - 10,
+                      playerPaddle1.width, playerPaddle1.height);
+
+    painter->setBrush(QBrush(Qt::red)); // Set paddle color for AI
+    painter->drawRect(width() - playerPaddle2.x - playerPaddle2.width, 10,
+                      playerPaddle2.width, playerPaddle2.height);
 }
 
 /*
@@ -66,6 +80,41 @@ bool PongController::isGameOver()
 {
     return gameOver;
 }
+
+//moves paddle 1 and 2 left and right
+
+void PongController::moveLeftPaddle1() {
+    if (playerPaddle1.x > 0) {
+        playerPaddle1.x -= 10; // Move left by 10 units
+    }
+    update();
+}
+
+void PongController::moveRightPaddle1() {
+    if (playerPaddle1.x < width() - playerPaddle1.width) {
+        playerPaddle1.x += 10; // Move right by 10 units
+    }
+    update();
+}
+
+void PongController::moveLeftPaddle2() {
+    if (playerPaddle2.x < width() - playerPaddle2.width) {
+        playerPaddle2.x += 10; // Move right by 10 units
+    }
+    update();
+
+}
+
+void PongController::moveRightPaddle2() {
+    if (playerPaddle2.x > 0) {
+        playerPaddle2.x -= 10; // Move left by 10 units
+    }
+    update();
+
+}
+
+
+
 
 unsigned PongController::getScore()
 {
