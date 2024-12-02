@@ -241,6 +241,26 @@ Item {
                             running: true
                         }
                     }
+
+                    Image {
+                        id: blimp
+                        width: 350 * root.scaleFactor
+                        height: 250 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Blimp.png"
+                        opacity: 0.8
+                        x: parent.width
+                        y: floorRect.y - 2200 * root.scaleFactor  // Blimp in the sky
+                        asynchronous: true
+
+                        // Animation for cloud movement
+                        PropertyAnimation on x {
+                            from: rightBar.x
+                            to: leftBar.x - 800 * root.scaleFactor
+                            duration: 28000  // Adjusts speed
+                            loops: Animation.Infinite
+                            running: true
+                        }
+                    }
                     // Zippy Hitboxes
                     Rectangle {
                         id: zippyBHitbox
