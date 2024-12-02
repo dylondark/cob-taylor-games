@@ -54,6 +54,7 @@ Item {
                 anchors.fill: parent
                 visible: false
                 property int elapsedTime: 0
+                property int gameStage: 1
 
                 QMLImagePreloader {
                     id: loader
@@ -177,13 +178,16 @@ Item {
                     }
 
                     Timer {
-                        id: sunsetChangeTimer
-                        interval: 10000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                        id: stage2Timer
+                        interval: 15000 // CHANGE FOR TIME, every 10000 is 10 seconds
                         running: true
                         repeat: false // Only run once
                         onTriggered: {
                             sunsetImage.visible = true; // Makes sunset visible
                             sunsetImage.opacity = 1; // Starts the animation
+                            gameBase.gameStage = 2;
+                            obstacleTimer.interval = 2000;
+                            console.log("Game Difficulty has been set to 2");
                         }
                     }
 
@@ -399,20 +403,26 @@ Item {
                         repeat: true
                         onTriggered: {
                             // Generates a random number (change random() * X to # of obstacles)
-                            let obstacleType = Math.floor(Math.random() * 5) + 1;
-
-                            console.log(obstacleType)
-                            //Triggers corresponding obstacle
-                            if (obstacleType === 1) {
-                                rockAnimation.running = true;
-                            } else if (obstacleType === 2) {
-                                statueAnimation.running = true;
-                            } else if (obstacleType === 3) {
-                                birdAnimation.running = true;
-                            } else if (obstacleType === 4) {
-                                rockCandyAnimation.running = true;
-                            } else if (obstacleType === 5) {
-                                clockAnimation.running = true;
+                            if (gameBase.gameStage === 1) {
+                                let obstacleType = Math.floor(Math.random() *3) + 1;
+                                console.log(obstacleType)
+                                //Triggers corresponding obstacle
+                                if (obstacleType === 1) {
+                                    rockAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    statueAnimation.running = true;
+                                } else if (obstacleType === 3) {
+                                    birdAnimation.running = true;
+                                }
+                            }
+                            else if (gameBase.gameStage === 2) {
+                                let obstacleType = Math.floor(Math.random() * 2) + 1;
+                                console.log(obstacleType)
+                                if (obstacleType === 1 ) {
+                                    rockCandyAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    clockAnimation.running = true;
+                                }
                             }
                         }
                     }
