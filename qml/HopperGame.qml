@@ -153,6 +153,7 @@ Item {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Layout.verticalStretchFactor: 3
+                        asynchronous: true
                     }
 
                     Image {
@@ -165,6 +166,7 @@ Item {
                         Layout.verticalStretchFactor: 3
                         opacity: 0 // Starts at 0 opacity for transition
                         visible: false // Starts invisible
+                        asynchronous: true
 
                         Behavior on opacity {
                             NumberAnimation {
@@ -195,6 +197,7 @@ Item {
                         Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
                         source: filepath + "/gamefiles/Hopper/grass.zippyhopp.jpg"
+                        asynchronous: true
 
 
                     }
@@ -207,6 +210,7 @@ Item {
                         opacity: 0.6
                         x: parent.width
                         y: floorRect.y - 1540 * root.scaleFactor  // Cloud in the sky
+                        asynchronous: true
 
                         // Animation for cloud movement
                         PropertyAnimation on x {
@@ -217,6 +221,7 @@ Item {
                             running: true
                         }
                     }
+
                     Image {
                         id: cloud2
                         width: 650 * root.scaleFactor
@@ -225,6 +230,7 @@ Item {
                         opacity: 0.4
                         x: parent.width
                         y: floorRect.y - 2140 * root.scaleFactor  // Cloud in the sky
+                        asynchronous: true
 
                         // Animation for cloud movement
                         PropertyAnimation on x {
@@ -241,7 +247,7 @@ Item {
                         anchors.centerIn: zippyModel
                         width: 225 * root.scaleFactor
                         height: 550 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
 
                     Rectangle {
@@ -251,7 +257,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
 
                     // Zippy Model
@@ -261,6 +267,7 @@ Item {
                         height: 700 * root.scaleFactor
                         x: (parent.width - width) - 950 * root.scaleFactor
                         y: floorRect.y - height + 50 // Starting position on the floor
+                        asynchronous: true
 
                         property bool isRunning: true
 
@@ -339,6 +346,7 @@ Item {
                                 source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
                                 width: 200 * root.scaleFactor
                                 height: 200 * root.scaleFactor
+                                asynchronous: true
                             }
 
                             Image {
@@ -346,6 +354,7 @@ Item {
                                 source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
                                 width: 200 * root.scaleFactor
                                 height: 200 * root.scaleFactor
+                                asynchronous: true
                             }
 
                             Image {
@@ -353,6 +362,7 @@ Item {
                                 source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
                                 width: 200 * root.scaleFactor
                                 height: 200 * root.scaleFactor
+                                asynchronous: true
                             }
                         }
 
@@ -393,7 +403,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "red"
+                        color: "transparent"
                     }
                     // Rock Obstacle
                     Image {
@@ -403,6 +413,7 @@ Item {
                         source: filepath + "/gamefiles/Hopper/Rock.png"
                         x: parent.width
                         y: floorRect.y - height + 50
+                        asynchronous: true
 
                         // Animation for rock movement
                         PropertyAnimation on x {
@@ -421,7 +432,7 @@ Item {
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "red"
+                        color: "transparent"
                     }
 
                     Image {
@@ -431,6 +442,7 @@ Item {
                         source: filepath + "/gamefiles/Hopper/statue.png"
                         x: parent.width
                         y: floorRect.y - height + 50
+                        asynchronous: true
 
                         // Animation for statue movement
                         PropertyAnimation on x {
@@ -449,7 +461,7 @@ Item {
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "red" // was red
+                        color: "transparent" // was red
                     }
 
                     Image {
@@ -459,6 +471,7 @@ Item {
                         source: filepath + "/gamefiles/Hopper/rockCandy.png"
                         x: parent.width
                         y: floorRect.y - height + 50
+                        asynchronous: true
 
                         // Animation for rockCandy movement
                         PropertyAnimation on x {
@@ -477,7 +490,7 @@ Item {
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "red"
+                        color: "transparent"
                     }
 
                     Image {
@@ -487,6 +500,7 @@ Item {
                         source: filepath + "/gamefiles/Hopper/clock.png"
                         x: parent.width
                         y: floorRect.y - height + 50
+                        asynchronous: true
 
                         // Animation for clock movement
                         PropertyAnimation on x {
@@ -505,7 +519,7 @@ Item {
                         width: 375 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "red"
+                        color: "transparent"
                     }
 
                     Image {
@@ -515,6 +529,7 @@ Item {
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
                         y: 1200 * root.scaleFactor
+                        asynchronous: true
 
                         // Animation for bird movement
                         PropertyAnimation on x {
