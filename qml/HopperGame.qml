@@ -110,7 +110,7 @@ Item {
                         repeat: true
                         onTriggered: {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
-                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
+                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, duckHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
                                     //console.log("Collision detected!");
                                     gameRect.reduceHearts();
@@ -416,12 +416,14 @@ Item {
                                 }
                             }
                             else if (gameBase.gameStage === 2) {
-                                let obstacleType = Math.floor(Math.random() * 2) + 1;
+                                let obstacleType = Math.floor(Math.random() * 3) + 1;
                                 console.log(obstacleType)
                                 if (obstacleType === 1 ) {
                                     rockCandyAnimation.running = true;
                                 } else if (obstacleType === 2) {
                                     clockAnimation.running = true;
+                                } else if (obstacleType === 3) {
+                                    duckAnimation.running = true;
                                 }
                             }
                         }
@@ -572,6 +574,35 @@ Item {
                         }
                     }
                 }
+                // duck Hitbox
+                    Rectangle {
+                        id: duckHitbox
+                        width: 450 * root.scaleFactor
+                        height: 400 * root.scaleFactor
+                        anchors.centerIn: duck
+                        color: "red"
+                }
+                // duck Obstacle
+                    Image {
+                        id: duck
+                        width: 450 * root.scaleFactor
+                        height: 400 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/duck.png"
+                        x: parent.width
+                        y: floorRect.y - height - 90
+                        asynchronous: true
+
+                    // Animation for duck movement
+                        PropertyAnimation on x {
+                            id: duckAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 2750  // Adjusts speed
+                            loops: 1
+                            running: false
+                    }
+                }
+
                 // Blocks obstacles on left side
                 Rectangle {
                     id: leftBar
