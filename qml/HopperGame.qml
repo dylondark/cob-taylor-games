@@ -489,7 +489,7 @@ Item {
                     // rockCandy Obstacle
                     Rectangle {
                         id: rockCandyHitbox
-                        width: 200 * root.scaleFactor
+                        width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
                         color: "red" // was red
@@ -518,7 +518,7 @@ Item {
                     // clock Obstacle
                     Rectangle {
                         id: clockHitbox
-                        width: 200 * root.scaleFactor
+                        width: 125 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
                         color: "red"
