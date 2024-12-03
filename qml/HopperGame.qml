@@ -248,7 +248,7 @@ Item {
 
                     Image {
                         id: blimp
-                        width: 350 * root.scaleFactor
+                        width: 450 * root.scaleFactor
                         height: 250 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Blimp.png"
                         opacity: 0.8
@@ -265,6 +265,7 @@ Item {
                             running: true
                         }
                     }
+
                     // Zippy Hitboxes
                     Rectangle {
                         id: zippyBHitbox
@@ -685,7 +686,7 @@ Item {
                         contentItem: Text {
                             text: "Hop!"
                             font.pointSize: 70 * root.scaleFactor
-                            anchors.centerIn: parent.Center
+                            anchors.centerIn: parent.center
                         }
 
                         onClicked: {
@@ -712,7 +713,7 @@ Item {
                         contentItem: Text {
                             text: "Slide!"
                             font.pointSize: 70 * root.scaleFactor
-                            anchors.centerIn: parent
+                            anchors.centerIn: parent.center
                         }
 
                         onClicked: {
