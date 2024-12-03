@@ -271,7 +271,7 @@ Item {
                         anchors.centerIn: zippyModel
                         width: 225 * root.scaleFactor
                         height: 550 * root.scaleFactor
-                        color: "transparent"
+                        color: "red"
                     }
 
                     Rectangle {
@@ -281,7 +281,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "transparent"
+                        color: "red"
                     }
 
                     // Zippy Model
@@ -359,6 +359,7 @@ Item {
                             PropertyAction { target: runTimer; property: "running"; value: true }
                             PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
+
                         Row {
                             spacing: 10 * root.scaleFactor // Adjust spacing between hearts
                             anchors.top: zippyModel.top
@@ -389,9 +390,6 @@ Item {
                                 asynchronous: true
                             }
                         }
-
-
-
                     }
 
 
@@ -435,7 +433,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "transparent"
+                        color: "red"
                     }
                     // Rock Obstacle
                     Image {
@@ -461,10 +459,10 @@ Item {
                     // statue Obstacle
                     Rectangle {
                         id: statueHitbox
-                        width: 200 * root.scaleFactor
+                        width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "transparent"
+                        color: "red"
                     }
 
                     Image {
@@ -493,7 +491,7 @@ Item {
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "transparent" // was red
+                        color: "red" // was red
                     }
 
                     Image {
@@ -522,7 +520,7 @@ Item {
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "transparent"
+                        color: "red"
                     }
 
                     Image {
@@ -551,7 +549,7 @@ Item {
                         width: 375 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "transparent"
+                        color: "red"
                     }
 
                     Image {
