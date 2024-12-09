@@ -265,14 +265,32 @@ Item {
                             running: true
                         }
                     }
+                    Image { //archPart
+                        id: archBack
+                        width: 450 * root.scaleFactor
+                        height: 950 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/arch.png"
+                        x: parent.width
+                        y: floorRect.y - height + 50
+                        asynchronous: true
 
+                        // Animation for arch movement
+                        PropertyAnimation on x {
+                            id: archAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjusts speed
+                            loops: 1
+                            running: false
+                        }
+                    }
                     // Zippy Hitboxes
                     Rectangle {
                         id: zippyBHitbox
                         anchors.centerIn: zippyModel
                         width: 225 * root.scaleFactor
                         height: 550 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
 
                     Rectangle {
@@ -282,7 +300,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
 
                     // Zippy Model
@@ -354,8 +372,8 @@ Item {
                             PropertyAction { target: runTimer; property: "running"; value: false } // Stops the Timer
 
 
-                            PropertyAnimation { to: 400 * root.scaleFactor; duration: 300; easing.type: Easing.OutQuad } // Duck down
-                            PropertyAnimation { to: 700 * root.scaleFactor; duration: 300; easing.type: Easing.InQuad } // Return to original height
+                            PropertyAnimation { to: 400 * root.scaleFactor; duration: 400; easing.type: Easing.OutQuad } // Duck down
+                            PropertyAnimation { to: 700 * root.scaleFactor; duration: 400; easing.type: Easing.InQuad } // Return to original height
 
                             PropertyAction { target: runTimer; property: "running"; value: true }
                             PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
@@ -415,7 +433,7 @@ Item {
                                 }
                             }
                             else if (gameBase.gameStage === 2) {
-                                let obstacleType = Math.floor(Math.random() * 3) + 1;
+                                let obstacleType = Math.floor(Math.random() * 4) + 1;
                                 console.log(obstacleType)
                                 if (obstacleType === 1 ) {
                                     rockCandyAnimation.running = true;
@@ -423,6 +441,9 @@ Item {
                                     clockAnimation.running = true;
                                 } else if (obstacleType === 3) {
                                     duckAnimation.running = true;
+                                } else if (obstacleType === 4) {
+                                    archAnimation.running = true;
+                                    archAnimation2.running = true;
                                 }
                             }
                         }
@@ -584,11 +605,11 @@ Item {
                 // duck Obstacle
                     Image {
                         id: duck
-                        width: 450 * root.scaleFactor
-                        height: 400 * root.scaleFactor
+                        width: 400 * root.scaleFactor
+                        height: 375 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/duck.png"
                         x: parent.width
-                        y: floorRect.y - height - 90
+                        y: floorRect.y - height - 175
                         asynchronous: true
 
                     // Animation for duck movement
@@ -596,12 +617,30 @@ Item {
                             id: duckAnimation
                             from: parent.width
                             to: -300
-                            duration: 2750  // Adjusts speed
+                            duration: 2000  // Adjusts speed
                             loops: 1
                             running: false
                     }
                 }
 
+                    Image { // archFront // archPart
+                        id: archFront
+                        width: 450 * root.scaleFactor
+                        height: 950 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Arch2.png"
+                        x: parent.width
+                        y: floorRect.y - height + 100
+                        asynchronous: true
+                        //change this to item with archFront and Back
+                        PropertyAnimation on x {
+                            id: archAnimation2
+                            from: archBack.x + 40 // Start slightly to the right of archBack
+                            to: -300
+                            duration: 3190
+                            loops: 1
+                            running: false
+                        }
+                    }
                 // Blocks obstacles on left side
                 Rectangle {
                     id: leftBar
