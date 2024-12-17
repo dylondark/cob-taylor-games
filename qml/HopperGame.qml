@@ -110,7 +110,7 @@ Item {
                         repeat: true
                         onTriggered: {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
-                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, duckHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
+                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, duckHitbox, archHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
                                     //console.log("Collision detected!");
                                     gameRect.reduceHearts();
@@ -265,6 +265,9 @@ Item {
                             running: true
                         }
                     }
+
+
+
                     Image { //archPart
                         id: archBack
                         width: 450 * root.scaleFactor
@@ -284,6 +287,17 @@ Item {
                             running: false
                         }
                     }
+
+                    Rectangle {
+                        id: archHitbox
+                        width: 300 * root.scaleFactor
+                        height: 300 * root.scaleFactor
+                        anchors.top: archBack.top
+                        anchors.right: archBack.right
+                        anchors.topMargin: 10
+                        color: "red"
+                    }
+
                     // Zippy Hitboxes
                     Rectangle {
                         id: zippyBHitbox
@@ -433,15 +447,13 @@ Item {
                                 }
                             }
                             else if (gameBase.gameStage === 2) {
-                                let obstacleType = Math.floor(Math.random() * 4) + 1;
+                                let obstacleType = Math.floor(Math.random() * 3) + 1;
                                 console.log(obstacleType)
                                 if (obstacleType === 1 ) {
                                     rockCandyAnimation.running = true;
                                 } else if (obstacleType === 2) {
                                     clockAnimation.running = true;
                                 } else if (obstacleType === 3) {
-                                    duckAnimation.running = true;
-                                } else if (obstacleType === 4) {
                                     archAnimation.running = true;
                                     archAnimation2.running = true;
                                 }
@@ -640,6 +652,7 @@ Item {
                             loops: 1
                             running: false
                         }
+
                     }
                 // Blocks obstacles on left side
                 Rectangle {
