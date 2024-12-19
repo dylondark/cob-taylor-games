@@ -28,6 +28,6 @@ MazeController::~MazeController()
 */
 void MazeController::paint(QPainter* painter)
 {
-
-
+    painter->setBrush(QBrush(Qt::black));
+    painter->drawRect(0, 0, width(), height());
 }
