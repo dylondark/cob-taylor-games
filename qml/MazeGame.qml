@@ -15,7 +15,6 @@ Item {
     width: 2160
     height: 3840
     //title: "Maze Game Layout"
-
     signal quit  // Signal to go to home screen or quit the game
     signal saveScore(int game, string username, int score)
 
@@ -47,7 +46,6 @@ Item {
                         imageSource: filepath + "/menufiles/PongMotion.png"
                         // z: 1
                     }
-
                     Item {
                         id: gameBase
                         anchors.fill: parent
@@ -106,7 +104,6 @@ Item {
 
                 }
     }
-
         HomeBarBase {
             id: homeBarBase
             Layout.verticalStretchFactor: 1
