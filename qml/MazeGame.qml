@@ -1,74 +1,119 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtQml 2.15
+/*
+    MazeGame.qml
+
+    Main QML file for the Pong game.
+*/
+
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQml
+import QMLControllers
 
 Item {
     id: root
     width: 2160
     height: 3840
+    //title: "Maze Game Layout"
 
-    property string playerName: ""
+    signal quit  // Signal to go to home screen or quit the game
+    signal saveScore(int game, string username, int score)
 
-    // Background
-    Rectangle {
-        id: background
+    property real scaleFactor: height / 3840
+    property int points: 0
+    property string strName: "Maze"
+    property string username: ""
+    ColumnLayout{
+        id: baseLayout
         anchors.fill: parent
-        color: "#001f3f" // Dark blue background
+        spacing: 0
+
+        // Define the background of the game
+        Rectangle {
+                    id: background
+                    Layout.preferredHeight: -1
+                    Layout.preferredWidth: -1
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.verticalStretchFactor: 6
+
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "#f3a469" }
+                        GradientStop { position: 1.0; color: "#3f51b1" }
+                    }
+
+                    MenuBase { // This opens the screen to input username at the beginning.
+                        id: menuBase
+                        imageSource: filepath + "/menufiles/PongMotion.png"
+                        // z: 1
+                    }
+
+                    Item {
+                        id: gameBase
+                        anchors.fill: parent
+                        visible: false
+                        // Put the code for the scores boxes here
+
+                        RowLayout {
+                            id: topBar
+                            anchors.top: parent.top
+                            width: parent.width
+                            height: 50
+                            spacing: 20
+
+                            // Score Section
+                            Rectangle {
+                                id: scoreBox
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                color: "#D2B48C"  // Light brown background for the score
+                                border.color: "black"
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: "Score: 0"
+                                    font.pixelSize: 20
+                                    color: "navy"
+                                }
+                            }
+
+                            // Time Section
+                            Rectangle {
+                                id: timeBox
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                color: "#D2B48C"  // Light brown background for the time
+                                border.color: "black"
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: "Time: 0"
+                                    font.pixelSize: 20
+                                    color: "navy"
+                                }
+                            }
+
+                        }
+                        MazeController {
+                            id: gameRect
+                            width: 1550 * root.scaleFactor
+                            height: 3040 * root.scaleFactor
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            Layout.verticalStretchFactor: 4
+                            x: (parent.width - width) / 2
+                            y: (parent.height - height) / 1.5
+
+                                }
+
+                }
     }
 
-    ColumnLayout {
-        id: startScreenLayout
-        anchors.centerIn: parent
-        spacing: 40 * scaleFactor
+        HomeBarBase {
+            id: homeBarBase
+            Layout.verticalStretchFactor: 1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.minimumHeight: 1
 
-        // Title
-        Text {
-            text: "Maze Game"
-            font.pixelSize: 100 * scaleFactor
-            color: "white"
-            horizontalAlignment: Text.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
         }
-
-        // Name Input Field
-        RowLayout {
-            Layout.alignment: Qt.AlignHCenter
-            spacing: 10 * scaleFactor
-
-            Label {
-                text: "Name:"
-                font.pixelSize: 50 * scaleFactor
-                color: "white"
-                Layout.alignment: Qt.AlignLeft
-            }
-
-            TextField {
-                id: nameInput
-                width: 400 * scaleFactor
-                height: 80 * scaleFactor
-                font.pixelSize: 40 * scaleFactor
-                placeholderText: "Enter your name"
-                onTextChanged: root.playerName = text
-            }
-        }
-
-        // Play Button
-        Button {
-            text: "Play"
-            font.pixelSize: 50 * scaleFactor
-            width: 300 * scaleFactor
-            height: 100 * scaleFactor
-            onClicked: {
-                console.log("Play button clicked! Starting game for", root.playerName)
-                // Logic to transition to the game screen
-            }
-            background: Rectangle {
-                radius: 20 * scaleFactor
-                color: "#00cc66"
-                border.color: "#008040"
-                border.width: 3
-            }
-        }
-    }
+    } // Column Layout
 }
