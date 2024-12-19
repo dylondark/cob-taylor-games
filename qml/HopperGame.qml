@@ -112,8 +112,8 @@ Item {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
                             const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, duckHitbox, archHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
-                                    //console.log("Collision detected!");
-                                    gameRect.reduceHearts();
+                                //console.log("Collision detected!");
+                                gameRect.reduceHearts();
                             }
                         }
                     }
@@ -274,15 +274,15 @@ Item {
                         height: 950 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/arch.png"
                         x: parent.width
-                        y: floorRect.y - height + 50
+                        y: floorRect.y - height + 100
                         asynchronous: true
 
                         // Animation for arch movement
                         PropertyAnimation on x {
-                            id: archAnimation
+                            id: archAnimationBack
                             from: parent.width
                             to: -300
-                            duration: 3000  // Adjusts speed
+                            duration: 3000 * ((parent.width + 195 * root.scaleFactor) / parent.width)
                             loops: 1
                             running: false
                         }
@@ -323,7 +323,7 @@ Item {
                         width: 850 * root.scaleFactor
                         height: 700 * root.scaleFactor
                         x: (parent.width - width) - 950 * root.scaleFactor
-                        y: floorRect.y - height + 50 // Starting position on the floor
+                        y: floorRect.y - height + 125 * root.scaleFactor // Starting position on the floor
                         asynchronous: true
 
                         property bool isRunning: true
@@ -454,8 +454,8 @@ Item {
                                 } else if (obstacleType === 2) {
                                     clockAnimation.running = true;
                                 } else if (obstacleType === 3) {
-                                    archAnimation.running = true;
-                                    archAnimation2.running = true;
+                                    archAnimationFront.running = true;
+                                    archAnimationBack.running = true;
                                 }
                             }
                         }
@@ -607,53 +607,52 @@ Item {
                     }
                 }
                 // duck Hitbox
-                    Rectangle {
-                        id: duckHitbox
-                        width: 450 * root.scaleFactor
-                        height: 400 * root.scaleFactor
-                        anchors.centerIn: duck
-                        color: "red"
+                Rectangle {
+                    id: duckHitbox
+                    width: 450 * root.scaleFactor
+                    height: 400 * root.scaleFactor
+                    anchors.centerIn: duck
+                    color: "red"
                 }
                 // duck Obstacle
-                    Image {
-                        id: duck
-                        width: 400 * root.scaleFactor
-                        height: 375 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/duck.png"
-                        x: parent.width
-                        y: floorRect.y - height - 175
-                        asynchronous: true
+                Image {
+                    id: duck
+                    width: 400 * root.scaleFactor
+                    height: 375 * root.scaleFactor
+                    source: filepath + "/gamefiles/Hopper/duck.png"
+                    x: parent.width
+                    y: floorRect.y - height - 175
+                    asynchronous: true
 
                     // Animation for duck movement
-                        PropertyAnimation on x {
-                            id: duckAnimation
-                            from: parent.width
-                            to: -300
-                            duration: 2000  // Adjusts speed
-                            loops: 1
-                            running: false
+                    PropertyAnimation on x {
+                        id: duckAnimation
+                        from: parent.width
+                        to: -300
+                        duration: 2000  // Adjusts speed
+                        loops: 1
+                        running: false
                     }
                 }
 
-                    Image { // archFront // archPart
-                        id: archFront
-                        width: 450 * root.scaleFactor
-                        height: 950 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/Arch2.png"
-                        x: parent.width
-                        y: floorRect.y - height + 100
-                        asynchronous: true
-                        //change this to item with archFront and Back
-                        PropertyAnimation on x {
-                            id: archAnimation2
-                            from: archBack.x + 40 // Start slightly to the right of archBack
-                            to: -300
-                            duration: 3190
-                            loops: 1
-                            running: false
-                        }
-
+                Image { // archFront // archPart
+                    id: archFront
+                    width: 450 * root.scaleFactor
+                    height: 950 * root.scaleFactor
+                    source: filepath + "/gamefiles/Hopper/Arch2.png"
+                    x: parent.width
+                    y: floorRect.y - height + 214
+                    asynchronous: true
+                    //change this to item with archFront and Back
+                    PropertyAnimation on x {
+                        id: archAnimationFront
+                        from: parent.width + 195 * root.scaleFactor
+                        to: -300
+                        duration: (parent.width + 195 * root.scaleFactor - (-300)) / (parent.width - (-300)) * archAnimationBack.duration
+                        loops: 1
+                        running: false
                     }
+                }
                 // Blocks obstacles on left side
                 Rectangle {
                     id: leftBar
