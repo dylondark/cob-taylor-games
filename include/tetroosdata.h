@@ -12,6 +12,7 @@
 #include <array>
 #include "flippedarray.h"
 
+namespace {
 typedef FlippedArray<std::array<bool, 4>, 4> PieceGrid;
 
 /*
@@ -135,5 +136,6 @@ const PieceGrid Z_PIECE = {{{0,0,0,0},
                             {0,0,0,0},
                             {1,1,0,0},
                             {0,1,1,0}}};
+}
 
 #endif // TETROOSDATA_H
