@@ -54,9 +54,6 @@ public:
     */
     Q_INVOKABLE void startGame();
 
-    // Holds the game over state for the game. No game logic will continue after this is set to true.
-    bool gameOver;
-
     /*
         Move character left action.
     */
@@ -83,6 +80,9 @@ private:
 
     // Contains the list of frontier cells
     std::vector<Cell*> frontierCells;
+
+    // Holds the game over state for the game. No game logic will continue after this is set to true.
+    bool gameOver;
 
     /*
         Main game loop. Called every time a new action has happened.
