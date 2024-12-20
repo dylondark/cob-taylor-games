@@ -50,6 +50,14 @@ public:
 private:
     // Contains the internal representation of the maze grid.
     FlippedArray<std::array<Cell, 20>, 40>* board;
+
+    /*
+        Main game loop. Called every time a new action has happened.
+        Calculates the new game state in response to the action and sends the signal to QML to display it.
+
+        MazeAction trigger: what action is triggering the game update.
+    */
+    void updateGame(MazeAction trigger);
 };
 
 #endif // MAZECONTROLLER_H

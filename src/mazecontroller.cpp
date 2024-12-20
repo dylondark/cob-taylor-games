@@ -32,3 +32,28 @@ void MazeController::paint(QPainter* painter)
     painter->setBrush(QBrush(Qt::black));
     painter->drawRect(0, 0, width(), height());
 }
+
+/*
+    Main game loop. Called every time a new action has happened.
+    Calculates the new game state in response to the action and sends the signal to QML to display it.
+
+    MazeAction trigger: what action is triggering the game update.
+*/
+void MazeController::updateGame(MazeAction trigger)
+{
+    switch (trigger)
+    {
+    case MazeAction::Left:
+        break;
+    case MazeAction::Right:
+        break;
+    case MazeAction::Up:
+        break;
+    case MazeAction::Down:
+        break;
+    case MazeAction::Generate:
+        break;
+    }
+
+    update();
+}
