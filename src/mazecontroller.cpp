@@ -29,7 +29,7 @@ MazeController::MazeController()
 */
 MazeController::~MazeController()
 {
-
+    delete board;
 }
 
 /*
