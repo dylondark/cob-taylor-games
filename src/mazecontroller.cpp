@@ -12,8 +12,12 @@
 */
 MazeController::MazeController()
 {
-    // populate board with empty values
+    // populate board with random wall/passage values (TEMPORARY)
     board = new FlippedArray<std::array<Cell, 20>, 40>;
+
+    for (int y = 0; y < 40; y++)
+        for (int x = 0; x < 20; x++)
+            (*board)[y][x] = {(bool)(rand() % 2), false};
 }
 
 /*
