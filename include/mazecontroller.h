@@ -9,6 +9,17 @@
 
 #include <QObject>
 #include <QQuickPaintedItem>
+#include "flippedarray.h"
+
+/*
+    This is the data structure that represents every individual block on the play grid.
+    It contains whether the block is a wall or if the player is currently occupying it.
+*/
+struct Block
+{
+    bool wall;
+    bool player;
+};
 
 class MazeController : public QQuickPaintedItem
 {
@@ -30,6 +41,10 @@ public:
         Paint a new frame onto the canvas.
     */
     void paint(QPainter* painter) override;
+
+private:
+    // Contains the internal representation of the maze grid.
+    FlippedArray<std::array<Block, 20>, 40>* board;
 };
 
 #endif // MAZECONTROLLER_H

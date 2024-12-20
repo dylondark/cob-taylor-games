@@ -12,7 +12,8 @@
 */
 MazeController::MazeController()
 {
-
+    // populate board with empty values
+    board = new FlippedArray<std::array<Block, 20>, 40>;
 }
 
 /*
