@@ -91,6 +91,11 @@ private:
         MazeAction trigger: what action is triggering the game update.
     */
     void updateGame(MazeAction trigger);
+
+    /*
+        Calculates all frontier cells at a given cell and adds them to frontierCells.
+    */
+    void calculateFrontierCells(const Cell& cell);
 };
 
 #endif // MAZECONTROLLER_H

@@ -160,3 +160,13 @@ void MazeController::updateGame(MazeAction trigger)
 
     update();
 }
+
+/*
+    Calculates all frontier cells at a given cell and adds them to frontierCells.
+*/
+void MazeController::calculateFrontierCells(const Cell& cell)
+{
+    // Check all cells in 4 cardinal directions from the given cell and 2 away
+    // If the cell is within the grid and is a wall, add it to frontierCells
+    // If the cell is already in frontierCells, don't add it again
+}
