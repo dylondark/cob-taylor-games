@@ -54,6 +54,29 @@ public:
     */
     Q_INVOKABLE void startGame();
 
+    // Holds the game over state for the game. No game logic will continue after this is set to true.
+    bool gameOver;
+
+    /*
+        Move character left action.
+    */
+    Q_INVOKABLE void leftAction();
+
+    /*
+        Move character right action.
+    */
+    Q_INVOKABLE void rightAction();
+
+    /*
+        Move character down action.
+    */
+    Q_INVOKABLE void downAction();
+
+    /*
+        Move character up action.
+    */
+    Q_INVOKABLE void upAction();
+
 private:
     // Contains the internal representation of the maze grid.
     FlippedArray<std::array<Cell, 20>, 40>* board;
