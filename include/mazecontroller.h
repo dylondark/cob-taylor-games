@@ -21,6 +21,11 @@ struct Cell
     bool player;
 };
 
+/*
+    This enum defines all of the actions that can cause a game update. It includes all of the actions a player can make.
+*/
+enum MazeAction {Left, Right, Up, Down, Generate};
+
 class MazeController : public QQuickPaintedItem
 {
     Q_OBJECT
