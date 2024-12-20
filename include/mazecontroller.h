@@ -47,9 +47,17 @@ public:
     */
     void paint(QPainter* painter) override;
 
+    /*
+        Starts the maze generation. To be called by QML after entering the game.
+    */
+    Q_INVOKABLE void startGame();
+
 private:
     // Contains the internal representation of the maze grid.
     FlippedArray<std::array<Cell, 20>, 40>* board;
+
+    // Contains the list of frontier cells
+    std::vector<Cell*> frontierCells;
 
     /*
         Main game loop. Called every time a new action has happened.

@@ -38,6 +38,25 @@ void MazeController::paint(QPainter* painter)
 }
 
 /*
+    Starts the maze generation. To be called by QML after entering the game.
+*/
+void MazeController::startGame()
+{
+    // Randomized Prim's Algorithm
+
+    // Start with a Grid full of Cells in state Blocked.
+    for (int y = 0; y < 40; y++)
+        for (int x = 0; x < 20; x++)
+            (*board)[y][x] = {true, false};
+
+    // Pick a random Cell, set it to state Passage and Compute its frontier cells.
+    // A frontier cell of a Cell is a cell with distance 2 in state Blocked and within the grid.
+    int startCellX = rand() % 20;
+    int startCellY = rand() % 40;
+    (*board)[startCellY][startCellX] = {false, false};
+}
+
+/*
     Main game loop. Called every time a new action has happened.
     Calculates the new game state in response to the action and sends the signal to QML to display it.
 
