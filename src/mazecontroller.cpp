@@ -8,6 +8,10 @@
 #include "qpainter.h"
 #include <QPainter>
 
+
+
+// init other data members
+
 /*
     Constructor for MazeController.
 */
@@ -78,6 +82,55 @@ void MazeController::startGame()
     int startCellX = rand() % 20;
     int startCellY = rand() % 40;
     (*board)[startCellY][startCellX].wall = false;
+}
+
+
+void MazeController::upAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+        updateGame(MazeAction::Up);
+    }
+}
+
+/*
+    Move piece down action.
+*/
+void MazeController::downAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+            updateGame(MazeAction::Down);
+    }
+}
+
+/*
+    Move piece left action.
+*/
+void MazeController::leftAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+       updateGame(MazeAction::Left);
+    }
+}
+/*
+    Move piece right action.
+*/
+void MazeController::rightAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+        updateGame(MazeAction::Right);
+    }
 }
 
 /*
