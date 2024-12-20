@@ -6,11 +6,8 @@
 
 #include "mazecontroller.h"
 #include "qpainter.h"
-#include <algorithm>
 #include <QPainter>
-#include <QBuffer>
-#include "tetrooscontroller.h"
-#include "cliparser.h"
+
 /*
     Constructor for MazeController.
 */
@@ -41,10 +38,24 @@ void MazeController::paint(QPainter* painter)
     {
         for (unsigned col = 0; col < 20; ++col)
         {
-            // Draw each grid cell as a rectangle
+            // Access the current cell in the board (Assuming board is of type FlippedArray<Cell, 40, 20>)
+            Cell& cell = (*board)[row][col];
+
+            // Directly check if the cell is a wall by accessing the wall member
+            bool isWall = cell.wall;
+
+            // Set the brush color based on whether it's a wall or not
+            if (isWall)
+                painter->setBrush(QBrush(Qt::black));
+            else
+                painter->setBrush(QBrush(Qt::white));
+
+            // Draw the individual grid cell with the appropriate color
             painter->drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
         }
+
     }
+
 }
 /*
     Main game loop. Called every time a new action has happened.
