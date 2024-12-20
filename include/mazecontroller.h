@@ -19,6 +19,8 @@ struct Cell
 {
     bool wall;
     bool player;
+    int x;
+    int y;
 };
 
 /*

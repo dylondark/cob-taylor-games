@@ -16,8 +16,12 @@
 */
 MazeController::MazeController()
 {
-    // populate board with empty values
+    // populate board with random wall/passage values (TEMPORARY)
     board = new FlippedArray<std::array<Cell, 20>, 40>;
+
+    for (int y = 0; y < 40; y++)
+        for (int x = 0; x < 20; x++)
+            (*board)[y][x] = {(bool)(rand() % 2), false, x, y};
 }
 
 /*
@@ -56,13 +60,13 @@ void MazeController::startGame()
     // Start with a Grid full of Cells in state Blocked.
     for (int y = 0; y < 40; y++)
         for (int x = 0; x < 20; x++)
-            (*board)[y][x] = {true, false};
+            (*board)[y][x].wall = true;
 
     // Pick a random Cell, set it to state Passage and Compute its frontier cells.
     // A frontier cell of a Cell is a cell with distance 2 in state Blocked and within the grid.
     int startCellX = rand() % 20;
     int startCellY = rand() % 40;
-    (*board)[startCellY][startCellX] = {false, false};
+    (*board)[startCellY][startCellX].wall = false;
 }
 
 /*
