@@ -12,10 +12,10 @@
 #include "flippedarray.h"
 
 /*
-    This is the data structure that represents every individual block on the play grid.
-    It contains whether the block is a wall or if the player is currently occupying it.
+    This is the data structure that represents every individual cell in the maze board.
+    It contains whether the cell is a wall or if the player is currently occupying it.
 */
-struct Block
+struct Cell
 {
     bool wall;
     bool player;
@@ -44,7 +44,7 @@ public:
 
 private:
     // Contains the internal representation of the maze grid.
-    FlippedArray<std::array<Block, 20>, 40>* board;
+    FlippedArray<std::array<Cell, 20>, 40>* board;
 };
 
 #endif // MAZECONTROLLER_H
