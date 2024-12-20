@@ -6,18 +6,18 @@
 
 #include "mazecontroller.h"
 #include "qpainter.h"
-
+#include <algorithm>
+#include <QPainter>
+#include <QBuffer>
+#include "tetrooscontroller.h"
+#include "cliparser.h"
 /*
     Constructor for MazeController.
 */
 MazeController::MazeController()
 {
-    // populate board with random wall/passage values (TEMPORARY)
+    // populate board with empty values
     board = new FlippedArray<std::array<Cell, 20>, 40>;
-
-    for (int y = 0; y < 40; y++)
-        for (int x = 0; x < 20; x++)
-            (*board)[y][x] = {(bool)(rand() % 2), false};
 }
 
 /*
@@ -33,10 +33,19 @@ MazeController::~MazeController()
 */
 void MazeController::paint(QPainter* painter)
 {
-    painter->setBrush(QBrush(Qt::black));
-    painter->drawRect(0, 0, width(), height());
-}
+    unsigned cellWidth = this->width() / 20;
+    unsigned cellHeight = this->height() / 40;
 
+    // Loop through each cell of the grid and draw them
+    for (unsigned row = 0; row < 40; ++row)
+    {
+        for (unsigned col = 0; col < 20; ++col)
+        {
+            // Draw each grid cell as a rectangle
+            painter->drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+        }
+    }
+}
 /*
     Starts the maze generation. To be called by QML after entering the game.
 */
