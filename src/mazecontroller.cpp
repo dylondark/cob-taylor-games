@@ -169,4 +169,88 @@ void MazeController::calculateFrontierCells(const Cell& cell)
     // Check all cells in 4 cardinal directions from the given cell and 2 away
     // If the cell is within the grid and is a wall, add it to frontierCells
     // If the cell is already in frontierCells, don't add it again
+
+    // north cell
+    if (cell.y + 2 >= 0 && (*board)[cell.y + 2][cell.x].wall)
+    {
+        // Check if the cell is already in frontierCells
+        bool alreadyInFrontier = false;
+        for (const Cell* frontierCell : frontierCells)
+        {
+            if (frontierCell->x == cell.x && frontierCell->y == cell.y - 2)
+            {
+                alreadyInFrontier = true;
+                break;
+            }
+        }
+
+        // If the cell is not already in frontierCells, add it
+        if (!alreadyInFrontier)
+        {
+            frontierCells.push_back(&(*board)[cell.y + 2][cell.x]);
+        }
+    }
+
+    // south cell
+    if (cell.y - 2 >= 0 && (*board)[cell.y - 2][cell.x].wall)
+    {
+        // Check if the cell is already in frontierCells
+        bool alreadyInFrontier = false;
+        for (const Cell* frontierCell : frontierCells)
+        {
+            if (frontierCell->x == cell.x && frontierCell->y == cell.y - 2)
+            {
+                alreadyInFrontier = true;
+                break;
+            }
+        }
+
+        // If the cell is not already in frontierCells, add it
+        if (!alreadyInFrontier)
+        {
+            frontierCells.push_back(&(*board)[cell.y - 2][cell.x]);
+        }
+    }
+
+    // east cell
+    if (cell.x + 2 >= 0 && (*board)[cell.y][cell.x + 2].wall)
+    {
+        // Check if the cell is already in frontierCells
+        bool alreadyInFrontier = false;
+        for (const Cell* frontierCell : frontierCells)
+        {
+            if (frontierCell->x == cell.x + 2 && frontierCell->y == cell.y)
+            {
+                alreadyInFrontier = true;
+                break;
+            }
+        }
+
+        // If the cell is not already in frontierCells, add it
+        if (!alreadyInFrontier)
+        {
+            frontierCells.push_back(&(*board)[cell.y][cell.x + 2]);
+        }
+    }
+
+    // west cell
+    if (cell.x - 2 >= 0 && (*board)[cell.y][cell.x - 2].wall)
+    {
+        // Check if the cell is already in frontierCells
+        bool alreadyInFrontier = false;
+        for (const Cell* frontierCell : frontierCells)
+        {
+            if (frontierCell->x == cell.x - 2 && frontierCell->y == cell.y)
+            {
+                alreadyInFrontier = true;
+                break;
+            }
+        }
+
+        // If the cell is not already in frontierCells, add it
+        if (!alreadyInFrontier)
+        {
+            frontierCells.push_back(&(*board)[cell.y][cell.x - 2]);
+        }
+    }
 }
