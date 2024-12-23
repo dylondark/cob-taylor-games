@@ -812,10 +812,10 @@ Item {
                             anchors.fill: parent
                         }
 
-                        contentItem: Text {
+                        Text {
                             text: "Hop!"
                             font.pointSize: 70 * root.scaleFactor
-                            anchors.centerIn: parent.center
+                            anchors.centerIn: parent
                         }
 
                         onClicked: {
@@ -839,7 +839,7 @@ Item {
                             anchors.fill: parent
                         }
 
-                        contentItem: Text {
+                        Text {
                             text: "Slide!"
                             font.pointSize: 70 * root.scaleFactor
                             anchors.centerIn: parent
