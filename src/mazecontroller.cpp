@@ -85,6 +85,7 @@ void MazeController::startGame()
     int startCellX = rand() % 20;
     int startCellY = rand() % 40;
     (*board)[startCellY][startCellX].wall = false;
+    calculateFrontierCells((*board)[startCellY][startCellX]);
 }
 
 
