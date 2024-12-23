@@ -157,6 +157,7 @@ Item {
                         Layout.verticalStretchFactor: 3
                         asynchronous: true
                     }
+
                     Image {
                         id: skyImage
                         width: 1750 * root.scaleFactor
@@ -174,690 +175,697 @@ Item {
                                 easing.type: Easing.InOutQuad // MAKES TRANSITION SMOOTH
                             }
                         }
-
                     }
 
-                        Image {
-                            id: sunsetImage
-                            width: 1750 * root.scaleFactor
-                            height: 2800 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/Sky2.png" // Second background
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Layout.verticalStretchFactor: 3
-                            opacity: 0 // Starts at 0 opacity for transition
-                            visible: false // Starts invisible
-                            asynchronous: true
+                    Image {
+                        id: sunsetImage
+                        width: 1750 * root.scaleFactor
+                        height: 2800 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Sky2.png" // Second background
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.verticalStretchFactor: 3
+                        opacity: 0 // Starts at 0 opacity for transition
+                        visible: false // Starts invisible
+                        asynchronous: true
 
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    duration: 3000 // duration of sunset transition
-                                    easing.type: Easing.InOutQuad // MAKES TRANSITION SMOOTH
-                                }
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 3000 // duration of sunset transition
+                                easing.type: Easing.InOutQuad // MAKES TRANSITION SMOOTH
                             }
                         }
+                    }
 
-                        Timer {
-                            id: stage2Timer
-                            interval: 15000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                    Timer {
+                        id: stage2Timer
+                        interval: 15000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                        running: true
+                        repeat: false // Only run once
+                        onTriggered: {
+                            skyImage.visible = true; // Makes sunset visible
+                            skyImage.opacity = 1; // Starts the animation
+                            gameBase.gameStage = 2;
+                            obstacleTimer.interval = 2000;
+                            console.log("Game Difficulty has been set to 2");
+                        }
+                    }
+
+                    Timer {
+                        id: stage3Timer
+                        interval: 30000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                        running: true
+                        repeat: false // Only run once
+                        onTriggered: {
+                            sunsetImage.visible = true; // Makes sunset visible
+                            sunsetImage.opacity = 1; // Starts the animation
+                            gameBase.gameStage = 3;
+                            paintedRockAnimation.interval = 1500;
+                            clockAnimation.interval = 1500;
+                            obstacleTimer.interval = 1500;
+                            console.log("Game Difficulty has been set to 3");
+                        }
+                    }
+
+                    // Floor Rectangle for Zippy to run on
+                    Image {
+                        id: floorRect
+                        width: 1750 * root.scaleFactor
+                        height: 600 * root.scaleFactor
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.verticalStretchFactor: 1
+                        anchors.bottom: parent.bottom
+                        source: filepath + "/gamefiles/Hopper/grass.zippyhopp.jpg"
+                        asynchronous: true
+                    }
+
+                    // Cloud Background Image
+                    Image {
+                        id: cloud
+                        width: 650 * root.scaleFactor
+                        height: 650 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Cloud.png"
+                        opacity: 0.6
+                        x: parent.width
+                        y: floorRect.y - 1540 * root.scaleFactor  // Cloud in the sky
+                        asynchronous: true
+
+                        // Animation for cloud movement
+                        PropertyAnimation on x {
+                            from: rightBar.x
+                            to: leftBar.x - 800 * root.scaleFactor
+                            duration: 8000  // Adjusts speed
+                            loops: Animation.Infinite
                             running: true
-                            repeat: false // Only run once
-                            onTriggered: {
-                                skyImage.visible = true; // Makes sunset visible
-                                skyImage.opacity = 1; // Starts the animation
-                                gameBase.gameStage = 2;
-                                obstacleTimer.interval = 2000;
-                                console.log("Game Difficulty has been set to 2");
-                            }
                         }
-                        Timer {
-                            id: stage3Timer
-                            interval: 30000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                    }
+
+                    // Secondary Cloud Background Image
+                    Image {
+                        id: cloud2
+                        width: 650 * root.scaleFactor
+                        height: 450 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Cloud2.png"
+                        opacity: 0.4
+                        x: parent.width
+                        y: floorRect.y - 2140 * root.scaleFactor  // Cloud in the sky
+                        asynchronous: true
+
+                        // Animation for cloud movement
+                        PropertyAnimation on x {
+                            from: rightBar.x
+                            to: leftBar.x - 800 * root.scaleFactor
+                            duration: 14000  // Adjusts speed
+                            loops: Animation.Infinite
                             running: true
-                            repeat: false // Only run once
-                            onTriggered: {
-                                sunsetImage.visible = true; // Makes sunset visible
-                                sunsetImage.opacity = 1; // Starts the animation
-                                gameBase.gameStage = 3;
-                                paintedRockAnimation.interval = 1500;
-                                clockAnimation.interval = 1500;
-                                obstacleTimer.interval = 1500;
-                                console.log("Game Difficulty has been set to 3");
-                            }
                         }
-                        // Floor Rectangle for Zippy to run on
-                        Image {
-                            id: floorRect
-                            width: 1750 * root.scaleFactor
-                            height: 600 * root.scaleFactor
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Layout.verticalStretchFactor: 1
-                            anchors.bottom: parent.bottom
-                            source: filepath + "/gamefiles/Hopper/grass.zippyhopp.jpg"
-                            asynchronous: true
+                    }
 
+                    // Goodyear Blimp
+                    Image {
+                        id: blimp
+                        width: 450 * root.scaleFactor
+                        height: 250 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Blimp.png"
+                        opacity: 0.8
+                        x: parent.width
+                        y: floorRect.y - 2200 * root.scaleFactor
+                        asynchronous: true
 
+                        // Animation for cloud movement
+                        PropertyAnimation on x {
+                            from: rightBar.x
+                            to: leftBar.x - 800 * root.scaleFactor
+                            duration: 28000  // Adjusts speed
+                            loops: Animation.Infinite
+                            running: true
                         }
-                        // Cloud Background Image
-                        Image {
-                            id: cloud
-                            width: 650 * root.scaleFactor
-                            height: 650 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/Cloud.png"
-                            opacity: 0.6
-                            x: parent.width
-                            y: floorRect.y - 1540 * root.scaleFactor  // Cloud in the sky
-                            asynchronous: true
+                    }
 
-                            // Animation for cloud movement
-                            PropertyAnimation on x {
-                                from: rightBar.x
-                                to: leftBar.x - 800 * root.scaleFactor
-                                duration: 8000  // Adjusts speed
-                                loops: Animation.Infinite
-                                running: true
-                            }
+
+                    // archPart
+                    Image {
+                        id: archBack
+                        width: 450 * root.scaleFactor
+                        height: 950 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/arch.png"
+                        x: parent.width
+                        y: floorRect.y - height + 100
+                        asynchronous: true
+
+                        // Animation for arch movement
+                        PropertyAnimation on x {
+                            id: archAnimationBack
+                            from: parent.width
+                            to: -300
+                            duration: 3000 * ((parent.width + 195 * root.scaleFactor) / parent.width)
+                            loops: 1
+                            running: false
                         }
+                    }
 
-                        Image {
-                            id: cloud2
-                            width: 650 * root.scaleFactor
-                            height: 450 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/Cloud2.png"
-                            opacity: 0.4
-                            x: parent.width
-                            y: floorRect.y - 2140 * root.scaleFactor  // Cloud in the sky
-                            asynchronous: true
+                    Rectangle {
+                        id: archHitbox
+                        width: 300 * root.scaleFactor
+                        height: 300 * root.scaleFactor
+                        anchors.top: archBack.top
+                        anchors.right: archBack.right
+                        anchors.topMargin: 10
+                        color: "red"
+                    }
 
-                            // Animation for cloud movement
-                            PropertyAnimation on x {
-                                from: rightBar.x
-                                to: leftBar.x - 800 * root.scaleFactor
-                                duration: 14000  // Adjusts speed
-                                loops: Animation.Infinite
-                                running: true
-                            }
-                        }
+                    // Zippy Hitboxes
+                    Rectangle {
+                        id: zippyBHitbox
+                        anchors.centerIn: zippyModel
+                        width: 225 * root.scaleFactor
+                        height: 550 * root.scaleFactor
+                        color: "transparent"
+                    }
 
-                        Image {
-                            id: blimp
-                            width: 450 * root.scaleFactor
-                            height: 250 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/Blimp.png"
-                            opacity: 0.8
-                            x: parent.width
-                            y: floorRect.y - 2200 * root.scaleFactor  // Blimp in the sky
-                            asynchronous: true
+                    Rectangle {
+                        id: zippyHHitbox
+                        anchors.top: zippyModel.top
+                        anchors.right: zippyModel.right
+                        anchors.rightMargin: 175 * root.scaleFactor
+                        width: 75 * root.scaleFactor
+                        height: 300 * root.scaleFactor
+                        color: "transparent"
+                    }
 
-                            // Animation for cloud movement
-                            PropertyAnimation on x {
-                                from: rightBar.x
-                                to: leftBar.x - 800 * root.scaleFactor
-                                duration: 28000  // Adjusts speed
-                                loops: Animation.Infinite
-                                running: true
-                            }
-                        }
+                    // Zippy Model
+                    Image {
+                        id: zippyModel
+                        width: 850 * root.scaleFactor
+                        height: 700 * root.scaleFactor
+                        x: (parent.width - width) - 950 * root.scaleFactor
+                        y: floorRect.y - height + 125 * root.scaleFactor // Starting position on the floor
+                        asynchronous: true
 
+                        property bool isRunning: true
 
+                        // Animation for zippy running that changes every 500 ticks
+                        source: loader.getImage(isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true // turn off if performance is bad
+                        cache: false
+                        retainWhileLoading: true // REQUIRES QT 6.8!!!
 
-                        Image { //archPart
-                            id: archBack
-                            width: 450 * root.scaleFactor
-                            height: 950 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/arch.png"
-                            x: parent.width
-                            y: floorRect.y - height + 100
-                            asynchronous: true
-
-                            // Animation for arch movement
-                            PropertyAnimation on x {
-                                id: archAnimationBack
-                                from: parent.width
-                                to: -300
-                                duration: 3000 * ((parent.width + 195 * root.scaleFactor) / parent.width)
-                                loops: 1
-                                running: false
-                            }
-                        }
-
-                        Rectangle {
-                            id: archHitbox
-                            width: 300 * root.scaleFactor
-                            height: 300 * root.scaleFactor
-                            anchors.top: archBack.top
-                            anchors.right: archBack.right
-                            anchors.topMargin: 10
-                            color: "red"
-                        }
-
-                        // Zippy Hitboxes
-                        Rectangle {
-                            id: zippyBHitbox
-                            anchors.centerIn: zippyModel
-                            width: 225 * root.scaleFactor
-                            height: 550 * root.scaleFactor
-                            color: "transparent"
-                        }
-
-                        Rectangle {
-                            id: zippyHHitbox
-                            anchors.top: zippyModel.top
-                            anchors.right: zippyModel.right
-                            anchors.rightMargin: 175 * root.scaleFactor
-                            width: 75 * root.scaleFactor
-                            height: 300 * root.scaleFactor
-                            color: "transparent"
-                        }
-
-                        // Zippy Model
-                        Image {
-                            id: zippyModel
-                            width: 850 * root.scaleFactor
-                            height: 700 * root.scaleFactor
-                            x: (parent.width - width) - 950 * root.scaleFactor
-                            y: floorRect.y - height + 125 * root.scaleFactor // Starting position on the floor
-                            asynchronous: true
-
-                            property bool isRunning: true
-
-                            // Animation for zippy running that changes every 500 ticks
-                            source: loader.getImage(isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
-                            fillMode: Image.PreserveAspectFit
-                            smooth: true // turn off if performance is bad
-                            cache: false
-                            retainWhileLoading: true // REQUIRES QT 6.8!!!
-
-                            // Timer for Zippy Running
-                            Timer {
-                                id: runTimer
-                                interval: 500
-                                running: true
-                                repeat: true
-                                onTriggered: {
-                                    zippyModel.isRunning = !zippyModel.isRunning
-                                }
-                            }
-
-                            // Timer for counting seconds when the round starts
-                            Timer {
-                                id: roundTimer
-                                interval: 1000 // 1000 ms = 1 second
-                                running: true // Initially stopped
-                                repeat: true // Continuously counts up
-                                onTriggered: {
-                                    gameBase.elapsedTime += 1;
-                                    root.points += 5;
-                                    homeBarBase.updatePoints();
-                                }
-                            }
-
-                            // Animation for Hopping
-                            SequentialAnimation on y {
-                                id: hopAnimation
-                                running: false
-                                loops: 1
-
-                                PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Jump.png") } // Sets image to Jump.png at start
-                                PropertyAction { target: runTimer; property: "running"; value: false }
-
-                                PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
-                                PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
-
-                                PropertyAction { target: runTimer; property: "running"; value: true }
-                                PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
-                            }
-
-                            // Animation for "Sliding"
-                            // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
-                            SequentialAnimation on height {
-                                id: slideAnimation
-                                running: false
-                                loops: 1
-
-                                PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Slide.png") } // Sets image to Slide.png at start
-                                PropertyAction { target: runTimer; property: "running"; value: false } // Stops the Timer
-
-
-                                PropertyAnimation { to: 400 * root.scaleFactor; duration: 400; easing.type: Easing.OutQuad } // Duck down
-                                PropertyAnimation { to: 700 * root.scaleFactor; duration: 400; easing.type: Easing.InQuad } // Return to original height
-
-                                PropertyAction { target: runTimer; property: "running"; value: true }
-                                PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
-                            }
-
-                            Row {
-                                spacing: 10 * root.scaleFactor // Adjust spacing between hearts
-                                anchors.top: zippyModel.top
-                                anchors.horizontalCenter: zippyModel.horizontalCenter
-                                anchors.topMargin: -200 * root.scaleFactor
-
-                                Image {
-                                    id: heart1
-                                    source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
-                                    width: 200 * root.scaleFactor
-                                    height: 200 * root.scaleFactor
-                                    asynchronous: true
-                                }
-
-                                Image {
-                                    id: heart2
-                                    source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
-                                    width: 200 * root.scaleFactor
-                                    height: 200 * root.scaleFactor
-                                    asynchronous: true
-                                }
-
-                                Image {
-                                    id: heart3
-                                    source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
-                                    width: 200 * root.scaleFactor
-                                    height: 200 * root.scaleFactor
-                                    asynchronous: true
-                                }
-                            }
-                        }
-
-
-
-                        Timer { // Timer for obstacles coming out
-                            id: obstacleTimer
-                            interval: 3000
+                        // Timer for Zippy Running
+                        Timer {
+                            id: runTimer
+                            interval: 500
                             running: true
                             repeat: true
                             onTriggered: {
-                                // Generates a random number (change random() * X to # of obstacles)
-                                if (gameBase.gameStage === 1) {
-                                    let obstacleType = Math.floor(Math.random() *3) + 1;
-                                    console.log(obstacleType)
-                                    //Triggers corresponding obstacle
-                                    if (obstacleType === 1) {
-                                        rockAnimation.running = true;
-                                    } else if (obstacleType === 2) {
-                                        statueAnimation.running = true;
-                                    } else if (obstacleType === 3) {
-                                        birdAnimation.running = true;
-                                    }
-                                }
-                                else if (gameBase.gameStage === 2) {
-                                    let obstacleType = Math.floor(Math.random() * 3) + 1;
-                                    console.log(obstacleType)
-                                    if (obstacleType === 1 ) {
-                                        rockCandyAnimation.running = true;
-                                    } else if (obstacleType === 2) {
-                                        clockAnimation.running = true;
-                                    } else if (obstacleType === 3) {
-                                        archAnimationFront.running = true;
-                                        archAnimationBack.running = true;
-                                    }
-                                }
-                                else if (gameBase.gameStage === 3) {
-                                    let obstacleType = Math.floor(Math.random() * 2) + 1;
-                                    console.log(obstacleType)
-                                    if (obstacleType === 1 ) {
-                                        paintedRockAnimation.running = true;
-                                    } else if (obstacleType === 2) {
-                                        clockAnimation.running = true;
-                                    }
-                                }
+                                zippyModel.isRunning = !zippyModel.isRunning
                             }
                         }
 
-                        // Rock Hitbox
-                        Rectangle {
-                            id: rockHitbox
-                            width: 350 * root.scaleFactor
-                            height: 350 * root.scaleFactor
-                            anchors.centerIn: rock
-                            color: "red"
-                        }
-                        // Rock Obstacle
-                        Image {
-                            id: rock
-                            width: 450 * root.scaleFactor
-                            height: 400 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/Rock.png"
-                            x: parent.width
-                            y: floorRect.y - height + 50
-                            asynchronous: true
-
-                            // Animation for rock movement
-                            PropertyAnimation on x {
-                                id: rockAnimation
-                                from: parent.width
-                                to: -300
-                                duration: 2750  // Adjusts speed
-                                loops: 1
-                                running: false
-                            }
-                        }
-                        // Rock Hitbox
-                        Rectangle {
-                            id: paintedRockHitbox
-                            width: 350 * root.scaleFactor
-                            height: 350 * root.scaleFactor
-                            anchors.centerIn: paintedRock
-                            color: "red"
-                        }
-                        // Rock Obstacle
-                        Image {
-                            id: paintedRock
-                            width: 450 * root.scaleFactor
-                            height: 400 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/PaintedRock.png"
-                            x: parent.width
-                            y: floorRect.y - height + 50
-                            asynchronous: true
-
-                            // Animation for rock movement
-                            PropertyAnimation on x {
-                                id: paintedRockAnimation
-                                from: parent.width
-                                to: -300
-                                duration: 2750  // Adjusts speed
-                                loops: 1
-                                running: false
-                            }
-                        }
-                        // statue Obstacle
-                        Rectangle {
-                            id: statueHitbox
-                            width: 150 * root.scaleFactor
-                            height: 500 * root.scaleFactor
-                            anchors.centerIn: statue
-                            color: "red"
-                        }
-
-                        Image {
-                            id: statue
-                            width: 200 * root.scaleFactor
-                            height: 500 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/statue.png"
-                            x: parent.width
-                            y: floorRect.y - height + 50
-                            asynchronous: true
-
-                            // Animation for statue movement
-                            PropertyAnimation on x {
-                                id: statueAnimation
-                                from: parent.width
-                                to: -300
-                                duration: 3000  // Adjusts speed
-                                loops: 1
-                                running: false
+                        // Timer for counting seconds when the round starts
+                        Timer {
+                            id: roundTimer
+                            interval: 1000 // 1000 ms = 1 second
+                            running: true // Initially stopped
+                            repeat: true // Continuously counts up
+                            onTriggered: {
+                                gameBase.elapsedTime += 1;
+                                root.points += 5;
+                                homeBarBase.updatePoints();
                             }
                         }
 
-                        // rockCandy Obstacle
-                        Rectangle {
-                            id: rockCandyHitbox
-                            width: 150 * root.scaleFactor
-                            height: 500 * root.scaleFactor
-                            anchors.centerIn: rockCandy
-                            color: "red" // was red
+                        // Animation for Hopping
+                        SequentialAnimation on y {
+                            id: hopAnimation
+                            running: false
+                            loops: 1
+
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Jump.png") } // Sets image to Jump.png at start
+                            PropertyAction { target: runTimer; property: "running"; value: false }
+
+                            PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
+                            PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
+
+                            PropertyAction { target: runTimer; property: "running"; value: true }
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
                         }
 
-                        Image {
-                            id: rockCandy
-                            width: 200 * root.scaleFactor
-                            height: 500 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/rockCandy.png"
-                            x: parent.width
-                            y: floorRect.y - height + 50
-                            asynchronous: true
+                        // Animation for "Sliding"
+                        // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
+                        SequentialAnimation on height {
+                            id: slideAnimation
+                            running: false
+                            loops: 1
 
-                            // Animation for rockCandy movement
-                            PropertyAnimation on x {
-                                id: rockCandyAnimation
-                                from: parent.width
-                                to: -300
-                                duration: 3000  // Adjusts speed
-                                loops: 1
-                                running: false
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Slide.png") } // Sets image to Slide.png at start
+                            PropertyAction { target: runTimer; property: "running"; value: false } // Stops the Timer
+
+
+                            PropertyAnimation { to: 400 * root.scaleFactor; duration: 400; easing.type: Easing.OutQuad } // Duck down
+                            PropertyAnimation { to: 700 * root.scaleFactor; duration: 400; easing.type: Easing.InQuad } // Return to original height
+
+                            PropertyAction { target: runTimer; property: "running"; value: true }
+                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                        }
+
+                        Row {
+                            spacing: 10 * root.scaleFactor // Adjust spacing between hearts
+                            anchors.top: zippyModel.top
+                            anchors.horizontalCenter: zippyModel.horizontalCenter
+                            anchors.topMargin: -200 * root.scaleFactor
+
+                            Image {
+                                id: heart1
+                                source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
+                                width: 200 * root.scaleFactor
+                                height: 200 * root.scaleFactor
+                                asynchronous: true
                             }
-                        }
 
-                        // clock Obstacle
-                        Rectangle {
-                            id: clockHitbox
-                            width: 125 * root.scaleFactor
-                            height: 500 * root.scaleFactor
-                            anchors.centerIn: clock
-                            color: "red"
-                        }
-
-                        Image {
-                            id: clock
-                            width: 200 * root.scaleFactor
-                            height: 500 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/clock.png"
-                            x: parent.width
-                            y: floorRect.y - height + 50
-                            asynchronous: true
-
-                            // Animation for clock movement
-                            PropertyAnimation on x {
-                                id: clockAnimation
-                                from: parent.width
-                                to: -300
-                                duration: 3000  // Adjusts speed
-                                loops: 1
-                                running: false
+                            Image {
+                                id: heart2
+                                source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
+                                width: 200 * root.scaleFactor
+                                height: 200 * root.scaleFactor
+                                asynchronous: true
                             }
-                        }
 
-                        // Bird obstacle
-                        Rectangle {
-                            id: birdHitbox
-                            width: 375 * root.scaleFactor
-                            height: 350 * root.scaleFactor
-                            anchors.centerIn: bird
-                            color: "red"
-                        }
-
-                        Image {
-                            id: bird
-                            width: 350 * root.scaleFactor
-                            height: 330 * root.scaleFactor
-                            source: filepath + "/gamefiles/Hopper/Bird.png"
-                            x: parent.width
-                            y: 1200 * root.scaleFactor
-                            asynchronous: true
-
-                            // Animation for bird movement
-                            PropertyAnimation on x {
-                                id: birdAnimation
-                                from: parent.width
-                                to: -300
-                                duration: 3000  // Adjusts speed
-                                loops: 1
-                                running: false
+                            Image {
+                                id: heart3
+                                source: filepath + "/gamefiles/Hopper/ZippyHeart.png"
+                                width: 200 * root.scaleFactor
+                                height: 200 * root.scaleFactor
+                                asynchronous: true
                             }
                         }
                     }
-                    // duck Hitbox
+
+                    Timer { // Timer for obstacles coming out
+                        id: obstacleTimer
+                        interval: 3000
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            // Generates a random number (change random() * X to # of obstacles)
+                            if (gameBase.gameStage === 1) {
+                                let obstacleType = Math.floor(Math.random() *3) + 1;
+                                console.log(obstacleType)
+                                //Triggers corresponding obstacle
+                                if (obstacleType === 1) {
+                                    rockAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    statueAnimation.running = true;
+                                } else if (obstacleType === 3) {
+                                    birdAnimation.running = true;
+                                }
+                            }
+                            else if (gameBase.gameStage === 2) {
+                                let obstacleType = Math.floor(Math.random() * 3) + 1;
+                                console.log(obstacleType)
+                                if (obstacleType === 1 ) {
+                                    rockCandyAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    clockAnimation.running = true;
+                                } else if (obstacleType === 3) {
+                                    archAnimationFront.running = true;
+                                    archAnimationBack.running = true;
+                                }
+                            }
+                            else if (gameBase.gameStage === 3) {
+                                let obstacleType = Math.floor(Math.random() * 2) + 1;
+                                console.log(obstacleType)
+                                if (obstacleType === 1 ) {
+                                    paintedRockAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    clockAnimation.running = true;
+                                }
+                            }
+                        }
+                    }
+
+                    // Rock Hitbox
                     Rectangle {
-                        id: duckHitbox
-                        width: 450 * root.scaleFactor
-                        height: 400 * root.scaleFactor
-                        anchors.centerIn: duck
+                        id: rockHitbox
+                        width: 350 * root.scaleFactor
+                        height: 350 * root.scaleFactor
+                        anchors.centerIn: rock
                         color: "red"
                     }
-                    // duck Obstacle
+
+                    // Rock Obstacle
                     Image {
-                        id: duck
-                        width: 400 * root.scaleFactor
-                        height: 375 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/duck.png"
+                        id: rock
+                        width: 450 * root.scaleFactor
+                        height: 400 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Rock.png"
                         x: parent.width
-                        y: floorRect.y - height - 175
+                        y: floorRect.y - height + 50
                         asynchronous: true
 
-                        // Animation for duck movement
+                        // Animation for rock movement
                         PropertyAnimation on x {
-                            id: duckAnimation
+                            id: rockAnimation
                             from: parent.width
                             to: -300
-                            duration: 2000  // Adjusts speed
+                            duration: 2750  // Adjusts speed
                             loops: 1
                             running: false
                         }
                     }
 
-                    Image { // archFront // archPart
-                        id: archFront
+                    // paintedRock Hitbox
+                    Rectangle {
+                        id: paintedRockHitbox
+                        width: 350 * root.scaleFactor
+                        height: 350 * root.scaleFactor
+                        anchors.centerIn: paintedRock
+                        color: "red"
+                    }
+
+                    // paintedRock Obstacle
+                    Image {
+                        id: paintedRock
                         width: 450 * root.scaleFactor
-                        height: 950 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/Arch2.png"
+                        height: 400 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/PaintedRock.png"
                         x: parent.width
-                        y: floorRect.y - height + 214
+                        y: floorRect.y - height + 50
                         asynchronous: true
-                        //change this to item with archFront and Back
+
+                        // Animation for rock movement
                         PropertyAnimation on x {
-                            id: archAnimationFront
-                            from: parent.width + 195 * root.scaleFactor
+                            id: paintedRockAnimation
+                            from: parent.width
                             to: -300
-                            duration: (parent.width + 195 * root.scaleFactor - (-300)) / (parent.width - (-300)) * archAnimationBack.duration
+                            duration: 2750  // Adjusts speed
                             loops: 1
                             running: false
                         }
                     }
-                    // Blocks obstacles on left side
+
+                    // statue Obstacle
                     Rectangle {
-                        id: leftBar
-                        width: (parent.width - gameRect.width) / 2
-                        height: parent.height
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        gradient: Gradient {
-                            GradientStop { position: 0.0; color: "#f3a469" }
-                            GradientStop { position: 1.0; color: "#3f51b1" }
+                        id: statueHitbox
+                        width: 150 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        anchors.centerIn: statue
+                        color: "red"
+                    }
+
+                    Image {
+                        id: statue
+                        width: 200 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/statue.png"
+                        x: parent.width
+                        y: floorRect.y - height + 50
+                        asynchronous: true
+
+                        // Animation for statue movement
+                        PropertyAnimation on x {
+                            id: statueAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjusts speed
+                            loops: 1
+                            running: false
                         }
                     }
 
-                    // Blocks obstacles on right side
+                    // rockCandy Obstacle
                     Rectangle {
-                        id: rightBar
-                        width: (parent.width - gameRect.width) / 2
-                        height: parent.height
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        gradient: Gradient {
-                            GradientStop { position: 0.0; color: "#f3a469" }
-                            GradientStop { position: 1.0; color: "#3f51b1" }
-                        }
+                        id: rockCandyHitbox
+                        width: 150 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        anchors.centerIn: rockCandy
+                        color: "red" // was red
                     }
-                    Rectangle {
-                        id: scoreBox
-                        width: parent.width
-                        height: 150 * root.scaleFactor
-                        color: "#3f51b1"
-                        anchors.left: parent.left
-                        anchors.top: parent.top
 
-                        // Shows score ran in meters in score box
-                        Text {
-                            id: scoreText
-                            text: "Score: " + root.points + " meters"
-                            font.pixelSize: 70 * root.scaleFactor
-                            color: "white"
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20 * root.scaleFactor
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
+                    Image {
+                        id: rockCandy
+                        width: 200 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/rockCandy.png"
+                        x: parent.width
+                        y: floorRect.y - height + 50
+                        asynchronous: true
 
-
-                        // Displays the Timer measuring the time elapsed
-                        Text{
-                            id: timeText
-                            text: "Time: " + gameBase.elapsedTime + "s"
-                            font.pixelSize: 70 * root.scaleFactor
-                            color: "white"
-                            anchors.right: parent.right
-                            anchors.rightMargin: 50 * root.scaleFactor
-                            anchors.verticalCenter: parent.verticalCenter
-
-
+                        // Animation for rockCandy movement
+                        PropertyAnimation on x {
+                            id: rockCandyAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjusts speed
+                            loops: 1
+                            running: false
                         }
                     }
 
-                    ColumnLayout {
-                        id: btnLayout
-                        width: 800 * root.scaleFactor
-                        height: 400 * root.scaleFactor
-                        anchors.horizontalCenter: gameRect.horizontalCenter
-                        y: gameRect.height + 350 * root.scaleFactor
-                        spacing: 100 * root.scaleFactor
+                    // Clock Obstacle
+                    Rectangle {
+                        id: clockHitbox
+                        width: 125 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        anchors.centerIn: clock
+                        color: "red"
+                    }
 
-                        Button {
-                            id: hopBtn
-                            implicitWidth: parent.width
-                            implicitHeight: (btnLayout.height - btnLayout.spacing) / 2 // Dynamic height based on layout
+                    Image {
+                        id: clock
+                        width: 200 * root.scaleFactor
+                        height: 500 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/clock.png"
+                        x: parent.width
+                        y: floorRect.y - height + 50
+                        asynchronous: true
 
-                            background: Rectangle {
-                                id: hopRect
-                                color: "white"
-                                opacity: 0.7
-                                border.color: "black"
-                                radius: 100 * root.scaleFactor
-                                anchors.fill: parent
-                            }
-
-                            contentItem: Text {
-                                text: "Hop!"
-                                font.pointSize: 70 * root.scaleFactor
-                                anchors.centerIn: parent.center
-                            }
-
-                            onClicked: {
-                                if (!hopAnimation.running) {
-                                    hopAnimation.start(); // Starts the hop animation
-                                }
-                            }
+                        // Animation for clock movement
+                        PropertyAnimation on x {
+                            id: clockAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjusts speed
+                            loops: 1
+                            running: false
                         }
+                    }
 
-                        Button {
-                            id: slideBtn
-                            implicitWidth: parent.width
-                            implicitHeight: (btnLayout.height - btnLayout.spacing) / 2 // Dynamic height based on layout
+                    // Bird obstacle
+                    Rectangle {
+                        id: birdHitbox
+                        width: 375 * root.scaleFactor
+                        height: 350 * root.scaleFactor
+                        anchors.centerIn: bird
+                        color: "red"
+                    }
 
-                            background: Rectangle {
-                                id:slideRect
-                                color: "white"
-                                opacity: 0.7
-                                border.color: "black"
-                                radius: 100 * root.scaleFactor
-                                anchors.fill: parent
-                            }
+                    Image {
+                        id: bird
+                        width: 350 * root.scaleFactor
+                        height: 330 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/Bird.png"
+                        x: parent.width
+                        y: 1200 * root.scaleFactor
+                        asynchronous: true
 
-                            contentItem: Text {
-                                text: "Slide!"
-                                font.pointSize: 70 * root.scaleFactor
-                                anchors.centerIn: parent.center
-                            }
-
-                            onClicked: {
-                                if (!slideAnimation.running) {
-                                    slideAnimation.start(); // Starts the slide animation
-                                }
-                            }
+                        // Animation for bird movement
+                        PropertyAnimation on x {
+                            id: birdAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 3000  // Adjusts speed
+                            loops: 1
+                            running: false
                         }
                     }
                 }
 
-                GameOverBase { // This calls a CPP file which saves the name and score to the leaderboard.
-                    id:gameOverBase
+                // Duck Hitbox
+                Rectangle {
+                    id: duckHitbox
+                    width: 450 * root.scaleFactor
+                    height: 400 * root.scaleFactor
+                    anchors.centerIn: duck
+                    color: "red"
+                }
+
+                // Duck Obstacle
+                Image {
+                    id: duck
+                    width: 400 * root.scaleFactor
+                    height: 375 * root.scaleFactor
+                    source: filepath + "/gamefiles/Hopper/duck.png"
+                    x: parent.width
+                    y: floorRect.y - height - 175
+                    asynchronous: true
+
+                    // Animation for duck movement
+                    PropertyAnimation on x {
+                        id: duckAnimation
+                        from: parent.width
+                        to: -300
+                        duration: 2000  // Adjusts speed
+                        loops: 1
+                        running: false
+                    }
+                }
+
+                Image { // archFront // archPart
+                    id: archFront
+                    width: 450 * root.scaleFactor
+                    height: 950 * root.scaleFactor
+                    source: filepath + "/gamefiles/Hopper/Arch2.png"
+                    x: parent.width
+                    y: floorRect.y - height + 214
+                    asynchronous: true
+
+                    // Change this to item with archFront and Back
+                    PropertyAnimation on x {
+                        id: archAnimationFront
+                        from: parent.width + 195 * root.scaleFactor
+                        to: -300
+                        duration: (parent.width + 195 * root.scaleFactor - (-300)) / (parent.width - (-300)) * archAnimationBack.duration
+                        loops: 1
+                        running: false
+                    }
+                }
+
+                // Blocks obstacles on left side
+                Rectangle {
+                    id: leftBar
+                    width: (parent.width - gameRect.width) / 2
+                    height: parent.height
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "#f3a469" }
+                        GradientStop { position: 1.0; color: "#3f51b1" }
+                    }
+                }
+
+                // Blocks obstacles on right side
+                Rectangle {
+                    id: rightBar
+                    width: (parent.width - gameRect.width) / 2
+                    height: parent.height
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "#f3a469" }
+                        GradientStop { position: 1.0; color: "#3f51b1" }
+                    }
+                }
+
+                Rectangle {
+                    id: scoreBox
+                    width: parent.width
+                    height: 150 * root.scaleFactor
+                    color: "#3f51b1"
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+
+                    // Shows score ran in meters in score box
+                    Text {
+                        id: scoreText
+                        text: "Score: " + root.points + " meters"
+                        font.pixelSize: 70 * root.scaleFactor
+                        color: "white"
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20 * root.scaleFactor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+
+                    // Displays the Timer measuring the time elapsed
+                    Text {
+                        id: timeText
+                        text: "Time: " + gameBase.elapsedTime + "s"
+                        font.pixelSize: 70 * root.scaleFactor
+                        color: "white"
+                        anchors.right: parent.right
+                        anchors.rightMargin: 50 * root.scaleFactor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+
+                ColumnLayout {
+                    id: btnLayout
+                    width: 800 * root.scaleFactor
+                    height: 400 * root.scaleFactor
+                    anchors.horizontalCenter: gameRect.horizontalCenter
+                    y: gameRect.height + 350 * root.scaleFactor
+                    spacing: 100 * root.scaleFactor
+
+                    Button {
+                        id: hopBtn
+                        implicitWidth: parent.width
+                        implicitHeight: (btnLayout.height - btnLayout.spacing) / 2 // Dynamic height based on layout
+
+                        background: Rectangle {
+                            id: hopRect
+                            color: "white"
+                            opacity: 0.7
+                            border.color: "black"
+                            radius: 100 * root.scaleFactor
+                            anchors.fill: parent
+                        }
+
+                        contentItem: Text {
+                            text: "Hop!"
+                            font.pointSize: 70 * root.scaleFactor
+                            anchors.centerIn: parent.center
+                        }
+
+                        onClicked: {
+                            if (!hopAnimation.running) {
+                                hopAnimation.start(); // Starts the hop animation
+                            }
+                        }
+                    }
+
+                    Button {
+                        id: slideBtn
+                        implicitWidth: parent.width
+                        implicitHeight: (btnLayout.height - btnLayout.spacing) / 2 // Dynamic height based on layout
+
+                        background: Rectangle {
+                            id: slideRect
+                            color: "white"
+                            opacity: 0.7
+                            border.color: "black"
+                            radius: 100 * root.scaleFactor
+                            anchors.fill: parent
+                        }
+
+                        contentItem: Text {
+                            text: "Slide!"
+                            font.pointSize: 70 * root.scaleFactor
+                            anchors.centerIn: parent
+                        }
+
+                        onClicked: {
+                            if (!slideAnimation.running) {
+                                slideAnimation.start(); // Starts the slide animation
+                            }
+                        }
+                    }
                 }
             }
 
-            HomeBarBase {
-                id: homeBarBase
-                Layout.verticalStretchFactor: 1
-                Layout.preferredHeight: 1
-                Layout.preferredWidth: 1
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+            GameOverBase { // This calls a CPP file which saves the name and score to the leaderboard.
+                id:gameOverBase
             }
         }
+
+        HomeBarBase {
+            id: homeBarBase
+            Layout.verticalStretchFactor: 1
+            Layout.preferredHeight: 1
+            Layout.preferredWidth: 1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
     }
+}
