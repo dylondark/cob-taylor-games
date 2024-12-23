@@ -83,6 +83,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     y: (parent.height - height) / 2 - 200 * root.scaleFactor
 
+
                     // Function for checking hitbox vs the object in the array
                     function checkCollision(object1, object2) {
                         return object1.x < object2.x + object2.width &&
@@ -311,7 +312,7 @@ Item {
                         height: 950 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/arch.png"
                         x: parent.width
-                        y: floorRect.y - height + 100
+                        y: floorRect.y - height + 100 * root.scaleFactor
                         asynchronous: true
 
                         // Animation for arch movement
@@ -718,7 +719,7 @@ Item {
                     height: 950 * root.scaleFactor
                     source: filepath + "/gamefiles/Hopper/Arch2.png"
                     x: parent.width
-                    y: floorRect.y - height + 214
+                    y: floorRect.y - height + 214 * root.scaleFactor
                     asynchronous: true
 
                     // Change this to item with archFront and Back
@@ -757,6 +758,7 @@ Item {
                         GradientStop { position: 1.0; color: "#3f51b1" }
                     }
                 }
+
 
                 Rectangle {
                     id: scoreBox
