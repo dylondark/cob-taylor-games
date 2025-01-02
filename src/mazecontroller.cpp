@@ -86,8 +86,9 @@ void MazeController::startGame()
 
     // Pick a random Cell, set it to state Passage and Compute its frontier cells.
     // A frontier cell of a Cell is a cell with distance 2 in state Blocked and within the grid.
-    int startCellX = rand() % BOARD_WIDTH;
-    int startCellY = rand() % BOARD_HEIGHT;
+    // also, ensure starting cells are odd so the maze always has a 1 block border
+    int startCellX = ((rand() % (BOARD_WIDTH - 1)) / 2 * 2) + 1;
+    int startCellY = ((rand() % (BOARD_HEIGHT - 1)) / 2 * 2) + 1;
     (*board)[startCellY][startCellX].wall = false;
     calculateFrontierCells((*board)[startCellY][startCellX]);
 
