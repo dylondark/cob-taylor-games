@@ -17,10 +17,10 @@ MazeController::MazeController()
     srand(time(NULL));
 
     // populate board with random wall/passage values (TEMPORARY)
-    board = new FlippedArray<std::array<Cell, 20>, 40>;
+    board = new FlippedArray<std::array<Cell, BOARD_WIDTH>, BOARD_HEIGHT>;
 
-    for (int y = 0; y < 40; y++)
-        for (int x = 0; x < 20; x++)
+    for (int y = 0; y < BOARD_HEIGHT; y++)
+        for (int x = 0; x < BOARD_WIDTH; x++)
             (*board)[y][x] = {(bool)(rand() % 2), false, x, y};
 
     startGame();
@@ -39,15 +39,15 @@ MazeController::~MazeController()
 */
 void MazeController::paint(QPainter* painter)
 {
-    unsigned cellWidth = this->width() / 20;
-    unsigned cellHeight = this->height() / 40;
+    unsigned cellWidth = this->width() / BOARD_WIDTH;
+    unsigned cellHeight = this->height() / BOARD_HEIGHT;
 
     // Loop through each cell of the grid and draw them
-    for (unsigned row = 0; row < 40; ++row)
+    for (unsigned row = 0; row < BOARD_HEIGHT; ++row)
     {
-        for (unsigned col = 0; col < 20; ++col)
+        for (unsigned col = 0; col < BOARD_WIDTH; ++col)
         {
-            // Access the current cell in the board (Assuming board is of type FlippedArray<Cell, 40, 20>)
+            // Access the current cell in the board (Assuming board is of type FlippedArray<Cell, BOARD_HEIGHT, BOARD_WIDTH>)
             Cell& cell = (*board)[row][col];
 
             // Directly check if the cell is a wall by accessing the wall member
@@ -74,14 +74,14 @@ void MazeController::startGame()
     // Randomized Prim's Algorithm
 
     // Start with a Grid full of Cells in state Blocked.
-    for (int y = 0; y < 40; y++)
-        for (int x = 0; x < 20; x++)
+    for (int y = 0; y < BOARD_HEIGHT; y++)
+        for (int x = 0; x < BOARD_WIDTH; x++)
             (*board)[y][x].wall = true;
 
     // Pick a random Cell, set it to state Passage and Compute its frontier cells.
     // A frontier cell of a Cell is a cell with distance 2 in state Blocked and within the grid.
-    int startCellX = rand() % 20;
-    int startCellY = rand() % 40;
+    int startCellX = rand() % BOARD_WIDTH;
+    int startCellY = rand() % BOARD_HEIGHT;
     (*board)[startCellY][startCellX].wall = false;
     calculateFrontierCells((*board)[startCellY][startCellX]);
 
@@ -94,11 +94,11 @@ void MazeController::startGame()
 
         // Let neighbors(frontierCell) = All cells in distance 2 in state Passage.
         std::vector<Cell*> neighbors;
-        if (frontierCell->y + 2 < 40 && !((*board)[frontierCell->y + 2][frontierCell->x].wall))
+        if (frontierCell->y + 2 < BOARD_HEIGHT && !((*board)[frontierCell->y + 2][frontierCell->x].wall))
             neighbors.push_back(&(*board)[frontierCell->y + 2][frontierCell->x]);
         if (frontierCell->y - 2 >= 0 && !((*board)[frontierCell->y - 2][frontierCell->x].wall))
             neighbors.push_back(&(*board)[frontierCell->y - 2][frontierCell->x]);
-        if (frontierCell->x + 2 < 20 && !((*board)[frontierCell->y][frontierCell->x + 2].wall))
+        if (frontierCell->x + 2 < BOARD_WIDTH && !((*board)[frontierCell->y][frontierCell->x + 2].wall))
             neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x + 2]);
         if (frontierCell->x - 2 >= 0 && !((*board)[frontierCell->y][frontierCell->x - 2].wall))
             neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x - 2]);
@@ -214,7 +214,7 @@ void MazeController::calculateFrontierCells(const Cell& cell)
     // If the cell is already in frontierCells, don't add it again
 
     // north cell
-    if (cell.y + 2 < 40 && (*board)[cell.y + 2][cell.x].wall)
+    if (cell.y + 2 < BOARD_HEIGHT && (*board)[cell.y + 2][cell.x].wall)
     {
         // Check if the cell is already in frontierCells
         bool alreadyInFrontier = false;
@@ -256,7 +256,7 @@ void MazeController::calculateFrontierCells(const Cell& cell)
     }
 
     // east cell
-    if (cell.x + 2 < 20 && (*board)[cell.y][cell.x + 2].wall)
+    if (cell.x + 2 < BOARD_WIDTH && (*board)[cell.y][cell.x + 2].wall)
     {
         // Check if the cell is already in frontierCells
         bool alreadyInFrontier = false;

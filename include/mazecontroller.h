@@ -75,8 +75,14 @@ public:
     Q_INVOKABLE void upAction();
 
 private:
+    // Width of the board in cells
+    static const int BOARD_WIDTH = 20;
+
+    // Height of the board in cells
+    static const int BOARD_HEIGHT = 40;
+
     // Contains the internal representation of the maze grid.
-    FlippedArray<std::array<Cell, 20>, 40>* board;
+    FlippedArray<std::array<Cell, BOARD_WIDTH>, BOARD_HEIGHT>* board;
 
     // Contains the list of frontier cells
     std::vector<Cell*> frontierCells;
