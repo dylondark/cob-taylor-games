@@ -8,10 +8,6 @@
 #include "qpainter.h"
 #include <QPainter>
 
-
-
-// init other data members
-
 /*
     Constructor for MazeController.
 */
@@ -26,6 +22,8 @@ MazeController::MazeController()
     for (int y = 0; y < 40; y++)
         for (int x = 0; x < 20; x++)
             (*board)[y][x] = {(bool)(rand() % 2), false, x, y};
+
+    startGame();
 }
 
 /*
@@ -86,6 +84,50 @@ void MazeController::startGame()
     int startCellY = rand() % 40;
     (*board)[startCellY][startCellX].wall = false;
     calculateFrontierCells((*board)[startCellY][startCellX]);
+
+    // While the list of frontier cells is not empty:
+    while (!frontierCells.empty())
+    {
+        // Pick a random frontier cell from the list of frontier cells.
+        int frontierCellIndex = rand() % frontierCells.size();
+        Cell* frontierCell = frontierCells[frontierCellIndex];
+
+        // Let neighbors(frontierCell) = All cells in distance 2 in state Passage.
+        std::vector<Cell*> neighbors;
+        if (frontierCell->y + 2 < 40 && !((*board)[frontierCell->y + 2][frontierCell->x].wall))
+            neighbors.push_back(&(*board)[frontierCell->y + 2][frontierCell->x]);
+        if (frontierCell->y - 2 >= 0 && !((*board)[frontierCell->y - 2][frontierCell->x].wall))
+            neighbors.push_back(&(*board)[frontierCell->y - 2][frontierCell->x]);
+        if (frontierCell->x + 2 < 20 && !((*board)[frontierCell->y][frontierCell->x + 2].wall))
+            neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x + 2]);
+        if (frontierCell->x - 2 >= 0 && !((*board)[frontierCell->y][frontierCell->x - 2].wall))
+            neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x - 2]);
+
+        if (neighbors.empty())
+        {
+            // Remove the chosen frontier cell from the list of frontier cells.
+            frontierCells.erase(frontierCells.begin() + frontierCellIndex);
+            continue;
+        }
+
+        // Pick a random neighbor and connect the frontier cell with the neighbor by setting the cell in-between to state Passage.
+        int neighborIndex = rand() % neighbors.size();
+        Cell* neighbor = neighbors[neighborIndex];
+        int wallX = (frontierCell->x + neighbor->x) / 2;
+        int wallY = (frontierCell->y + neighbor->y) / 2;
+        (*board)[wallY][wallX].wall = false;
+
+        // Compute the frontier cells of the chosen frontier cell and add them to the frontier list.
+        calculateFrontierCells(*frontierCell);
+
+        // make the current frontier cell a passage
+        frontierCell->wall = false;
+
+        // Remove the chosen frontier cell from the list of frontier cells.
+        frontierCells.erase(frontierCells.begin() + frontierCellIndex);
+    }
+
+    update();
 }
 
 
@@ -172,7 +214,7 @@ void MazeController::calculateFrontierCells(const Cell& cell)
     // If the cell is already in frontierCells, don't add it again
 
     // north cell
-    if (cell.y + 2 >= 0 && (*board)[cell.y + 2][cell.x].wall)
+    if (cell.y + 2 < 40 && (*board)[cell.y + 2][cell.x].wall)
     {
         // Check if the cell is already in frontierCells
         bool alreadyInFrontier = false;
@@ -214,7 +256,7 @@ void MazeController::calculateFrontierCells(const Cell& cell)
     }
 
     // east cell
-    if (cell.x + 2 >= 0 && (*board)[cell.y][cell.x + 2].wall)
+    if (cell.x + 2 < 20 && (*board)[cell.y][cell.x + 2].wall)
     {
         // Check if the cell is already in frontierCells
         bool alreadyInFrontier = false;
