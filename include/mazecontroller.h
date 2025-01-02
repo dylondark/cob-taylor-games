@@ -76,10 +76,10 @@ public:
 
 private:
     // Width of the board in cells
-    static const int BOARD_WIDTH = 20;
+    static const int BOARD_WIDTH = 29;
 
     // Height of the board in cells
-    static const int BOARD_HEIGHT = 40;
+    static const int BOARD_HEIGHT = 59;
 
     // Contains the internal representation of the maze grid.
     FlippedArray<std::array<Cell, BOARD_WIDTH>, BOARD_HEIGHT>* board;
