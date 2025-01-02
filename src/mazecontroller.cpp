@@ -138,6 +138,11 @@ void MazeController::startGame()
 
             logicThread.msleep(16);
         }
+
+        // create the start and end
+        (*board)[0][1].wall= false;
+        (*board)[BOARD_HEIGHT - 1][BOARD_WIDTH - 2].wall = false;
+        QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
     });
 }
 
