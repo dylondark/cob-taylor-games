@@ -16,14 +16,11 @@ MazeController::MazeController()
     // seed rng
     srand(time(NULL));
 
-    // populate board with random wall/passage values (TEMPORARY)
+    // initial populate board with walls
     board = new FlippedArray<std::array<Cell, BOARD_WIDTH>, BOARD_HEIGHT>;
-
     for (int y = 0; y < BOARD_HEIGHT; y++)
         for (int x = 0; x < BOARD_WIDTH; x++)
-            (*board)[y][x] = {(bool)(rand() % 2), false, x, y};
-
-    startGame();
+            (*board)[y][x] = {true, false, x, y};
 }
 
 /*

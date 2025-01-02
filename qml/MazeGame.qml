@@ -50,6 +50,11 @@ Item {
                         id: gameBase
                         anchors.fill: parent
                         visible: false
+
+                        function startGame() {
+                            controller.startGame();
+                        }
+
                         // Put the code for the scores boxes here
 
                         RowLayout {
@@ -91,7 +96,7 @@ Item {
 
                         }
                         MazeController {
-                            id: gameRect
+                            id: controller
                             width: 1550 * root.scaleFactor
                             height: 3040 * root.scaleFactor
                             Layout.fillHeight: true
