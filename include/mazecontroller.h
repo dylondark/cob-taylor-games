@@ -10,6 +10,8 @@
 #include <QObject>
 #include <QQuickPaintedItem>
 #include "flippedarray.h"
+#include "threadworker.h"
+#include <QThread>
 
 /*
     This is the data structure that represents every individual cell in the maze board.
@@ -89,6 +91,12 @@ private:
 
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
+
+    // The main thread used to execute game logic calculations.
+    QThread logicThread;
+
+    // Worker for the main thread.
+    ThreadWorker logicThreadWorker;
 
     /*
         Main game loop. Called every time a new action has happened.

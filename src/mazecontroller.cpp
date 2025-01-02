@@ -13,6 +13,10 @@
 */
 MazeController::MazeController()
 {
+    // init the logic thread
+    logicThreadWorker.moveToThread(&logicThread);
+    logicThread.start(QThread::HighPriority);
+
     // seed rng
     srand(time(NULL));
 
@@ -28,6 +32,11 @@ MazeController::MazeController()
 */
 MazeController::~MazeController()
 {
+    // stop the logic thread
+    logicThread.quit();
+    logicThread.wait();
+
+    // delete the dynamically allocated board
     delete board;
 }
 
@@ -82,49 +91,53 @@ void MazeController::startGame()
     (*board)[startCellY][startCellX].wall = false;
     calculateFrontierCells((*board)[startCellY][startCellX]);
 
-    // While the list of frontier cells is not empty:
-    while (!frontierCells.empty())
-    {
-        // Pick a random frontier cell from the list of frontier cells.
-        int frontierCellIndex = rand() % frontierCells.size();
-        Cell* frontierCell = frontierCells[frontierCellIndex];
-
-        // Let neighbors(frontierCell) = All cells in distance 2 in state Passage.
-        std::vector<Cell*> neighbors;
-        if (frontierCell->y + 2 < BOARD_HEIGHT && !((*board)[frontierCell->y + 2][frontierCell->x].wall))
-            neighbors.push_back(&(*board)[frontierCell->y + 2][frontierCell->x]);
-        if (frontierCell->y - 2 >= 0 && !((*board)[frontierCell->y - 2][frontierCell->x].wall))
-            neighbors.push_back(&(*board)[frontierCell->y - 2][frontierCell->x]);
-        if (frontierCell->x + 2 < BOARD_WIDTH && !((*board)[frontierCell->y][frontierCell->x + 2].wall))
-            neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x + 2]);
-        if (frontierCell->x - 2 >= 0 && !((*board)[frontierCell->y][frontierCell->x - 2].wall))
-            neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x - 2]);
-
-        if (neighbors.empty())
+    QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+        // While the list of frontier cells is not empty:
+        while (!frontierCells.empty())
         {
+            QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
+
+            // Pick a random frontier cell from the list of frontier cells.
+            int frontierCellIndex = rand() % frontierCells.size();
+            Cell* frontierCell = frontierCells[frontierCellIndex];
+
+            // Let neighbors(frontierCell) = All cells in distance 2 in state Passage.
+            std::vector<Cell*> neighbors;
+            if (frontierCell->y + 2 < BOARD_HEIGHT && !((*board)[frontierCell->y + 2][frontierCell->x].wall))
+                neighbors.push_back(&(*board)[frontierCell->y + 2][frontierCell->x]);
+            if (frontierCell->y - 2 >= 0 && !((*board)[frontierCell->y - 2][frontierCell->x].wall))
+                neighbors.push_back(&(*board)[frontierCell->y - 2][frontierCell->x]);
+            if (frontierCell->x + 2 < BOARD_WIDTH && !((*board)[frontierCell->y][frontierCell->x + 2].wall))
+                neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x + 2]);
+            if (frontierCell->x - 2 >= 0 && !((*board)[frontierCell->y][frontierCell->x - 2].wall))
+                neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x - 2]);
+
+            if (neighbors.empty())
+            {
+                // Remove the chosen frontier cell from the list of frontier cells.
+                frontierCells.erase(frontierCells.begin() + frontierCellIndex);
+                continue;
+            }
+
+            // Pick a random neighbor and connect the frontier cell with the neighbor by setting the cell in-between to state Passage.
+            int neighborIndex = rand() % neighbors.size();
+            Cell* neighbor = neighbors[neighborIndex];
+            int wallX = (frontierCell->x + neighbor->x) / 2;
+            int wallY = (frontierCell->y + neighbor->y) / 2;
+            (*board)[wallY][wallX].wall = false;
+
+            // Compute the frontier cells of the chosen frontier cell and add them to the frontier list.
+            calculateFrontierCells(*frontierCell);
+
+            // make the current frontier cell a passage
+            frontierCell->wall = false;
+
             // Remove the chosen frontier cell from the list of frontier cells.
             frontierCells.erase(frontierCells.begin() + frontierCellIndex);
-            continue;
+
+            logicThread.msleep(16);
         }
-
-        // Pick a random neighbor and connect the frontier cell with the neighbor by setting the cell in-between to state Passage.
-        int neighborIndex = rand() % neighbors.size();
-        Cell* neighbor = neighbors[neighborIndex];
-        int wallX = (frontierCell->x + neighbor->x) / 2;
-        int wallY = (frontierCell->y + neighbor->y) / 2;
-        (*board)[wallY][wallX].wall = false;
-
-        // Compute the frontier cells of the chosen frontier cell and add them to the frontier list.
-        calculateFrontierCells(*frontierCell);
-
-        // make the current frontier cell a passage
-        frontierCell->wall = false;
-
-        // Remove the chosen frontier cell from the list of frontier cells.
-        frontierCells.erase(frontierCells.begin() + frontierCellIndex);
-    }
-
-    update();
+    });
 }
 
 
