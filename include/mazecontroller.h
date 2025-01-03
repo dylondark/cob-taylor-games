@@ -103,6 +103,9 @@ private:
     // Timer for the game loop
     QTimer frameTimer;
 
+    // Holds how many frames are left before an action is complete.
+    int actionFramesLeft;
+
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
 
