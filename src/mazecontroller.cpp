@@ -17,6 +17,9 @@ MazeController::MazeController()
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
 
+    // connect the frameTimer timeout signal to the updateGame slot method
+    connect(&frameTimer, &QTimer::timeout, this, &MazeController::updateGame);
+
     // seed rng
     srand(time(NULL));
 
@@ -92,11 +95,79 @@ void MazeController::startGame()
     (*board)[startCellY][startCellX].wall = false;
     calculateFrontierCells((*board)[startCellY][startCellX]);
 
+    currentAction = MazeAction::Generate; // begin generating
+    frameTimer.start(16); // start timer with 16ms delay (60fps)
+}
+
+
+void MazeController::upAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+        currentAction = MazeAction::Up;
+    }
+}
+
+/*
+    Move piece down action.
+*/
+void MazeController::downAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+        currentAction = MazeAction::Down;
+    }
+}
+
+/*
+    Move piece left action.
+*/
+void MazeController::leftAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+        currentAction = MazeAction::Left;
+    }
+}
+/*
+    Move piece right action.
+*/
+void MazeController::rightAction()
+{
+    // Move piece down
+    if (!gameOver)
+    {
+        // Update game state
+        currentAction = MazeAction::Right;
+    }
+}
+
+/*
+    Main game loop. Called every time a new action has happened.
+    Calculates the new game state in response to the action and sends the signal to QML to display it.
+*/
+void MazeController::updateGame()
+{
     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-        // While the list of frontier cells is not empty:
-        while (!frontierCells.empty())
+        switch (currentAction)
         {
-            QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
+        case MazeAction::Left:
+            break;
+        case MazeAction::Right:
+            break;
+        case MazeAction::Up:
+            break;
+        case MazeAction::Down:
+            break;
+        case MazeAction::Generate:
+        {
+            // While the list of frontier cells is not empty:
 
             // Pick a random frontier cell from the list of frontier cells.
             int frontierCellIndex = rand() % frontierCells.size();
@@ -113,111 +184,42 @@ void MazeController::startGame()
             if (frontierCell->x - 2 >= 0 && !((*board)[frontierCell->y][frontierCell->x - 2].wall))
                 neighbors.push_back(&(*board)[frontierCell->y][frontierCell->x - 2]);
 
-            if (neighbors.empty())
+            if (!neighbors.empty())
             {
-                // Remove the chosen frontier cell from the list of frontier cells.
-                frontierCells.erase(frontierCells.begin() + frontierCellIndex);
-                continue;
+                // Pick a random neighbor and connect the frontier cell with the neighbor by setting the cell in-between to state Passage.
+                int neighborIndex = rand() % neighbors.size();
+                Cell* neighbor = neighbors[neighborIndex];
+                int wallX = (frontierCell->x + neighbor->x) / 2;
+                int wallY = (frontierCell->y + neighbor->y) / 2;
+                (*board)[wallY][wallX].wall = false;
+
+                // Compute the frontier cells of the chosen frontier cell and add them to the frontier list.
+                calculateFrontierCells(*frontierCell);
+
+                // make the current frontier cell a passage
+                frontierCell->wall = false;
             }
-
-            // Pick a random neighbor and connect the frontier cell with the neighbor by setting the cell in-between to state Passage.
-            int neighborIndex = rand() % neighbors.size();
-            Cell* neighbor = neighbors[neighborIndex];
-            int wallX = (frontierCell->x + neighbor->x) / 2;
-            int wallY = (frontierCell->y + neighbor->y) / 2;
-            (*board)[wallY][wallX].wall = false;
-
-            // Compute the frontier cells of the chosen frontier cell and add them to the frontier list.
-            calculateFrontierCells(*frontierCell);
-
-            // make the current frontier cell a passage
-            frontierCell->wall = false;
 
             // Remove the chosen frontier cell from the list of frontier cells.
             frontierCells.erase(frontierCells.begin() + frontierCellIndex);
 
-            logicThread.msleep(16);
+            // if frontier cells are empty then stop generating and wait for user input
+            if (frontierCells.empty())
+            {
+                currentAction = MazeAction::Wait;
+
+                // create the start and end
+                (*board)[0][1].wall= false;
+                (*board)[BOARD_HEIGHT - 1][BOARD_WIDTH - 2].wall = false;
+            }
+            break;
+        }
+        case MazeAction::Wait:
+            break;
         }
 
-        // create the start and end
-        (*board)[0][1].wall= false;
-        (*board)[BOARD_HEIGHT - 1][BOARD_WIDTH - 2].wall = false;
         QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
     });
-}
-
-
-void MazeController::upAction()
-{
-    // Move piece down
-    if (!gameOver)
-    {
-        // Update game state
-        updateGame(MazeAction::Up);
-    }
-}
-
-/*
-    Move piece down action.
-*/
-void MazeController::downAction()
-{
-    // Move piece down
-    if (!gameOver)
-    {
-        // Update game state
-            updateGame(MazeAction::Down);
-    }
-}
-
-/*
-    Move piece left action.
-*/
-void MazeController::leftAction()
-{
-    // Move piece down
-    if (!gameOver)
-    {
-        // Update game state
-       updateGame(MazeAction::Left);
-    }
-}
-/*
-    Move piece right action.
-*/
-void MazeController::rightAction()
-{
-    // Move piece down
-    if (!gameOver)
-    {
-        // Update game state
-        updateGame(MazeAction::Right);
-    }
-}
-
-/*
-    Main game loop. Called every time a new action has happened.
-    Calculates the new game state in response to the action and sends the signal to QML to display it.
-
-    MazeAction trigger: what action is triggering the game update.
-*/
-void MazeController::updateGame(MazeAction trigger)
-{
-    switch (trigger)
-    {
-    case MazeAction::Left:
-        break;
-    case MazeAction::Right:
-        break;
-    case MazeAction::Up:
-        break;
-    case MazeAction::Down:
-        break;
-    case MazeAction::Generate:
-        break;
-    }
-
-    update();
 }
 
 /*

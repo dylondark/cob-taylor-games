@@ -12,6 +12,7 @@
 #include "flippedarray.h"
 #include "threadworker.h"
 #include <QThread>
+#include <QTimer>
 
 /*
     This is the data structure that represents every individual cell in the maze board.
@@ -26,9 +27,9 @@ struct Cell
 };
 
 /*
-    This enum defines all of the actions that can cause a game update. It includes all of the actions a player can make.
+    This enum defines all of the actions that the game can be doing. It includes all of the actions a player can make.
 */
-enum MazeAction {Left, Right, Up, Down, Generate};
+enum MazeAction {Left, Right, Up, Down, Generate, Wait};
 
 class MazeController : public QQuickPaintedItem
 {
@@ -76,6 +77,13 @@ public:
     */
     Q_INVOKABLE void upAction();
 
+private slots:
+    /*
+        Main game loop. Called every time a new action has happened.
+        Calculates the new game state in response to the action and sends the signal to QML to display it.
+    */
+    void updateGame();
+
 private:
     // Width of the board in cells
     static const int BOARD_WIDTH = 29;
@@ -83,11 +91,17 @@ private:
     // Height of the board in cells
     static const int BOARD_HEIGHT = 59;
 
+    // The current action being performed in the game.
+    MazeAction currentAction;
+
     // Contains the internal representation of the maze grid.
     FlippedArray<std::array<Cell, BOARD_WIDTH>, BOARD_HEIGHT>* board;
 
     // Contains the list of frontier cells
     std::vector<Cell*> frontierCells;
+
+    // Timer for the game loop
+    QTimer frameTimer;
 
     // Holds the game over state for the game. No game logic will continue after this is set to true.
     bool gameOver;
@@ -97,14 +111,6 @@ private:
 
     // Worker for the main thread.
     ThreadWorker logicThreadWorker;
-
-    /*
-        Main game loop. Called every time a new action has happened.
-        Calculates the new game state in response to the action and sends the signal to QML to display it.
-
-        MazeAction trigger: what action is triggering the game update.
-    */
-    void updateGame(MazeAction trigger);
 
     /*
         Calculates all frontier cells at a given cell and adds them to frontierCells.
