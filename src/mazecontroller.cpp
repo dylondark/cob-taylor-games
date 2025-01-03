@@ -103,7 +103,7 @@ void MazeController::startGame()
 void MazeController::upAction()
 {
     // Move piece down
-    if (!gameOver)
+    if (!gameOver && currentAction == MazeAction::Wait)
     {
         // Update game state
         currentAction = MazeAction::Up;
@@ -116,7 +116,7 @@ void MazeController::upAction()
 void MazeController::downAction()
 {
     // Move piece down
-    if (!gameOver)
+    if (!gameOver && currentAction == MazeAction::Wait)
     {
         // Update game state
         currentAction = MazeAction::Down;
@@ -129,7 +129,7 @@ void MazeController::downAction()
 void MazeController::leftAction()
 {
     // Move piece down
-    if (!gameOver)
+    if (!gameOver && currentAction == MazeAction::Wait)
     {
         // Update game state
         currentAction = MazeAction::Left;
@@ -141,7 +141,7 @@ void MazeController::leftAction()
 void MazeController::rightAction()
 {
     // Move piece down
-    if (!gameOver)
+    if (!gameOver && currentAction == MazeAction::Wait)
     {
         // Update game state
         currentAction = MazeAction::Right;
