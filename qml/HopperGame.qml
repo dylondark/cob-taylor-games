@@ -400,20 +400,19 @@ Item {
                             // Land back to the original position
                             PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad }
 
-                            // After landing, ensure the running GIF is re-enabled
+                            // After landing, re-enables the running gif
                             PropertyAction {
                                 target: zippyModel;
                                 property: "source";
                                 value: filepath + "/gamefiles/Hopper/ZippyRun.gif"
                             }
 
-                            // Ensure the GIF starts looping after the jump
+                            // Ensures the GIF starts looping after the jump
                             PropertyAction { target: zippyModel; property: "loops"; value: Animation.Infinite }
                             PropertyAction { target: zippyModel; property: "busy"; value: false }
                         }
 
                         // Animation for "Sliding"
-                        // Known bug: If you "Slide-Hop" AFTER "Hop-Slide", Zippy exits the bounds of the grass
                         SequentialAnimation on height {
                             id: slideAnimation
                             running: false
@@ -424,14 +423,14 @@ Item {
                             PropertyAnimation { to: 400 * root.scaleFactor; duration: 400; easing.type: Easing.OutQuad } // Duck down
                             PropertyAnimation { to: 700 * root.scaleFactor; duration: 400; easing.type: Easing.InQuad } // Return to original height
 
-
+                             // After landing, re-enables the running gif
                             PropertyAction {
                                 target: zippyModel;
                                 property: "source";
                                 value: filepath + "/gamefiles/Hopper/ZippyRun.gif"
                             }
 
-                            // Ensure the GIF starts looping after the jump
+                            // Ensures the GIF starts looping after the jump
                             PropertyAction { target: zippyModel; property: "loops"; value: Animation.Infinite }
                             PropertyAction { target: zippyModel; property: "busy"; value: false }
                         }
