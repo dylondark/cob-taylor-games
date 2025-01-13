@@ -64,6 +64,7 @@ Item {
                         // DONT add filepath in front of the paths here. It is already done in the C++ code.
                         loader.addImage("/gamefiles/Hopper/Run1.png");
                         loader.addImage("/gamefiles/Hopper/Run2.png");
+                        loader.addImage("/gamefiles/Hopper/ZippyRun.gif");
                         loader.addImage("/gamefiles/Hopper/Jump.png");
                         loader.addImage("/gamefiles/Hopper/Slide.png");
                         loader.addImage("/gamefiles/Hopper/Sky.png");
@@ -356,33 +357,20 @@ Item {
                     }
 
                     // Zippy Model
-                    Image {
+                    AnimatedImage {
                         id: zippyModel
                         width: 850 * root.scaleFactor
                         height: 700 * root.scaleFactor
                         x: (parent.width - width) - 950 * root.scaleFactor
                         y: floorRect.y - height + 125 * root.scaleFactor // Starting position on the floor
                         asynchronous: true
-
-                        property bool isRunning: true
-
                         // Animation for zippy running that changes every 500 ticks
-                        source: loader.getImage(isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png")
+                        source: filepath + "/gamefiles/Hopper/ZippyRun.gif"
                         fillMode: Image.PreserveAspectFit
                         smooth: true // turn off if performance is bad
                         cache: false
                         retainWhileLoading: true // REQUIRES QT 6.8!!!
-
-                        // Timer for Zippy Running
-                        Timer {
-                            id: runTimer
-                            interval: 500
-                            running: true
-                            repeat: true
-                            onTriggered: {
-                                zippyModel.isRunning = !zippyModel.isRunning
-                            }
-                        }
+                        property bool busy: false
 
                         // Timer for counting seconds when the round starts
                         Timer {
@@ -397,20 +385,31 @@ Item {
                             }
                         }
 
-                        // Animation for Hopping
                         SequentialAnimation on y {
                             id: hopAnimation
                             running: false
                             loops: 1
 
-                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Jump.png") } // Sets image to Jump.png at start
-                            PropertyAction { target: runTimer; property: "running"; value: false }
+                            // Set image to Jump.png at the start of the hop
+                            PropertyAction { target: zippyModel; property: "busy"; value: true }
+                            PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" }
 
-                            PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad } // Jump (reaches peak of height)
-                            PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad } // Land
+                            // Jump to the peak of the jump
+                            PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad }
 
-                            PropertyAction { target: runTimer; property: "running"; value: true }
-                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+                            // Land back to the original position
+                            PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad }
+
+                            // After landing, ensure the running GIF is re-enabled
+                            PropertyAction {
+                                target: zippyModel;
+                                property: "source";
+                                value: filepath + "/gamefiles/Hopper/ZippyRun.gif"
+                            }
+
+                            // Ensure the GIF starts looping after the jump
+                            PropertyAction { target: zippyModel; property: "loops"; value: Animation.Infinite }
+                            PropertyAction { target: zippyModel; property: "busy"; value: false }
                         }
 
                         // Animation for "Sliding"
@@ -419,16 +418,22 @@ Item {
                             id: slideAnimation
                             running: false
                             loops: 1
-
+                            PropertyAction { target: zippyModel; property: "busy"; value: true }
                             PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Slide.png") } // Sets image to Slide.png at start
-                            PropertyAction { target: runTimer; property: "running"; value: false } // Stops the Timer
-
 
                             PropertyAnimation { to: 400 * root.scaleFactor; duration: 400; easing.type: Easing.OutQuad } // Duck down
                             PropertyAnimation { to: 700 * root.scaleFactor; duration: 400; easing.type: Easing.InQuad } // Return to original height
 
-                            PropertyAction { target: runTimer; property: "running"; value: true }
-                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage(zippyModel.isRunning ? "/gamefiles/Hopper/Run1.png" : "/gamefiles/Hopper/Run2.png") }
+
+                            PropertyAction {
+                                target: zippyModel;
+                                property: "source";
+                                value: filepath + "/gamefiles/Hopper/ZippyRun.gif"
+                            }
+
+                            // Ensure the GIF starts looping after the jump
+                            PropertyAction { target: zippyModel; property: "loops"; value: Animation.Infinite }
+                            PropertyAction { target: zippyModel; property: "busy"; value: false }
                         }
 
                         Row {
@@ -821,7 +826,7 @@ Item {
                         }
 
                         onClicked: {
-                            if (!hopAnimation.running) {
+                            if (!zippyModel.busy && !hopAnimation.running && !slideAnimation.running) {
                                 hopAnimation.start(); // Starts the hop animation
                             }
                         }
@@ -848,7 +853,7 @@ Item {
                         }
 
                         onClicked: {
-                            if (!slideAnimation.running) {
+                            if (!zippyModel.busy && !hopAnimation.running && !slideAnimation.running) {
                                 slideAnimation.start(); // Starts the slide animation
                             }
                         }
