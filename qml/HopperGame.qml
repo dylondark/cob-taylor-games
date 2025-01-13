@@ -408,7 +408,7 @@ Item {
                             }
 
                             // Ensures the GIF starts looping after the jump
-                            PropertyAction { target: zippyModel; property: "loops"; value: Animation.Infinite }
+
                             PropertyAction { target: zippyModel; property: "busy"; value: false }
                         }
 
@@ -431,7 +431,7 @@ Item {
                             }
 
                             // Ensures the GIF starts looping after the jump
-                            PropertyAction { target: zippyModel; property: "loops"; value: Animation.Infinite }
+
                             PropertyAction { target: zippyModel; property: "busy"; value: false }
                         }
 
