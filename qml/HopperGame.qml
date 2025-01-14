@@ -222,8 +222,6 @@ Item {
                             sunsetImage.visible = true; // Makes sunset visible
                             sunsetImage.opacity = 1; // Starts the animation
                             gameBase.gameStage = 3;
-                            paintedRockAnimation.interval = 1500;
-                            clockAnimation.interval = 1500;
                             obstacleTimer.interval = 1500;
                             console.log("Game Difficulty has been set to 3");
                         }
@@ -255,11 +253,12 @@ Item {
 
                         // Animation for cloud movement
                         PropertyAnimation on x {
+                            id: cloudAnimation
                             from: rightBar.x
                             to: leftBar.x - 800 * root.scaleFactor
                             duration: 8000  // Adjusts speed
-                            loops: Animation.Infinite
-                            running: true
+                            loops: 1
+                            running: false
                         }
                     }
 
@@ -276,11 +275,12 @@ Item {
 
                         // Animation for cloud movement
                         PropertyAnimation on x {
+                            id: cloudAnimation2
                             from: rightBar.x
                             to: leftBar.x - 800 * root.scaleFactor
                             duration: 14000  // Adjusts speed
-                            loops: Animation.Infinite
-                            running: true
+                            loops: 1
+                            running: false
                         }
                     }
 
@@ -297,11 +297,12 @@ Item {
 
                         // Animation for cloud movement
                         PropertyAnimation on x {
+                            id: blimpAnimation
                             from: rightBar.x
                             to: leftBar.x - 800 * root.scaleFactor
                             duration: 28000  // Adjusts speed
-                            loops: Animation.Infinite
-                            running: true
+                            loops: 1
+                            running: false
                         }
                     }
 
@@ -510,6 +511,25 @@ Item {
                         }
                     }
 
+                    Timer { // Timer for the background decorations (cloud, blimp, etc)
+                        id: backgroundTimer
+                        interval: 10000
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            // Generates a random number (change random() * X to # of obstacles)
+                                let decorationType = Math.floor(Math.random() *3) + 1;
+                                //Triggers corresponding decoration
+                            console.log(decorationType)
+                                if (decorationType === 1) {
+                                    cloudAnimation.running = true;
+                                } else if (decorationType === 2) {
+                                    cloudAnimation2.running = true;
+                                } else if (decorationType === 3) {
+                                    blimpAnimation.running = true;
+                                }
+                            }
+                    }
                     // Rock Hitbox
                     Rectangle {
                         id: rockHitbox
