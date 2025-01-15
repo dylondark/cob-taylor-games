@@ -164,7 +164,7 @@ Item {
                         id: skyImage
                         width: 1750 * root.scaleFactor
                         height: 2800 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/Sky.png" // Initial backgroundopacity: 0opacity: 0
+                        source: filepath + "/gamefiles/Hopper/Sky.png" // Initial background
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Layout.verticalStretchFactor: 3
@@ -201,7 +201,7 @@ Item {
 
                     Timer {
                         id: stage2Timer
-                        interval: 15000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                        interval: 20000 // CHANGE FOR TIME, every 10000 is 10 seconds
                         running: true
                         repeat: false // Only run once
                         onTriggered: {
@@ -215,7 +215,7 @@ Item {
 
                     Timer {
                         id: stage3Timer
-                        interval: 30000 // CHANGE FOR TIME, every 10000 is 10 seconds
+                        interval: 40000 // CHANGE FOR TIME, every 10000 is 10 seconds
                         running: true
                         repeat: false // Only run once
                         onTriggered: {
@@ -344,7 +344,7 @@ Item {
                         anchors.centerIn: zippyContainer
                         width: 225 * root.scaleFactor
                         height: 550 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
 
                     Rectangle {
@@ -354,7 +354,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
 
                     Item {
@@ -443,7 +443,7 @@ Item {
                                     target: zippyContainer
                                     property: "height"
                                     to: zippyContainer.height * 0.75 // Squash vertically to 75% of original height
-                                    duration: 400
+                                    duration: 450
                                     easing.type: Easing.OutQuad
                                 }
 
@@ -452,7 +452,7 @@ Item {
                                     target: zippyContainer
                                     property: "height" // Restore height to original value
                                     to: zippyContainer.height // Restore to original height
-                                    duration: 400
+                                    duration: 450
                                     easing.type: Easing.InQuad
                                 }
 
@@ -733,7 +733,7 @@ Item {
                         height: 330 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
-                        y: 1200 * root.scaleFactor
+                        y: 1370 * root.scaleFactor
                         asynchronous: true
 
                         // Animation for bird movement
