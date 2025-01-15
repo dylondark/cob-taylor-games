@@ -373,19 +373,6 @@ Item {
                         retainWhileLoading: true // REQUIRES QT 6.8!!!
                         property bool busy: false
 
-                        // Timer for counting seconds when the round starts
-                        Timer {
-                            id: roundTimer
-                            interval: 1000 // 1000 ms = 1 second
-                            running: true // Initially stopped
-                            repeat: true // Continuously counts up
-                            onTriggered: {
-                                gameBase.elapsedTime += 1;
-                                root.points += 5;
-                                homeBarBase.updatePoints();
-                            }
-                        }
-
                         SequentialAnimation on y {
                             id: hopAnimation
                             running: false
@@ -467,7 +454,18 @@ Item {
                             }
                         }
                     }
-
+                    // Timer for counting seconds when the round starts
+                    Timer {
+                        id: roundTimer
+                        interval: 1000 // 1000 ms = 1 second
+                        running: true // Initially stopped
+                        repeat: true // Continuously counts up
+                        onTriggered: {
+                            gameBase.elapsedTime += 1;
+                            root.points += 5;
+                            homeBarBase.updatePoints();
+                        }
+                    }
                     Timer { // Timer for obstacles coming out
                         id: obstacleTimer
                         interval: 3000
