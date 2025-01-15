@@ -341,88 +341,130 @@ Item {
                     // Zippy Hitboxes
                     Rectangle {
                         id: zippyBHitbox
-                        anchors.centerIn: zippyModel
+                        anchors.centerIn: zippyContainer
                         width: 225 * root.scaleFactor
                         height: 550 * root.scaleFactor
-                        color: "transparent"
+                        color: "red"
                     }
 
                     Rectangle {
                         id: zippyHHitbox
-                        anchors.top: zippyModel.top
-                        anchors.right: zippyModel.right
+                        anchors.top: zippyContainer.top
+                        anchors.right: zippyContainer.right
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "transparent"
+                        color: "red"
                     }
 
-                    // Zippy Model
-                    AnimatedImage {
-                        id: zippyModel
+                    Item {
+                        id: zippyContainer
                         width: 850 * root.scaleFactor
                         height: 700 * root.scaleFactor
                         x: (parent.width - width) - 950 * root.scaleFactor
                         y: floorRect.y - height + 125 * root.scaleFactor // Starting position on the floor
-                        asynchronous: true
-                        // Animation for zippy running that changes every 500 ticks
-                        source: filepath + "/gamefiles/Hopper/ZippyRun.gif"
-                        fillMode: Image.PreserveAspectFit
-                        smooth: true // turn off if performance is bad
-                        cache: false
-                        retainWhileLoading: true // REQUIRES QT 6.8!!!
-                        property bool busy: false
 
-                        SequentialAnimation on y {
-                            id: hopAnimation
-                            running: false
-                            loops: 1
-
-                            // Set image to Jump.png at the start of the hop
-                            PropertyAction { target: zippyModel; property: "busy"; value: true }
-                            PropertyAction { target: zippyModel; property: "source"; value: filepath + "/gamefiles/Hopper/Jump.png" }
-
-                            // Jump to the peak of the jump
-                            PropertyAnimation { to: floorRect.y - (1200 * root.scaleFactor); duration: 500; easing.type: Easing.OutQuad }
-
-                            // Land back to the original position
-                            PropertyAnimation { to: floorRect.y - zippyModel.height + 50; duration: 500; easing.type: Easing.InQuad }
-
-                            // After landing, re-enables the running gif
-                            PropertyAction {
-                                target: zippyModel;
-                                property: "source";
-                                value: filepath + "/gamefiles/Hopper/ZippyRun.gif"
-                            }
-
-                            // Ensures the GIF starts looping after the jump
-
-                            PropertyAction { target: zippyModel; property: "busy"; value: false }
+                        // Running animation (default)
+                        AnimatedImage {
+                            id: zippyModel
+                            width: 850 * root.scaleFactor
+                            height: 700 * root.scaleFactor
+                            anchors.fill: parent
+                            source: filepath + "/gamefiles/Hopper/ZippyRun.gif"
+                            visible: true
+                            fillMode: Image.PreserveAspectFit
                         }
 
-                        // Animation for "Sliding"
-                        SequentialAnimation on height {
-                            id: slideAnimation
-                            running: false
-                            loops: 1
-                            PropertyAction { target: zippyModel; property: "busy"; value: true }
-                            PropertyAction { target: zippyModel; property: "source"; value: loader.getImage("/gamefiles/Hopper/Slide.png") } // Sets image to Slide.png at start
-
-                            PropertyAnimation { to: 400 * root.scaleFactor; duration: 400; easing.type: Easing.OutQuad } // Duck down
-                            PropertyAnimation { to: 700 * root.scaleFactor; duration: 400; easing.type: Easing.InQuad } // Return to original height
-
-                             // After landing, re-enables the running gif
-                            PropertyAction {
-                                target: zippyModel;
-                                property: "source";
-                                value: filepath + "/gamefiles/Hopper/ZippyRun.gif"
-                            }
-
-                            // Ensures the GIF starts looping after the jump
-
-                            PropertyAction { target: zippyModel; property: "busy"; value: false }
+                        // Jumping image (hidden by default)
+                        Image {
+                            id: zippyJump
+                            width: 850 * root.scaleFactor
+                            height: 700 * root.scaleFactor
+                            anchors.fill: parent
+                            source: filepath + "/gamefiles/Hopper/Jump.png"
+                            visible: false
+                            fillMode: Image.PreserveAspectFit
+                        }
+                        // Sliding image (hidden by default)
+                        Image {
+                            id: zippySlide
+                            width: 850 * root.scaleFactor
+                            height: 700 * root.scaleFactor
+                            anchors.fill: parent
+                            source: filepath + "/gamefiles/Hopper/Slide.png"
+                            visible: false
+                            fillMode: Image.PreserveAspectFit
                         }
 
+                        // Jump animation
+                            SequentialAnimation {
+                                id: hopAnimation
+                                running: false
+                                loops: 1
+
+                                // Switch to zippyJump image
+                                PropertyAction { target: zippyModel; property: "visible"; value: false }
+                                PropertyAction { target: zippyJump; property: "visible"; value: true }
+
+                                // Makes Zippy Jump
+                                PropertyAnimation {
+                                    target: zippyContainer
+                                    property: "y"
+                                    to: floorRect.y - (1200 * root.scaleFactor) // Jump peak
+                                    duration: 500
+                                    easing.type: Easing.OutQuad
+                                }
+
+                                // Returns Zippy to her original position
+                                PropertyAnimation {
+                                    target: zippyContainer
+                                    property: "y"
+                                    to: floorRect.y - zippyModel.height + 50
+                                    duration: 500
+                                    easing.type: Easing.InQuad
+                                }
+
+                                // Switch Zippy back to the running animation
+                                PropertyAction { target: zippyJump; property: "visible"; value: false }
+                                PropertyAction { target: zippyModel; property: "visible"; value: true }
+                            }
+                            // Sliding Animation
+                            SequentialAnimation {
+                                id: slideAnimation
+                                running: false
+                                loops: 1
+
+                                // Hide the running image (zippyModel) and show the sliding image (zippySlide)
+                                PropertyAction { target: zippyModel; property: "visible"; value: false }
+                                PropertyAction { target: zippySlide; property: "visible"; value: true }
+
+                                // Slide effect by squashing the container (zippyContainer) via animating the height
+                                PropertyAnimation {
+                                    target: zippyContainer
+                                    property: "height"
+                                    to: zippyContainer.height * 0.75 // Squash vertically to 75% of original height
+                                    duration: 400
+                                    easing.type: Easing.OutQuad
+                                }
+
+                                // Restore Zippy's container height to normal
+                                PropertyAnimation {
+                                    target: zippyContainer
+                                    property: "height" // Restore height to original value
+                                    to: zippyContainer.height // Restore to original height
+                                    duration: 400
+                                    easing.type: Easing.InQuad
+                                }
+
+                                // Switch Zippy back to the running animation
+                                PropertyAction { target: zippySlide; property: "visible"; value: false } // Hide sliding image
+                                PropertyAction { target: zippyModel; property: "visible"; value: true } // Show running GIF
+                            }
+
+
+
+
+                        // Zippy's Healthbar
                         Row {
                             spacing: 10 * root.scaleFactor // Adjust spacing between hearts
                             anchors.top: zippyModel.top
@@ -454,6 +496,7 @@ Item {
                             }
                         }
                     }
+
                     // Timer for counting seconds when the round starts
                     Timer {
                         id: roundTimer
