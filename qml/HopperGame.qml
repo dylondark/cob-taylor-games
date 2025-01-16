@@ -521,8 +521,7 @@ Item {
                                 console.log(obstacleType)
                                 //Triggers corresponding obstacle
                                 if (obstacleType === 1) {
-                                    archAnimationFront.running = true;
-                                    archAnimationBack.running = true;
+                                    rockAnimation.running = true;
                                 } else if (obstacleType === 2) {
                                     statueAnimation.running = true;
                                 } else if (obstacleType === 3) {
