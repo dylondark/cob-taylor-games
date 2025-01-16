@@ -314,7 +314,7 @@ Item {
                         height: 950 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/arch.png"
                         x: parent.width
-                        y: floorRect.y - height + 100 * root.scaleFactor
+                        y: floorRect.y - height + 150 * root.scaleFactor
                         asynchronous: true
 
                         // Animation for arch movement
@@ -521,7 +521,8 @@ Item {
                                 console.log(obstacleType)
                                 //Triggers corresponding obstacle
                                 if (obstacleType === 1) {
-                                    rockAnimation.running = true;
+                                    archAnimationFront.running = true;
+                                    archAnimationBack.running = true;
                                 } else if (obstacleType === 2) {
                                     statueAnimation.running = true;
                                 } else if (obstacleType === 3) {
@@ -721,7 +722,7 @@ Item {
                     // Bird obstacle
                     Rectangle {
                         id: birdHitbox
-                        width: 375 * root.scaleFactor
+                        width: 370 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
                         color: "red"
@@ -733,7 +734,7 @@ Item {
                         height: 330 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Bird.png"
                         x: parent.width
-                        y: 1370 * root.scaleFactor
+                        y: 1365 * root.scaleFactor
                         asynchronous: true
 
                         // Animation for bird movement
@@ -784,7 +785,7 @@ Item {
                     height: 950 * root.scaleFactor
                     source: filepath + "/gamefiles/Hopper/Arch2.png"
                     x: parent.width
-                    y: floorRect.y - height + 214 * root.scaleFactor
+                    y: floorRect.y - height + 365 * root.scaleFactor
                     asynchronous: true
 
                     // Change this to item with archFront and Back
