@@ -41,7 +41,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        /usr/lib/qt6/bin/qmake .. -spec linux-g++ CONFIG+=release
+        qmake .. -spec linux-g++ CONFIG+=release
         make -j$(nproc)
 
     # Package as AppImage
@@ -57,6 +57,6 @@ jobs:
     - name: Upload AppImage to GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        files: MyApp-x86_64.AppImage
+        files: cob-taylor-games-x86_64.AppImage
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
