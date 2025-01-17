@@ -49,9 +49,8 @@ jobs:
       run: |
         wget -q https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
         chmod +x linuxdeployqt-continuous-x86_64.AppImage
-        pwd
         mkdir -p AppDir/usr/bin
-        cp cob-taylor-games AppDir/usr/bin/
+        cp build/cob-taylor-games AppDir/usr/bin/
         ./linuxdeployqt-continuous-x86_64.AppImage AppDir/usr/bin/cob-taylor-games -appimage
 
     # Upload AppImage to GitHub release
