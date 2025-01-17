@@ -9,17 +9,32 @@ on:
 
 jobs:
   build:
-    runs-on: archlinux-latest
+    runs-on: ubuntu-latest
 
     steps:
     # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # Set up Qt environment
+    - name: Set up Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: '6.8.0' # Replace with your Qt version
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+
     # Install dependencies
     - name: Install dependencies
       run: |
-        sudo pacman -Syu --noconfirm git make cmake gcc qt6-base qt6-declarative which
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential cmake \
+          qtbase5-dev qttools5-dev-tools \
+          libx11-dev libxext-dev libxrandr-dev \
+          libgl1-mesa-dev zlib1g-dev \
+          patchelf
 
     # Build the application
     - name: Build application
