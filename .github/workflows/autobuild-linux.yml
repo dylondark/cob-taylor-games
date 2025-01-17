@@ -18,9 +18,9 @@ jobs:
 
     # Set up Qt environment
     - name: Set up Qt
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v4
       with:
-        version: '6.8.0' # Replace with your Qt version
+        version: '6.8.*' # Replace with your Qt version
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
