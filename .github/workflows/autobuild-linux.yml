@@ -60,7 +60,7 @@ jobs:
         cp appimage/cob-taylor-games.png AppDir/usr/share/applications/icons/hicolor/64x64/apps
         mkdir -p AppDir/usr/share/doc/libc6
         touch AppDir/usr/share/doc/libc6/copyright
-        ./linuxdeployqt-continuous-x86_64.AppImage AppDir/usr/share/applications/cob-taylor-games.desktop -appimage -unsupported-allow-new-glibc
+        ./linuxdeployqt-continuous-x86_64.AppImage AppDir/usr/share/applications/cob-taylor-games.desktop -appimage -unsupported-allow-new-glibc -extra-plugins=platforms.qml,quickwidgets
 
     # Upload AppImage to GitHub release
     - name: Upload AppImage to GitHub Release
