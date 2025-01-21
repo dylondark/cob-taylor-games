@@ -5,7 +5,7 @@ on:
     branches:
      - autobuild
     tags:
-      - '*' # run on every tag pushed to master
+      - 'v*' # run on every tag pushed to master
 
 jobs:
   build:
