@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Taylor Games Kiosk
+Exec=cob-taylor-games
+Icon=cob-taylor-games
+Type=Application
+Categories=Utility
