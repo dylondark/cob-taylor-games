@@ -51,6 +51,8 @@ jobs:
         chmod +x linuxdeployqt-continuous-x86_64.AppImage
         mkdir -p AppDir/usr/bin
         cp build/cob-taylor-games AppDir/usr/bin/
+        mkdir -p AppDir/usr/share/applications
+        cp appimage/cob-taylor-games.desktop AppDir/usr/share/applications/
         ./linuxdeployqt-continuous-x86_64.AppImage AppDir/usr/bin/cob-taylor-games -appimage -unsupported-allow-new-glibc
 
     # Upload AppImage to GitHub release
