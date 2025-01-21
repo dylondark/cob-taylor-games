@@ -1,5 +1,8 @@
 name: Build and Release AppImage for Linux
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -64,5 +67,3 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: Taylor_Games_Kiosk-*-x86_64.AppImage
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
