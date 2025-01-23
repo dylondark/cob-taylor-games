@@ -123,16 +123,26 @@ ColumnLayout {
             }
         }
 
+        Image { //endScreen Zippy
+            id: esZippy
+            visible: root.gameEnum === 3
+            source: filepath + "/gamefiles/Hopper/ESZippy.png"
+            anchors.top: gameOverScoreText.bottom
+            height: 500 * root.scaleFactor
+            width: 500 * root.scaleFactor
+        }
+
         Text { // For Zippy Hop
             id: hopperGameOver
+            visible: root.gameEnum === 3
             anchors.fill: parent
-            font.pointSize: 72 * root.scaleFactor
-            font.bold: false
-            text: "You ran " + root.points + " meters!"
+            font.pointSize: 144 * root.scaleFactor
+            style: Text.Outline
+            text: "You ran\n" + root.points + "\nmeters!"
+            font.family: "1UP!"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
         }
     }
 }
