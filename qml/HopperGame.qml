@@ -510,48 +510,69 @@ Item {
                         }
                     }
                     Timer { // Timer for obstacles coming out
-                        id: obstacleTimer
-                        interval: 3000
-                        running: true
-                        repeat: true
-                        onTriggered: {
-                            // Generates a random number (change random() * X to # of obstacles)
-                            if (gameBase.gameStage === 1) {
-                                let obstacleType = Math.floor(Math.random() *3) + 1;
-                                console.log(obstacleType)
-                                //Triggers corresponding obstacle
-                                if (obstacleType === 1) {
-                                    rockAnimation.running = true;
-                                } else if (obstacleType === 2) {
-                                    statueAnimation.running = true;
-                                } else if (obstacleType === 3) {
-                                    birdAnimation.running = true;
-                                }
-                            }
-                            else if (gameBase.gameStage === 2) {
-                                let obstacleType = Math.floor(Math.random() * 3) + 1;
-                                console.log(obstacleType)
-                                if (obstacleType === 1 ) {
-                                    rockCandyAnimation.running = true;
-                                } else if (obstacleType === 2) {
-                                    clockAnimation.running = true;
-                                } else if (obstacleType === 3) {
-                                    archAnimationFront.running = true;
-                                    archAnimationBack.running = true;
-                                }
-                            }
-                            else if (gameBase.gameStage === 3) {
-                                let obstacleType = Math.floor(Math.random() * 2) + 1;
-                                console.log(obstacleType)
-                                if (obstacleType === 1 ) {
-                                    paintedRockAnimation.running = true;
-                                } else if (obstacleType === 2) {
-                                    clockAnimation.running = true;
-                                }
-                            }
-                        }
-                    }
+                                            id: obstacleTimer
+                                            interval: 3000
+                                            running: true
+                                            repeat: true
 
+                                            // Variables to track the last obstacle for each game stage
+                                            property int lastObstacleStage1: 0
+                                            property int lastObstacleStage2: 0
+                                            property int lastObstacleStage3: 0
+
+                                            onTriggered: {
+                                                // Generates a random number (change random() * X to # of obstacles)
+                                                if (gameBase.gameStage === 1) {
+                                                    let obstacleType;
+                                                    do {
+                                                        obstacleType = Math.floor(Math.random() * 3) + 1;
+                                                    } while (obstacleType === lastObstacleStage1); // Loops until there are no repeat obstacles
+
+                                                    lastObstacleStage1 = obstacleType; // Updates the most recent obstacle
+
+                                                    console.log(obstacleType);
+                                                    // Triggers corresponding obstacle
+                                                    if (obstacleType === 1) {
+                                                        rockAnimation.running = true;
+                                                    } else if (obstacleType === 2) {
+                                                        statueAnimation.running = true;
+                                                    } else if (obstacleType === 3) {
+                                                        birdAnimation.running = true;
+                                                    }
+                                                } else if (gameBase.gameStage === 2) {
+                                                    let obstacleType;
+                                                    do {
+                                                        obstacleType = Math.floor(Math.random() * 3) + 1;
+                                                    } while (obstacleType === lastObstacleStage2); // Loops until there are no repeat obstacles
+
+                                                    lastObstacleStage2 = obstacleType; // Updates the most recent obstacle
+
+                                                    console.log(obstacleType);
+                                                    if (obstacleType === 1) {
+                                                        rockCandyAnimation.running = true;
+                                                    } else if (obstacleType === 2) {
+                                                        clockAnimation.running = true;
+                                                    } else if (obstacleType === 3) {
+                                                        archAnimationFront.running = true;
+                                                        archAnimationBack.running = true;
+                                                    }
+                                                } else if (gameBase.gameStage === 3) {
+                                                    let obstacleType;
+                                                    do {
+                                                        obstacleType = Math.floor(Math.random() * 2) + 1;
+                                                    } while (obstacleType === lastObstacleStage3); // Loops until there are no repeat obstacles
+
+                                                    lastObstacleStage3 = obstacleType; // Updates the most recent obstacle
+
+                                                    console.log(obstacleType);
+                                                    if (obstacleType === 1) {
+                                                        paintedRockAnimation.running = true;
+                                                    } else if (obstacleType === 2) {
+                                                        clockAnimation.running = true;
+                                                    }
+                                                }
+                                            }
+                                        }
                     Timer { // Timer for the background decorations (cloud, blimp, etc)
                         id: backgroundTimer
                         interval: 10000
