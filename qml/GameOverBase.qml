@@ -22,7 +22,7 @@ ColumnLayout {
         interval: 15000 // 15 seconds
         repeat: true
         onTriggered: {
-                root.quit()
+            root.quit()
         }
     }
 
@@ -40,7 +40,7 @@ ColumnLayout {
         Layout.preferredHeight: -1
         Layout.preferredWidth: -1
         Layout.fillHeight: true
-        Layout.fillWidth: true
+        Layout.fillWidth: true;
 
         Text {
             id: gameOverText
@@ -121,6 +121,18 @@ ColumnLayout {
                 cached: false
                 transparentBorder: true
             }
+        }
+
+        Text { // For Zippy Hop
+            id: hopperGameOver
+            anchors.fill: parent
+            font.pointSize: 72 * root.scaleFactor
+            font.bold: false
+            text: "You ran " + root.points + " meters!"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
         }
     }
 }

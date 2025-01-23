@@ -24,7 +24,16 @@ Item {
     property int points: 0
     property string strName: "Hopper"
     property string username: ""
-    property int gameEnum: 0
+    property int gameEnum: 3
+
+    function endGame() {
+        gameBase.visible = false;
+        gameOverBase.gameOverOps();
+        roundTimer.stop();
+
+        // send signal to put in user's score
+        // change score value in label
+    }
 
     ColumnLayout {
         id: baseLayout
@@ -73,8 +82,6 @@ Item {
                         loader.addImage("/gamefiles/Hopper/grass.zippyhopp.jpg");
                     }
                 }
-
-                // The code for the scores boxes here
 
                 // Begin game rectangle
                 Rectangle {
@@ -140,8 +147,9 @@ Item {
                             heart3.visible = false;
                         } else if (heart2.visible) {
                             heart2.visible = false;
-                        } else if (heart1.visible) {
+                        } else if (heart1.visible) { // If reduceHearts is called while only one heart is left, the game is over.
                             heart1.visible = false;
+                            endGame(); //endGame
                         }
 
                         // Start the timer after reducing a heart
@@ -397,69 +405,69 @@ Item {
                         }
 
                         // Jump animation
-                            SequentialAnimation {
-                                id: hopAnimation
-                                running: false
-                                loops: 1
+                        SequentialAnimation {
+                            id: hopAnimation
+                            running: false
+                            loops: 1
 
-                                // Switch to zippyJump image
-                                PropertyAction { target: zippyModel; property: "visible"; value: false }
-                                PropertyAction { target: zippyJump; property: "visible"; value: true }
+                            // Switch to zippyJump image
+                            PropertyAction { target: zippyModel; property: "visible"; value: false }
+                            PropertyAction { target: zippyJump; property: "visible"; value: true }
 
-                                // Makes Zippy Jump
-                                PropertyAnimation {
-                                    target: zippyContainer
-                                    property: "y"
-                                    to: floorRect.y - (1200 * root.scaleFactor) // Jump peak
-                                    duration: 500
-                                    easing.type: Easing.OutQuad
-                                }
-
-                                // Returns Zippy to her original position
-                                PropertyAnimation {
-                                    target: zippyContainer
-                                    property: "y"
-                                    to: floorRect.y - zippyModel.height + 50
-                                    duration: 500
-                                    easing.type: Easing.InQuad
-                                }
-
-                                // Switch Zippy back to the running animation
-                                PropertyAction { target: zippyJump; property: "visible"; value: false }
-                                PropertyAction { target: zippyModel; property: "visible"; value: true }
+                            // Makes Zippy Jump
+                            PropertyAnimation {
+                                target: zippyContainer
+                                property: "y"
+                                to: floorRect.y - (1200 * root.scaleFactor) // Jump peak
+                                duration: 500
+                                easing.type: Easing.OutQuad
                             }
-                            // Sliding Animation
-                            SequentialAnimation {
-                                id: slideAnimation
-                                running: false
-                                loops: 1
 
-                                // Hide the running image (zippyModel) and show the sliding image (zippySlide)
-                                PropertyAction { target: zippyModel; property: "visible"; value: false }
-                                PropertyAction { target: zippySlide; property: "visible"; value: true }
-
-                                // Slide effect by squashing the container (zippyContainer) via animating the height
-                                PropertyAnimation {
-                                    target: zippyContainer
-                                    property: "height"
-                                    to: zippyContainer.height * 0.75 // Squash vertically to 75% of original height
-                                    duration: 450
-                                    easing.type: Easing.OutQuad
-                                }
-
-                                // Restore Zippy's container height to normal
-                                PropertyAnimation {
-                                    target: zippyContainer
-                                    property: "height" // Restore height to original value
-                                    to: zippyContainer.height // Restore to original height
-                                    duration: 450
-                                    easing.type: Easing.InQuad
-                                }
-
-                                // Switch Zippy back to the running animation
-                                PropertyAction { target: zippySlide; property: "visible"; value: false } // Hide sliding image
-                                PropertyAction { target: zippyModel; property: "visible"; value: true } // Show running GIF
+                            // Returns Zippy to her original position
+                            PropertyAnimation {
+                                target: zippyContainer
+                                property: "y"
+                                to: floorRect.y - zippyModel.height + 50
+                                duration: 500
+                                easing.type: Easing.InQuad
                             }
+
+                            // Switch Zippy back to the running animation
+                            PropertyAction { target: zippyJump; property: "visible"; value: false }
+                            PropertyAction { target: zippyModel; property: "visible"; value: true }
+                        }
+                        // Sliding Animation
+                        SequentialAnimation {
+                            id: slideAnimation
+                            running: false
+                            loops: 1
+
+                            // Hide the running image (zippyModel) and show the sliding image (zippySlide)
+                            PropertyAction { target: zippyModel; property: "visible"; value: false }
+                            PropertyAction { target: zippySlide; property: "visible"; value: true }
+
+                            // Slide effect by squashing the container (zippyContainer) via animating the height
+                            PropertyAnimation {
+                                target: zippyContainer
+                                property: "height"
+                                to: zippyContainer.height * 0.75 // Squash vertically to 75% of original height
+                                duration: 450
+                                easing.type: Easing.OutQuad
+                            }
+
+                            // Restore Zippy's container height to normal
+                            PropertyAnimation {
+                                target: zippyContainer
+                                property: "height" // Restore height to original value
+                                to: zippyContainer.height // Restore to original height
+                                duration: 450
+                                easing.type: Easing.InQuad
+                            }
+
+                            // Switch Zippy back to the running animation
+                            PropertyAction { target: zippySlide; property: "visible"; value: false } // Hide sliding image
+                            PropertyAction { target: zippyModel; property: "visible"; value: true } // Show running GIF
+                        }
 
 
 
@@ -510,69 +518,69 @@ Item {
                         }
                     }
                     Timer { // Timer for obstacles coming out
-                                            id: obstacleTimer
-                                            interval: 3000
-                                            running: true
-                                            repeat: true
+                        id: obstacleTimer
+                        interval: 3000
+                        running: true
+                        repeat: true
 
-                                            // Variables to track the last obstacle for each game stage
-                                            property int lastObstacleStage1: 0
-                                            property int lastObstacleStage2: 0
-                                            property int lastObstacleStage3: 0
+                        // Variables to track the last obstacle for each game stage
+                        property int lastObstacleStage1: 0
+                        property int lastObstacleStage2: 0
+                        property int lastObstacleStage3: 0
 
-                                            onTriggered: {
-                                                // Generates a random number (change random() * X to # of obstacles)
-                                                if (gameBase.gameStage === 1) {
-                                                    let obstacleType;
-                                                    do {
-                                                        obstacleType = Math.floor(Math.random() * 3) + 1;
-                                                    } while (obstacleType === lastObstacleStage1); // Loops until there are no repeat obstacles
+                        onTriggered: {
+                            // Generates a random number (change random() * X to # of obstacles)
+                            if (gameBase.gameStage === 1) {
+                                let obstacleType;
+                                do {
+                                    obstacleType = Math.floor(Math.random() * 3) + 1;
+                                } while (obstacleType === lastObstacleStage1); // Loops until there are no repeat obstacles
 
-                                                    lastObstacleStage1 = obstacleType; // Updates the most recent obstacle
+                                lastObstacleStage1 = obstacleType; // Updates the most recent obstacle
 
-                                                    console.log(obstacleType);
-                                                    // Triggers corresponding obstacle
-                                                    if (obstacleType === 1) {
-                                                        rockAnimation.running = true;
-                                                    } else if (obstacleType === 2) {
-                                                        statueAnimation.running = true;
-                                                    } else if (obstacleType === 3) {
-                                                        birdAnimation.running = true;
-                                                    }
-                                                } else if (gameBase.gameStage === 2) {
-                                                    let obstacleType;
-                                                    do {
-                                                        obstacleType = Math.floor(Math.random() * 3) + 1;
-                                                    } while (obstacleType === lastObstacleStage2); // Loops until there are no repeat obstacles
+                                console.log(obstacleType);
+                                // Triggers corresponding obstacle
+                                if (obstacleType === 1) {
+                                    rockAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    statueAnimation.running = true;
+                                } else if (obstacleType === 3) {
+                                    birdAnimation.running = true;
+                                }
+                            } else if (gameBase.gameStage === 2) {
+                                let obstacleType;
+                                do {
+                                    obstacleType = Math.floor(Math.random() * 3) + 1;
+                                } while (obstacleType === lastObstacleStage2); // Loops until there are no repeat obstacles
 
-                                                    lastObstacleStage2 = obstacleType; // Updates the most recent obstacle
+                                lastObstacleStage2 = obstacleType; // Updates the most recent obstacle
 
-                                                    console.log(obstacleType);
-                                                    if (obstacleType === 1) {
-                                                        rockCandyAnimation.running = true;
-                                                    } else if (obstacleType === 2) {
-                                                        clockAnimation.running = true;
-                                                    } else if (obstacleType === 3) {
-                                                        archAnimationFront.running = true;
-                                                        archAnimationBack.running = true;
-                                                    }
-                                                } else if (gameBase.gameStage === 3) {
-                                                    let obstacleType;
-                                                    do {
-                                                        obstacleType = Math.floor(Math.random() * 2) + 1;
-                                                    } while (obstacleType === lastObstacleStage3); // Loops until there are no repeat obstacles
+                                console.log(obstacleType);
+                                if (obstacleType === 1) {
+                                    rockCandyAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    clockAnimation.running = true;
+                                } else if (obstacleType === 3) {
+                                    archAnimationFront.running = true;
+                                    archAnimationBack.running = true;
+                                }
+                            } else if (gameBase.gameStage === 3) {
+                                let obstacleType;
+                                do {
+                                    obstacleType = Math.floor(Math.random() * 2) + 1;
+                                } while (obstacleType === lastObstacleStage3); // Loops until there are no repeat obstacles
 
-                                                    lastObstacleStage3 = obstacleType; // Updates the most recent obstacle
+                                lastObstacleStage3 = obstacleType; // Updates the most recent obstacle
 
-                                                    console.log(obstacleType);
-                                                    if (obstacleType === 1) {
-                                                        paintedRockAnimation.running = true;
-                                                    } else if (obstacleType === 2) {
-                                                        clockAnimation.running = true;
-                                                    }
-                                                }
-                                            }
-                                        }
+                                console.log(obstacleType);
+                                if (obstacleType === 1) {
+                                    paintedRockAnimation.running = true;
+                                } else if (obstacleType === 2) {
+                                    clockAnimation.running = true;
+                                }
+                            }
+                        }
+                    }
                     Timer { // Timer for the background decorations (cloud, blimp, etc)
                         id: backgroundTimer
                         interval: 10000
@@ -580,17 +588,17 @@ Item {
                         repeat: true
                         onTriggered: {
                             // Generates a random number (change random() * X to # of obstacles)
-                                let decorationType = Math.floor(Math.random() *3) + 1;
-                                //Triggers corresponding decoration
+                            let decorationType = Math.floor(Math.random() *3) + 1;
+                            //Triggers corresponding decoration
                             console.log(decorationType)
-                                if (decorationType === 1) {
-                                    cloudAnimation.running = true;
-                                } else if (decorationType === 2) {
-                                    cloudAnimation2.running = true;
-                                } else if (decorationType === 3) {
-                                    blimpAnimation.running = true;
-                                }
+                            if (decorationType === 1) {
+                                cloudAnimation.running = true;
+                            } else if (decorationType === 2) {
+                                cloudAnimation2.running = true;
+                            } else if (decorationType === 3) {
+                                blimpAnimation.running = true;
                             }
+                        }
                     }
                     // Rock Hitbox
                     Rectangle {
