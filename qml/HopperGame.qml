@@ -120,7 +120,7 @@ Item {
                         repeat: true
                         onTriggered: {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
-                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, footballHitbox, archHitbox, paintedRockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
+                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, soccerballHitbox, archHitbox, paintedRockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
                                 //console.log("Collision detected!");
                                 gameRect.reduceHearts();
@@ -149,7 +149,7 @@ Item {
                             heart2.visible = false;
                         } else if (heart1.visible) { // If reduceHearts is called while only one heart is left, the game is over.
                             heart1.visible = false;
-                           // endGame(); //endGame
+                            endGame(); //endGame
                         }
 
                         // Start the timer after reducing a heart
@@ -541,7 +541,7 @@ Item {
                                 console.log(obstacleType);
                                 // Triggers corresponding obstacle
                                 if (obstacleType === 1) {
-                                    footballAnimation.running = true;
+                                    rockAnimation.running = true;
                                 } else if (obstacleType === 2) {
                                     statueAnimation.running = true;
                                 } else if (obstacleType === 3) {
@@ -579,7 +579,7 @@ Item {
                                     clockAnimation.running = true;
                                 }
                                 else if (obstacleType === 3) {
-                                    footballAnimation.running = true;
+                                    soccerballAnimation.running = true;
                                 }
                             }
                         }
@@ -780,32 +780,49 @@ Item {
                     }
 
                     Rectangle {
-                        id: footballHitbox
+                        id: soccerballHitbox
                         width: 350 * root.scaleFactor
-                        height: 250 * root.scaleFactor
-                        anchors.centerIn: football
+                        height: 350 * root.scaleFactor
+                        anchors.centerIn: soccerball
                         color: "red"
                     }
 
                     Image {
-                        id: football
+                        id: soccerball
                         width: 350 * root.scaleFactor
-                        height: 250 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/football.png"
+                        height: 350 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/soccerball.png"
                         x: parent.width
-                        y: 1500 * root.scaleFactor
+                        y: 1400 * root.scaleFactor
                         asynchronous: true
 
-                        // Animation for bird movement
-                        PropertyAnimation on x {
-                            id: footballAnimation
-                            from: parent.width
-                            to: -300
-                            duration: 2000  // Adjusts speed
-                            loops: 1
+                        // Combined animation for movement and rotation
+                        SequentialAnimation {
+                            id: soccerballAnimation
                             running: false
+                            loops: 1
+
+                            ParallelAnimation {
+                                // Horizontal movement
+                                PropertyAnimation {
+                                    target: soccerball
+                                    property: "x"
+                                    from: parent.width
+                                    to: -300
+                                    duration: 2000 // Adjusts speed
+                                }
+
+                                // Rotation
+                                PropertyAnimation {
+                                    target: soccerball
+                                    property: "rotation"
+                                    from: 0
+                                    to: 720 // Two full rotations
+                                    duration: 2000 // Match movement duration
+                                }
+                            }
                         }
-                    }
+                }
                 }
 
                 Image { // archFront // archPart
