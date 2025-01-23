@@ -120,7 +120,7 @@ Item {
                         repeat: true
                         onTriggered: {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
-                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, duckHitbox, archHitbox, paintedRockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
+                            const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, footballHitbox, archHitbox, paintedRockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
                                 //console.log("Collision detected!");
                                 gameRect.reduceHearts();
@@ -149,7 +149,7 @@ Item {
                             heart2.visible = false;
                         } else if (heart1.visible) { // If reduceHearts is called while only one heart is left, the game is over.
                             heart1.visible = false;
-                            endGame(); //endGame
+                           // endGame(); //endGame
                         }
 
                         // Start the timer after reducing a heart
@@ -541,7 +541,7 @@ Item {
                                 console.log(obstacleType);
                                 // Triggers corresponding obstacle
                                 if (obstacleType === 1) {
-                                    rockAnimation.running = true;
+                                    footballAnimation.running = true;
                                 } else if (obstacleType === 2) {
                                     statueAnimation.running = true;
                                 } else if (obstacleType === 3) {
@@ -567,7 +567,7 @@ Item {
                             } else if (gameBase.gameStage === 3) {
                                 let obstacleType;
                                 do {
-                                    obstacleType = Math.floor(Math.random() * 2) + 1;
+                                    obstacleType = Math.floor(Math.random() * 3) + 1;
                                 } while (obstacleType === lastObstacleStage3); // Loops until there are no repeat obstacles
 
                                 lastObstacleStage3 = obstacleType; // Updates the most recent obstacle
@@ -577,6 +577,9 @@ Item {
                                     paintedRockAnimation.running = true;
                                 } else if (obstacleType === 2) {
                                     clockAnimation.running = true;
+                                }
+                                else if (obstacleType === 3) {
+                                    footballAnimation.running = true;
                                 }
                             }
                         }
@@ -775,35 +778,33 @@ Item {
                             running: false
                         }
                     }
-                }
 
-                // Duck Hitbox
-                Rectangle {
-                    id: duckHitbox
-                    width: 450 * root.scaleFactor
-                    height: 400 * root.scaleFactor
-                    anchors.centerIn: duck
-                    color: "red"
-                }
+                    Rectangle {
+                        id: footballHitbox
+                        width: 350 * root.scaleFactor
+                        height: 250 * root.scaleFactor
+                        anchors.centerIn: football
+                        color: "red"
+                    }
 
-                // Duck Obstacle
-                Image {
-                    id: duck
-                    width: 400 * root.scaleFactor
-                    height: 375 * root.scaleFactor
-                    source: filepath + "/gamefiles/Hopper/duck.png"
-                    x: parent.width
-                    y: floorRect.y - height - 175
-                    asynchronous: true
+                    Image {
+                        id: football
+                        width: 350 * root.scaleFactor
+                        height: 250 * root.scaleFactor
+                        source: filepath + "/gamefiles/Hopper/football.png"
+                        x: parent.width
+                        y: 1500 * root.scaleFactor
+                        asynchronous: true
 
-                    // Animation for duck movement
-                    PropertyAnimation on x {
-                        id: duckAnimation
-                        from: parent.width
-                        to: -300
-                        duration: 2000  // Adjusts speed
-                        loops: 1
-                        running: false
+                        // Animation for bird movement
+                        PropertyAnimation on x {
+                            id: footballAnimation
+                            from: parent.width
+                            to: -300
+                            duration: 2000  // Adjusts speed
+                            loops: 1
+                            running: false
+                        }
                     }
                 }
 
