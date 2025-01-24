@@ -35,7 +35,8 @@ jobs:
           qtbase5-dev qttools5-dev-tools \
           libx11-dev libxext-dev libxrandr-dev \
           libgl1-mesa-dev zlib1g-dev \
-          patchelf fuse
+          patchelf fuse qt6-wayland \
+          qt6-wayland-dev qt6-wayland-dev-tools
 
     # Build the application
     - name: Build application
