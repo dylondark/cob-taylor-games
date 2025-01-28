@@ -149,7 +149,7 @@ Item {
                             heart2.visible = false;
                         } else if (heart1.visible) { // If reduceHearts is called while only one heart is left, the game is over.
                             heart1.visible = false;
-                            endGame(); //endGame
+                           // endGame(); //endGame
                         }
 
                         // Start the timer after reducing a heart
@@ -216,7 +216,7 @@ Item {
                             skyImage.visible = true; // Makes sunset visible
                             skyImage.opacity = 1; // Starts the animation
                             gameBase.gameStage = 2;
-                            obstacleTimer.interval = 2000;
+                            obstacleTimer.interval = 2500;
                             console.log("Game Difficulty has been set to 2");
                         }
                     }
@@ -230,7 +230,7 @@ Item {
                             sunsetImage.visible = true; // Makes sunset visible
                             sunsetImage.opacity = 1; // Starts the animation
                             gameBase.gameStage = 3;
-                            obstacleTimer.interval = 1500;
+                            obstacleTimer.interval = 2000;
                             console.log("Game Difficulty has been set to 3");
                         }
                     }
@@ -351,8 +351,8 @@ Item {
                         id: zippyBHitbox
                         anchors.centerIn: zippyContainer
                         width: 225 * root.scaleFactor
-                        height: 550 * root.scaleFactor
-                        color: "transparent"
+                        height: 525 * root.scaleFactor
+                        color: "red"
                     }
 
                     Rectangle {
@@ -362,7 +362,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "transparent"
+                        color: "red"
                     }
 
                     Item {
@@ -451,7 +451,7 @@ Item {
                                 target: zippyContainer
                                 property: "height"
                                 to: zippyContainer.height * 0.75 // Squash vertically to 75% of original height
-                                duration: 450
+                                duration: 650
                                 easing.type: Easing.OutQuad
                             }
 
@@ -753,7 +753,7 @@ Item {
                     // Bird obstacle
                     Rectangle {
                         id: birdHitbox
-                        width: 370 * root.scaleFactor
+                        width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
                         color: "red"
