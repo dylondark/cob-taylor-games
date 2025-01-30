@@ -427,7 +427,7 @@ Item {
                             PropertyAnimation {
                                 target: zippyContainer
                                 property: "y"
-                                to: floorRect.y - zippyModel.height + 50
+                                to: floorRect.y - zippyModel.height + 125 * root.scaleFactor
                                 duration: 500
                                 easing.type: Easing.InQuad
                             }
