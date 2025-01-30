@@ -966,7 +966,22 @@ Item {
                     }
                 }
             }
-
+            Keys.onPressed: {
+                switch (event.key) {
+                case Qt.Key_Down:
+                    if (!zippyModel.busy && !hopAnimation.running && !slideAnimation.running) {
+                        slideAnimation.start(); // Starts the slide animation
+                    }
+                    break;
+                case Qt.Key_Up:
+                    if (!zippyModel.busy && !hopAnimation.running && !slideAnimation.running) {
+                        hopAnimation.start(); // Starts the slide animation
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
             GameOverBase { // This calls a CPP file which saves the name and score to the leaderboard.
                 id:gameOverBase
             }
