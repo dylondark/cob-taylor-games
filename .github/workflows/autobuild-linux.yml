@@ -46,23 +46,8 @@ jobs:
         qmake .. -spec linux-g++ CONFIG+=release
         make -j$(nproc)
 
-    # Package as AppImage
-    - name: Package as AppImage
-      run: |
-        wget -q https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
-        chmod +x linuxdeployqt-continuous-x86_64.AppImage
-        mkdir -p AppDir/usr/bin
-        cp build/cob-taylor-games AppDir/usr/bin/
-        mkdir -p AppDir/usr/share/applications
-        cp appimage/cob-taylor-games.desktop AppDir/usr/share/applications/
-        mkdir -p AppDir/usr/share/applications/icons/hicolor/64x64/apps
-        cp appimage/cob-taylor-games.png AppDir/usr/share/applications/icons/hicolor/64x64/apps
-        mkdir -p AppDir/usr/share/doc/libc6
-        touch AppDir/usr/share/doc/libc6/copyright
-        ./linuxdeployqt-continuous-x86_64.AppImage AppDir/usr/share/applications/cob-taylor-games.desktop -appimage -unsupported-allow-new-glibc -extra-plugins=platforms,qml,quickwidgets
-
     # Upload AppImage to GitHub release
     - name: Upload AppImage to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: Taylor_Games_Kiosk-*-x86_64.AppImage
+        files: cob-taylor-games
