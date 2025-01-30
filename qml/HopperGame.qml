@@ -149,7 +149,7 @@ Item {
                             heart2.visible = false;
                         } else if (heart1.visible) { // If reduceHearts is called while only one heart is left, the game is over.
                             heart1.visible = false;
-                           // endGame(); //endGame
+                            // endGame(); //endGame
                         }
 
                         // Start the timer after reducing a heart
@@ -576,15 +576,14 @@ Item {
                                 if (obstacleType === 1) {
                                     paintedRockAnimation.running = true;
                                 } else if (obstacleType === 2) {
-                                    clockAnimation.running = true;
-                                }
-                                else if (obstacleType === 3) {
+                                    clockAnimation.running = true; // NEED NEW OBSTACLE HERE
+                                } else if (obstacleType === 3) {
                                     soccerballAnimation.running = true;
                                 }
                             }
                         }
                     }
-                    Timer { // Timer for the background decorations (cloud, blimp, etc)
+                    Timer { // Timer for the background decorations (cloud, blimp, etc).
                         id: backgroundTimer
                         interval: 10000
                         running: true
@@ -822,7 +821,7 @@ Item {
                                 }
                             }
                         }
-                }
+                    }
                 }
 
                 Image { // archFront // archPart
