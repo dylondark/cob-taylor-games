@@ -8,6 +8,7 @@ import QtQuick
 import QtQuick.Controls.Material
 import QtQuick.Layouts
 import QtQml
+import QtMultimedia
 import QMLControllers
 
 // this game is in PREVIEW STATE
@@ -236,7 +237,7 @@ Item {
                     }
 
                     // Floor Rectangle for Zippy to run on
-                    Image {
+                    Video {
                         id: floorRect
                         width: 1750 * root.scaleFactor
                         height: 600 * root.scaleFactor
@@ -244,8 +245,12 @@ Item {
                         Layout.fillWidth: true
                         Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
-                        source: filepath + "/gamefiles/Hopper/grass.zippyhopp.jpg"
-                        asynchronous: true
+                        source: filepath + "/gamefiles/Hopper/grass.mp4"
+                        //playbackState: MediaPlayer.PlayingState
+                        loops: MediaPlayer.Infinite
+                        fillMode: VideoOutput.PreserveAspectCrop
+                        playbackRate: 1.0
+                        autoPlay: true
                     }
 
                     // Cloud Background Image
