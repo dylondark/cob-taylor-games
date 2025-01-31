@@ -45,9 +45,11 @@ jobs:
         cd build
         qmake .. -spec linux-g++ CONFIG+=release
         make -j$(nproc)
+        pwd
+        ls -sh
 
     # Upload AppImage to GitHub release
     - name: Upload AppImage to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: ./cob-taylor-games
+        files: cob-taylor-games
