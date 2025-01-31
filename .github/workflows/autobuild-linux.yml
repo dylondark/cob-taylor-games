@@ -1,4 +1,4 @@
-name: Build and Release AppImage for Linux
+name: Build and Release Executable for Linux
 
 permissions:
   contents: write
@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      - 'v*' # run on every tag pushed to master
+      - 'v*' # run on every version tag pushed 
 
 jobs:
   build:
@@ -36,7 +36,8 @@ jobs:
           libx11-dev libxext-dev libxrandr-dev \
           libgl1-mesa-dev zlib1g-dev \
           patchelf fuse qt6-wayland \
-          qt6-wayland-dev qt6-wayland-dev-tools
+          qt6-wayland-dev qt6-wayland-dev-tools \
+          tar gzip
 
     # Build the application
     - name: Build application
@@ -45,11 +46,10 @@ jobs:
         cd build
         qmake .. -spec linux-g++ CONFIG+=release
         make -j$(nproc)
-        pwd
-        ls -sh
+        tar -czvf cob-taylor-games.tar.gz cob-taylor-games
 
-    # Upload AppImage to GitHub release
-    - name: Upload AppImage to GitHub Release
+    # Upload executable to GitHub release
+    - name: Upload Executable to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: cob-taylor-games
+        files: cob-taylor-games.tar.gz
