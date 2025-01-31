@@ -237,7 +237,7 @@ Item {
                     }
 
                     // Floor Rectangle for Zippy to run on
-                    Video {
+                    Item {
                         id: floorRect
                         width: 1750 * root.scaleFactor
                         height: 600 * root.scaleFactor
@@ -245,12 +245,24 @@ Item {
                         Layout.fillWidth: true
                         Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
-                        source: filepath + "/gamefiles/Hopper/grass.mp4"
-                        //playbackState: MediaPlayer.PlayingState
-                        loops: MediaPlayer.Infinite
-                        fillMode: VideoOutput.PreserveAspectCrop
-                        playbackRate: 1.0
-                        autoPlay: true
+
+                        Image {
+                            id: floorTexture
+                            height: parent.height
+                            source: filepath + "/gamefiles/Hopper/grass.zippyhopp-mirrored.jpg"
+
+                            PathAnimation {
+                                id: floorAnim
+                                loops: Animation.Infinite
+                                target: floorTexture
+                                running: true
+                                duration: 2000
+                                path: Path {
+                                    PathLine { x: 0; y: 0 }
+                                    PathLine { x: -1500 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                }
+                            }
+                        }
                     }
 
                     // Cloud Background Image
