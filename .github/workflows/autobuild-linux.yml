@@ -21,7 +21,7 @@ jobs:
     - name: Set up Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.8.*' # Replace with your Qt version
+        version: '6.8.*'
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
@@ -36,8 +36,7 @@ jobs:
           libx11-dev libxext-dev libxrandr-dev \
           libgl1-mesa-dev zlib1g-dev \
           patchelf fuse qt6-wayland \
-          qt6-wayland-dev qt6-wayland-dev-tools \
-          tar gzip
+          qt6-wayland-dev qt6-wayland-dev-tools
 
     # Build the application
     - name: Build application
