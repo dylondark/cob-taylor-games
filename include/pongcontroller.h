@@ -33,6 +33,11 @@ public:
     /*
         Kicks off the game loop. To be called by QML after entering the game.
     */
+
+    void updateGame();
+    /*
+        Kicks off the game loop. To be called by QML after entering the game.
+    */
     Q_INVOKABLE void startGame();
 
 
@@ -65,6 +70,8 @@ private slots:
     void timerTick();
 
 private:
+
+    void initBallPosition();
 
     /*
         The base of the paths. Should be the location of the folder containing the gamefiles folder.
@@ -115,6 +122,16 @@ private:
     Ball ball;
     AI ai;
 
+    // Ball properties
+    qreal ballX;
+    qreal ballY;
+    qreal ballWidth;
+    qreal ballHeight;
+    qreal ballVelocityX;
+    qreal ballVelocityY;
+    // Updates the ball's position and handles collisions
+    void updateBallPosition();
+
     // Timer for the game
     QTimer gameTimer;
 
@@ -122,7 +139,7 @@ private:
         Main game loop. Called every time a new action has happened.
         Calculates the new game state in response to the action and sends the signal to QML to display it.
     */
-    void updateGame();
+
 
     /*
         checks to track player's input for paddle movement
@@ -132,7 +149,6 @@ private:
 
     // True if player is moving paddle left
     bool movingLeft;
-
 
 
 };
