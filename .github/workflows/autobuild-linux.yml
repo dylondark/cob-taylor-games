@@ -46,10 +46,9 @@ jobs:
         cd build
         qmake .. -spec linux-g++ CONFIG+=release
         make -j$(nproc)
-        tar -czvf cob-taylor-games.tar.gz cob-taylor-games
 
     # Upload executable to GitHub release
     - name: Upload Executable to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: cob-taylor-games.tar.gz
+        files: build/cob-taylor-games
