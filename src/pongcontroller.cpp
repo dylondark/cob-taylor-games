@@ -185,7 +185,7 @@ void PongController::checkCollisions()
     if (ballY <= 0 || ballY + ballHeight >= height()) {
         qDebug() << "Game Over! Ball hit top/bottom wall.";
         ballVelocityY = -ballVelocityY;
-
+        //gameOver = true;
         return;
     }
 
@@ -194,11 +194,34 @@ void PongController::checkCollisions()
         ballVelocityX = -ballVelocityX; // Reverse X direction
     }
 
-    // Player 1 Paddle (left paddle)
+    // Define ball and paddle rectangles for collision detection
+    QRectF ballRect(ballX, ballY, ballWidth, ballHeight);
 
+    // **Fix Paddle 1 (Left Paddle)**
+    QRectF paddle1Rect(playerPaddle1.x,  // X position
+                       height() - playerPaddle1.height - 10,  // Center vertically
+                       playerPaddle1.width,
+                       playerPaddle1.height);
 
+    if (ballRect.intersects(paddle1Rect)) {
+        qDebug() << "Collision with Player 1 Paddle!";
+        ballVelocityY = -ballVelocityY; // Reverse X direction
+        ballX = paddle1Rect.right() + 1; // Prevent sticking
+    }
 
+    // **Fix Paddle 2 (Right Paddle)**
+    QRectF paddle2Rect(width() - playerPaddle2.x - playerPaddle2.width,  // X position
+                       10,  // Center vertically
+                       playerPaddle2.width,
+                       playerPaddle2.height);
+
+    if (ballRect.intersects(paddle2Rect)) {
+        qDebug() << "Collision with Player 2 Paddle!";
+        ballVelocityY = -ballVelocityY; // Reverse X direction
+        ballX = paddle2Rect.left() - ballWidth - 1; // Prevent sticking
+    }
 }
+
 
 void PongController::aiOperation()
 {
