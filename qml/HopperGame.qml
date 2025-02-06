@@ -26,7 +26,7 @@ Item {
     property string strName: "Hopper"
     property string username: ""
     property int gameEnum: 3
-
+    property int heartNum: 3
     function endGame() {
         gameBase.visible = false;
         gameOverBase.gameOverOps();
@@ -92,7 +92,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     y: (parent.height - height) / 2 - 200 * root.scaleFactor
 
-
+                    
                     // Function for checking hitbox vs the object in the array
                     function checkCollision(object1, object2) {
                         return object1.x < object2.x + object2.width &&
@@ -122,9 +122,14 @@ Item {
                         onTriggered: {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
                             const obstacles = [rockHitbox, birdHitbox, rockCandyHitbox, statueHitbox, clockHitbox, soccerballHitbox, archHitbox, paintedRockHitbox]; // Array of obstacles to check against **ALL OBSTACLES BE INCLUDED**
+                            const powerups = [goldHeartHitbox]
                             if (gameRect.checkCollisions(hitboxes, obstacles)) {
                                 //console.log("Collision detected!");
                                 gameRect.reduceHearts();
+                            }
+                            if (gameRect.checkCollisions(hitboxes, powerups)) {
+                                //console.log("Powerup gained!");
+                                gameRect.increaseHearts();
                             }
                         }
                     }
@@ -154,6 +159,21 @@ Item {
                         }
 
                         // Start the timer after reducing a heart
+                        heartTimer.restart();
+                    }
+
+                    function increaseHearts() {
+                        if (heartTimer.running) {
+                            return; // Skip if the timer is still running
+                        }
+                        console.log("Powerup gained!")
+                        // Check visibility of each heart and add them one by one
+                        if (!heart2.visible) {
+                            heart2.visible = true;
+                        } else if (!heart3.visible) {
+                            heart3.visible = true;
+                        }
+                        // Start the timer after adding a heart
                         heartTimer.restart();
                     }
 
@@ -534,6 +554,20 @@ Item {
                             homeBarBase.updatePoints();
                         }
                     }
+
+
+                    Timer {
+                        id: powerupTimer
+                        interval: 10000 // 1000 ms = 1 second
+                        running: true // Initially stopped
+                        repeat: true // Continuously counts up
+                        onTriggered: {
+                            //goldHeartAnimation.running = true;
+                            if (gameBase.gameStage === 3) {
+                            goldHeartAnimation.running = true;
+                            }
+                        }
+                    }
                     Timer { // Timer for obstacles coming out
                         id: obstacleTimer
                         interval: 3000
@@ -873,7 +907,33 @@ Item {
                         GradientStop { position: 1.0; color: "#3f51b1" }
                     }
                 }
+                Rectangle {
+                    id: goldHeartHitbox
+                    width: 500 * root.scaleFactor
+                    height: 350 * root.scaleFactor
+                    anchors.centerIn: goldHeart
+                    color: "transparent" // was red
+                }
 
+                Image {
+                    id: goldHeart
+                    width: 450 * root.scaleFactor
+                    height: 450 * root.scaleFactor
+                    source: filepath + "/gamefiles/Hopper/goldHeart.png"
+                    x: parent.width
+                    y: floorRect.y - height + 50
+                    asynchronous: true
+
+                    // Animation for goldHeart movement
+                    PropertyAnimation on x {
+                        id: goldHeartAnimation
+                        from: parent.width
+                        to: -300
+                        duration: 3000  // Adjusts speed
+                        loops: 1
+                        running: false
+                    }
+                }
                 // Blocks obstacles on right side
                 Rectangle {
                     id: rightBar
