@@ -64,34 +64,50 @@ Item {
                     spacing: 20
 
                     // Score Section
+                    // Player Score Section
                     Rectangle {
-                        id: scoreBox
+                        id: playerScoreBox
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        color: "#D2B48C"  // Light brown background for the score
+                        color: "#D2B48C"
                         border.color: "black"
                         Text {
+                            id: playerScoreText
                             anchors.centerIn: parent
-                            text: "Score: 0"
-                            font.pixelSize: 20
+                            text: "Player Score: " + (controller.playerScore !== undefined ? controller.playerScore : 0)
+                            font.pixelSize: 24
                             color: "navy"
+                            }
                         }
-                    }
+                    Rectangle {
+                            id: aiScoreBox
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            color: "#D2B48C"
+                            border.color: "black"
+                            Text {
+                                id: aiScoreText
+                                anchors.centerIn: parent
+                                text: "AI Score: " + (controller.aiScore !== undefined ? controller.aiScore : 0)
+                                font.pixelSize: 24
+                                color: "navy"
+                            }
+                        }
 
                     // Time Section
-                    Rectangle {
-                        id: timeBox
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        color: "#D2B48C"  // Light brown background for the time
-                        border.color: "black"
-                        Text {
-                            anchors.centerIn: parent
-                            text: "Time: 0"
-                            font.pixelSize: 20
-                            color: "navy"
-                        }
-                    }
+                    // Rectangle {
+                    //     id: timeBox
+                    //     Layout.fillWidth: true
+                    //     Layout.fillHeight: true
+                    //     color: "#D2B48C"  // Light brown background for the time
+                    //     border.color: "black"
+                    //     Text {
+                    //         anchors.centerIn: parent
+                    //         text: "Time: 0"
+                    //         font.pixelSize: 20
+                    //         color: "navy"
+                    //     }
+                    // }
 
                 }
 
@@ -99,11 +115,34 @@ Item {
                 PongController {
                     id: controller
                     anchors.top: parent.top
-                    anchors.left: holdRectangle.right
+                    anchors.left: parent.right
                     anchors.centerIn: parent
                     height: 3040 * root.scaleFactor
                     width: 1550 * root.scaleFactor
                     smooth: false
+                    focus: true  // Ensure PongController gets keyboard input
+
+                    Component.onCompleted: {
+                            console.log("Setting focus to PongController...");
+                            controller.forceActiveFocus();
+                            console.log("PongController focus status (QML):", controller.focus);
+                        }
+
+                    Keys.onPressed: event => {
+                            console.log("Key Pressed in QML:", event.key);
+                            controller.keyPressEvent(event);
+                        }
+
+                    Keys.onReleased: event => {
+                            controller.keyReleaseEvent(event);
+                        }
+                }
+                Connections {
+                    target: controller
+                    function onScoreUpdated() {
+                        playerScoreText.text = "Player1 Score: " + controller.playerScore;
+                        aiScoreText.text = "Player2 Score: " + controller.aiScore;
+                    }
                 }
 
                 RowLayout {
@@ -158,6 +197,25 @@ Item {
                                 width: 200
                                 height: 100
                             }
+                            Keys.onPressed: (event) => {
+                                switch (event.key) {
+                                    case Qt.Key_A: // Move Player Paddle Left
+                                        controller.moveLeftPaddle1();
+                                        break;
+                                    case Qt.Key_S: // Move Player Paddle Right
+                                        controller.moveRightPaddle1();
+                                        break;
+                                    case Qt.Key_Left: // Move AI Paddle Left
+                                        controller.moveLeftPaddle2();
+                                        break;
+                                    case Qt.Key_Right: // Move AI Paddle Right
+                                        controller.moveRightPaddle2();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
                         }
                     }
 
@@ -211,33 +269,6 @@ Item {
                     }
                 }
 
-
-
-
-
-                /*
-                Rectangle {
-                    id: gameRect
-                    width: 1550 * root.scaleFactor
-                    height: 3040 * root.scaleFactor
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 4
-                    color: "#3AE57F"
-                    x: (parent.width - width) / 2
-                    y: (parent.height - height) / 1.5
-
-                    Repeater {
-                        model: gameRect.width / 25// Number of dots, adjust as necessary
-                        Rectangle {
-                            width: 10 // Width of each dot
-                            height: 2 // Height of each dot
-                            color: "white"
-                            anchors.verticalCenter: parent.verticalCenter
-                            x: index * 25.5 // Spacing between dots, adjust as needed
-                        }
-                    }
-                }*/
             }
         }
 

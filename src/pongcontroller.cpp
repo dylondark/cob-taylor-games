@@ -1,6 +1,7 @@
 #include "pongcontroller.h"
 #include "cliparser.h"
 #include <QPainter>
+#include <QKeyEvent>
 
 /*
     Constructor for PongController
@@ -13,28 +14,46 @@ PongController::PongController()
     movingLeft = false;
     score = 0;
     timerInterval = 16; // ~60fps
+    playerScore = 0;
+    aiScore = 0;
 
     // Connect timer
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
-
 
     // Initialize ball properties
     ballX = 0;
     ballY = 0;
     ballWidth = 20;
     ballHeight = 20;
-    ballVelocityX = 2;  // Diagonal movement
+    ballVelocityX = 2;
     ballVelocityY = 2;
 
     // Initialize both paddles
-    playerPaddle1 = {10, 100, 20, false}; // x-position, width, height, isPlayer2
-    playerPaddle2 = {10, 100, 20, true};     // x-position, width, height, isPlayer2
+    playerPaddle1 = {10, 100, 20, false};
+    playerPaddle2 = {10, 100, 20, true};
+
+    // Ensure PongController can receive key events
+    setFlag(QQuickItem::ItemHasContents, true);
+    setFlag(QQuickItem::ItemIsFocusScope, true);
+    setFocus(true);
+    setAcceptedMouseButtons(Qt::AllButtons);
+    setAcceptHoverEvents(true);
+    setFlag(QQuickItem::ItemAcceptsInputMethod, true);  // Ensure input is accepted
+
+    // Manually set active focus (force focus on startup)
+    QMetaObject::invokeMethod(this, "forceActiveFocus", Qt::QueuedConnection);
+    // Debugging focus
+    qDebug() << "PongController focus status (constructor): " << hasActiveFocus();
 
 
+    QTimer::singleShot(100, this, [this]() {
+        qDebug() << "PongController focus status (constructor after invoke): " << hasActiveFocus();
+    });
 
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
 }
+
 
 PongController::~PongController()
 {
@@ -100,6 +119,52 @@ void PongController::startGame()
 
 }
 
+#include <QKeyEvent>
+
+void PongController::keyPressEvent(QKeyEvent* event)
+{
+    qDebug() << "Key Pressed: " << event->key();  // Debugging
+    if (!hasActiveFocus()) {
+        qDebug() << "PongController does NOT have focus! Ignoring key press.";
+        return;
+    }
+
+    switch (event->key()) {
+    case Qt::Key_A:
+        qDebug() << "Moving Player Paddle Left";
+        moveLeftPaddle1();
+        break;
+    case Qt::Key_S:
+        qDebug() << "Moving Player Paddle Right";
+        moveRightPaddle1();
+        break;
+    case Qt::Key_Left:
+        qDebug() << "Moving AI Paddle Left";
+        moveLeftPaddle2();
+        break;
+    case Qt::Key_Right:
+        qDebug() << "Moving AI Paddle Right";
+        moveRightPaddle2();
+        break;
+    default:
+        QQuickPaintedItem::keyPressEvent(event);
+    }
+}
+
+
+void PongController::keyReleaseEvent(QKeyEvent* event)
+{
+    switch (event->key()) {
+    case Qt::Key_A:
+    case Qt::Key_S:
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+        // No continuous movement required, so do nothing.
+        break;
+    default:
+        QQuickPaintedItem::keyReleaseEvent(event);
+    }
+}
 
 
 /*
@@ -156,9 +221,153 @@ unsigned PongController::getScore()
     return 0;
 }
 
-/*
-    Slot function that is called when gameTimer ticks. Calls updateGame with the TimerTick action.
-*/
+// /*
+//     Slot function that is called when gameTimer ticks. Calls updateGame with the TimerTick action.
+// */
+// void PongController::timerTick()
+// {
+//     if (gameOver)
+//     {
+//         gameTimer.stop();
+//         return;
+//     }
+
+//     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
+//         updateGame();
+//     });
+
+//     gameTimer.setInterval(timerInterval);
+// }
+
+void PongController::move()
+{
+
+}
+
+
+void PongController::checkCollisions()
+{
+    // Define ball rectangle for collision detection
+    QRectF ballRect(ballX, ballY, ballWidth, ballHeight);
+
+    // **Check if the ball missed a paddle (scoring condition)**
+    if (ballY + ballHeight >= height()) { // Player missed, AI scores
+        aiScore++;
+        emit scoreUpdated();
+        qDebug() << "AI Scores! Player: " << playerScore << " - AI: " << aiScore;
+        resetBall();
+        return; // Exit function to avoid further updates
+    }
+
+    if (ballY <= 0) { // AI missed, Player scores
+        playerScore++;
+        emit scoreUpdated();
+        qDebug() << "Player Scores! Player: " << playerScore << " - AI: " << aiScore;
+        resetBall();
+        return; // Exit function to avoid further updates
+    }
+
+    // **End game if any player reaches 5 points**
+    if (playerScore >= 5 || aiScore >= 5) {
+        gameOver = true;
+        gameTimer.stop();
+        emit gameOverSignal();
+        qDebug() << "Game Over! Final Score -> Player: " << playerScore << " - AI: " << aiScore;
+        return;
+    }
+
+    // **Bounce off the left and right walls**
+    if (ballX <= 0 || ballX + ballWidth >= width()) {
+        ballVelocityX = -ballVelocityX; // Reverse X direction
+    }
+
+    // **Check collision with Player's Paddle (bottom paddle)**
+    QRectF paddle1Rect(playerPaddle1.x,
+                       height() - playerPaddle1.height - 10,
+                       playerPaddle1.width,
+                       playerPaddle1.height);
+
+    if (ballRect.intersects(paddle1Rect)) {
+        qDebug() << "Collision with Player 1 Paddle!";
+        ballVelocityY = -ballVelocityY; // Reverse Y direction
+        ballY = paddle1Rect.top() - ballHeight - 1; // Prevent sticking
+
+        // **Maintain original speed**
+        ballVelocityX = (ballVelocityX > 0) ? 2 : -2;
+        ballVelocityY = (ballVelocityY > 0) ? 2 : -2;
+    }
+
+    // **Check collision with AI's Paddle (top paddle)**
+    QRectF paddle2Rect(width() - playerPaddle2.x - playerPaddle2.width,
+                       10,
+                       playerPaddle2.width,
+                       playerPaddle2.height);
+
+    if (ballRect.intersects(paddle2Rect)) {
+        qDebug() << "Collision with Player 2 Paddle!";
+        ballVelocityY = -ballVelocityY; // Reverse Y direction
+        ballY = paddle2Rect.bottom() + 1; // Prevent sticking
+
+        // **Maintain original speed**
+        ballVelocityX = (ballVelocityX > 0) ? 2 : -2;
+        ballVelocityY = (ballVelocityY > 0) ? 2 : -2;
+
+    }
+}
+
+
+
+
+void PongController::aiOperation()
+{
+    // Simple AI that moves towards the ball's X position
+    if (ballX > playerPaddle2.x + playerPaddle2.width / 2) {
+        playerPaddle2.x += 5;  // Move AI paddle right
+    } else if (ballX < playerPaddle2.x + playerPaddle2.width / 2) {
+        playerPaddle2.x -= 5;  // Move AI paddle left
+    }
+
+    // Prevent AI paddle from moving out of bounds
+    if (playerPaddle2.x < 0)
+        playerPaddle2.x = 0;
+    if (playerPaddle2.x > width() - playerPaddle2.width)
+        playerPaddle2.x = width() - playerPaddle2.width;
+
+    update();
+}
+
+void PongController::updateGame()
+{
+    if (gameOver)
+        return; // Stop updating if the game is over
+
+    // Move the ball
+    ballX += ballVelocityX;
+    ballY += ballVelocityY;
+
+
+    ballVelocityX = (ballVelocityX > 0) ? 2 : -2;
+    ballVelocityY = (ballVelocityY > 0) ? 2 : -2;
+
+    // Check for collisions
+    checkCollisions();
+
+    // Trigger a repaint
+    update();
+}
+
+void PongController::resetBall()
+{
+    ballX = width() / 2 - ballWidth / 2;
+    ballY = height() / 2 - ballHeight / 2;
+
+    // Set speed to original value (2 units)
+    ballVelocityX = (rand() % 2 == 0) ? 2 : -2;
+    ballVelocityY = (rand() % 2 == 0) ? 2 : -2;
+
+    update();
+}
+
 void PongController::timerTick()
 {
     if (gameOver)
@@ -174,70 +383,15 @@ void PongController::timerTick()
     gameTimer.setInterval(timerInterval);
 }
 
-void PongController::move()
+unsigned PongController::getPlayerScore()
 {
-
+    return playerScore;
 }
 
-void PongController::checkCollisions()
+unsigned PongController::getAIScore()
 {
-    // Game over if ball hits top or bottom walls
-    if (ballY <= 0 || ballY + ballHeight >= height()) {
-        qDebug() << "Game Over! Ball hit top/bottom wall.";
-        ballVelocityY = -ballVelocityY;
-        //gameOver = true;
-        return;
-    }
-
-    // Bounce off left and right walls
-    if (ballX <= 0 || ballX + ballWidth >= width()) {
-        ballVelocityX = -ballVelocityX; // Reverse X direction
-    }
-
-    // Define ball and paddle rectangles for collision detection
-    QRectF ballRect(ballX, ballY, ballWidth, ballHeight);
-
-    // **Fix Paddle 1 (Left Paddle)**
-    QRectF paddle1Rect(playerPaddle1.x,  // X position
-                       height() - playerPaddle1.height - 10,  // Center vertically
-                       playerPaddle1.width,
-                       playerPaddle1.height);
-
-    if (ballRect.intersects(paddle1Rect)) {
-        qDebug() << "Collision with Player 1 Paddle!";
-        ballVelocityY = -ballVelocityY; // Reverse X direction
-        ballX = paddle1Rect.right() + 1; // Prevent sticking
-    }
-
-    // **Fix Paddle 2 (Right Paddle)**
-    QRectF paddle2Rect(width() - playerPaddle2.x - playerPaddle2.width,  // X position
-                       10,  // Center vertically
-                       playerPaddle2.width,
-                       playerPaddle2.height);
-
-    if (ballRect.intersects(paddle2Rect)) {
-        qDebug() << "Collision with Player 2 Paddle!";
-        ballVelocityY = -ballVelocityY; // Reverse X direction
-        ballX = paddle2Rect.left() - ballWidth - 1; // Prevent sticking
-    }
+    return aiScore;
 }
 
 
-void PongController::aiOperation()
-{
 
-}
-
-void PongController::updateGame()
-{
-
-    // Move the ball
-    ballX += ballVelocityX;
-    ballY += ballVelocityY;
-
-    // Check for collisions
-    checkCollisions();
-
-    // Trigger a repaint
-    update();
-}

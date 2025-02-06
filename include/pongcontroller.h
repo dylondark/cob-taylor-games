@@ -13,6 +13,10 @@ class PongController : public QQuickPaintedItem
 {
     Q_OBJECT
     QML_ELEMENT
+
+    // Expose playerScore and aiScore as QML properties
+    Q_PROPERTY(int playerScore READ getPlayerScore NOTIFY scoreUpdated)
+    Q_PROPERTY(int aiScore READ getAIScore NOTIFY scoreUpdated)
 public:
 
     /*
@@ -24,6 +28,10 @@ public:
         Destructor for PongController
     */
     ~PongController();
+
+    // Getter functions for QML
+    int getPlayerScore() const { return playerScore; }
+    int getAIScore() const { return aiScore; }
 
     /*
         Paint a new frame onto the canvas
@@ -45,6 +53,8 @@ public:
     Q_INVOKABLE void moveRightPaddle1();
     Q_INVOKABLE void moveLeftPaddle2();
     Q_INVOKABLE void moveRightPaddle2();
+    Q_INVOKABLE unsigned getPlayerScore();
+    Q_INVOKABLE unsigned getAIScore();
 
     /*
         Returns whether game is over or not.
@@ -61,15 +71,12 @@ signals:
         Signal to tell QML when it's time to update the game field
     */
     void updateQML();
-
-private slots:
-
-    /*
-        Slot function that is called when gameTimer ticks.
-    */
-    void timerTick();
+    void gameOverSignal(); // <-- Signal for game over
+    void scoreUpdated();   // <-- Signal to update score
 
 private:
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
 
     void initBallPosition();
 
@@ -116,6 +123,11 @@ private:
     */
     unsigned timerInterval;
 
+    int playerScore=0; // <-- Player's Score
+    int aiScore=0;     // <-- AI's Score
+
+    void timerTick();
+    void resetBall();
 
     Paddle playerPaddle1;
     Paddle playerPaddle2;
