@@ -118,4 +118,23 @@ Item {
 
         }
     } // Column Layout
+
+    // Button implementation
+
+    Keys.onPressed: {
+        switch (event.key) {
+        case Qt.Key_Left:
+            controller.leftAction();
+            break;
+        case Qt.Key_Right:
+            controller.rightAction();
+            break;
+        case Qt.Key_Down:
+            controller.downAction();
+            break;
+        case Qt.Key_Up:
+            controller.upAction();
+            break;
+}
+}
 }
