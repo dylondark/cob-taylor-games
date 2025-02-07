@@ -97,6 +97,9 @@ private:
     // Contains the internal representation of the maze grid.
     FlippedArray<std::array<Cell, BOARD_WIDTH>, BOARD_HEIGHT>* board;
 
+    // Contains the position of the player on the board
+    std::pair<int, int> playerPos = {1, 0};
+
     // Contains the list of frontier cells
     std::vector<Cell*> frontierCells;
 

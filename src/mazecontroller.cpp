@@ -71,12 +71,8 @@ void MazeController::paint(QPainter* painter)
             // Draw the individual grid cell with the appropriate color
             painter->drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
 
-            // Character's X position
-            int playerX = 1;
-            int playerY = 0;
-
             // Draw the character as an asterisk
-            if (row == playerY && col == playerX) painter->drawText(col * cellWidth + cellWidth / 4, row * cellHeight + 3 * cellHeight / 4, "*");
+            if (row == playerPos.second && col == playerPos.first) painter->drawText(col * cellWidth + cellWidth / 4, row * cellHeight + 3 * cellHeight / 4, "*");
 
         }
 
@@ -170,12 +166,24 @@ void MazeController::updateGame()
         switch (currentAction)
         {
         case MazeAction::Left:
+            if (playerPos.first > 0 && !(*board)[playerPos.second][playerPos.first - 1].wall)
+                playerPos.first--;
+            currentAction = MazeAction::Wait;
             break;
         case MazeAction::Right:
+            if (playerPos.first < BOARD_WIDTH - 1 && !(*board)[playerPos.second][playerPos.first + 1].wall)
+                playerPos.first++;
+            currentAction = MazeAction::Wait;
             break;
         case MazeAction::Up:
+            if (playerPos.second > 0 && !(*board)[playerPos.second - 1][playerPos.first].wall)
+                playerPos.second--;
+            currentAction = MazeAction::Wait;
             break;
         case MazeAction::Down:
+            if (playerPos.second < BOARD_HEIGHT - 1 && !(*board)[playerPos.second + 1][playerPos.first].wall)
+                playerPos.second++;
+            currentAction = MazeAction::Wait;
             break;
         case MazeAction::Generate:
         {
