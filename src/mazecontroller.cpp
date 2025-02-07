@@ -70,11 +70,22 @@ void MazeController::paint(QPainter* painter)
 
             // Draw the individual grid cell with the appropriate color
             painter->drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+
+            // Character's X position
+            int playerX = 1;
+            int playerY = 0;
+
+            // Draw the character as an asterisk
+            if (row == playerY && col == playerX) painter->drawText(col * cellWidth + cellWidth / 4, row * cellHeight + 3 * cellHeight / 4, "*");
+
         }
+
 
     }
 
 }
+
+
 /*
     Starts the maze generation. To be called by QML after entering the game.
 */
@@ -86,6 +97,7 @@ void MazeController::startGame()
     for (int y = 0; y < BOARD_HEIGHT; y++)
         for (int x = 0; x < BOARD_WIDTH; x++)
             (*board)[y][x].wall = true;
+
 
     // Pick a random Cell, set it to state Passage and Compute its frontier cells.
     // A frontier cell of a Cell is a cell with distance 2 in state Blocked and within the grid.
