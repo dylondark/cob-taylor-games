@@ -23,8 +23,14 @@ struct Ball {
     int dy;
 };
 
-struct AI {
+struct AILevel {
+    float aiReaction; // Reaction time for the AI
+    float aiError; // Error margin for the AI's prediction
+};
 
+struct AI {
+    AILevel levels[13]; // 13 levels for different score differences
+    int currentLevel; // Current level based on score difference
 };
 
 #endif // PONGDATA_H
