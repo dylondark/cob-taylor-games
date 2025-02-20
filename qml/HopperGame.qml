@@ -10,7 +10,7 @@ import QtQuick.Layouts
 import QtQml
 import QtMultimedia
 import QMLControllers
-
+import QtQuick.Effects
 // this game is in PREVIEW STATE
 Item {
     id: root
@@ -563,7 +563,7 @@ Item {
                         repeat: true // Continuously counts up
                         onTriggered: {
                             //goldHeartAnimation.running = true;
-                            if (gameBase.gameStage === 3) {
+                            if (gameBase.gameStage === 1) {
                             goldHeartAnimation.running = true;
                             }
                         }
@@ -915,14 +915,16 @@ Item {
                     color: "transparent" // was red
                 }
 
+
                 Image {
                     id: goldHeart
-                    width: 450 * root.scaleFactor
-                    height: 450 * root.scaleFactor
+                    width: 250 * root.scaleFactor
+                    height: 250 * root.scaleFactor
                     source: filepath + "/gamefiles/Hopper/goldHeart.png"
                     x: parent.width
-                    y: floorRect.y - height + 50
+                    y: floorRect.y - height - 150 * root.scaleFactor
                     asynchronous: true
+
 
                     // Animation for goldHeart movement
                     PropertyAnimation on x {
@@ -933,6 +935,21 @@ Item {
                         loops: 1
                         running: false
                     }
+                }
+                MultiEffect {
+                    id: heartGlowEffect
+                    width: goldHeart.width
+                    height: goldHeart.height
+                    x: goldHeart.x
+                    y: goldHeart.y
+                    source: goldHeart
+
+                    shadowEnabled: true
+                    shadowOpacity: 0.8
+                    shadowBlur: 0.9  // Adjust for glow intensity
+                    shadowHorizontalOffset: 0
+                    shadowVerticalOffset: 0
+                    shadowColor: "#FFD700"  // Gold glow color
                 }
                 // Blocks obstacles on right side
                 Rectangle {
