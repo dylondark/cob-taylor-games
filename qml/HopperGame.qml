@@ -894,19 +894,6 @@ Item {
                         running: false
                     }
                 }
-
-                // Blocks obstacles on left side
-                Rectangle {
-                    id: leftBar
-                    width: (parent.width - gameRect.width) / 2
-                    height: parent.height
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    gradient: Gradient {
-                        GradientStop { position: 0.0; color: "#f3a469" }
-                        GradientStop { position: 1.0; color: "#3f51b1" }
-                    }
-                }
                 Rectangle {
                     id: goldHeartHitbox
                     width: 500 * root.scaleFactor
@@ -950,6 +937,18 @@ Item {
                     shadowHorizontalOffset: 0
                     shadowVerticalOffset: 0
                     shadowColor: "#FFD700"  // Gold glow color
+                }
+                // Blocks obstacles on left side
+                Rectangle {
+                    id: leftBar
+                    width: (parent.width - gameRect.width) / 2
+                    height: parent.height
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "#f3a469" }
+                        GradientStop { position: 1.0; color: "#3f51b1" }
+                    }
                 }
                 // Blocks obstacles on right side
                 Rectangle {
