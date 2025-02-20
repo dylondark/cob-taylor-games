@@ -913,15 +913,46 @@ Item {
                     asynchronous: true
 
 
-                    // Animation for goldHeart movement
-                    PropertyAnimation on x {
+                    ParallelAnimation {
                         id: goldHeartAnimation
-                        from: parent.width
-                        to: -300
-                        duration: 3000  // Adjusts speed
-                        loops: 1
                         running: false
+                        loops: 1
+
+                        // Moves from right to left
+                        PropertyAnimation {
+                            target: goldHeart
+                            property: "x"
+                            from: parent.width
+                            to: -300
+                            duration: 3000
+                        }
+
+                        // Floating heart animation
+                        SequentialAnimation {
+                            loops: Animation.Infinite
+
+                            // Float up
+                            NumberAnimation {
+                                target: goldHeart
+                                property: "y"
+                                from: goldHeart.y
+                                to: goldHeart.y - 30
+                                duration: 750
+                                easing.type: Easing.InOutSine
+                            }
+
+                            // Float down
+                            NumberAnimation {
+                                target: goldHeart
+                                property: "y"
+                                from: goldHeart.y - 30
+                                to: goldHeart.y
+                                duration: 750
+                                easing.type: Easing.InOutSine
+                            }
+                        }
                     }
+
                 }
                 MultiEffect {
                     id: heartGlowEffect
