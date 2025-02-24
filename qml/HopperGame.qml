@@ -155,7 +155,7 @@ Item {
                             heart2.visible = false;
                         } else if (heart1.visible) { // If reduceHearts is called while only one heart is left, the game is over.
                             heart1.visible = false;
-                            // endGame(); //endGame
+                            endGame(); //endGame
                         }
 
                         // Start the timer after reducing a heart

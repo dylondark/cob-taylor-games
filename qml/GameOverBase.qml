@@ -94,6 +94,15 @@ ColumnLayout {
         }
     }
 
+
+    Image { //endScreen Zippy
+        id: esZippy
+        visible: root.gameEnum === 3
+        source: filepath + "/gamefiles/Hopper/ESZippy.png"
+        verticalAlignment: parent.verticalCenter - 150 * root.scaleFactor
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
+
     Item {
         Layout.preferredHeight: -1
         Layout.preferredWidth: -1
@@ -123,15 +132,6 @@ ColumnLayout {
             }
         }
 
-        Image { //endScreen Zippy
-            id: esZippy
-            visible: root.gameEnum === 3
-            source: filepath + "/gamefiles/Hopper/ESZippy.png"
-            anchors.top: gameOverScoreText.bottom
-            height: 500 * root.scaleFactor
-            width: 500 * root.scaleFactor
-        }
-
         Text { // For Zippy Hop
             id: hopperGameOver
             visible: root.gameEnum === 3
@@ -139,10 +139,10 @@ ColumnLayout {
             font.pointSize: 144 * root.scaleFactor
             style: Text.Outline
             text: "You ran\n" + root.points + "\nmeters!"
-            font.family: "1UP!"
+            font.family: "Arial Black"
             horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            verticalAlignment: esZippy.bottom + 50 * root.scaleFactor
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVTop
         }
     }
 }
