@@ -2,6 +2,7 @@
 #include "cliparser.h"
 #include <QPainter>
 #include <QKeyEvent>
+#include <QRandomGenerator>
 
 /*
     Constructor for PongController
@@ -16,6 +17,9 @@ PongController::PongController()
     timerInterval = 16; // ~60fps
     playerScore = 0;
     aiScore = 0;
+
+    // Initialize AI
+    ai = AI();
 
     // Connect timer
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
@@ -268,7 +272,7 @@ void PongController::checkCollisions()
     }
 
     // **End game if any player reaches 5 points**
-    if (playerScore >= 5 || aiScore >= 5) {
+    if (playerScore >= 9 || aiScore >= 9) {
         gameOver = true;
         gameTimer.stop();
         emit gameOverSignal();
@@ -320,18 +324,46 @@ void PongController::checkCollisions()
 
 void PongController::aiOperation()
 {
-    // Simple AI that moves towards the ball's X position
-    if (ballX > playerPaddle2.x + playerPaddle2.width / 2) {
-        playerPaddle2.x += 5;  // Move AI paddle right
-    } else if (ballX < playerPaddle2.x + playerPaddle2.width / 2) {
-        playerPaddle2.x -= 5;  // Move AI paddle left
+    // Check if the ball is moving towards the AI paddle
+    if (ballVelocityY >= 0) {
+        // Ball is not moving towards the AI paddle
+        return;
     }
 
-    // Prevent AI paddle from moving out of bounds
-    if (playerPaddle2.x < 0)
-        playerPaddle2.x = 0;
-    if (playerPaddle2.x > width() - playerPaddle2.width)
-        playerPaddle2.x = width() - playerPaddle2.width;
+    // Update the AI level based on the current score difference
+    ai.updateLevel(playerScore, aiScore);
+
+    // Get the current AI level
+    AILevel currentAILevel = ai.levels[ai.currentLevel];
+
+    // Only predict if the ball is moving towards the AI paddle
+    if ((ballX < width() / 2 && ballVelocityX < 0) || (ballX > width() / 2 && ballVelocityX > 0)) {
+        // Predict where the ball will intersect with the AI paddle's Y position
+        qreal paddleY = 10; // Y position of the AI paddle (top paddle)
+        qreal deltaY = paddleY - ballY; // Vertical distance between ball and paddle
+        qreal timeToIntersect = deltaY / ballVelocityY; // Time until ball reaches paddle
+
+        // Predict the ball's X position at the intersection point
+        qreal predictedX = ballX + (ballVelocityX * timeToIntersect);
+
+        // Add some error based on the AI's difficulty level and ball's position
+        qreal closeness = (ballVelocityX < 0 ? ballX - width() : 0 - ballX) / width();
+        qreal error = currentAILevel.aiError * closeness * (QRandomGenerator::global()->generateDouble() - 0.5);
+        predictedX += error;
+
+        // Move the AI paddle towards the predicted X position
+        if (predictedX > playerPaddle2.x + playerPaddle2.width / 2) {
+            playerPaddle2.x += static_cast<int>(5 * currentAILevel.aiReaction); // Move AI paddle right
+        } else if (predictedX < playerPaddle2.x + playerPaddle2.width / 2) {
+            playerPaddle2.x -= static_cast<int>(5 * currentAILevel.aiReaction); // Move AI paddle left
+        }
+
+        // Prevent AI paddle from moving out of bounds
+        if (playerPaddle2.x < 0)
+            playerPaddle2.x = 0;
+        if (playerPaddle2.x > width() - playerPaddle2.width)
+            playerPaddle2.x = width() - playerPaddle2.width;
+    }
 
     update();
 }
@@ -348,6 +380,9 @@ void PongController::updateGame()
 
     ballVelocityX = (ballVelocityX > 0) ? 2 : -2;
     ballVelocityY = (ballVelocityY > 0) ? 2 : -2;
+
+    // Update AI paddle position
+    aiOperation();
 
     // Check for collisions
     checkCollisions();
@@ -375,6 +410,9 @@ void PongController::timerTick()
         gameTimer.stop();
         return;
     }
+
+    // Update AI paddle position
+    aiOperation();
 
     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
         updateGame();
