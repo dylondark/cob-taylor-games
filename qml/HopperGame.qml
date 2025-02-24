@@ -562,9 +562,9 @@ Item {
                         running: true // Initially stopped
                         repeat: true // Continuously counts up
                         onTriggered: {
-                            //goldHeartAnimation.running = true;
-                            if (gameBase.gameStage === 1) {
-                            goldHeartAnimation.running = true;
+                            goldHeartAnimation.running = false;
+                            if (gameBase.gameStage === 3) {
+                                goldHeartAnimation.running = true;
                             }
                         }
                     }
@@ -912,7 +912,6 @@ Item {
                     y: floorRect.y - height - 150 * root.scaleFactor
                     asynchronous: true
 
-
                     ParallelAnimation {
                         id: goldHeartAnimation
                         running: false
@@ -929,8 +928,7 @@ Item {
 
                         // Floating heart animation
                         SequentialAnimation {
-                            loops: Animation.Infinite
-
+                            loops: 1
                             // Float up
                             NumberAnimation {
                                 target: goldHeart
@@ -940,7 +938,6 @@ Item {
                                 duration: 750
                                 easing.type: Easing.InOutSine
                             }
-
                             // Float down
                             NumberAnimation {
                                 target: goldHeart
