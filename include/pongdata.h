@@ -7,6 +7,8 @@
 #ifndef PONGDATA_H
 #define PONGDATA_H
 
+#include <QDebug>
+
 struct Paddle
 {
     int x;
@@ -35,7 +37,7 @@ struct AI {
     /*
       Constructor to initialize AI levels
     */
-    AI () {
+    AI() {
         // Initialize AI levels based on the score difference
         levels[0] = {0.2f, 40}; // AI is losing by 8
         levels[1] = {0.3f, 50};
@@ -58,14 +60,17 @@ struct AI {
         currentLevel = 8; // Start at level 8 (tie)
     }
 
-    /*
-        Function to update the AI level based on the score difference
-    */
     void updateLevel(int playerScore, int aiScore) {
         int scoreDifference = aiScore - playerScore;
         if (scoreDifference < -8) scoreDifference = -8;
         if (scoreDifference > 8) scoreDifference = 8;
         currentLevel = scoreDifference + 8; // Map score difference to level index
+
+        // Debug logs
+        qDebug() << "Score Difference: " << scoreDifference;
+        qDebug() << "Current AI Level: " << currentLevel;
+        qDebug() << "AI Reaction: " << levels[currentLevel].aiReaction;
+        qDebug() << "AI Error: " << levels[currentLevel].aiError;
     }
 };
 
