@@ -25,52 +25,40 @@ struct Ball {
     int dy;
 };
 
-struct AILevel {
-    float aiReaction; // Reaction time for the AI
-    float aiError; // Error margin for the AI's prediction
-};
-
 struct AI {
-    AILevel levels[17]; // 17 levels for different score differences
-    int currentLevel; // Current level based on score difference
+    int currentLevel;   // Current level based on score difference
 
-    /*
-      Constructor to initialize AI levels
-    */
+    float baseReaction = 1.0f; // Default reaction time
+    float baseError = 120.0f;  // Default error margin
+
+    float aiReaction; // Current reaction time
+    float aiError;    // Current error margin
+
     AI() {
-        // Initialize AI levels based on the score difference
-        levels[0] = {0.2f, 40}; // AI is losing by 8
-        levels[1] = {0.3f, 50};
-        levels[2] = {0.4f, 60};
-        levels[3] = {0.5f, 70};
-        levels[4] = {0.6f, 80};
-        levels[5] = {0.7f, 90};
-        levels[6] = {0.8f, 100};
-        levels[7] = {0.9f, 110};
-        levels[8] = {1.0f, 120}; // Tie
-        levels[9] = {1.1f, 130};
-        levels[10] = {1.2f, 140};
-        levels[11] = {1.3f, 150};
-        levels[12] = {1.4f, 160};
-        levels[13] = {1.5f, 170};
-        levels[14] = {1.6f, 180};
-        levels[15] = {1.7f, 190};
-        levels[16] = {1.8f, 200}; // AI is winning by 8
-
         currentLevel = 8; // Start at level 8 (tie)
+        aiReaction = baseReaction; // Initialize with base values
+        aiError = baseError;       // Initialize with base values
     }
 
     void updateLevel(int playerScore, int aiScore) {
         int scoreDifference = aiScore - playerScore;
-        if (scoreDifference < -8) scoreDifference = -8;
-        if (scoreDifference > 8) scoreDifference = 8;
-        currentLevel = scoreDifference + 8; // Map score difference to level index
+
+        // Adjust the AI's difficulty based on the score difference
+        float difficultyFactor = 1.0f + (scoreDifference * 0.1f); // Adjust the multiplier as needed
+
+        // Clamp the difficulty factor to a reasonable range
+        if (difficultyFactor < 0.5f) difficultyFactor = 0.5f; // Minimum difficulty
+        if (difficultyFactor > 2.0f) difficultyFactor = 2.0f; // Maximum difficulty
+
+        // Update the AI's reaction time and error margin based on the difficulty factor
+        aiReaction = baseReaction * difficultyFactor;
+        aiError = baseError / difficultyFactor;
 
         // Debug logs
         qDebug() << "Score Difference: " << scoreDifference;
-        qDebug() << "Current AI Level: " << currentLevel;
-        qDebug() << "AI Reaction: " << levels[currentLevel].aiReaction;
-        qDebug() << "AI Error: " << levels[currentLevel].aiError;
+        qDebug() << "Difficulty Factor: " << difficultyFactor;
+        qDebug() << "AI Reaction: " << aiReaction;
+        qDebug() << "AI Error: " << aiError;
     }
 };
 
