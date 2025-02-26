@@ -318,14 +318,8 @@ void PongController::aiOperation()
 {
     // Only predict if the ball is moving towards the AI paddle
     if (ballVelocityY >= 0) {
-        return; // Ball is not moving towards the AI paddle
+        return; // Ball is moving away from the AI paddle
     }
-
-    // Update the AI level based on the current score difference
-    ai.updateLevel(playerScore, aiScore);
-
-    // Get the current AI level
-    AILevel currentAILevel = ai.levels[ai.currentLevel];
 
     // Predict where the ball will intersect with the AI paddle's Y position
     qreal paddleY = 10; // Y position of the AI paddle (top paddle)
@@ -335,19 +329,30 @@ void PongController::aiOperation()
     // Predict the ball's X position at the intersection point
     qreal predictedX = ballX + (ballVelocityX * timeToIntersect);
 
-    // Move the AI paddle towards the predicted X position
-    qreal paddleCenterX = playerPaddle2.x + playerPaddle2.width / 2;
-    if (predictedX > paddleCenterX) {
-        playerPaddle2.x += static_cast<int>(5 * currentAILevel.aiReaction); // Move AI paddle right
-    } else if (predictedX < paddleCenterX) {
-        playerPaddle2.x -= static_cast<int>(5 * currentAILevel.aiReaction); // Move AI paddle left
-    }
+    qreal error = ai.aiError * 0.5 * (QRandomGenerator::global()->generateDouble() - 0.5);
+    predictedX += error;
 
-    // Prevent AI paddle from moving out of bounds
-    if (playerPaddle2.x < 0)
-        playerPaddle2.x = 0;
-    if (playerPaddle2.x > width() - playerPaddle2.width)
-        playerPaddle2.x = width() - playerPaddle2.width;
+    // Ensure the predicted position is within the game bounds
+    if (predictedX < 0) predictedX = 0;
+    if (predictedX > width()) predictedX = width();
+
+    // Calculate the center of the AI paddle
+    qreal paddleCenterX = playerPaddle2.x + (playerPaddle2.width / 2);
+
+    // Move the AI paddle towards the predicted position
+    qreal deltaX = predictedX - paddleCenterX;
+    qreal movement = deltaX * ai.aiReaction;
+
+    // Limit the paddle's speed to avoid glitchy movement
+    qreal maxSpeed = 5.0; // Adjust this value as needed
+    if (movement > maxSpeed) movement = maxSpeed;
+    if (movement < -maxSpeed) movement = -maxSpeed;
+
+    playerPaddle2.x += static_cast<int>(deltaX * ai.aiReaction);
+
+    // Prevent the AI paddle from moving out of bounds
+    if (playerPaddle2.x < 0) playerPaddle2.x = 0;
+    if (playerPaddle2.x > width() - playerPaddle2.width) playerPaddle2.x = width() - playerPaddle2.width;
 
     update();
 }
@@ -356,6 +361,9 @@ void PongController::updateGame()
 {
     if (gameOver)
         return; // Stop updating if the game is over
+
+    // Update AI difficulty
+    ai.updateLevel(playerScore, aiScore);
 
     // Move the ball
     ballX += ballVelocityX;
