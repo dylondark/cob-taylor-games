@@ -49,8 +49,8 @@ ColumnLayout {
             font.bold: true
             text: "Game Over!\nThanks for playing!"
             horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignBottom
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            verticalAlignment: Text.AlignVCenter
+            //Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
             layer.enabled: true
             layer.effect: DropShadow {
@@ -63,13 +63,6 @@ ColumnLayout {
                 transparentBorder: true
             }
         }
-    }
-
-    Item {
-        Layout.preferredHeight: -1
-        Layout.preferredWidth: -1
-        Layout.fillHeight: true
-        Layout.fillWidth: true
 
         Text {
             id: gameOverScoreText
@@ -78,8 +71,8 @@ ColumnLayout {
             font.bold: true
             text: "Your score: " + root.points
             horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            verticalAlignment: Text.AlignBottom
+            //Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
             layer.enabled: true
             layer.effect: DropShadow {
@@ -94,13 +87,21 @@ ColumnLayout {
         }
     }
 
+    Item {
+        Layout.preferredHeight: -1
+        Layout.preferredWidth: -1
+        Layout.fillHeight: true
+        Layout.fillWidth: true
 
-    Image { //endScreen Zippy
-        id: esZippy
-        visible: root.gameEnum === 3
-        source: filepath + "/gamefiles/Hopper/ESZippy.png"
-        verticalAlignment: parent.verticalCenter - 150 * root.scaleFactor
-        anchors.horizontalCenter: parent.horizontalCenter
+        Image { //endScreen Zippy
+            id: esZippy
+            visible: root.gameEnum === 3
+            source: filepath + "/gamefiles/Hopper/ESZippy.png"
+            width: 750 * root.scaleFactor
+            height: 1120 * root.scaleFactor
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
     }
 
     Item {
