@@ -66,24 +66,6 @@ Item {
                 property int elapsedTime: 0
                 property int gameStage: 1
                 
-                QMLImagePreloader {
-                    id: loader
-                    
-                    Component.onCompleted: {
-                        // Add images to preload here
-                        // DONT add filepath in front of the paths here. It is already done in the C++ code.
-                        loader.addImage("/gamefiles/Hopper/Run1.png");
-                        loader.addImage("/gamefiles/Hopper/Run2.png");
-                        loader.addImage("/gamefiles/Hopper/ZippyRun.gif");
-                        loader.addImage("/gamefiles/Hopper/Jump.png");
-                        loader.addImage("/gamefiles/Hopper/Slide.png");
-                        loader.addImage("/gamefiles/Hopper/Sky.png");
-                        loader.addImage("/gamefiles/Hopper/Sky2.png");
-                        loader.addImage("/gamefiles/Hopper/Sunrise.png");
-                        loader.addImage("/gamefiles/Hopper/grass.zippyhopp.jpg");
-                    }
-                }
-                
                 // Begin game rectangle
                 Rectangle {
                     id: gameRect
