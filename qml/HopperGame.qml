@@ -262,7 +262,7 @@ Item {
                                 duration: 6000
                                 path: Path {
                                     PathLine { x: 0; y: 0 }
-                                    PathLine { x: -4000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: -8000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
@@ -340,7 +340,7 @@ Item {
                         id: archBack
                         width: 450 * root.scaleFactor
                         height: 950 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/arch.png"
+                        source: filepath + "/gamefiles/Hopper/Arch.png"
                         x: parent.width
                         y: floorRect.y - height + 150 * root.scaleFactor
                         asynchronous: true
@@ -740,7 +740,7 @@ Item {
                         id: rockCandy
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/rockCandy.png"
+                        source: filepath + "/gamefiles/Hopper/RockCandy.png"
                         x: parent.width
                         y: floorRect.y - height + 50
                         asynchronous: true
@@ -769,7 +769,7 @@ Item {
                         id: clock
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/clock.png"
+                        source: filepath + "/gamefiles/Hopper/Clock.png"
                         x: parent.width
                         y: floorRect.y - height + 50
                         asynchronous: true
@@ -826,7 +826,7 @@ Item {
                         id: soccerball
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/soccerball.png"
+                        source: filepath + "/gamefiles/Hopper/Soccerball.png"
                         x: parent.width
                         y: 1400 * root.scaleFactor
                         asynchronous: true
@@ -892,7 +892,7 @@ Item {
                     id: goldHeart
                     width: 250 * root.scaleFactor
                     height: 250 * root.scaleFactor
-                    source: filepath + "/gamefiles/Hopper/goldHeart.png"
+                    source: filepath + "/gamefiles/Hopper/GoldHeart.png"
                     x: parent.width
                     y: floorRect.y - height - 150 * root.scaleFactor
                     asynchronous: true
