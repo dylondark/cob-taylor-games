@@ -259,9 +259,9 @@ Item {
                                 loops: Animation.Infinite
                                 target: floorTexture
                                 running: true
-                                duration: 6000
+                                duration: 9000
                                 path: Path {
-                                    PathLine { x: 1000; y: 0 }
+                                    PathLine { x: 0; y: 0 }
                                     PathLine { x: -5000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
