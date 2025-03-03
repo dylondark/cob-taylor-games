@@ -684,7 +684,7 @@ Item {
                         height: 400 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/PaintedRock.png"
                         x: parent.width
-                        y: floorRect.y - height + 50
+                        y: floorRect.y - height + 150 * root.scaleFactor
                         asynchronous: true
                         
                         // Animation for rock movement
@@ -742,7 +742,7 @@ Item {
                         height: 500 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/RockCandy.png"
                         x: parent.width
-                        y: floorRect.y - height + 50
+                        y: floorRect.y - height + 150 * root.scaleFactor
                         asynchronous: true
                         
                         // Animation for rockCandy movement
@@ -771,7 +771,7 @@ Item {
                         height: 500 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Clock.png"
                         x: parent.width
-                        y: floorRect.y - height + 50
+                        y: floorRect.y - height + 150 * root.scaleFactor
                         asynchronous: true
                         
                         // Animation for clock movement
