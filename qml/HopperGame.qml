@@ -259,10 +259,10 @@ Item {
                                 loops: Animation.Infinite
                                 target: floorTexture
                                 running: true
-                                duration: 6000
+                                duration: 5000
                                 path: Path {
                                     PathLine { x: 0; y: 0 }
-                                    PathLine { x: -8000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: -6000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
@@ -363,7 +363,7 @@ Item {
                         anchors.top: archBack.top
                         anchors.right: archBack.right
                         anchors.topMargin: 10
-                        color: "blue"
+                        color: "green"
                     }
                     
                     // Zippy Hitboxes
@@ -372,7 +372,7 @@ Item {
                         anchors.centerIn: zippyContainer
                         width: 225 * root.scaleFactor
                         height: 525 * root.scaleFactor
-                        color: "blue"
+                        color: "green"
                     }
                     
                     Rectangle {
@@ -382,7 +382,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "blue"
+                        color: "green"
                     }
                     
                     Item {
@@ -644,7 +644,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "blue"
+                        color: "green"
                     }
                     
                     // Rock Obstacle
@@ -674,7 +674,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: paintedRock
-                        color: "blue"
+                        color: "green"
                     }
                     
                     // paintedRock Obstacle
@@ -704,7 +704,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "blue"
+                        color: "green"
                     }
                     
                     Image {
@@ -733,7 +733,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "blue" // was red
+                        color: "green" // was red
                     }
                     
                     Image {
@@ -762,7 +762,7 @@ Item {
                         width: 125 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "blue"
+                        color: "green"
                     }
                     
                     Image {
@@ -791,7 +791,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "blue"
+                        color: "green"
                     }
                     
                     Image {
@@ -819,7 +819,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: soccerball
-                        color: "blue"
+                        color: "green"
                     }
                     
                     Image {
@@ -828,7 +828,7 @@ Item {
                         height: 350 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Soccerball.png"
                         x: parent.width
-                        y: 1400 * root.scaleFactor
+                        y: 1365 * root.scaleFactor
                         asynchronous: true
                         
                         // Combined animation for movement and rotation
@@ -884,7 +884,7 @@ Item {
                     width: 500 * root.scaleFactor
                     height: 350 * root.scaleFactor
                     anchors.centerIn: goldHeart
-                    color: "blue" // was red
+                    color: "green" // was red
                 }
                 
                 
