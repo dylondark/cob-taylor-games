@@ -259,10 +259,10 @@ Item {
                                 loops: Animation.Infinite
                                 target: floorTexture
                                 running: true
-                                duration: 5000
+                                duration: 6000
                                 path: Path {
-                                    PathLine { x: 0; y: 0 }
-                                    PathLine { x: -6000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: 1000; y: 0 }
+                                    PathLine { x: -5000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
@@ -844,7 +844,7 @@ Item {
                                     property: "x"
                                     from: parent.width
                                     to: -300
-                                    duration: 2000 // Adjusts speed
+                                    duration: 1750 // Adjusts speed
                                 }
                                 
                                 // Rotation
@@ -913,7 +913,7 @@ Item {
                         
                         // Floating heart animation
                         SequentialAnimation {
-                            loops: 1
+                            loops: 2
                             // Float up
                             NumberAnimation {
                                 target: goldHeart
