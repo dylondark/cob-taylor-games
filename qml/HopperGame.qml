@@ -262,7 +262,7 @@ Item {
                                 duration: 6000
                                 path: Path {
                                     PathLine { x: 0; y: 0 }
-                                    PathLine { x: -1500 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: -4000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
@@ -363,7 +363,7 @@ Item {
                         anchors.top: archBack.top
                         anchors.right: archBack.right
                         anchors.topMargin: 10
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     // Zippy Hitboxes
@@ -372,7 +372,7 @@ Item {
                         anchors.centerIn: zippyContainer
                         width: 225 * root.scaleFactor
                         height: 525 * root.scaleFactor
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     Rectangle {
@@ -382,7 +382,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     Item {
@@ -636,13 +636,15 @@ Item {
                             }
                         }
                     }
+
+                    //OBSTACLEMAIN
                     // Rock Hitbox
                     Rectangle {
                         id: rockHitbox
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     // Rock Obstacle
@@ -652,14 +654,14 @@ Item {
                         height: 400 * root.scaleFactor
                         source: filepath + "/gamefiles/Hopper/Rock.png"
                         x: parent.width
-                        y: floorRect.y - height + 50
+                        y: floorRect.y - height + 150 * root.scaleFactor
                         asynchronous: true
                         
                         // Animation for rock movement
                         PropertyAnimation on x {
                             id: rockAnimation
                             from: parent.width
-                            to: -300
+                            to: -900
                             duration: 2750  // Adjusts speed
                             loops: 1
                             running: false
@@ -672,7 +674,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: paintedRock
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     // paintedRock Obstacle
@@ -702,23 +704,23 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     Image {
                         id: statue
                         width: 200 * root.scaleFactor
                         height: 500 * root.scaleFactor
-                        source: filepath + "/gamefiles/Hopper/statue.png"
+                        source: filepath + "/gamefiles/Hopper/Statue.png"
                         x: parent.width
-                        y: floorRect.y - height + 50
+                        y: floorRect.y - height + 150 * root.scaleFactor
                         asynchronous: true
                         
                         // Animation for statue movement
                         PropertyAnimation on x {
                             id: statueAnimation
                             from: parent.width
-                            to: -300
+                            to: -900
                             duration: 3000  // Adjusts speed
                             loops: 1
                             running: false
@@ -731,7 +733,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "transparent" // was red
+                        color: "blue" // was red
                     }
                     
                     Image {
@@ -760,7 +762,7 @@ Item {
                         width: 125 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     Image {
@@ -789,7 +791,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     Image {
@@ -805,7 +807,7 @@ Item {
                         PropertyAnimation on x {
                             id: birdAnimation
                             from: parent.width
-                            to: -300
+                            to: -900
                             duration: 3000  // Adjusts speed
                             loops: 1
                             running: false
@@ -817,7 +819,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: soccerball
-                        color: "transparent"
+                        color: "blue"
                     }
                     
                     Image {
@@ -882,7 +884,7 @@ Item {
                     width: 500 * root.scaleFactor
                     height: 350 * root.scaleFactor
                     anchors.centerIn: goldHeart
-                    color: "transparent" // was red
+                    color: "blue" // was red
                 }
                 
                 
