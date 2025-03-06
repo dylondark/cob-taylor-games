@@ -28,6 +28,7 @@ Item {
     property int gameEnum: 3
     property int heartNum: 3
     function endGame() { //Everyone comment your favorite avenger. Iron man - sage
+        // Big fan of Hawkeye. He's the best in marvel rivals. - Aaron
         gameBase.visible = false;
         gameOverBase.gameOverOps();
         roundTimer.stop();
