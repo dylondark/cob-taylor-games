@@ -161,6 +161,8 @@ Item {
                             Layout.column: 1
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            Layout.preferredWidth: 50
+                            Layout.preferredHeight: 80
                             background: Rectangle {
                                 color: "white"
                                 opacity: 70
@@ -183,6 +185,8 @@ Item {
                             Layout.column: 0
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            Layout.preferredWidth: 100
+                            Layout.preferredHeight: 100
                             background: Rectangle {
                                 color: "white"
                                 opacity: 70
@@ -205,6 +209,8 @@ Item {
                             Layout.column: 1
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            Layout.preferredWidth: 100
+                            Layout.preferredHeight: 100
                             background: Rectangle {
                                 color: "white"
                                 opacity: 70
@@ -227,6 +233,8 @@ Item {
                             Layout.column: 2
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            Layout.preferredWidth: 100
+                            Layout.preferredHeight: 100
                             background: Rectangle {
                                 color: "white"
                                 opacity: 70
