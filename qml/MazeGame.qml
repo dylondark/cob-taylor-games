@@ -1,7 +1,7 @@
 /*
     MazeGame.qml
 
-    Main QML file for the Pong game.
+    Main QML file for the Maze Game.
 */
 
 import QtQuick
@@ -14,113 +14,249 @@ Item {
     id: root
     width: 2160
     height: 3840
-    //title: "Maze Game Layout"
-    signal quit  // Signal to go to home screen or quit the game
+    signal quit
     signal saveScore(int game, string username, int score)
 
     property real scaleFactor: height / 3840
     property int points: 0
     property string strName: "Maze"
     property string username: ""
-    ColumnLayout{
+
+    ColumnLayout {
         id: baseLayout
         anchors.fill: parent
         spacing: 0
 
-        // Define the background of the game
+        // Background
         Rectangle {
-                    id: background
-                    Layout.preferredHeight: -1
-                    Layout.preferredWidth: -1
+            id: background
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.verticalStretchFactor: 6
+
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#f3a469" }
+                GradientStop { position: 1.0; color: "#3f51b1" }
+            }
+
+            MenuBase {
+                id: menuBase
+                imageSource: filepath + "/menufiles/PongMotion.png"
+            }
+
+            Item {
+                id: gameBase
+                anchors.fill: parent
+                visible: false
+
+                function startGame() {
+                    controller.startGame();
+                }
+
+                // Score and Time Display
+                RowLayout {
+                    id: topBar
+                    anchors.top: parent.top
+                    width: parent.width
+                    height: 50
+                    spacing: 20
+
+                    // Centered Time Display (Removed Score)
+                    Rectangle {
+                        id: timeBox
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        height: 50
+                        color: "#D2B48C"
+                        border.color: "black"
+
+                        Text {
+                            id: timeBoxText
+                            anchors.centerIn: parent
+                            text: "Time: 00:00:00"
+                            font.pixelSize: 30  // Increased size for visibility
+                            font.bold: true
+                            color: "navy"
+                        }
+                    }
+                }
+
+                // Maze Controller (Only One Instance)
+                MazeController {
+                    id: controller
+                    width: 1550 * root.scaleFactor
+                    height: 3040 * root.scaleFactor
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 6
+                    Layout.verticalStretchFactor: 4
+                    x: (parent.width - width) / 2
+                    y: (parent.height - height) / 1.5
 
-                    gradient: Gradient {
-                        GradientStop { position: 0.0; color: "#f3a469" }
-                        GradientStop { position: 1.0; color: "#3f51b1" }
+                    // Signal emitted when the maze is fully generated
+                    signal mazeGenerated()
+
+                    function notifyMazeGenerated() {
+                        console.log("MazeController: Maze generation complete, emitting signal...");
+                        mazeGenerated();  // Emit the signal
                     }
 
-                    MenuBase { // This opens the screen to input username at the beginning.
-                        id: menuBase
-                        imageSource: filepath + "/menufiles/PongMotion.png"
-                        // z: 1
+                    onMazeGenerated: {
+                        console.log("Maze generated! Timer starts now.");
+                        gameTimer.running = true;  // Start the timer
+                        gameTimer.restart();       // Restart to ensure it runs
                     }
-                    Item {
-                        id: gameBase
-                        anchors.fill: parent
-                        visible: false
-
-                        function startGame() {
-                            controller.startGame();
+                    // Manually start the timer for testing when the component loads
+                        Component.onCompleted: {
+                            console.log("MazeController Loaded! Manually starting timer for testing...");
+                            gameTimer.running = true;
                         }
+                }
+                // Timer to Start Counting in MM:SS:MS Format
+                Timer {
+                    id: gameTimer
+                    interval: 10  // Runs every 10 milliseconds (0.01s)
+                    repeat: true
+                    running: false  // Initially off
 
-                        // Put the code for the scores boxes here
+                    property int elapsedTime: 0  // Total elapsed time in milliseconds
 
-                        RowLayout {
-                            id: topBar
-                            anchors.top: parent.top
-                            width: parent.width
-                            height: 50
-                            spacing: 20
+                    onTriggered: {
+                        elapsedTime += 10;  // Increase by 10ms each tick
 
-                            // Score Section
-                            Rectangle {
-                                id: scoreBox
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                color: "#D2B48C"  // Light brown background for the score
-                                border.color: "black"
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: "Score: 0"
-                                    font.pixelSize: 20
-                                    color: "navy"
-                                }
-                            }
+                        // Convert elapsed time to MM:SS:MS format
+                        var minutes = Math.floor(elapsedTime / 60000);
+                        var seconds = Math.floor((elapsedTime % 60000) / 1000);
+                        var milliseconds = (elapsedTime % 1000) / 10;  // Get two-digit MS
 
-                            // Time Section
-                            Rectangle {
-                                id: timeBox
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                color: "#D2B48C"  // Light brown background for the time
-                                border.color: "black"
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: "Time: 0"
-                                    font.pixelSize: 20
-                                    color: "navy"
-                                }
-                            }
+                        // Format to always show two digits (e.g., 02:05:09)
+                        var formattedTime =
+                            (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                            (seconds < 10 ? "0" + seconds : seconds) + ":" +
+                            (milliseconds < 10 ? "0" + milliseconds : milliseconds);
 
-                        }
-                        MazeController {
-                            id: controller
-                            width: 1550 * root.scaleFactor
-                            height: 3040 * root.scaleFactor
+                        // Update UI
+                        timeBoxText.text = "Time: " + formattedTime;
+
+                        console.log("Stopwatch running: " + formattedTime);
+                    }
+                }
+                // Button Layout
+                Item {
+                    id: buttonLayout
+                    Layout.preferredHeight: 400 * root.scaleFactor
+                    Layout.preferredWidth: parent.width
+                    anchors.top: controller.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: true
+
+                    GridLayout {
+                        id: buttonGrid
+                        columns: 3
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        Button { // UP
+                            id: upBtn
+                            Layout.row: 0
+                            Layout.column: 1
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            Layout.verticalStretchFactor: 4
-                            x: (parent.width - width) / 2
-                            y: (parent.height - height) / 1.5
-
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                anchors.fill: parent
+                                Image {
+                                    anchors.fill: parent
+                                    source: filepath + "/gamefiles/Tetroos/UpArrow.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    smooth: true
                                 }
+                            }
+                            onPressed: controller.upAction()
+                        }
 
+                        Button { // LEFT
+                            id: leftBtn
+                            Layout.row: 1
+                            Layout.column: 0
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                anchors.fill: parent
+                                Image {
+                                    anchors.fill: parent
+                                    source: filepath + "/gamefiles/Tetroos/LftArrow.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    smooth: true
+                                }
+                            }
+                            onPressed: controller.leftAction()
+                        }
+
+                        Button { // DOWN
+                            id: downBtn
+                            Layout.row: 1
+                            Layout.column: 1
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                anchors.fill: parent
+                                Image {
+                                    anchors.fill: parent
+                                    source: filepath + "/gamefiles/Tetroos/DwnArrow.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    smooth: true
+                                }
+                            }
+                            onPressed: controller.downAction()
+                        }
+
+                        Button { // RIGHT
+                            id: rightBtn
+                            Layout.row: 1
+                            Layout.column: 2
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                anchors.fill: parent
+                                Image {
+                                    anchors.fill: parent
+                                    source: filepath + "/gamefiles/Tetroos/RtArrow.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    smooth: true
+                                }
+                            }
+                            onPressed: controller.rightAction()
+                        }
+                    }
                 }
-    }
+            }
+        }
+
         HomeBarBase {
             id: homeBarBase
             Layout.verticalStretchFactor: 1
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.minimumHeight: 1
-
         }
-    } // Column Layout
+    }
 
-    // Button implementation
-
+    // Keyboard Controls
     Keys.onPressed: {
         switch (event.key) {
         case Qt.Key_Left:
@@ -135,6 +271,6 @@ Item {
         case Qt.Key_Up:
             controller.upAction();
             break;
-}
-}
+        }
+    }
 }
