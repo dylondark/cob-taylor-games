@@ -254,16 +254,16 @@ Item {
                             id: floorTexture
                             height: parent.height
                             source: filepath + "/gamefiles/Hopper/grass.zippyhopp-mirrored.jpg"
-                            
+
                             PathAnimation {
                                 id: floorAnim
                                 loops: Animation.Infinite
                                 target: floorTexture
                                 running: true
-                                duration: 9000
+                                duration: 6000
                                 path: Path {
                                     PathLine { x: 0; y: 0 }
-                                    PathLine { x: -5000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: -3000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
