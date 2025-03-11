@@ -96,12 +96,30 @@ Item {
                         }
                         return false; // No collisions detected
                     }
-                    
+                    Timer {
+                        id: gameStartTimer
+                        interval: 100  // Roughly 30 FPS
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            if (gameBase.visible === true) {
+                            collisionTimer.running = true;
+                            stage2Timer.running = true;
+                            stage3Timer.running = true;
+                            roundTimer.running = true;
+                            powerupTimer.running = true;
+                            backgroundTimer.running = true;
+                            obstacleTimer.running = true;
+                            gameStartTimer.running = false;
+                            }
+                        }
+                    }
+
                     // Timer to check collisions
                     Timer {
                         id: collisionTimer
                         interval: 32  // Roughly 30 FPS
-                        running: true
+                        running: false
                         repeat: true
                         onTriggered: {
                             const hitboxes = [zippyHHitbox, zippyBHitbox]; // Array of zippy's two hitboxes
@@ -215,7 +233,7 @@ Item {
                     Timer {
                         id: stage2Timer
                         interval: 20000 // CHANGE FOR TIME, every 10000 is 10 seconds
-                        running: true
+                        running: false
                         repeat: false // Only run once
                         onTriggered: {
                             skyImage.visible = true; // Makes sunset visible
@@ -229,7 +247,7 @@ Item {
                     Timer {
                         id: stage3Timer
                         interval: 40000 // CHANGE FOR TIME, every 10000 is 10 seconds
-                        running: true
+                        running: false
                         repeat: false // Only run once
                         onTriggered: {
                             sunsetImage.visible = true; // Makes sunset visible
@@ -530,7 +548,7 @@ Item {
                     Timer {
                         id: roundTimer
                         interval: 1000 // 1000 ms = 1 second
-                        running: true // Initially stopped
+                        running: false // Initially stopped
                         repeat: true // Continuously counts up
                         onTriggered: {
                             gameBase.elapsedTime += 1;
@@ -543,7 +561,7 @@ Item {
                     Timer {
                         id: powerupTimer
                         interval: 10000 // 1000 ms = 1 second
-                        running: true // Initially stopped
+                        running: false // Initially stopped
                         repeat: true // Continuously counts up
                         onTriggered: {
                             goldHeartAnimation.running = false;
@@ -555,7 +573,7 @@ Item {
                     Timer { // Timer for obstacles coming out
                         id: obstacleTimer
                         interval: 3000
-                        running: true
+                        running: false
                         repeat: true
                         
                         // Variables to track the last obstacle for each game stage
@@ -621,7 +639,7 @@ Item {
                     Timer { // Timer for the background decorations (cloud, blimp, etc).
                         id: backgroundTimer
                         interval: 10000
-                        running: true
+                        running: false
                         repeat: true
                         onTriggered: {
                             // Generates a random number (change random() * X to # of obstacles)
