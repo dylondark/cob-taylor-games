@@ -260,6 +260,7 @@ void PongController::checkCollisions()
         emit scoreUpdated();
         qDebug() << "AI Scores! Player: " << playerScore << " - AI: " << aiScore;
         resetBall();
+        ai.updateLevel(playerScore, aiScore); // Update AI difficulty
         return; // Exit function to avoid further updates
     }
 
@@ -268,6 +269,7 @@ void PongController::checkCollisions()
         emit scoreUpdated();
         qDebug() << "Player Scores! Player: " << playerScore << " - AI: " << aiScore;
         resetBall();
+        ai.updateLevel(playerScore, aiScore); // Update AI difficulty
         return; // Exit function to avoid further updates
     }
 
@@ -329,7 +331,8 @@ void PongController::aiOperation()
     // Predict the ball's X position at the intersection point
     qreal predictedX = ballX + (ballVelocityX * timeToIntersect);
 
-    qreal error = ai.aiError * 0.5 * (QRandomGenerator::global()->generateDouble() - 0.5);
+    // add some randomness to the prediction based onAI error
+    qreal error = ai.getError() * 0.5 * (QRandomGenerator::global()->generateDouble() - 0.5);
     predictedX += error;
 
     // Ensure the predicted position is within the game bounds
@@ -340,15 +343,17 @@ void PongController::aiOperation()
     qreal paddleCenterX = playerPaddle2.x + (playerPaddle2.width / 2);
 
     // Move the AI paddle towards the predicted position
+    qreal interpolationFactor = ai.getReaction(); // use AI reaction time for smooth movement
     qreal deltaX = predictedX - paddleCenterX;
-    qreal movement = deltaX * ai.aiReaction;
+    qreal movement = deltaX * interpolationFactor;
 
     // Limit the paddle's speed to avoid glitchy movement
     qreal maxSpeed = 5.0; // Adjust this value as needed
     if (movement > maxSpeed) movement = maxSpeed;
     if (movement < -maxSpeed) movement = -maxSpeed;
 
-    playerPaddle2.x += static_cast<int>(deltaX * ai.aiReaction);
+    // Update the paddle's position using floating-point precision
+    playerPaddle2.x += movement;
 
     // Prevent the AI paddle from moving out of bounds
     if (playerPaddle2.x < 0) playerPaddle2.x = 0;
