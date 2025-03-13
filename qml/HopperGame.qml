@@ -98,7 +98,7 @@ Item {
                     }
                     Timer {
                         id: gameStartTimer
-                        interval: 100  // Roughly 30 FPS
+                        interval: 100
                         running: true
                         repeat: true
                         onTriggered: {
@@ -261,15 +261,16 @@ Item {
                     // Floor Rectangle for Zippy to run on
                     Item {
                         id: floorRect
-                        width: parent.width
+                        width: 8333 * root.scaleFactor
                         height: 600 * root.scaleFactor
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        Layout.verticalStretchFactor: 1
+                        //Layout.fillHeight: true
+                       // Layout.fillWidth: true
+                       // Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
                         
                         Image {
                             id: floorTexture
+                            width: parent.width
                             height: parent.height
                             source: filepath + "/gamefiles/Hopper/grass.zippyhopp-mirrored.jpg"
 
@@ -278,10 +279,10 @@ Item {
                                 loops: Animation.Infinite
                                 target: floorTexture
                                 running: true
-                                duration: 6000
+                                duration: 2500
                                 path: Path {
                                     PathLine { x: 0; y: 0 }
-                                    PathLine { x: -parent.width; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: -parent.width - 2500; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
@@ -382,7 +383,7 @@ Item {
                         anchors.top: archBack.top
                         anchors.right: archBack.right
                         anchors.topMargin: 10
-                        color: "green"
+                        color: "red"
                     }
                     
                     // Zippy Hitboxes
@@ -391,7 +392,7 @@ Item {
                         anchors.centerIn: zippyContainer
                         width: 225 * root.scaleFactor
                         height: 525 * root.scaleFactor
-                        color: "green"
+                        color: "red"
                     }
                     
                     Rectangle {
@@ -401,7 +402,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "green"
+                        color: "red"
                     }
                     
                     Item {
@@ -663,7 +664,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "green"
+                        color: "red"
                     }
                     
                     // Rock Obstacle
@@ -693,7 +694,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: paintedRock
-                        color: "green"
+                        color: "red"
                     }
                     
                     // paintedRock Obstacle
@@ -710,7 +711,7 @@ Item {
                         PropertyAnimation on x {
                             id: paintedRockAnimation
                             from: parent.width
-                            to: -300
+                            to: -450 * root.scaleFactor
                             duration: 2750  // Adjusts speed
                             loops: 1
                             running: false
@@ -723,7 +724,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "green"
+                        color: "red"
                     }
                     
                     Image {
@@ -752,7 +753,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "green" // was red
+                        color: "red" // was red
                     }
                     
                     Image {
@@ -781,7 +782,7 @@ Item {
                         width: 125 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "green"
+                        color: "red"
                     }
                     
                     Image {
@@ -810,7 +811,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "green"
+                        color: "red"
                     }
                     
                     Image {
@@ -838,7 +839,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: soccerball
-                        color: "green"
+                        color: "red"
                     }
                     
                     Image {
@@ -862,7 +863,7 @@ Item {
                                     target: soccerball
                                     property: "x"
                                     from: parent.width
-                                    to: -300
+                                    to: -450 * root.scaleFactor
                                     duration: 1750 // Adjusts speed
                                 }
                                 
@@ -903,7 +904,7 @@ Item {
                     width: 500 * root.scaleFactor
                     height: 350 * root.scaleFactor
                     anchors.centerIn: goldHeart
-                    color: "green" // was red
+                    color: "transparent" // was red
                 }
                 
                 
@@ -938,7 +939,7 @@ Item {
                                 target: goldHeart
                                 property: "y"
                                 from: goldHeart.y
-                                to: goldHeart.y - 30
+                                to: goldHeart.y - 30 * root.scaleFactor
                                 duration: 750
                                 easing.type: Easing.InOutSine
                             }
@@ -946,7 +947,7 @@ Item {
                             NumberAnimation {
                                 target: goldHeart
                                 property: "y"
-                                from: goldHeart.y - 30
+                                from: goldHeart.y - 30 * root.scaleFactor
                                 to: goldHeart.y
                                 duration: 750
                                 easing.type: Easing.InOutSine
