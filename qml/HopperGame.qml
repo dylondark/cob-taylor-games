@@ -261,7 +261,7 @@ Item {
                     // Floor Rectangle for Zippy to run on
                     Item {
                         id: floorRect
-                        width: 1750 * root.scaleFactor
+                        width: parent.width
                         height: 600 * root.scaleFactor
                         Layout.fillHeight: true
                         Layout.fillWidth: true
@@ -281,7 +281,7 @@ Item {
                                 duration: 6000
                                 path: Path {
                                     PathLine { x: 0; y: 0 }
-                                    PathLine { x: -3000 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: -1500 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
