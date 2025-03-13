@@ -281,7 +281,7 @@ Item {
                                 duration: 6000
                                 path: Path {
                                     PathLine { x: 0; y: 0 }
-                                    PathLine { x: -1500 * root.scaleFactor; y: 0 } // mess with X value until there is no teleporting or gap
+                                    PathLine { x: -parent.width; y: 0 } // mess with X value until there is no teleporting or gap
                                 }
                             }
                         }
