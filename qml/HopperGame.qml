@@ -103,14 +103,14 @@ Item {
                         repeat: true
                         onTriggered: {
                             if (gameBase.visible === true) {
-                            collisionTimer.running = true;
-                            stage2Timer.running = true;
-                            stage3Timer.running = true;
-                            roundTimer.running = true;
-                            powerupTimer.running = true;
-                            backgroundTimer.running = true;
-                            obstacleTimer.running = true;
-                            gameStartTimer.running = false;
+                                collisionTimer.running = true;
+                                stage2Timer.running = true;
+                                stage3Timer.running = true;
+                                roundTimer.running = true;
+                                powerupTimer.running = true;
+                                backgroundTimer.running = true;
+                                obstacleTimer.running = true;
+                                gameStartTimer.running = false;
                             }
                         }
                     }
@@ -265,7 +265,7 @@ Item {
                         height: 600 * root.scaleFactor
                         //Layout.fillHeight: true
                         Layout.fillWidth: true
-                       // Layout.verticalStretchFactor: 1
+                        // Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
                         
                         Image {
@@ -561,7 +561,7 @@ Item {
                     
                     Timer {
                         id: powerupTimer
-                        interval: 10000 // 1000 ms = 1 second
+                        interval: 15000 // 1000 ms = 1 second
                         running: false // Initially stopped
                         repeat: true // Continuously counts up
                         onTriggered: {
@@ -939,7 +939,7 @@ Item {
                                 target: goldHeart
                                 property: "y"
                                 from: goldHeart.y
-                                to: goldHeart.y - 30 * root.scaleFactor
+                                to: goldHeart.y - 350 * root.scaleFactor
                                 duration: 750
                                 easing.type: Easing.InOutSine
                             }
@@ -947,7 +947,7 @@ Item {
                             NumberAnimation {
                                 target: goldHeart
                                 property: "y"
-                                from: goldHeart.y - 30 * root.scaleFactor
+                                from: goldHeart.y - 350 * root.scaleFactor
                                 to: goldHeart.y
                                 duration: 750
                                 easing.type: Easing.InOutSine
