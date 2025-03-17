@@ -264,7 +264,7 @@ Item {
                         width: 8333 * root.scaleFactor
                         height: 600 * root.scaleFactor
                         //Layout.fillHeight: true
-                       // Layout.fillWidth: true
+                        Layout.fillWidth: true
                        // Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
                         
