@@ -218,34 +218,9 @@ void PongController::moveRightPaddle2() {
 }
 
 
-
-
 unsigned PongController::getScore()
 {
     return 0;
-}
-
-// /*
-//     Slot function that is called when gameTimer ticks. Calls updateGame with the TimerTick action.
-// */
-// void PongController::timerTick()
-// {
-//     if (gameOver)
-//     {
-//         gameTimer.stop();
-//         return;
-//     }
-
-//     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
-//         updateGame();
-//     });
-
-//     gameTimer.setInterval(timerInterval);
-// }
-
-void PongController::move()
-{
-
 }
 
 
@@ -358,8 +333,6 @@ void PongController::aiOperation()
     // Prevent the AI paddle from moving out of bounds
     if (playerPaddle2.x < 0) playerPaddle2.x = 0;
     if (playerPaddle2.x > width() - playerPaddle2.width) playerPaddle2.x = width() - playerPaddle2.width;
-
-    update();
 }
 
 void PongController::updateGame()
@@ -393,7 +366,6 @@ void PongController::resetBall()
     ballVelocityX = (rand() % 2 == 0) ? 2 : -2;
     ballVelocityY = (rand() % 2 == 0) ? 2 : -2;
 
-    update();
 }
 
 void PongController::timerTick()
