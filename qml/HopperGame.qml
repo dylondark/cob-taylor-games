@@ -383,7 +383,7 @@ Item {
                         anchors.top: archBack.top
                         anchors.right: archBack.right
                         anchors.topMargin: 10
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     // Zippy Hitboxes
@@ -392,7 +392,7 @@ Item {
                         anchors.centerIn: zippyContainer
                         width: 225 * root.scaleFactor
                         height: 525 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Rectangle {
@@ -402,7 +402,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Item {
@@ -664,7 +664,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     // Rock Obstacle
@@ -694,7 +694,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: paintedRock
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     // paintedRock Obstacle
@@ -724,7 +724,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -753,7 +753,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "red" // was red
+                        color: "transparent" // was red
                     }
                     
                     Image {
@@ -782,7 +782,7 @@ Item {
                         width: 125 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -811,7 +811,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -839,7 +839,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: soccerball
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -939,7 +939,7 @@ Item {
                                 target: goldHeart
                                 property: "y"
                                 from: goldHeart.y
-                                to: goldHeart.y - 350 * root.scaleFactor
+                                to: goldHeart.y - 300 * root.scaleFactor
                                 duration: 750
                                 easing.type: Easing.InOutSine
                             }
@@ -947,7 +947,7 @@ Item {
                             NumberAnimation {
                                 target: goldHeart
                                 property: "y"
-                                from: goldHeart.y - 350 * root.scaleFactor
+                                from: goldHeart.y - 300 * root.scaleFactor
                                 to: goldHeart.y
                                 duration: 750
                                 easing.type: Easing.InOutSine
