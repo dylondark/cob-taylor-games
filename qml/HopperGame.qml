@@ -261,32 +261,42 @@ Item {
                     // Floor Rectangle for Zippy to run on
                     Item {
                         id: floorRect
-                        width: 8333 * root.scaleFactor
+                        width: parent.width * 2
                         height: 600 * root.scaleFactor
-                        //Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        // Layout.verticalStretchFactor: 1
                         anchors.bottom: parent.bottom
-                        
-                        Image {
-                            id: floorTexture
-                            width: parent.width
+
+                        property real floorX: 0
+
+                        Image { //First floor texture image
+                            id: floorTexture1
+                            width: parent.width / 2
                             height: parent.height
+                            anchors.bottom: parent.bottom
+                            x: floorRect.floorX
                             source: filepath + "/gamefiles/Hopper/grass.zippyhopp-mirrored.jpg"
 
-                            PathAnimation {
-                                id: floorAnim
-                                loops: Animation.Infinite
-                                target: floorTexture
-                                running: true
-                                duration: 2500
-                                path: Path {
-                                    PathLine { x: 0; y: 0 }
-                                    PathLine { x: -parent.width - 2500; y: 0 } // mess with X value until there is no teleporting or gap
-                                }
-                            }
+                        }
+
+                        Image {
+                            id: floorTexture2 //Second floor texture image
+                            width: parent.width / 2
+                            height: parent.height
+                            anchors.bottom: parent.bottom
+                            x: floorRect.floorX + floorTexture1.width
+                            source: filepath + "/gamefiles/Hopper/grass.zippyhopp-mirrored.jpg"
+
+                        }
+
+                        NumberAnimation on floorX {
+                            from: 0
+                            to: -floorTexture1.width
+                            duration: 1500
+                            loops: Animation.Infinite
+                            running: true
+                            easing.type: Easing.Linear
                         }
                     }
+
                     
                     // Cloud Background Image
                     Image {
