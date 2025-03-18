@@ -253,7 +253,7 @@ Item {
                             sunsetImage.visible = true; // Makes sunset visible
                             sunsetImage.opacity = 1; // Starts the animation
                             gameBase.gameStage = 3;
-                            obstacleTimer.interval = 2000;
+                            obstacleTimer.interval = 2150;
                             console.log("Game Difficulty has been set to 3");
                         }
                     }
@@ -383,7 +383,7 @@ Item {
                         anchors.top: archBack.top
                         anchors.right: archBack.right
                         anchors.topMargin: 10
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     // Zippy Hitboxes
@@ -402,7 +402,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     Item {
@@ -664,7 +664,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     // Rock Obstacle
@@ -694,7 +694,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: paintedRock
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     // paintedRock Obstacle
@@ -724,7 +724,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     Image {
@@ -753,7 +753,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "transparent" // was red
+                        color: "red" // was red
                     }
                     
                     Image {
@@ -782,7 +782,7 @@ Item {
                         width: 125 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     Image {
@@ -808,10 +808,10 @@ Item {
                     // Bird obstacle
                     Rectangle {
                         id: birdHitbox
-                        width: 350 * root.scaleFactor
-                        height: 350 * root.scaleFactor
+                        width: 330 * root.scaleFactor
+                        height: 330 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     Image {
@@ -839,7 +839,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: soccerball
-                        color: "transparent"
+                        color: "red"
                     }
                     
                     Image {
@@ -864,7 +864,7 @@ Item {
                                     property: "x"
                                     from: parent.width
                                     to: -450 * root.scaleFactor
-                                    duration: 1750 // Adjusts speed
+                                    duration: 1850 // Adjusts speed
                                 }
                                 
                                 // Rotation
@@ -904,7 +904,7 @@ Item {
                     width: 500 * root.scaleFactor
                     height: 350 * root.scaleFactor
                     anchors.centerIn: goldHeart
-                    color: "transparent" // was red
+                    color: "red" // was red
                 }
                 
                 
