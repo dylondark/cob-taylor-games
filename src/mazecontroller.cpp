@@ -231,6 +231,8 @@ void MazeController::updateGame()
                 // create the start and end
                 (*board)[0][1].wall= false;
                 (*board)[BOARD_HEIGHT - 1][BOARD_WIDTH - 2].wall = false;
+
+                mazeGenerated();
             }
             break;
         }

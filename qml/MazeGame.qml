@@ -73,7 +73,7 @@ Item {
                         Text {
                             id: timeBoxText
                             anchors.centerIn: parent
-                            text: "Time: 00:00:00"
+                            text: "Time Remaining: 05:00:00"
                             font.pixelSize: 30  // Increased size for visibility
                             font.bold: true
                             color: "navy"
@@ -91,25 +91,11 @@ Item {
                     Layout.verticalStretchFactor: 4
                     x: (parent.width - width) / 2
                     y: (parent.height - height) / 1.5
-
-                    // Signal emitted when the maze is fully generated
-                    signal mazeGenerated()
-
-                    function notifyMazeGenerated() {
-                        console.log("MazeController: Maze generation complete, emitting signal...");
-                        mazeGenerated();  // Emit the signal
-                    }
-
                     onMazeGenerated: {
                         console.log("Maze generated! Timer starts now.");
                         gameTimer.running = true;  // Start the timer
                         gameTimer.restart();       // Restart to ensure it runs
                     }
-                    // Manually start the timer for testing when the component loads
-                        Component.onCompleted: {
-                            console.log("MazeController Loaded! Manually starting timer for testing...");
-                            gameTimer.running = true;
-                        }
                 }
                 // Timer to Start Counting in MM:SS:MS Format
                 Timer {

@@ -77,6 +77,12 @@ public:
     */
     Q_INVOKABLE void upAction();
 
+signals:
+    /*
+        Signal to tell QML when the maze is generated.
+    */
+    void mazeGenerated();
+
 private slots:
     /*
         Main game loop. Called every time a new action has happened.
