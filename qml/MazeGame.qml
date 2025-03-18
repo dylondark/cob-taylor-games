@@ -118,10 +118,10 @@ Item {
                     repeat: true
                     running: false  // Initially off
 
-                    property int elapsedTime: 0  // Total elapsed time in milliseconds
+                    property int elapsedTime: 300000  // Total elapsed time in milliseconds
 
                     onTriggered: {
-                        elapsedTime += 10;  // Increase by 10ms each tick
+                        elapsedTime -= 10;  // Increase by 10ms each tick
 
                         // Convert elapsed time to MM:SS:MS format
                         var minutes = Math.floor(elapsedTime / 60000);
@@ -135,9 +135,10 @@ Item {
                             (milliseconds < 10 ? "0" + milliseconds : milliseconds);
 
                         // Update UI
-                        timeBoxText.text = "Time: " + formattedTime;
+                        timeBoxText.text = "Time Remaining: " + formattedTime;
 
-                        console.log("Stopwatch running: " + formattedTime);
+                        // Re-enable for debugging.
+                        //console.log("Stopwatch running: " + formattedTime);
                     }
                 }
                 // Button Layout
