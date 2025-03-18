@@ -53,6 +53,8 @@ Item {
                     controller.startGame();
                 }
 
+                Component.onCompleted: homeBarBase.updatePoints();
+
                 // Score and Time Display
                 RowLayout {
                     id: topBar
