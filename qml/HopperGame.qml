@@ -393,7 +393,7 @@ Item {
                         anchors.top: archBack.top
                         anchors.right: archBack.right
                         anchors.topMargin: 10
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     // Zippy Hitboxes
@@ -412,7 +412,7 @@ Item {
                         anchors.rightMargin: 175 * root.scaleFactor
                         width: 75 * root.scaleFactor
                         height: 300 * root.scaleFactor
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Item {
@@ -674,7 +674,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: rock
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     // Rock Obstacle
@@ -704,7 +704,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: paintedRock
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     // paintedRock Obstacle
@@ -734,7 +734,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: statue
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -763,7 +763,7 @@ Item {
                         width: 150 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: rockCandy
-                        color: "red" // was red
+                        color: "transparent" // was red
                     }
                     
                     Image {
@@ -792,7 +792,7 @@ Item {
                         width: 125 * root.scaleFactor
                         height: 500 * root.scaleFactor
                         anchors.centerIn: clock
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -821,7 +821,7 @@ Item {
                         width: 330 * root.scaleFactor
                         height: 330 * root.scaleFactor
                         anchors.centerIn: bird
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -849,7 +849,7 @@ Item {
                         width: 350 * root.scaleFactor
                         height: 350 * root.scaleFactor
                         anchors.centerIn: soccerball
-                        color: "red"
+                        color: "transparent"
                     }
                     
                     Image {
@@ -914,7 +914,7 @@ Item {
                     width: 500 * root.scaleFactor
                     height: 350 * root.scaleFactor
                     anchors.centerIn: goldHeart
-                    color: "red" // was red
+                    color: "transparent" // was red
                 }
                 
                 
