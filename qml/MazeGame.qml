@@ -18,7 +18,7 @@ Item {
     signal saveScore(int game, string username, int score)
 
     property real scaleFactor: height / 3840
-    property int points: 0
+    property int points: 30000
     property string strName: "Maze"
     property string username: ""
 
@@ -121,7 +121,9 @@ Item {
                     property int elapsedTime: 300000  // Total elapsed time in milliseconds
 
                     onTriggered: {
-                        elapsedTime -= 10;  // Increase by 10ms each tick
+                        elapsedTime -= 10;  // Decrease by 10ms each tick
+                        points -= 1; // Decrease by 1 pt each tick
+                        homeBarBase.updatePoints();
 
                         // Convert elapsed time to MM:SS:MS format
                         var minutes = Math.floor(elapsedTime / 60000);
