@@ -231,6 +231,8 @@ void MazeController::updateGame()
                 // create the start and end
                 (*board)[0][1].wall= false;
                 (*board)[BOARD_HEIGHT - 1][BOARD_WIDTH - 2].wall = false;
+
+                mazeGenerated();
             }
             break;
         }
@@ -240,6 +242,10 @@ void MazeController::updateGame()
 
         QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
     });
+    // Note: "Game over & You win" screens still need implemented here.
+    if (playerPos.first == 27 && playerPos.second == 58) {
+        gameOver = true;
+    }
 }
 
 /*

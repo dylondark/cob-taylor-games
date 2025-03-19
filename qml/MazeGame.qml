@@ -18,7 +18,7 @@ Item {
     signal saveScore(int game, string username, int score)
 
     property real scaleFactor: height / 3840
-    property int points: 0
+    property int points: 30000
     property string strName: "Maze"
     property string username: ""
 
@@ -53,6 +53,8 @@ Item {
                     controller.startGame();
                 }
 
+                Component.onCompleted: homeBarBase.updatePoints();
+
                 // Score and Time Display
                 RowLayout {
                     id: topBar
@@ -73,7 +75,7 @@ Item {
                         Text {
                             id: timeBoxText
                             anchors.centerIn: parent
-                            text: "Time: 00:00:00"
+                            text: "Time Remaining: 05:00:00"
                             font.pixelSize: 30  // Increased size for visibility
                             font.bold: true
                             color: "navy"
@@ -91,25 +93,11 @@ Item {
                     Layout.verticalStretchFactor: 4
                     x: (parent.width - width) / 2
                     y: (parent.height - height) / 1.5
-
-                    // Signal emitted when the maze is fully generated
-                    signal mazeGenerated()
-
-                    function notifyMazeGenerated() {
-                        console.log("MazeController: Maze generation complete, emitting signal...");
-                        mazeGenerated();  // Emit the signal
-                    }
-
                     onMazeGenerated: {
                         console.log("Maze generated! Timer starts now.");
                         gameTimer.running = true;  // Start the timer
                         gameTimer.restart();       // Restart to ensure it runs
                     }
-                    // Manually start the timer for testing when the component loads
-                        Component.onCompleted: {
-                            console.log("MazeController Loaded! Manually starting timer for testing...");
-                            gameTimer.running = true;
-                        }
                 }
                 // Timer to Start Counting in MM:SS:MS Format
                 Timer {
@@ -118,10 +106,12 @@ Item {
                     repeat: true
                     running: false  // Initially off
 
-                    property int elapsedTime: 0  // Total elapsed time in milliseconds
+                    property int elapsedTime: 300000  // Total elapsed time in milliseconds
 
                     onTriggered: {
-                        elapsedTime += 10;  // Increase by 10ms each tick
+                        elapsedTime -= 10;  // Decrease by 10ms each tick
+                        points -= 1; // Decrease by 1 pt each tick
+                        homeBarBase.updatePoints();
 
                         // Convert elapsed time to MM:SS:MS format
                         var minutes = Math.floor(elapsedTime / 60000);
@@ -135,9 +125,10 @@ Item {
                             (milliseconds < 10 ? "0" + milliseconds : milliseconds);
 
                         // Update UI
-                        timeBoxText.text = "Time: " + formattedTime;
+                        timeBoxText.text = "Time Remaining: " + formattedTime;
 
-                        console.log("Stopwatch running: " + formattedTime);
+                        // Re-enable for debugging.
+                        //console.log("Stopwatch running: " + formattedTime);
                     }
                 }
                 // Button Layout
