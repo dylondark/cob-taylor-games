@@ -31,23 +31,23 @@ struct AILevel {
 };
 
 const std::array<AILevel, 17> AILevels = {{
-    {0.2,  40}, // 0:  AI is losing by 8
-    {0.3,  50}, // 1:  AI is losing by 7
-    {0.4,  60}, // 2:  AI is losing by 6
-    {0.5,  70}, // 3:  AI is losing by 5
-    {0.6,  80}, // 4:  AI is losing by 4
-    {0.7,  90}, // 5:  AI is losing by 3
-    {0.8, 100}, // 6:  AI is losing by 2
-    {0.9, 110}, // 7:  AI is losing by 1
-    {1.0, 120}, // 8:  Tie
-    {1.1, 130}, // 9:  AI is winning by 1
-    {1.2, 140}, // 10: AI is winning by 2
-    {1.3, 150}, // 11: AI is winning by 3
-    {1.4, 160}, // 12: AI is winning by 4
-    {1.5, 170}, // 13: AI is winning by 5
-    {1.6, 180}, // 14: AI is winning by 6
-    {1.7, 190}, // 15: AI is winning by 7
-    {1.8, 200}  // 16: AI is winning by 8
+    {0.1,  20}, // 0:  AI is losing by 8
+    {0.2,  30}, // 1:  AI is losing by 7
+    {0.3,  40}, // 2:  AI is losing by 6
+    {0.4,  50}, // 3:  AI is losing by 5
+    {0.5,  60}, // 4:  AI is losing by 4
+    {0.6,  70}, // 5:  AI is losing by 3
+    {0.7,  80}, // 6:  AI is losing by 2
+    {0.8,  90}, // 7:  AI is losing by 1
+    {0.9, 100}, // 8:  Tie
+    {1.0, 110}, // 9:  AI is winning by 1
+    {1.1, 120}, // 10: AI is winning by 2
+    {1.2, 130}, // 11: AI is winning by 3
+    {1.3, 140}, // 12: AI is winning by 4
+    {1.4, 150}, // 13: AI is winning by 5
+    {1.5, 160}, // 14: AI is winning by 6
+    {1.6, 170}, // 15: AI is winning by 7
+    {1.7, 180}  // 16: AI is winning by 8
 }};
 
 struct AI {

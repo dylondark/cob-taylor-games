@@ -298,7 +298,7 @@ void PongController::aiOperation()
     qreal movement = deltaX * interpolationFactor;
 
     // Limit the paddle's speed to avoid glitchy movement
-    qreal maxSpeed = 5.0; // Adjust this value as needed
+    qreal maxSpeed = 3.0; // Adjust this value as needed
     if (movement > maxSpeed) movement = maxSpeed;
     if (movement < -maxSpeed) movement = -maxSpeed;
 
