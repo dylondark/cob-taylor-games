@@ -21,7 +21,7 @@
 #include <QStackedLayout>
 #include <QQmlContext>
 #include <QQuickView>
-#include <triviacontroller.h>
+#include "triviacontroller.h"
 
 /*
     Constructor for MainWindow.

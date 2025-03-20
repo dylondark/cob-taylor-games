@@ -22,7 +22,7 @@ ColumnLayout {
         interval: 15000 // 15 seconds
         repeat: true
         onTriggered: {
-                root.quit()
+            root.quit()
         }
     }
 
@@ -40,7 +40,7 @@ ColumnLayout {
         Layout.preferredHeight: -1
         Layout.preferredWidth: -1
         Layout.fillHeight: true
-        Layout.fillWidth: true
+        Layout.fillWidth: true;
 
         Text {
             id: gameOverText
@@ -49,14 +49,36 @@ ColumnLayout {
             font.bold: true
             text: "Game Over!\nThanks for playing!"
             horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignBottom
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            verticalAlignment: Text.AlignVCenter
+            //Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
             layer.enabled: true
             layer.effect: DropShadow {
                 horizontalOffset: 8 * root.scaleFactor
                 verticalOffset: 8 * root.scaleFactor
                 radius: 24.0 * root.scaleFactor
+                samples: (radius * 2) + 1
+                color: "#aa000000"
+                cached: false
+                transparentBorder: true
+            }
+        }
+
+        Text {
+            id: gameOverScoreText
+            anchors.fill: parent
+            font.pointSize: 72 * root.scaleFactor
+            font.bold: true
+            text: "Your score: " + root.points
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignBottom
+            //Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+            layer.enabled: true
+            layer.effect: DropShadow {
+                horizontalOffset: 4 * root.scaleFactor
+                verticalOffset: 4 * root.scaleFactor
+                radius: 12.0 * root.scaleFactor
                 samples: (radius * 2) + 1
                 color: "#aa000000"
                 cached: false
@@ -71,26 +93,14 @@ ColumnLayout {
         Layout.fillHeight: true
         Layout.fillWidth: true
 
-        Text {
-            id: gameOverScoreText
-            anchors.fill: parent
-            font.pointSize: 72 * root.scaleFactor
-            font.bold: true
-            text: "Your score: " + root.points
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
+        Image { //endScreen Zippy
+            id: esZippy
+            visible: root.gameEnum === 3
+            source: filepath + "/gamefiles/Hopper/ESZippy.png"
+            width: 750 * root.scaleFactor
+            height: 1120 * root.scaleFactor
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-                horizontalOffset: 4 * root.scaleFactor
-                verticalOffset: 4 * root.scaleFactor
-                radius: 12.0 * root.scaleFactor
-                samples: (radius * 2) + 1
-                color: "#aa000000"
-                cached: false
-                transparentBorder: true
-            }
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
 
@@ -121,6 +131,19 @@ ColumnLayout {
                 cached: false
                 transparentBorder: true
             }
+        }
+
+        Text { // For Zippy Hop
+            id: hopperGameOver
+            visible: root.gameEnum === 3
+            anchors.fill: parent
+            font.pointSize: 144 * root.scaleFactor
+            style: Text.Outline
+            text: "You ran\n" + root.points + "\nmeters!"
+            font.family: "Arial Black"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: esZippy.bottom + 50 * root.scaleFactor
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVTop
         }
     }
 }
