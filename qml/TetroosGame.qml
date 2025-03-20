@@ -10,7 +10,6 @@ import QtQuick.Layouts
 import QtQml
 import QMLControllers
 
-// this game is in PREVIEW STATE
 Item {
     id: root
     width: 2160
@@ -49,22 +48,47 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.verticalStretchFactor: 6
+            color: "#fff7e9"
             Layout.minimumHeight: 1
 
-            gradient: Gradient {
-                GradientStop {
-                    position: 0.0
-                    color: "#3f51b1"
-                }
-                GradientStop {
-                    position: 1.0
-                    color: "#cc6b8e"
-                }
+            TetroosBackgroundPiece {
+                id: img1
+                source: filepath + "/gamefiles/Tetroos/images/I.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img2
+                source: filepath + "/gamefiles/Tetroos/images/J.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img3
+                source: filepath + "/gamefiles/Tetroos/images/L.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img4
+                source: filepath + "/gamefiles/Tetroos/images/O.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img5
+                source: filepath + "/gamefiles/Tetroos/images/S.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img6
+                source: filepath + "/gamefiles/Tetroos/images/T.png"
+            }
+
+            TetroosBackgroundPiece {
+                id: img7
+                source: filepath + "/gamefiles/Tetroos/images/Z.png"
             }
 
             MenuBase {
                 id: menuBase
-                imageSource: filepath + "/menufiles/TetroosPreview.png"
+                imageSource: filepath + "/menufiles/Tetroos.png"
             }
 
             Item {
@@ -91,6 +115,7 @@ Item {
 
                         linesVar.text = controller.getLinesCleared();
                         levelVar.text = controller.getLevel();
+                        scoreVar.text = controller.getScore();
 
                         // fill in hold and next pieces
                         holdView.setPiece(controller.getHoldPiece());
@@ -112,7 +137,7 @@ Item {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignHCenter
-                        color: "#fff7e9"
+                        color: "transparent"
 
                         ColumnLayout {
                             Layout.fillWidth: true
@@ -182,6 +207,7 @@ Item {
                                 id: scoreVar
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
+                                color: "black"
                                 font.pointSize: 110 * root.scaleFactor
                                 background: Rectangle {
                                     color: "#ffffff"

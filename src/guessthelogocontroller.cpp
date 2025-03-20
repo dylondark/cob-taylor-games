@@ -8,6 +8,7 @@
 #include <random>
 #include <algorithm>
 #include "rapidcsv.h"
+#include "utilities.h"
 #include <QApplication>
 
 /*
@@ -26,8 +27,15 @@ GuessTheLogoController::GuessTheLogoController() : IMG_PATHS{"/gamefiles/GuessTh
     GTLQuestion current;
     std::string strTemp;
     int questionType;
-    rapidcsv::Document file(filepath + QUESTION_PATH);
-
+    rapidcsv::Document file;
+    try
+    {
+        file = rapidcsv::Document(filepath + QUESTION_PATH);
+    }
+    catch (...)
+    {
+        Utilities::throwError(Utilities::FileOpenError, QUESTION_PATH.c_str());
+    }
     for (unsigned x = 0; x < file.GetRowCount(); x++)
     {
         strTemp = file.GetCell<string>(0, x);

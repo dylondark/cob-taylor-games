@@ -75,7 +75,7 @@ Rectangle {
                 id: pieceImg
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectFit
-                smooth: false
+                smooth: true
                 asynchronous: true
                 source: ""
             }
