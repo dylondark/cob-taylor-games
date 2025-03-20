@@ -22,7 +22,6 @@
 #include <QQmlContext>
 #include <QQuickView>
 #include "triviacontroller.h"
-#include "qmlimagepreloader.h"
 
 /*
     Constructor for MainWindow.
@@ -159,7 +158,6 @@ void MainWindow::initQML()
     qmlRegisterType<TetroosController>("QMLControllers", 1, 0, "TetroosController");
     qmlRegisterType<FeedbackController>("QMLControllers", 1, 0, "FeedbackController");
     qmlRegisterType<ProfanityChecker>("QMLControllers", 1, 0, "ProfanityChecker");
-    qmlRegisterType<QMLImagePreloader>("QMLControllers", 1, 0, "QMLImagePreloader");
     // all qml controllers will eventually be registered here
 }
 

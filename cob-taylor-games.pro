@@ -25,7 +25,6 @@ HEADERS += \
     feedbackcontroller.h \
     cliparser.h \
     flippedarray.h \
-    qmlimagepreloader.h \
     threadworker.h \
     tetroosdata.h \
     tetrooscontroller.h \
@@ -49,7 +48,6 @@ SOURCES += \
     clickdetector.cpp \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
-    qmlimagepreloader.cpp \
     tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
