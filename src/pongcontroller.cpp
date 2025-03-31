@@ -25,8 +25,8 @@ PongController::PongController()
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
 
     // Initialize ball properties
-    ballX = 0;
-    ballY = 0;
+    ball.x = 0;
+    ball.y = 0;
     ballWidth = 20 * (width() / 2160.0);
     ballHeight = 20 * (height() / 3840.0);
     ballVelocityX = 2 * (width() / 2160.0);
@@ -105,7 +105,7 @@ void PongController::paint(QPainter* painter)
 
     // Draw the ball
     painter->setBrush(Qt::black);
-    painter->drawEllipse(QRectF(ballX, ballY, ballWidth, ballHeight));
+    painter->drawEllipse(QRectF(ball.x, ball.y, ballWidth, ballHeight));
 }
 
 /*
@@ -178,29 +178,33 @@ bool PongController::isGameOver()
 //moves paddle 1 and 2 left and right
 
 void PongController::moveLeftPaddle1() {
+    qreal movement = 10 * (width() / 2160.0);
     if (playerPaddle1.x > 0) {
-        playerPaddle1.x -= 10; // Move left by 10 units
+        playerPaddle1.x -= movement; // Move left by 10 units
     }
     update();
 }
 
 void PongController::moveRightPaddle1() {
+    qreal movement = 10 * (width() / 2160.0);
     if (playerPaddle1.x < width() - playerPaddle1.width) {
-        playerPaddle1.x += 10; // Move right by 10 units
+        playerPaddle1.x += movement; // Move right by 10 units
     }
     update();
 }
 
 void PongController::moveLeftPaddle2() {
+    qreal movement = 10 * (width() / 2160.0);
     if (playerPaddle2.x < width() - playerPaddle2.width) {
-        playerPaddle2.x += 10; // Move right by 10 units
+        playerPaddle2.x += movement; // Move right by 10 units
     }
     update();
 }
 
 void PongController::moveRightPaddle2() {
+    qreal movement = 10 * (width() / 2160.0);
     if (playerPaddle2.x > 0) {
-        playerPaddle2.x -= 10;
+        playerPaddle2.x -= movement;
     }
     update();
 }
@@ -213,7 +217,7 @@ unsigned PongController::getScore()
 void PongController::checkCollisions()
 {
     // Define ball rectangle for collision detection
-    QRectF ballRect(ballX, ballY, ballWidth, ballHeight);
+    QRectF ballRect(ball.x, ball.y, ballWidth, ballHeight);
 
     // **Check if the ball missed a paddle (scoring condition)**
     if (ballY + ballHeight >= height()) { // Player missed, AI scores
@@ -249,19 +253,42 @@ void PongController::checkCollisions()
     QRectF paddle1Rect(playerPaddle1.x, height() - playerPaddle1.height - 10,
                        playerPaddle1.width, playerPaddle1.height);
 
+    /*
     if (ballRect.intersects(paddle1Rect)) {
         ballVelocityY = -ballVelocityY; // Reverse Y direction
         ballY = paddle1Rect.top() - ballHeight - 1; // Prevent sticking
+    }
+    */
+    if (ballRect.intersects(paddle1Rect)) {
+        // Randomize reflection angle (-0.5 to 0.5 radians ~ ±30 degrees)
+        qreal randomAngle = (QRandomGenerator::global()->generateDouble() - 0.5) * M_PI / 6;
+
+        // Reverse Y direction and apply randomness
+        ballVelocityY = -abs(ballVelocityY) * (1.0 + randomAngle);
+
+        // Add slight randomness to X velocity
+        ballVelocityX += (QRandomGenerator::global()->generateDouble() - 0.5) * 0.5;
+
+        // Prevent sticking
+        ballY = paddle1Rect.top() - ballHeight - 1;
     }
 
     // **Check collision with AI's Paddle (top paddle)**
     QRectF paddle2Rect(width() - playerPaddle2.x - playerPaddle2.width, 10,
                        playerPaddle2.width, playerPaddle2.height);
 
+    /*
     if (ballRect.intersects(paddle2Rect)) {
         ballVelocityY = -ballVelocityY; // Reverse Y direction
         ballY = paddle2Rect.bottom() + 1; // Prevent sticking
-
+    }
+    */
+    if (ballRect.intersects(paddle2Rect)) {
+        // Same randomization as player paddle
+        qreal randomAngle = (QRandomGenerator::global()->generateDouble() - 0.5) * M_PI / 6;
+        ballVelocityY = abs(ballVelocityY) * (1.0 + randomAngle);
+        ballVelocityX += (QRandomGenerator::global()->generateDouble() - 0.5) * 0.5;
+        ballY = paddle2Rect.bottom() + 1;
     }
 }
 
@@ -319,8 +346,8 @@ void PongController::updateGame()
     /*ai.updateLevel(playerScore, aiScore);*/
 
     // Move the ball
-    ballX += ballVelocityX;
-    ballY += ballVelocityY;
+    ball.x += ball.dx;
+    ball.y += ball.dy;
 
     // Update AI paddle position
     aiOperation();
