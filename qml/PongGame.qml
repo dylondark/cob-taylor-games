@@ -219,6 +219,7 @@ Item {
                         }
                     }
 
+                    /*
                     // Player 2 Controls
                     ColumnLayout {
                         spacing: 10
@@ -267,6 +268,7 @@ Item {
                             }
                         }
                     }
+                    */
                 }
 
             }
