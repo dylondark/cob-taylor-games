@@ -27,14 +27,14 @@ PongController::PongController()
     // Initialize ball properties
     ballX = 0;
     ballY = 0;
-    ballWidth = 20;
-    ballHeight = 20;
-    ballVelocityX = 2;
-    ballVelocityY = 2;
+    ballWidth = 20 * (width() / 2160.0);
+    ballHeight = 20 * (height() / 3840.0);
+    ballVelocityX = 2 * (width() / 2160.0);
+    ballVelocityY = 2 * (height() / 3840.0);
 
     // Initialize both paddles
-    playerPaddle1 = {10, 100, 20, false};
-    playerPaddle2 = {10, 100, 20, true};
+    playerPaddle1 = {10 * (width() / 2160.0), 100 * (height() / 3840.0), 20 * (width() / 2160.0), false};
+    playerPaddle2 = {10 * (width() / 2160.0), 100 * (height() / 3840.0), 20 * (width() / 2160.0), true};
 
     // Ensure PongController can receive key events
     setFlag(QQuickItem::ItemHasContents, true);

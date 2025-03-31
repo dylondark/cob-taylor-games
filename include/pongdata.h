@@ -12,17 +12,17 @@
 struct Paddle
 {
     qreal x;
-    int width;
-    int height;
+    qreal width;
+    qreal height;
     bool player2;
 };
 
 struct Ball {
-    int x;
-    int y;
-    int radius;
-    int dx;
-    int dy;
+    qreal x;
+    qreal y;
+    qreal radius;
+    qreal dx;
+    qreal dy;
 };
 
 struct AILevel {
