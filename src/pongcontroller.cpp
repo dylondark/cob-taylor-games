@@ -289,6 +289,9 @@ void PongController::aiOperation()
     if (predictedX < 0) predictedX = 0;
     if (predictedX > width()) predictedX = width();
 
+    // flip predictedX
+    predictedX = width() - predictedX;
+
     // Calculate the center of the AI paddle
     qreal paddleCenterX = playerPaddle2.x + (playerPaddle2.width / 2);
 
