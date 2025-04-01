@@ -109,6 +109,14 @@ Item {
                     property int elapsedTime: 300000  // Total elapsed time in milliseconds
 
                     onTriggered: {
+                        if (controller.isGameOver())
+                        {
+                            gameBase.visible = false;
+                            gameOverBase.gameOverOps();
+                            gameTimer.running = false;  // Stop the timer
+                            return; // Exit if the game is over
+                        }
+
                         elapsedTime -= 10;  // Decrease by 10ms each tick
                         points -= 1; // Decrease by 1 pt each tick
                         homeBarBase.updatePoints();
@@ -235,6 +243,10 @@ Item {
                         }
                     }
                 }
+            }
+
+            GameOverBase {
+                id: gameOverBase
             }
         }
 

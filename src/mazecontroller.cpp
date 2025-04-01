@@ -157,6 +157,14 @@ void MazeController::rightAction()
 }
 
 /*
+    Returns whether the game is over or not.
+*/
+bool MazeController::isGameOver()
+{
+    return gameOver;
+}
+
+/*
     Main game loop. Called every time a new action has happened.
     Calculates the new game state in response to the action and sends the signal to QML to display it.
 */
