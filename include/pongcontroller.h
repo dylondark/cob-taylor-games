@@ -46,18 +46,6 @@ public:
     Q_INVOKABLE void moveRightPaddle1();
     Q_INVOKABLE void moveLeftPaddle2();
     Q_INVOKABLE void moveRightPaddle2();
-    //Q_INVOKABLE unsigned getPlayerScore();
-    //Q_INVOKABLE unsigned getAIScore();
-
-    /*
-        Returns whether game is over or not.
-    */
-    //Q_INVOKABLE bool isGameOver();
-
-    /*
-        Returns the current score.
-    */
-    //Q_INVOKABLE unsigned getScore();
 
 signals:
     /*
@@ -75,10 +63,6 @@ private:
         Kicks off the game loop. To be called by QML after entering the game.
     */
     void updateGame();
-
-    /*
-    void initBallPosition();
-    */
 
     /*
         The base of the paths. Should be the location of the folder containing the gamefiles folder.
@@ -133,19 +117,6 @@ private:
     Paddle playerPaddle2;
     Ball ball;
     AI ai;
-
-    // Ball properties
-    qreal ballX;
-    qreal ballY;
-    qreal ballWidth;
-    qreal ballHeight;
-    qreal ballVelocityX;
-    qreal ballVelocityY;
-
-    // Updates the ball's position and handles collisions
-    /*
-    void updateBallPosition();
-    */
 
     // Timer for the game
     QTimer gameTimer;
