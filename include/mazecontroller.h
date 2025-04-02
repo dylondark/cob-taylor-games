@@ -77,6 +77,11 @@ public:
     */
     Q_INVOKABLE void upAction();
 
+    /*
+        Returns whether the game is over or not.
+    */
+    Q_INVOKABLE bool isGameOver();
+
 signals:
     /*
         Signal to tell QML when the maze is generated.
