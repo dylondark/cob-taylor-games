@@ -93,22 +93,6 @@ Item {
                                 color: "navy"
                             }
                         }
-
-                    // Time Section
-                    // Rectangle {
-                    //     id: timeBox
-                    //     Layout.fillWidth: true
-                    //     Layout.fillHeight: true
-                    //     color: "#D2B48C"  // Light brown background for the time
-                    //     border.color: "black"
-                    //     Text {
-                    //         anchors.centerIn: parent
-                    //         text: "Time: 0"
-                    //         font.pixelSize: 20
-                    //         color: "navy"
-                    //     }
-                    // }
-
                 }
 
 
@@ -218,57 +202,6 @@ Item {
 
                         }
                     }
-
-                    /*
-                    // Player 2 Controls
-                    ColumnLayout {
-                        spacing: 10
-
-                        Text {
-                            text: "Player 2 Controls"
-                            font.pixelSize: 20
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-
-                        RowLayout {
-                            spacing: 10
-
-                            // Timer for Player 2 Movement
-                            Timer {
-                                id: moveTimerPlayer2
-                                interval: 50
-                                running: false
-                                repeat: true
-                                onTriggered: {
-                                    if (leftButtonPlayer2.pressed) {
-                                        controller.moveLeftPaddle2();
-                                    } else if (rightButtonPlayer2.pressed) {
-                                        controller.moveRightPaddle2();
-                                    }
-                                }
-                            }
-
-                            Button {
-                                id: leftButtonPlayer2
-                                text: "Left"
-                                onPressed: moveTimerPlayer2.start()
-                                onReleased: moveTimerPlayer2.stop()
-                                width: 200
-                                height: 100
-                            }
-
-                            Button {
-                                id: rightButtonPlayer2
-                                text: "Right"
-                                onPressed: moveTimerPlayer2.start()
-                                onReleased: moveTimerPlayer2.stop()
-                                width: 200
-                                height: 100
-                            }
-                        }
-                    }
-                    */
                 }
 
             }
