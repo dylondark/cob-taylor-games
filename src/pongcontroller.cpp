@@ -49,6 +49,8 @@ PongController::PongController()
 
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
+
+    startGame();
 }
 
 
@@ -74,8 +76,6 @@ void PongController::paint(QPainter* painter)
         ball.x = width() / 2 - ball.width / 2;
          ball.y = height() / 2 - ball.height / 2;
     }
-
-    updateGame();
 
     // Draw the dotted horizontal line
     painter->setPen(QPen(Qt::white, 2)); // Set pen color and thickness
@@ -334,7 +334,7 @@ void PongController::updateGame()
     checkCollisions();
 
     // Trigger a repaint
-    update();
+    QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
 }
 
 void PongController::resetBall()
@@ -354,9 +354,6 @@ void PongController::timerTick()
         gameTimer.stop();
         return;
     }
-
-    // Update AI paddle position
-    aiOperation();
 
     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
         updateGame();
