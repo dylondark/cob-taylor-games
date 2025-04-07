@@ -73,7 +73,7 @@ void MazeController::paint(QPainter* painter)
 
             // Draw the character as an image
             if (row == playerPos.second && col == playerPos.first) {
-                QPixmap playerImage("C:\\Users\\sa_lm151\\Downloads\\openart-bc5b5bd7-fbe6-4a40-a013-9bdfd23dbd62.png");
+                QPixmap playerImage("C:\\Users\\sa_lm151\\Documents\\cob-taylor-games\\gamefiles\\Maze\\Maze Player model.png");
                 painter->drawPixmap(col * cellWidth, row * cellHeight, cellWidth, cellHeight, playerImage);
             }
 
