@@ -71,8 +71,11 @@ void MazeController::paint(QPainter* painter)
             // Draw the individual grid cell with the appropriate color
             painter->drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
 
-            // Draw the character as an asterisk
-            if (row == playerPos.second && col == playerPos.first) painter->drawText(col * cellWidth + cellWidth / 4, row * cellHeight + 3 * cellHeight / 4, "*");
+            // Draw the character as an image
+            if (row == playerPos.second && col == playerPos.first) {
+                QPixmap playerImage("C:\\Users\\sa_lm151\\Downloads\\openart-bc5b5bd7-fbe6-4a40-a013-9bdfd23dbd62.png");
+                painter->drawPixmap(col * cellWidth, row * cellHeight, cellWidth, cellHeight, playerImage);
+            }
 
         }
 
