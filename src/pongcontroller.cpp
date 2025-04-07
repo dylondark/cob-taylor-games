@@ -284,7 +284,7 @@ void PongController::aiOperation()
     qreal predictedX = ball.x + (ball.dx * timeToIntersect);
 
     // add some randomness to the prediction based onAI error
-    qreal error = ai.getError() * 0.5 * (QRandomGenerator::global()->generateDouble() - 0.5);
+    qreal error = ai.getError() * 0.5; //* (QRandomGenerator::global()->generateDouble() - 0.5);
     predictedX += error;
 
     // Ensure the predicted position is within the game bounds
