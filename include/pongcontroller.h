@@ -72,10 +72,10 @@ private:
     const QString filepath = ".";
 
     // the width of the internal game area (this is SEPARATE from the width of the QML canvas)
-    const int internalWidth = 2160;
+    const int internalWidth = 1000;
 
     // the height of the internal game area (this is SEPARATE from the height of the QML canvas)
-    const int internalHeight = 3840;
+    const int internalHeight = 2000;
 
     // The main thread used to execute game logic calculations.
     QThread logicThread;
