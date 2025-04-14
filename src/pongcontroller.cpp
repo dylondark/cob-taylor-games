@@ -24,6 +24,11 @@ PongController::PongController()
     // Connect timer
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
 
+    soccerBall.load("/gamefiles/Zoccer/images/soccerball.png");
+    if (soccerBall.isNull()) {
+        qDebug() << "Failed to load soccer ball image.";
+    }
+
     // Initialize with base values
     ball = {0, 0, 20, 20, 2, 2}; // x, y, width, height, dx, dy
     playerPaddle1 = {10, 100, 20, false};
@@ -96,9 +101,18 @@ void PongController::paint(QPainter* painter)
     painter->drawRect(width() - playerPaddle2.x - playerPaddle2.width, 10,
                       playerPaddle2.width, playerPaddle2.height);
 
-    // Draw the ball
-    painter->setBrush(Qt::black);
-    painter->drawEllipse(QRectF(ball.x, ball.y, ball.width, ball.height));
+    // Draw Soccer ball
+    if (!soccerBall.isNull()) {
+        painter->drawImage(
+            QRectF(ball.x, ball.y, ball.width, ball.height),
+            soccerBall,
+            QRectF(0, 0, soccerBall.width(), soccerBall.height())
+            );
+    } else {
+        // Fallback: Draw black ellipse if image fails to load
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(ball.x, ball.y, ball.width, ball.height));
+    }
 }
 
 /*
