@@ -72,7 +72,7 @@ PongController::PongController()
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
 
-    startGame();
+    //startGame();
 }
 
 
@@ -262,6 +262,7 @@ void PongController::checkCollisions()
         // 🔥 Increase speed by 5%
         ball.dx *= 1.05;
         ball.dy *= 1.05;
+        qDebug() << " bottom paddle";
     }
 
     // Player 2 paddle (top)
@@ -278,6 +279,7 @@ void PongController::checkCollisions()
 
         ball.dx *= 1.05;
         ball.dy *= 1.05;
+        qDebug() << "top paddle";
     }
 
     // Scoring logic
