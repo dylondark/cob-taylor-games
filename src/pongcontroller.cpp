@@ -258,6 +258,10 @@ void PongController::checkCollisions()
     if (ballRect.intersects(paddle1Rect)) {
         ball.dy = -qAbs(ball.dy);
         ball.y = paddle1Rect.top() - ball.height;
+
+        // 🔥 Increase speed by 5%
+        ball.dx *= 1.05;
+        ball.dy *= 1.05;
     }
 
     // Player 2 paddle (top)
@@ -271,6 +275,9 @@ void PongController::checkCollisions()
     if (ballRect.intersects(paddle2Rect)) {
         ball.dy = qAbs(ball.dy);
         ball.y = paddle2Rect.bottom();
+
+        ball.dx *= 1.05;
+        ball.dy *= 1.05;
     }
 
     // Scoring logic
@@ -343,18 +350,10 @@ void PongController::resetBall()
     ball.x = width() / 2 - ball.width / 2;
     ball.y = height() / 2 - ball.height / 2;
 
-    // Increase speed by 5% each reset
-    ball.dx *= 1.05;
-    ball.dy *= 1.05;
-
-    // Optional: Clamp max speed to avoid going infinite
-    qreal maxSpeed = 20.0;
-    if (ball.dx > maxSpeed) ball.dx = maxSpeed;
-    if (ball.dx < -maxSpeed) ball.dx = -maxSpeed;
-    if (ball.dy > maxSpeed) ball.dy = maxSpeed;
-    if (ball.dy < -maxSpeed) ball.dy = -maxSpeed;
+    // Set speed to original value (2 units)
+    ball.dx = 6;
+    ball.dy = 6;
 }
-
 void PongController::timerTick()
 {
     if (gameOver)
