@@ -30,24 +30,24 @@ PongController::PongController()
     }
 
     playerPaddle1 = {
-        static_cast<qreal>(internalWidth) / 2 - 300,
-        600,
-        50,
+        static_cast<qreal>(internalWidth) / 2 - 200,
+        400,
+        60,
         false
     };
 
     playerPaddle2 = {
-        static_cast<qreal>(internalWidth) / 2 - 300,
-        600,
-        50,
+        static_cast<qreal>(internalWidth) / 2 - 200,
+        400,
+        60,
         true
     };
 
 
     ball = {
-        static_cast<qreal>(internalWidth) / 2 - 25,
-        static_cast<qreal>(internalHeight) / 2 - 25,
-        50, 50, 4, 4
+        static_cast<qreal>(internalWidth) / 2 - 35,
+        static_cast<qreal>(internalHeight) / 2 - 35,
+        80, 80, 6, 6
     };
 
 
