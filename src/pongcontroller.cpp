@@ -343,9 +343,16 @@ void PongController::resetBall()
     ball.x = width() / 2 - ball.width / 2;
     ball.y = height() / 2 - ball.height / 2;
 
-    // Set speed to original value (2 units)
-    ball.dx = (rand() % 2 == 0) ? 2 : -2;
-    ball.dy = (rand() % 2 == 0) ? 2 : -2;
+    // Increase speed by 5% each reset
+    ball.dx *= 1.05;
+    ball.dy *= 1.05;
+
+    // Optional: Clamp max speed to avoid going infinite
+    qreal maxSpeed = 20.0;
+    if (ball.dx > maxSpeed) ball.dx = maxSpeed;
+    if (ball.dx < -maxSpeed) ball.dx = -maxSpeed;
+    if (ball.dy > maxSpeed) ball.dy = maxSpeed;
+    if (ball.dy < -maxSpeed) ball.dy = -maxSpeed;
 }
 
 void PongController::timerTick()
