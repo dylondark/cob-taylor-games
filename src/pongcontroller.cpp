@@ -24,7 +24,7 @@ PongController::PongController()
     // Connect timer
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
 
-    soccerBall.load("/gamefiles/Zoccer/images/soccerball.png");
+    soccerBall.load(":/gamefiles/Zoccer/images/soccerball.png");
     if (soccerBall.isNull()) {
         qDebug() << "Failed to load soccer ball image.";
     }
@@ -176,14 +176,6 @@ void PongController::keyPressEvent(QKeyEvent* event)
         qDebug() << "Moving Player Paddle Right";
         moveRightPaddle1();
         break;
-    case Qt::Key_Left:
-        qDebug() << "Moving AI Paddle Left";
-        moveLeftPaddle2();
-        break;
-    case Qt::Key_Right:
-        qDebug() << "Moving AI Paddle Right";
-        moveRightPaddle2();
-        break;
     default:
         QQuickPaintedItem::keyPressEvent(event);
     }
@@ -195,8 +187,6 @@ void PongController::keyReleaseEvent(QKeyEvent* event)
     switch (event->key()) {
     case Qt::Key_A:
     case Qt::Key_S:
-    case Qt::Key_Left:
-    case Qt::Key_Right:
         // No continuous movement required, so do nothing.
         break;
     default:
