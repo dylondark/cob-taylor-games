@@ -321,7 +321,7 @@ void PongController::aiOperation()
     qreal deltaX = predictedX - paddleCenterX;
 
     qreal movement = deltaX * ai.getReaction();
-    qreal maxSpeed = 3.0;
+    qreal maxSpeed = 5.0;
     movement = qBound(-maxSpeed, movement, maxSpeed);
 
     playerPaddle2.x += movement;
@@ -355,6 +355,8 @@ void PongController::resetBall()
     // Set speed to original value (2 units)
     ball.dx = 6;
     ball.dy = 6;
+
+    ai.updateLevel(playerScore, aiScore); // Update AI difficulty
 }
 void PongController::timerTick()
 {
