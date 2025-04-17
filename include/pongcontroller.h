@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QQuickPaintedItem>
+#include <QImage>
 #include <QTimer>
 #include <QThread>
 
@@ -56,6 +57,9 @@ signals:
     void scoreUpdated();   // <-- Signal to update score
 
 private:
+
+    QImage soccerBall;
+
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
 

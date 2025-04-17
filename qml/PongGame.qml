@@ -49,11 +49,27 @@ Item {
                 imageSource: filepath + "/menufiles/PongMotion.png"
                 // z: 1
             }
+            Connections {
+                target: menuBase
+                onPlayClicked: function(name) {
+                    root.username = name
+                    homeBarBase.updateUsername()
+                    menuBase.visible = false
+                    gameBase.visible = true
+                    gameBase.startGame()
+                }
+            }
+
 
             Item {
                 id: gameBase
                 anchors.fill: parent
                 visible: false
+                function startGame() {
+                    controller.startGame()
+                }
+
+
                 // Put the code for the scores boxes here
 
                 RowLayout {
