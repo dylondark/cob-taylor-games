@@ -324,7 +324,7 @@ unsigned TetroosController::getScore()
 */
 QString TetroosController::getHoldPiece()
 {
-    return QString(holdPiece);
+    return QString(static_cast<char>(holdPiece));
 }
 
 /*
@@ -332,7 +332,7 @@ QString TetroosController::getHoldPiece()
 */
 QString TetroosController::getActivePiece()
 {
-    return QString(activePiece.pieceType);
+    return QString(static_cast<char>(activePiece.pieceType));
 }
 
 /*
@@ -340,7 +340,7 @@ QString TetroosController::getActivePiece()
 */
 QString TetroosController::getNextPiece()
 {
-    return QString(nextPiece);
+    return QString(static_cast<char>(nextPiece));
 }
 
 /*
