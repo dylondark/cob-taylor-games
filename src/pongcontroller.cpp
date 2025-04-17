@@ -24,7 +24,7 @@ PongController::PongController()
     // Connect timer
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
 
-    soccerBall.load(":/gamefiles/Zoccer/images/soccerball.png");
+    soccerBall.load(filepath + "/gamefiles/Zoccer/images/soccerball.png");
     if (soccerBall.isNull()) {
         qDebug() << "Failed to load soccer ball image.";
     }
