@@ -47,7 +47,7 @@ PongController::PongController()
     ball = {
         static_cast<qreal>(internalWidth) / 2 - 35,
         static_cast<qreal>(internalHeight) / 2 - 35,
-        80, 80, 6, 6
+        80, 80, 8, 8
     };
 
 
@@ -260,8 +260,8 @@ void PongController::checkCollisions()
         ball.y = paddle1Rect.top() - ball.height;
 
         // 🔥 Increase speed by 5%
-        ball.dx *= 1.05;
-        ball.dy *= 1.05;
+        ball.dx *= 1.25;
+        ball.dy *= 1.25;
         qDebug() << " bottom paddle";
     }
 
@@ -277,8 +277,8 @@ void PongController::checkCollisions()
         ball.dy = qAbs(ball.dy);
         ball.y = paddle2Rect.bottom();
 
-        ball.dx *= 1.05;
-        ball.dy *= 1.05;
+        ball.dx *= 1.25;
+        ball.dy *= 1.25;
         qDebug() << "top paddle";
     }
 
@@ -286,6 +286,15 @@ void PongController::checkCollisions()
     if (ball.y + ball.height >= internalHeight) {
         aiScore++;
         emit scoreUpdated();
+
+        if (aiScore >= 7) {
+            // AI (Zippy) wins
+            gameOver = true;
+            gameTimer.stop();
+            emit gameOverSignal();      // notify QML
+            return;
+        }
+
         resetBall(); // Reset ball after score
         return;
     }
@@ -293,6 +302,13 @@ void PongController::checkCollisions()
     if (ball.y <= 0) {
         playerScore++;
         emit scoreUpdated();
+        if (playerScore >= 7) {
+            // Player wins
+            gameOver = true;
+            gameTimer.stop();
+            emit gameOverSignal();      // notify QML
+            return;
+        }
         resetBall(); // Reset ball after score
         return;
     }
@@ -351,7 +367,12 @@ void PongController::resetBall()
 {
     ball.x = width() / 2 - ball.width / 2;
     ball.y = height() / 2 - ball.height / 2;
+    if (playerScore == 7 || aiScore==7)
+    {
 
+        qDebug() << " Game over screen to be done.";
+        return;
+    }
     // Set speed to original value (2 units)
     ball.dx = 6;
     ball.dy = 6;
