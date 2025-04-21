@@ -117,6 +117,11 @@ Item {
                             width: 1550 * scaleFactor
                             height: 3040 * scaleFactor
                             smooth: false
+
+                            onGameOverSignal: function() {
+                                gameBase.visible = false;
+                                gameOverBase.gameOverOps();
+                            }
                         }
                     }
 
@@ -167,6 +172,10 @@ Item {
 
                     }
                 }
+            }
+
+            GameOverBase {
+                id: gameOverBase
             }
         }
 

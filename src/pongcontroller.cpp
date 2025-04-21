@@ -369,8 +369,8 @@ void PongController::resetBall()
     ball.y = height() / 2 - ball.height / 2;
     if (playerScore == 7 || aiScore==7)
     {
-
-        qDebug() << " Game over screen to be done.";
+        gameOver = true;
+        emit gameOverSignal();      // notify QML
         return;
     }
     // Set speed to original value (2 units)
