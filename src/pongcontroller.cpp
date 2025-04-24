@@ -374,8 +374,8 @@ void PongController::resetBall()
         return;
     }
     // Set speed to original value (2 units)
-    ball.dx = 6;
-    ball.dy = 6;
+    ball.dx = 8;
+    ball.dy = 8;
 
     ai.updateLevel(playerScore, aiScore); // Update AI difficulty
 }
