@@ -24,7 +24,11 @@ PongController::PongController()
     // Connect timer
     connect(&gameTimer, &QTimer::timeout, this, &PongController::timerTick);
 
+    soccerField.load(filepath + "/gamefiles/Zoccer/images/soccerField.png");
     soccerBall.load(filepath + "/gamefiles/Zoccer/images/soccerball.png");
+    if (soccerField.isNull()) {
+        qDebug() << "Failed to load soccer field image.";
+    }
     if (soccerBall.isNull()) {
         qDebug() << "Failed to load soccer ball image.";
     }
@@ -89,21 +93,18 @@ PongController::~PongController()
 */
 void PongController::paint(QPainter* painter)
 {
-    // Background
-    painter->setBrush(QBrush(Qt::darkGreen));
-    painter->drawRect(0, 0, width(), height());
-
     // Scale factors
     qreal scaleX = width() / internalWidth;
     qreal scaleY = height() / internalHeight;
 
-    // Draw center dotted line
-    painter->setPen(QPen(Qt::white, 2, Qt::DashLine));
-    int centerY = height() / 2;
-    int dotWidth = 5;
-    int dotSpacing = 15;
-    for (int x = 0; x < width(); x += dotWidth + dotSpacing) {
-        painter->drawRect(x, centerY - 1, dotWidth, 2);
+    // Background; draw soccer field image
+    if (!soccerField.isNull()){
+        QRectF fieldRect(0, 0, width(), height());
+        painter->drawImage(fieldRect, soccerField, QRectF(0, 0, soccerField.width(), soccerField.height()));
+    } else {
+        // Fallback to green background
+        painter->setBrush(QBrush(Qt::darkGreen));
+        painter->drawRect(0, 0, width(), height());
     }
 
     // Reset the pen to remove white border effect
@@ -404,54 +405,73 @@ void PongController::checkCollisions()
     }
 }
 
+qreal calculateBounceAdjustedX(qreal startX, qreal dx, qreal time, qreal fieldWidth) {
+    while (time > 0) {
+        // Time until next wall hit
+        qreal timeToWall = (dx > 0) ? (fieldWidth - startX) / dx : (-startX) / dx;
+        timeToWall = qMax(timeToWall, 0.0); // Clamp to positive
+
+        if (timeToWall >= time) {
+            // No more bounces within remaining time
+            return startX + dx * time;
+        } else {
+            // Advance to wall and bounce
+            startX += dx * timeToWall;
+            dx = -dx; // Reverse direction
+            time -= timeToWall;
+        }
+    }
+    return startX;
+}
 
 void PongController::aiOperation()
 {
-    if (ball.dy >= 0) return; // Ball moving away
+    if (ball.dy >= 0) return; // Ball moving toward player
 
     static qreal aiEdgeBias = 0.0;
+    static qreal lastMovement = 0.0;
 
-    // Reset bias after score (ball near bottom)
-    if (ball.y > internalHeight - 100) {
-        aiEdgeBias = (QRandomGenerator::global()->bounded(0, 2) == 0) ? -0.4 : 0.4;
-        qDebug() << "New AI edge bias selected: " << aiEdgeBias;
+    // 1. Update edge bias when needed
+    if (ball.y > internalHeight * 0.75) {
+        aiEdgeBias = QRandomGenerator::global()->generateDouble() * 0.6 - 0.3;
+        qDebug() << "AI edge bias updated:" << aiEdgeBias;
     }
 
-    qreal paddleY = 10;
-    qreal deltaY = paddleY - ball.y;
-    qreal timeToIntersect = deltaY / ball.dy;
-    qreal predictedX = ball.x + (ball.dx * timeToIntersect);
+    // 2. Calculate pure ball prediction (no errors/biases yet)
+    qreal timeToIntercept = (10 - ball.y) / abs(ball.dy);
+    qreal idealInterceptX = calculateBounceAdjustedX(ball.x, ball.dx, timeToIntercept, internalWidth);
 
-     // qDebug() << "Ai Operation after predicting. "<<predictedX;
+    // 3. Calculate adjustments separately
+    qreal errorOffset = ai.getError(); //* 0.7 * (QRandomGenerator::global()->generateDouble() - 0.5);
+    qreal edgeOffset = aiEdgeBias * playerPaddle2.width * 0.4;
 
-    // Add AI error
-    qreal error = ai.getError();// * 0.5;
-    // qDebug() << "getting Ai error."<< error;
-    predictedX += error;
+    // 4. Combine components for final target
+    qreal targetX = idealInterceptX + errorOffset + edgeOffset;
+    targetX = qBound(0.0, targetX, internalWidth - playerPaddle2.width);
 
-    // Clamp prediction to internal width
-    if (predictedX < 0) predictedX = 0;
-    if (predictedX > internalWidth) predictedX = internalWidth;
+    // 5. Calculate movement toward target
+    qreal paddleCenter = playerPaddle2.x + (playerPaddle2.width / 2);
+    qreal desiredMovement = (targetX - paddleCenter) * ai.getReaction();
 
-    qreal paddleCenterX = playerPaddle2.x + (playerPaddle2.width / 2);
-    qreal deltaX = predictedX - paddleCenterX;
+    // 6. Apply movement smoothing
+    qreal movement = 0.7 * desiredMovement + 0.3 * lastMovement;
+    lastMovement = movement;
 
-    qreal edgeOffset = aiEdgeBias * playerPaddle2.width * 0.6;
-    deltaX += edgeOffset;
-
-    qreal movement = deltaX * ai.getReaction();
-    qreal maxSpeed = 10.0;
+    // 7. Enforce speed limits
+    qreal maxSpeed = 10.0 * (0.3 - ai.getReaction()/1.5);
     movement = qBound(-maxSpeed, movement, maxSpeed);
 
-    qDebug() << "AI movement: " << movement << " with edge bias: " << edgeOffset;
-
-
+    // 8. Update paddle position
     playerPaddle2.x += movement;
+    playerPaddle2.x = qBound(0.0, playerPaddle2.x, internalWidth - playerPaddle2.width);
 
-    // Enforce boundaries using internal width
-    if (playerPaddle2.x < 0) playerPaddle2.x = 0;
-    if (playerPaddle2.x > internalWidth - playerPaddle2.width)
-        playerPaddle2.x = internalWidth - playerPaddle2.width;
+    // Debug with clear separation
+    qDebug() << "AI decision:"
+             << "Ideal:" << idealInterceptX
+             << "Error:" << errorOffset
+             << "Bias:" << edgeOffset
+             << "FinalTarget:" << targetX
+             << "Movement:" << movement;
 }
 
 void PongController::updateGame()
