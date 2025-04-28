@@ -58,6 +58,7 @@ signals:
 
 private:
 
+    QImage soccerField;
     QImage soccerBall;
 
     void keyPressEvent(QKeyEvent* event) override;
