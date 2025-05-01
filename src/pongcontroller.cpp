@@ -459,7 +459,7 @@ void PongController::aiOperation()
 
     // 7. Enforce speed limits
     qreal maxSpeed = 10.0 * (0.3 - ai.getReaction()/1.5);
-    movement = qBound(-maxSpeed, movement, maxSpeed);
+    movement = qBound(-fabs(maxSpeed), movement, fabs(maxSpeed));
 
     // 8. Update paddle position
     playerPaddle2.x += movement;
