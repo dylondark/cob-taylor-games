@@ -36,7 +36,7 @@ Item {
 
             MenuBase {
                 id: menuBase
-                imageSource: filepath + "/menufiles/PongMotion.png"
+                imageSource: filepath + "/menufiles/Pong.png"
             }
 
             Connections {
