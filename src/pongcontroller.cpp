@@ -588,7 +588,7 @@ void PongController::aiOperation()
     // Dynamic speed boost based on player score lead
     int scoreDiff = playerScore - aiScore;
     scoreDiff = qBound(-5, scoreDiff, 5);
-    qreal maxSpeed = qBound(5.0, 5.0 + (scoreDiff * 0.6), 10.0);
+    qreal maxSpeed = qBound(8.0, 8.0 + (scoreDiff * 0.6), 12.0);
 
     movement = qBound(-maxSpeed, movement, maxSpeed);
     playerPaddle2.x += movement;
