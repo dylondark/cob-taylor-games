@@ -621,12 +621,14 @@ void PongController::resetBall()
 {
     ball.x = width() / 2 - ball.width / 2;
     ball.y = height() / 2 - ball.height / 2;
+    /*
     if (playerScore == 7 || aiScore==7)
     {
         gameOver = true;
         emit gameOverSignal();      // notify QML
         return;
     }
+    */
     // Set speed to original value (8 units)
     ball.dx = 8;
     ball.dy = 8;
