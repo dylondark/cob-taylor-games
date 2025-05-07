@@ -17,6 +17,7 @@ Item {
     property string strName: "Pong"
     property string username: ""
     property int gameEnum: 4
+    property int scoreDifference: 0
 
     ColumnLayout {
         id: baseLayout
@@ -121,6 +122,12 @@ Item {
                             onGameOverSignal: function() {
                                 gameBase.visible = false;
                                 gameOverBase.gameOverOps();
+                            }
+
+                            onScoreDifferenceCalculated: function(scoreDiff) {
+                                root.scoreDifference = scoreDiff;
+                                root.points = scoreDiff;
+                                homeBarBase.updatePoints();
                             }
                         }
                     }

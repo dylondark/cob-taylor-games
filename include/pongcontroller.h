@@ -55,6 +55,7 @@ signals:
     void updateQML();
     void gameOverSignal(); // <-- Signal for game over
     void scoreUpdated();   // <-- Signal to update score
+    void scoreDifferenceCalculated(int scoreDiff); // Signal for score difference
 
 private:
 

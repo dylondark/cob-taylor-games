@@ -233,90 +233,6 @@ void PongController::moveRightPaddle2() {
     update();
 }
 
-
-// void PongController::checkCollisions()
-// {
-//     QRectF ballRect(ball.x, ball.y, ball.width, ball.height);
-
-//     // Bounce off top and bottom
-//     if (ball.y <= 0 || ball.y + ball.height >= internalHeight) {
-//         ball.dy = -ball.dy;
-//     }
-
-//     // Bounce off left and right
-//     if (ball.x <= 0 || ball.x + ball.width >= internalWidth) {
-//         ball.dx = -ball.dx;
-//     }
-
-//     // Player 1 paddle (bottom)
-//     QRectF paddle1Rect(
-//         playerPaddle1.x,
-//         internalHeight - playerPaddle1.height - 10,
-//         playerPaddle1.width,
-//         playerPaddle1.height
-//         );
-
-//     if (ballRect.intersects(paddle1Rect)) {
-//         ball.dy = -qAbs(ball.dy);
-//         ball.y = paddle1Rect.top() - ball.height;
-
-//         // 🔥 Increase speed by 25%
-//         ball.dx *= 1.25;
-//         ball.dy *= 1.25;
-//         qDebug() << " bottom paddle";
-//     }
-
-//     // Player 2 paddle (top)
-//     QRectF paddle2Rect(
-//         playerPaddle2.x,
-//         10,
-//         playerPaddle2.width,
-//         playerPaddle2.height
-//         );
-
-//     if (ballRect.intersects(paddle2Rect)) {
-//         ball.dy = qAbs(ball.dy);
-//         ball.y = paddle2Rect.bottom();
-
-//          // 🔥 Increase speed by 25%
-//         ball.dx *= 1.25;
-//         ball.dy *= 1.25;
-//         qDebug() << "top paddle";
-//     }
-
-//     // Scoring logic
-//     if (ball.y + ball.height >= internalHeight) {
-//         aiScore++;
-//         emit scoreUpdated();
-
-//         if (aiScore >= 7) {
-//             // AI (Zippy) wins
-//             gameOver = true;
-//             gameTimer.stop();
-//             emit gameOverSignal();      // notify QML
-//             return;
-//         }
-
-//         resetBall(); // Reset ball after score
-//         return;
-//     }
-
-//     if (ball.y <= 0) {
-//         playerScore++;
-//         emit scoreUpdated();
-//         if (playerScore >= 7) {
-//             // Player wins
-//             gameOver = true;
-//             gameTimer.stop();
-//             emit gameOverSignal();      // notify QML
-//             return;
-//         }
-//         resetBall(); // Reset ball after score
-//         return;
-//     }
-
-// }
-
 void PongController::checkCollisions()
 {
     QRectF ballRect(ball.x, ball.y, ball.width, ball.height);
@@ -325,6 +241,7 @@ void PongController::checkCollisions()
     if (ball.y + ball.height >= internalHeight) {
         aiScore++;
         emit scoreUpdated();
+        emit scoreDifferenceCalculated(playerScore - aiScore);
 
         if (aiScore >= 7) {
             gameOver = true;
@@ -340,6 +257,7 @@ void PongController::checkCollisions()
     if (ball.y <= 0) {
         playerScore++;
         emit scoreUpdated();
+        emit scoreDifferenceCalculated(playerScore - aiScore);
 
         if (playerScore >= 7) {
             gameOver = true;
@@ -356,55 +274,6 @@ void PongController::checkCollisions()
     if (ball.x <= 0 || ball.x + ball.width >= internalWidth) {
         ball.dx = -ball.dx;
     }
-
-    // 🔹 Step 3: Paddle collisions
-
-    // Player 1 (bottom paddle)
-    // QRectF paddle1Rect(
-    //     playerPaddle1.x,
-    //     internalHeight - playerPaddle1.height - 10,
-    //     playerPaddle1.width,
-    //     playerPaddle1.height
-    //     );
-
-    // if (ballRect.intersects(paddle1Rect)) {
-    //     qreal paddleCenter = playerPaddle1.x + playerPaddle1.width / 2.0;
-    //     qreal ballCenter = ball.x + ball.width / 2.0;
-    //     qreal offset = (ballCenter - paddleCenter) / (playerPaddle1.width / 2.0);
-
-    //     ball.dy = -qAbs(ball.dy);
-    //     ball.dx = offset * 16.0;
-
-    //     if (movingLeft || movingRight) {
-    //         ball.dy *= 1.2;
-    //     }
-
-    //     ball.y = paddle1Rect.top() - ball.height;
-    //     qDebug() << "Hit bottom paddle | offset:" << offset << " dx:" << ball.dx << " dy:" << ball.dy;
-    // }
-
-    // Player 2 (top paddle)
-    // QRectF paddle2Rect(
-    //     playerPaddle2.x,
-    //     10,
-    //     playerPaddle2.width,
-    //     playerPaddle2.height
-    //     );
-
-    // if (ballRect.intersects(paddle2Rect)) {
-    //     qreal paddleCenter = playerPaddle2.x + playerPaddle2.width / 2.0;
-    //     qreal ballCenter = ball.x + ball.width / 2.0;
-    //     qreal offset = (ballCenter - paddleCenter) / (playerPaddle2.width / 2.0);
-
-    //     ball.dy = qAbs(ball.dy);
-    //     ball.dx = offset * 16.0;
-
-    //     ball.dy *= 1.2;
-    //     ball.y = paddle2Rect.bottom();
-    //     qDebug() << "Hit top paddle | offset:" << offset << " dx:" << ball.dx << " dy:" << ball.dy;
-    // }
-
-    //New Paddle code
 
     // Player 1 (bottom paddle)
     QRectF paddle1Rect(
@@ -497,55 +366,6 @@ qreal calculateBounceAdjustedX(qreal startX, qreal dx, qreal time, qreal fieldWi
     return startX;
 }
 
-// void PongController::aiOperation()
-// {
-//     if (ball.dy >= 0) return; // Ball moving toward player
-
-//     static qreal aiEdgeBias = 0.0;
-//     static qreal lastMovement = 0.0;
-
-//     // 1. Update edge bias when needed
-//     if (ball.y > internalHeight * 0.75) {
-//         aiEdgeBias = QRandomGenerator::global()->generateDouble() * 0.6 - 0.3;
-//         qDebug() << "AI edge bias updated:" << aiEdgeBias;
-//     }
-
-//     // 2. Calculate pure ball prediction (no errors/biases yet)
-//     qreal timeToIntercept = (10 - ball.y) / abs(ball.dy);
-//     qreal idealInterceptX = calculateBounceAdjustedX(ball.x, ball.dx, timeToIntercept, internalWidth);
-
-//     // 3. Calculate adjustments separately
-//     qreal errorOffset = ai.getError(); //* 0.7 * (QRandomGenerator::global()->generateDouble() - 0.5);
-//     qreal edgeOffset = aiEdgeBias * playerPaddle2.width * 0.4;
-
-//     // 4. Combine components for final target
-//     qreal targetX = idealInterceptX + errorOffset + edgeOffset;
-//     targetX = qBound(0.0, targetX, internalWidth - playerPaddle2.width);
-
-//     // 5. Calculate movement toward target
-//     qreal paddleCenter = playerPaddle2.x + (playerPaddle2.width / 2);
-//     qreal desiredMovement = (targetX - paddleCenter) * ai.getReaction();
-
-//     // 6. Apply movement smoothing
-//     qreal movement = 0.7 * desiredMovement + 0.3 * lastMovement;
-//     lastMovement = movement;
-
-//     // 7. Enforce speed limits
-//     qreal maxSpeed = 10.0 * (0.3 - ai.getReaction()/1.5);
-//     movement = qBound(-fabs(maxSpeed), movement, fabs(maxSpeed));
-
-//     // 8. Update paddle position
-//     playerPaddle2.x += movement;
-//     playerPaddle2.x = qBound(0.0, playerPaddle2.x, internalWidth - playerPaddle2.width);
-
-//     // Debug with clear separation
-//     qDebug() << "AI decision:"
-//              << "Ideal:" << idealInterceptX
-//              << "Error:" << errorOffset
-//              << "Bias:" << edgeOffset
-//              << "FinalTarget:" << targetX
-//              << "Movement:" << movement;
-// }
 qreal capSpeed(qreal dx, qreal dy, qreal maxSpeed) {
     qreal speed = std::sqrt(dx * dx + dy * dy);
     if (speed > maxSpeed) {
