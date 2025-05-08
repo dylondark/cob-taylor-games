@@ -99,7 +99,7 @@ Item {
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
                                 text: "Zippy's Score: " + controller.aiScore
-                                font.pixelSize: 60 * scaleFactor
+                                font.pixelSize: 60 * root.scaleFactor
                                 color: "navy"
                             }
                         }
@@ -108,15 +108,15 @@ Item {
                     // Game Canvas Row
                     Item {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 2850 * scaleFactor
+                        Layout.preferredHeight: 2850 * root.scaleFactor
                         anchors.top: parent.top
-                        anchors.topMargin: 530 * scaleFactor
+                        anchors.topMargin: 530 * root.scaleFactor
 
                         PongController {
                             id: controller
                             anchors.centerIn: parent
-                            width: 1550 * scaleFactor
-                            height: 3040 * scaleFactor
+                            width: 1550 * root.scaleFactor
+                            height: 3040 * root.scaleFactor
                             smooth: false
 
                             onGameOverSignal: function() {
@@ -135,10 +135,10 @@ Item {
                     // Player Controls Row
                     RowLayout {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 300 * scaleFactor
-                        Layout.topMargin: 40 * scaleFactor
+                        Layout.preferredHeight: 300 * root.scaleFactor
+                        Layout.topMargin: 40 * root.scaleFactor
                         anchors.horizontalCenter: parent.horizontalCenter
-                        spacing: 60 * scaleFactor
+                        spacing: 60 * root.scaleFactor
                         Timer {
                             id: moveTimerPlayer1
                             interval: 50
@@ -152,13 +152,13 @@ Item {
 
                         Button {
                             anchors.top: parent.top
-                            anchors.topMargin: 160 * scaleFactor
+                            anchors.topMargin: 160 * root.scaleFactor
                             id: leftButtonPlayer1
                             //text: "Left"
                             onPressed: moveTimerPlayer1.start()
                             onReleased: moveTimerPlayer1.stop()
-                            Layout.preferredWidth: 350 *scaleFactor
-                            Layout.preferredHeight: 120 *scaleFactor
+                            Layout.preferredWidth: 350 * root.scaleFactor
+                            Layout.preferredHeight: 120 * root.scaleFactor
 
                             Image {
                                 anchors.fill: parent
@@ -176,8 +176,8 @@ Item {
                             //text: "Right"
                             onPressed: moveTimerPlayer1.start()
                             onReleased: moveTimerPlayer1.stop()
-                            Layout.preferredWidth: 350 *scaleFactor
-                            Layout.preferredHeight: 120 *scaleFactor
+                            Layout.preferredWidth: 350 * root.scaleFactor
+                            Layout.preferredHeight: 120 * root.scaleFactor
 
                             Image {
                                 anchors.fill: parent
