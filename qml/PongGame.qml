@@ -154,26 +154,38 @@ Item {
                             anchors.top: parent.top
                             anchors.topMargin: 160 * scaleFactor
                             id: leftButtonPlayer1
-                            text: "Left"
+                            //text: "Left"
                             onPressed: moveTimerPlayer1.start()
                             onReleased: moveTimerPlayer1.stop()
                             Layout.preferredWidth: 350 *scaleFactor
                             Layout.preferredHeight: 120 *scaleFactor
-                            // width: 250 * scaleFactor
-                            //height: 120 * scaleFactor
+
+                            Image {
+                                anchors.fill: parent
+                                anchors.margins: 20 * root.scaleFactor
+                                source: filepath + "/gamefiles/Zoccer/images/left-arrow.png"
+                                fillMode: Image.PreserveAspectFit
+                                smooth: true
+                            }
                         }
 
                         Button {
                             anchors.top: parent.top
                             anchors.topMargin: 160 * scaleFactor
                             id: rightButtonPlayer1
-                            text: "Right"
+                            //text: "Right"
                             onPressed: moveTimerPlayer1.start()
                             onReleased: moveTimerPlayer1.stop()
                             Layout.preferredWidth: 350 *scaleFactor
                             Layout.preferredHeight: 120 *scaleFactor
-                            // width: 350 * root.scaleFactor
-                            // height: 180 * root.scaleFactor
+
+                            Image {
+                                anchors.fill: parent
+                                anchors.margins: 20 * root.scaleFactor
+                                source: filepath + "/gamefiles/Zoccer/images/right-arrow.png"
+                                fillMode: Image.PreserveAspectFit
+                                smooth: true
+                            }
                         }
 
 
