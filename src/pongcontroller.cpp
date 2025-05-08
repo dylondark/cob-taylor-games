@@ -288,12 +288,23 @@ void PongController::checkCollisions()
         qreal ballCenter = ball.x + ball.width / 2.0;
         qreal offset = (ballCenter - paddleCenter) / (playerPaddle1.width / 2.0);
 
-        ball.dy = -qAbs(ball.dy);
-        ball.dx = offset * 16.0;
+        qreal speed = std::sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
 
-        if (movingLeft || movingRight) {
-            ball.dy *= 1.2;
-        }
+        if (std::abs(offset) >= 0.6)
+            speed *= 1.25; // edge hit
+        else
+            speed *= 1.15; // normal hit
+
+        qreal angle = offset * (M_PI / 3); // ±60 degrees
+        ball.dx = speed * std::sin(angle);
+        ball.dy = -std::abs(speed * std::cos(angle));
+
+        // ball.dy = -qAbs(ball.dy);
+        // ball.dx = offset * 16.0;
+
+        // if (movingLeft || movingRight) {
+        //     ball.dy *= 1.2;
+        // }
 
         // Cap max ball speed
         qreal maxBallSpeed = 28.0;
@@ -324,10 +335,22 @@ void PongController::checkCollisions()
         qreal ballCenter = ball.x + ball.width / 2.0;
         qreal offset = (ballCenter - paddleCenter) / (playerPaddle2.width / 2.0);
 
-        ball.dy = qAbs(ball.dy);
-        ball.dx = offset * 16.0;
+        // ball.dy = qAbs(ball.dy);
+        // ball.dx = offset * 16.0;
 
-        ball.dy *= 1.2;
+        // ball.dy *= 1.2;
+
+        qreal speed = std::sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+
+        if (std::abs(offset) >= 0.6)
+            speed *= 1.25; // edge hit
+        else
+            speed *= 1.15; // normal hit
+
+        qreal angle = offset * (M_PI / 3);
+        ball.dx = speed * std::sin(angle);
+        ball.dy = std::abs(speed * std::cos(angle));
+
 
         // Cap max ball speed
         qreal maxBallSpeed = 28.0;
