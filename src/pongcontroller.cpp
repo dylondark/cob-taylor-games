@@ -66,7 +66,7 @@ PongController::PongController()
     // Manually set active focus (force focus on startup)
     QMetaObject::invokeMethod(this, "forceActiveFocus", Qt::QueuedConnection);
     // Debugging focus
-    qDebug() << "PongController focus status (constructor): " << hasActiveFocus();
+    //qDebug() << "PongController focus status (constructor): " << hasActiveFocus();
 
 
     QTimer::singleShot(100, this, [this]() {
@@ -162,19 +162,19 @@ void PongController::startGame()
 
 void PongController::keyPressEvent(QKeyEvent* event)
 {
-    qDebug() << "Key Pressed: " << event->key();  // Debugging
+    //qDebug() << "Key Pressed: " << event->key();  // Debugging
     if (!hasActiveFocus()) {
-        qDebug() << "PongController does NOT have focus! Ignoring key press.";
+        //qDebug() << "PongController does NOT have focus! Ignoring key press.";
         return;
     }
 
     switch (event->key()) {
     case Qt::Key_A:
-        qDebug() << "Moving Player Paddle Left";
+        //qDebug() << "Moving Player Paddle Left";
         moveLeftPaddle1();
         break;
     case Qt::Key_S:
-        qDebug() << "Moving Player Paddle Right";
+        //qDebug() << "Moving Player Paddle Right";
         moveRightPaddle1();
         break;
     default:
@@ -316,8 +316,8 @@ void PongController::checkCollisions()
         }
 
         ball.y = paddle1Rect.top() - ball.height;
-        qDebug() << "Hit bottom paddle | offset:" << offset << " dx:" << ball.dx << " dy:" << ball.dy;
-        qDebug() << "⚡ Ball speed after hit:" << std::sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+        //qDebug() << "Hit bottom paddle | offset:" << offset << " dx:" << ball.dx << " dy:" << ball.dy;
+        //qDebug() << "⚡ Ball speed after hit:" << std::sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
 
     }
 
@@ -362,8 +362,8 @@ void PongController::checkCollisions()
         }
 
         ball.y = paddle2Rect.bottom();
-        qDebug() << "Hit top paddle | offset:" << offset << " dx:" << ball.dx << " dy:" << ball.dy;
-        qDebug() << "⚡ Ball speed after hit:" << std::sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+        //qDebug() << "Hit top paddle | offset:" << offset << " dx:" << ball.dx << " dy:" << ball.dy;
+        //qDebug() << "⚡ Ball speed after hit:" << std::sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
 
     }
 
@@ -409,7 +409,7 @@ void PongController::aiOperation()
 
     if (ball.y > internalHeight * 0.75) {
         aiEdgeBias = QRandomGenerator::global()->generateDouble() * 0.6 - 0.3;
-        qDebug() << "AI edge bias updated:" << aiEdgeBias;
+        //qDebug() << "AI edge bias updated:" << aiEdgeBias;
     }
 
     qreal timeToIntercept = (10 - ball.y) / std::abs(ball.dy);
@@ -438,10 +438,10 @@ void PongController::aiOperation()
 
     playerPaddle2.x = qBound(0.0, playerPaddle2.x, internalWidth - playerPaddle2.width);
 
-    qDebug() << "AI decision:"
+    /*qDebug() << "AI decision:"
              << "TargetX:" << targetX
              << "Move:" << movement
-             << "ScoreDiff:" << scoreDiff;
+             << "ScoreDiff:" << scoreDiff;*/
 }
 
 
