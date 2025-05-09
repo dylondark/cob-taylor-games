@@ -203,7 +203,7 @@ void MainWindow::resizeEvent([[maybe_unused]] QResizeEvent* event)
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
 
     // scale and reapply title image
-    ui->lblTitle->setPixmap(QPixmap(filepath + "/menufiles/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->lblTitle->setPixmap(QPixmap(filepath + "/menufiles/title.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     // apply button images
     setBtnIcon(ui->btnGame1, QString(filepath + "/menufiles/trivia.png").toStdString());// UATrivia
