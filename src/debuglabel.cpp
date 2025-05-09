@@ -60,7 +60,9 @@ void DebugLabel::update(int wh[])
     // get opengl info
 #ifndef Q_OS_WINDOWS // fix for windows at some point??
     txt.append(" OGL Info: ");
-    txt.append(glGetString(GL_VERSION));
+    //txt.append(glGetString(GL_VERSION));
+    txt.append(reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+
 
     setText(txt);
 #endif

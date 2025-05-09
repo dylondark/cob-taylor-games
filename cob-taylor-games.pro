@@ -25,6 +25,7 @@ HEADERS += \
     feedbackcontroller.h \
     cliparser.h \
     flippedarray.h \
+    pongdata.h \
     threadworker.h \
     tetroosdata.h \
     tetrooscontroller.h \
@@ -36,6 +37,7 @@ HEADERS += \
     clickdetector.h \
     triviacontroller.h \
     guessthelogocontroller.h \
+    pongcontroller.h \
     rapidcsv.h
 FORMS += mainwindow.ui
 SOURCES += \
@@ -52,6 +54,7 @@ SOURCES += \
     tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
+    pongcontroller.cpp \
     triviacontroller.cpp
 
 RESOURCES += \

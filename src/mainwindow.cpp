@@ -15,6 +15,7 @@
 #include "guessthelogocontroller.h"
 #include "profanitychecker.h"
 #include "tetrooscontroller.h"
+#include "pongcontroller.h"
 #include <QScrollBar>
 #include <QShortcut>
 #include <QKeySequence>
@@ -158,6 +159,7 @@ void MainWindow::initQML()
     qmlRegisterType<TetroosController>("QMLControllers", 1, 0, "TetroosController");
     qmlRegisterType<FeedbackController>("QMLControllers", 1, 0, "FeedbackController");
     qmlRegisterType<ProfanityChecker>("QMLControllers", 1, 0, "ProfanityChecker");
+    qmlRegisterType<PongController>("QMLControllers", 1, 0, "PongController");
     // all qml controllers will eventually be registered here
 }
 
@@ -208,7 +210,7 @@ void MainWindow::resizeEvent([[maybe_unused]] QResizeEvent* event)
     setBtnIcon(ui->btnGame2, QString(filepath + "/menufiles/GuessTheLogoNEW.png").toStdString());//GuessTheLogo
     setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/Tetroos.png").toStdString());//Tetroos
     setBtnIcon(ui->btnGame4, QString(filepath + "/menufiles/HopperPreview.png").toStdString()); //ZippyHop
-    setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/PongMotionPreview.png").toStdString());//pong
+    setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/Pong.png").toStdString());//pong
     setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/CheckersPreview.png").toStdString());//checkers
 
     // scale functions
