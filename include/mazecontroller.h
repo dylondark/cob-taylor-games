@@ -132,7 +132,7 @@ private:
     int actionFramesLeft;
 
     // Holds the game over state for the game. No game logic will continue after this is set to true.
-    bool gameOver;
+    bool gameOver = false;
 
     // The main thread used to execute game logic calculations.
     QThread logicThread;
