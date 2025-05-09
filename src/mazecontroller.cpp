@@ -13,6 +13,8 @@
 */
 MazeController::MazeController()
 {
+    setRenderTarget(QQuickPaintedItem::FramebufferObject);
+
     // init the logic thread
     logicThreadWorker.moveToThread(&logicThread);
     logicThread.start(QThread::HighPriority);
