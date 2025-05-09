@@ -16,6 +16,8 @@
 TetroosController::TetroosController()
     : QQuickPaintedItem(), TEXTURES_ORIGINAL(loadTextures()), gameTimer(QTimer(this)), filepath(CliParser::getPath())
 {
+    setRenderTarget(QQuickPaintedItem::FramebufferObject);
+
     // seed the rng
     srand(time(NULL));
 
