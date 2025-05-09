@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QQuickPaintedItem>
 #include "flippedarray.h"
+#include "qpixmap.h"
 #include "threadworker.h"
 #include <QThread>
 #include <QTimer>
@@ -96,6 +97,13 @@ private slots:
     void updateGame();
 
 private:
+    /*
+        The base of the paths. Should be the location of the folder containing the gamefiles folder.
+        By default it is "." which (should) mean "wherever the game executable was launched from" but this doesn't always work (ahem, mac).
+        Will be set to whatever path is specified with the -p CLI parameter if it is used.
+    */
+    const QString filepath = ".";
+
     // Width of the board in cells
     static const int BOARD_WIDTH = 29;
 
@@ -116,6 +124,9 @@ private:
 
     // Timer for the game loop
     QTimer frameTimer;
+
+    // Holds the character image
+    QPixmap playerImage;
 
     // Holds how many frames are left before an action is complete.
     int actionFramesLeft;

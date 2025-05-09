@@ -7,11 +7,13 @@
 #include "mazecontroller.h"
 #include "qpainter.h"
 #include <QPainter>
+#include "cliparser.h"
 
 /*
     Constructor for MazeController.
 */
 MazeController::MazeController()
+    : QQuickPaintedItem(), filepath(CliParser::getPath()), playerImage(QPixmap(filepath + "/gamefiles/Maze/Maze Player model.png"))
 {
     setRenderTarget(QQuickPaintedItem::FramebufferObject);
 
@@ -75,15 +77,10 @@ void MazeController::paint(QPainter* painter)
 
             // Draw the character as an image
             if (row == playerPos.second && col == playerPos.first) {
-                QPixmap playerImage("C:\\Users\\sa_lm151\\Documents\\cob-taylor-games\build\\Desktop_Qt_6_8_2_MinGW_64_bit-Debug\\gamefiles\\Maze\\Maze Player model - Copy.png");
                 painter->drawPixmap(col * cellWidth, row * cellHeight, cellWidth, cellHeight, playerImage);
             }
-
         }
-
-
     }
-
 }
 
 
