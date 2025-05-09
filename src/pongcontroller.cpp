@@ -10,6 +10,8 @@
 PongController::PongController()
     : QQuickPaintedItem(), gameTimer(QTimer(this)), filepath(CliParser::getPath())
 {
+    setRenderTarget(QQuickPaintedItem::FramebufferObject);
+
     gameOver = false;
     movingRight = false;
     movingLeft = false;
