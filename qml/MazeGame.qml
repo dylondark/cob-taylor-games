@@ -100,13 +100,11 @@ Item {
                 // Maze Controller (Only One Instance)
                 MazeController {
                     id: controller
-                    width: 1550 * root.scaleFactor
-                    height: 3040 * root.scaleFactor
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.verticalStretchFactor: 4
+                    width: 1400 * root.scaleFactor
+                    height: 2800 * root.scaleFactor
+                    anchors.top: dataRow.bottom
+                    anchors.topMargin: 50 * root.scaleFactor
                     x: (parent.width - width) / 2
-                    y: (parent.height - height) / 1.5
                     onMazeGenerated: {
                         console.log("Maze generated! Timer starts now.");
                         gameTimer.running = true;  // Start the timer
@@ -142,9 +140,9 @@ Item {
 
                         // Format to always show two digits (e.g., 02:05:09)
                         var formattedTime =
-                            (minutes < 10 ? "0" + minutes : minutes) + ":" +
-                            (seconds < 10 ? "0" + seconds : seconds) + ":" +
-                            (milliseconds < 10 ? "0" + milliseconds : milliseconds);
+                                (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                                (seconds < 10 ? "0" + seconds : seconds) + ":" +
+                                (milliseconds < 10 ? "0" + milliseconds : milliseconds);
 
                         // Update UI
                         timeRemainingValue.text = formattedTime;
@@ -155,113 +153,120 @@ Item {
                 }
                 // Button Layout
                 Item {
-                    id: buttonLayout
-                    Layout.preferredHeight: 400 * root.scaleFactor
-                    Layout.preferredWidth: parent.width
-                    anchors.top: controller.bottom
+                    anchors.bottom: parent.bottom
+                    width: parent.width / 2
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: true
+                    height: parent.height / 8
 
                     GridLayout {
-                        id: buttonGrid
                         columns: 3
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
+                        rowSpacing: 20
+                        columnSpacing: 20
+                        anchors.fill: parent
+                        anchors.topMargin: 20 * root.scaleFactor
+                        anchors.bottomMargin: 20 * root.scaleFactor
+                        anchors.leftMargin: 100 * root.scaleFactor
+                        anchors.rightMargin: 100 * root.scaleFactor
 
-                        Button { // UP
-                            id: upBtn
-                            Layout.row: 0
-                            Layout.column: 1
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Layout.preferredWidth: 50
-                            Layout.preferredHeight: 80
-                            background: Rectangle {
-                                color: "white"
-                                opacity: 70
-                                border.color: "black"
-                                radius: 10
-                                anchors.fill: parent
-                                Image {
-                                    anchors.fill: parent
-                                    source: filepath + "/gamefiles/Tetroos/UpArrow.png"
-                                    fillMode: Image.PreserveAspectFit
-                                    smooth: true
-                                }
-                            }
-                            onPressed: controller.upAction()
-                        }
-
-                        Button { // LEFT
+                        Button {
                             id: leftBtn
                             Layout.row: 1
                             Layout.column: 0
+                            Layout.alignment: Qt.AlignCenter
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            Layout.preferredWidth: 100
-                            Layout.preferredHeight: 100
+
                             background: Rectangle {
                                 color: "white"
                                 opacity: 70
                                 border.color: "black"
                                 radius: 10
                                 anchors.fill: parent
+
                                 Image {
                                     anchors.fill: parent
                                     source: filepath + "/gamefiles/Tetroos/LftArrow.png"
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
+                                    anchors.margins: 20 * root.scaleFactor
                                 }
                             }
                             onPressed: controller.leftAction()
                         }
 
-                        Button { // DOWN
-                            id: downBtn
-                            Layout.row: 1
-                            Layout.column: 1
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Layout.preferredWidth: 100
-                            Layout.preferredHeight: 100
-                            background: Rectangle {
-                                color: "white"
-                                opacity: 70
-                                border.color: "black"
-                                radius: 10
-                                anchors.fill: parent
-                                Image {
-                                    anchors.fill: parent
-                                    source: filepath + "/gamefiles/Tetroos/DwnArrow.png"
-                                    fillMode: Image.PreserveAspectFit
-                                    smooth: true
-                                }
-                            }
-                            onPressed: controller.downAction()
-                        }
-
-                        Button { // RIGHT
+                        Button {
                             id: rightBtn
                             Layout.row: 1
                             Layout.column: 2
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            Layout.preferredWidth: 100
-                            Layout.preferredHeight: 100
+
                             background: Rectangle {
                                 color: "white"
                                 opacity: 70
                                 border.color: "black"
                                 radius: 10
                                 anchors.fill: parent
+
                                 Image {
                                     anchors.fill: parent
                                     source: filepath + "/gamefiles/Tetroos/RtArrow.png"
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
+                                    anchors.margins: 20 * root.scaleFactor
                                 }
                             }
-                            onPressed: controller.rightAction()
+                            onPressed:controller.rightAction()
+                        }
+
+                        Button {
+                            id: downBtn
+                            Layout.row: 1
+                            Layout.column: 1
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                anchors.fill: parent
+
+                                Image {
+                                    anchors.fill: parent
+                                    source: filepath + "/gamefiles/Tetroos/DwnArrow.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    smooth: true
+                                    anchors.margins: 20 * root.scaleFactor
+                                }
+                            }
+                            onPressed:controller.downAction()
+                        }
+
+                        Button {
+                            id: upBtn
+                            Layout.row: 0
+                            Layout.column: 1
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+
+                            background: Rectangle {
+                                color: "white"
+                                opacity: 70
+                                border.color: "black"
+                                radius: 10
+                                anchors.fill: parent
+
+                                Image {
+                                    anchors.fill: parent
+                                    source: filepath + "/gamefiles/Tetroos/RotateArrow.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    smooth: true
+                                    anchors.margins: 20 * root.scaleFactor
+                                }
+                            }
+                            onPressed:controller.upAction()
                         }
                     }
                 }
