@@ -185,7 +185,7 @@ Item {
 
                                 Image {
                                     anchors.fill: parent
-                                    source: filepath + "/gamefiles/Tetroos/LftArrow.png"
+                                    source: filepath + "/gamefiles/Maze/left-arrow.png"
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     anchors.margins: 20 * root.scaleFactor
@@ -210,7 +210,7 @@ Item {
 
                                 Image {
                                     anchors.fill: parent
-                                    source: filepath + "/gamefiles/Tetroos/RtArrow.png"
+                                    source: filepath + "/gamefiles/Maze/right-arrow.png"
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     anchors.margins: 20 * root.scaleFactor
@@ -235,7 +235,7 @@ Item {
 
                                 Image {
                                     anchors.fill: parent
-                                    source: filepath + "/gamefiles/Tetroos/DwnArrow.png"
+                                    source: filepath + "/gamefiles/Maze/down-arrow.png"
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     anchors.margins: 20 * root.scaleFactor
@@ -260,7 +260,7 @@ Item {
 
                                 Image {
                                     anchors.fill: parent
-                                    source: filepath + "/gamefiles/Tetroos/RotateArrow.png"
+                                    source: filepath + "/gamefiles/Maze/up-arrow.png"
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     anchors.margins: 20 * root.scaleFactor
