@@ -55,30 +55,44 @@ Item {
 
                 Component.onCompleted: homeBarBase.updatePoints();
 
-                // Score and Time Display
-                RowLayout {
-                    id: topBar
+                Rectangle {
+                    id: dataRow
                     anchors.top: parent.top
                     width: parent.width
-                    height: 50
-                    spacing: 20
+                    height: parent.height / 10
+                    color: "#D2B48C"
+                    border.color: "black"
 
-                    // Centered Time Display (Removed Score)
-                    Rectangle {
-                        id: timeBox
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        height: 50
-                        color: "#D2B48C"
-                        border.color: "black"
+                    ColumnLayout {
+                        anchors.fill: parent
+                        //spacing: 40 * root.scaleFactor
 
-                        Text {
-                            id: timeBoxText
-                            anchors.centerIn: parent
-                            text: "Time Remaining: 05:00:00"
-                            font.pixelSize: 30  // Increased size for visibility
-                            font.bold: true
-                            color: "navy"
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+
+                            Text {
+                                id: timeRemainingTitle
+                                anchors.centerIn: parent
+                                text: "Time Remaining:"
+                                font.pixelSize: 60 * root.scaleFactor
+                                font.bold: true
+                                color: "navy"
+                            }
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+
+                            Text {
+                                id: timeRemainingValue
+                                anchors.centerIn: parent
+                                text: "5:00:00"
+                                font.pixelSize: 120 * root.scaleFactor
+                                font.bold: true
+                                color: "navy"
+                            }
                         }
                     }
                 }
@@ -133,7 +147,7 @@ Item {
                             (milliseconds < 10 ? "0" + milliseconds : milliseconds);
 
                         // Update UI
-                        timeBoxText.text = "Time Remaining: " + formattedTime;
+                        timeRemainingValue.text = formattedTime;
 
                         // Re-enable for debugging.
                         //console.log("Stopwatch running: " + formattedTime);
