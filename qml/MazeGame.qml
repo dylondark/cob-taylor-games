@@ -21,6 +21,7 @@ Item {
     property int points: 30000
     property string strName: "Maze"
     property string username: ""
+    property int gameEnum: 5
 
     ColumnLayout {
         id: baseLayout
