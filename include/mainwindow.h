@@ -75,7 +75,7 @@ private slots:
     void on_lbGame5_pressed();
 
     /*
-        Press handler for Checkers leaderboard button.
+        Press handler for Maze leaderboard button.
     */
     void on_lbGame6_pressed();
 
@@ -134,7 +134,7 @@ private slots:
     void on_btnGame5_pressed();
 
     /*
-        Press handler for Checkers game button.
+        Press handler for Maze game button.
     */
     void on_btnGame6_pressed();
 

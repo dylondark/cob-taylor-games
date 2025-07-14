@@ -362,7 +362,7 @@ void MainWindow::on_lbGame5_pressed()
 }
 
 /*
-    Press handler for Checkers leaderboard button.
+    Press handler for Maze leaderboard button.
 */
 void MainWindow::on_lbGame6_pressed()
 {
@@ -619,7 +619,7 @@ void MainWindow::on_btnGame5_pressed()
 }
 
 /*
-    Press handler for Checkers game button.
+    Press handler for Maze game button.
 */
 void MainWindow::on_btnGame6_pressed()
 {
