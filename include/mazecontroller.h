@@ -30,7 +30,7 @@ struct Cell
 /*
     This enum defines all of the actions that the game can be doing. It includes all of the actions a player can make.
 */
-enum MazeAction {Left, Right, Up, Down, Generate, Wait};
+enum MazeAction {Maze_Left, Maze_Right, Maze_Up, Maze_Down, Maze_Generate, Maze_Wait};
 
 class MazeController : public QQuickPaintedItem
 {

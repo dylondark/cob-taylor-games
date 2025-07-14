@@ -105,7 +105,7 @@ void MazeController::startGame()
     (*board)[startCellY][startCellX].wall = false;
     calculateFrontierCells((*board)[startCellY][startCellX]);
 
-    currentAction = MazeAction::Generate; // begin generating
+    currentAction = MazeAction::Maze_Generate; // begin generating
     frameTimer.start(16); // start timer with 16ms delay (60fps)
 }
 
@@ -113,10 +113,10 @@ void MazeController::startGame()
 void MazeController::upAction()
 {
     // Move piece down
-    if (!gameOver && currentAction == MazeAction::Wait)
+    if (!gameOver && currentAction == MazeAction::Maze_Wait)
     {
         // Update game state
-        currentAction = MazeAction::Up;
+        currentAction = MazeAction::Maze_Up;
     }
 }
 
@@ -126,10 +126,10 @@ void MazeController::upAction()
 void MazeController::downAction()
 {
     // Move piece down
-    if (!gameOver && currentAction == MazeAction::Wait)
+    if (!gameOver && currentAction == MazeAction::Maze_Wait)
     {
         // Update game state
-        currentAction = MazeAction::Down;
+        currentAction = MazeAction::Maze_Down;
     }
 }
 
@@ -139,10 +139,10 @@ void MazeController::downAction()
 void MazeController::leftAction()
 {
     // Move piece down
-    if (!gameOver && currentAction == MazeAction::Wait)
+    if (!gameOver && currentAction == MazeAction::Maze_Wait)
     {
         // Update game state
-        currentAction = MazeAction::Left;
+        currentAction = MazeAction::Maze_Left;
     }
 }
 /*
@@ -151,10 +151,10 @@ void MazeController::leftAction()
 void MazeController::rightAction()
 {
     // Move piece down
-    if (!gameOver && currentAction == MazeAction::Wait)
+    if (!gameOver && currentAction == MazeAction::Maze_Wait)
     {
         // Update game state
-        currentAction = MazeAction::Right;
+        currentAction = MazeAction::Maze_Right;
     }
 }
 
@@ -175,27 +175,27 @@ void MazeController::updateGame()
     QMetaObject::invokeMethod(&logicThreadWorker, [&]() {
         switch (currentAction)
         {
-        case MazeAction::Left:
+        case MazeAction::Maze_Left:
             if (playerPos.first > 0 && !(*board)[playerPos.second][playerPos.first - 1].wall)
                 playerPos.first--;
-            currentAction = MazeAction::Wait;
+            currentAction = MazeAction::Maze_Wait;
             break;
-        case MazeAction::Right:
+        case MazeAction::Maze_Right:
             if (playerPos.first < BOARD_WIDTH - 1 && !(*board)[playerPos.second][playerPos.first + 1].wall)
                 playerPos.first++;
-            currentAction = MazeAction::Wait;
+            currentAction = MazeAction::Maze_Wait;
             break;
-        case MazeAction::Up:
+        case MazeAction::Maze_Up:
             if (playerPos.second > 0 && !(*board)[playerPos.second - 1][playerPos.first].wall)
                 playerPos.second--;
-            currentAction = MazeAction::Wait;
+            currentAction = MazeAction::Maze_Wait;
             break;
-        case MazeAction::Down:
+        case MazeAction::Maze_Down:
             if (playerPos.second < BOARD_HEIGHT - 1 && !(*board)[playerPos.second + 1][playerPos.first].wall)
                 playerPos.second++;
-            currentAction = MazeAction::Wait;
+            currentAction = MazeAction::Maze_Wait;
             break;
-        case MazeAction::Generate:
+        case MazeAction::Maze_Generate:
         {
             // While the list of frontier cells is not empty:
 
@@ -236,7 +236,7 @@ void MazeController::updateGame()
             // if frontier cells are empty then stop generating and wait for user input
             if (frontierCells.empty())
             {
-                currentAction = MazeAction::Wait;
+                currentAction = MazeAction::Maze_Wait;
 
                 // create the start and end
                 (*board)[0][1].wall= false;
@@ -246,7 +246,7 @@ void MazeController::updateGame()
             }
             break;
         }
-        case MazeAction::Wait:
+        case MazeAction::Maze_Wait:
             break;
         }
 
