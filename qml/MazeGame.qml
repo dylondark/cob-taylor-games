@@ -125,6 +125,8 @@ Item {
                         elapsedTime -= 10;  // Decrease by 10ms each tick
                         points -= 1; // Decrease by 1 pt each tick
 
+                        homeBarBase.updatePoints();
+
                         if (controller.isGameOver() || points <= 0)
                         {
                             gameBase.visible = false;
@@ -132,8 +134,6 @@ Item {
                             gameTimer.running = false;  // Stop the timer
                             return; // Exit if the game is over
                         }
-
-                        homeBarBase.updatePoints();
 
                         // Convert elapsed time to MM:SS:MS format
                         var minutes = Math.floor(elapsedTime / 60000);
