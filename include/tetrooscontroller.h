@@ -127,14 +127,19 @@ private slots:
     */
     void timerTick();
 
+    /*
+        Runs when size of the widget changes. Smoothly rescales the textures to fit the new size.
+    */
+    void onSizeChanged();
+
 private:
 
     /*
         The base of the paths. Should be the location of the folder containing the gamefiles folder.
-        By default it is "." which (should) mean "wherever the game executable was launched from" but this doesn't always work (ahem, mac).
+        By default it is set to the path of the executable.
         Will be set to whatever path is specified with the -p CLI parameter if it is used.
     */
-    const QString filepath = ".";
+    const QString filepath;
 
     // The amount of textures to hold in the textures array.
     const static unsigned TEXTURE_COUNT = 29;
@@ -143,7 +148,10 @@ private:
     const unsigned LEVEL_ROW_CLEARS = 5;
 
     // Contains the base textures for all the blocks. @TODO: document which values contain which textures.
-    const std::array<QImage, TEXTURE_COUNT> TEXTURES;
+    const std::array<QImage, TEXTURE_COUNT> TEXTURES_ORIGINAL;
+
+    // Contains the textures for all the blocks scaled to the current size of the widget.
+    std::array<QImage, TEXTURE_COUNT> texturesScaled;
 
     // The main thread used to execute game logic calculations.
     QThread logicThread;
@@ -198,11 +206,6 @@ private:
     /*
         Calculates and returns the block texture at a given block.
         Calculation is based on the values of the block struct at the given block.
-
-        Currently the plan is to apply rotation and silhouette dynamically on the preexisting images if needed before passing to QML
-        to simplify the amount of textures we need to create and store.
-        However if higher CPU efficiency is needed we could premake the rotated and silhouetted textures and store them in the textures array.
-        This would be at the cost of making a ton more images and a (probably not very notable) increase in RAM usage.
     */
     QImage getTextureAt(unsigned posX, unsigned posY);
 

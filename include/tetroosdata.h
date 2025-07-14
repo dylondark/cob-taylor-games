@@ -12,9 +12,6 @@
 #include <array>
 #include "flippedarray.h"
 
-namespace {
-typedef FlippedArray<std::array<bool, 4>, 4> PieceGrid;
-
 /*
     Enum that neatly defines all of the piece types (or empty).
     Mapping to chars may or may not be necessary.
@@ -95,47 +92,57 @@ struct ActivePiece
     unsigned posX, posY;
 };
 
+/*
+    Struct that makes up the unit for PieceGrids.
+*/
+struct PieceGridBlock
+{
+    bool filled;
+    unsigned posX, posY;
+};
+
+typedef FlippedArray<std::array<PieceGridBlock, 4>, 4> PieceGrid;
+
 // Grid representation of the I piece
-const PieceGrid I_PIECE = {{{1,0,0,0},
-                            {1,0,0,0},
-                            {1,0,0,0},
-                            {1,0,0,0}}};
+const PieceGrid I_PIECE = {{{{{true , 0, 3}, {false, 1, 3}, {false, 2, 3}, {false, 3, 3}}},
+                            {{{true , 0, 2}, {false, 1, 2}, {false, 2, 2}, {false, 3, 2}}},
+                            {{{true , 0, 1}, {false, 1, 1}, {false, 2, 1}, {false, 3, 1}}},
+                            {{{true , 0, 0}, {false, 1, 0}, {false, 2, 0}, {false, 3, 0}}}}};
 
 // Grid representation of the J piece
-const PieceGrid J_PIECE = {{{0,0,0,0},
-                            {0,1,0,0},
-                            {0,1,0,0},
-                            {1,1,0,0}}};
+const PieceGrid J_PIECE = {{{{{false, 0, 3}, {false, 1, 3}, {false, 2, 3}, {false, 3, 3}}},
+                            {{{false, 0, 2}, {true , 1, 2}, {false, 2, 2}, {false, 3, 2}}},
+                            {{{false, 0, 1}, {true , 1, 1}, {false, 2, 1}, {false, 3, 1}}},
+                            {{{true , 0, 0}, {true , 1, 0}, {false, 2, 0}, {false, 3, 0}}}}};
 
 // Grid representation of the L piece
-const PieceGrid L_PIECE = {{{0,0,0,0},
-                            {1,0,0,0},
-                            {1,0,0,0},
-                            {1,1,0,0}}};
+const PieceGrid L_PIECE = {{{{{false, 0, 3}, {false, 1, 3}, {false, 2, 3}, {false, 3, 3}}},
+                            {{{true , 0, 2}, {false, 1, 2}, {false, 2, 2}, {false, 3, 2}}},
+                            {{{true , 0, 1}, {false, 1, 1}, {false, 2, 1}, {false, 3, 1}}},
+                            {{{true , 0, 0}, {true , 1, 0}, {false, 2, 0}, {false, 3, 0}}}}};
 
 // Grid representation of the O piece
-const PieceGrid O_PIECE = {{{0,0,0,0},
-                            {0,0,0,0},
-                            {1,1,0,0},
-                            {1,1,0,0}}};
+const PieceGrid O_PIECE = {{{{{false, 0, 3}, {false, 1, 3}, {false, 2, 3}, {false, 3, 3}}},
+                            {{{false, 0, 2}, {false, 1, 2}, {false, 2, 2}, {false, 3, 2}}},
+                            {{{true , 0, 1}, {true , 1, 1}, {false, 2, 1}, {false, 3, 1}}},
+                            {{{true , 0, 0}, {true , 1, 0}, {false, 2, 0}, {false, 3, 0}}}}};
 
 // Grid representation of the S piece
-const PieceGrid S_PIECE = {{{0,0,0,0},
-                            {0,0,0,0},
-                            {0,1,1,0},
-                            {1,1,0,0}}};
+const PieceGrid S_PIECE = {{{{{false, 0, 3}, {false, 1, 3}, {false, 2, 3}, {false, 3, 3}}},
+                            {{{false, 0, 2}, {false, 1, 2}, {false, 2, 2}, {false, 3, 2}}},
+                            {{{false, 0, 1}, {true , 1, 1}, {true , 2, 1}, {false, 3, 1}}},
+                            {{{true , 0, 0}, {true , 1, 0}, {false, 2, 0}, {false, 3, 0}}}}};
 
 // Grid representation of the T piece
-const PieceGrid T_PIECE = {{{0,0,0,0},
-                            {0,0,0,0},
-                            {0,1,0,0},
-                            {1,1,1,0}}};
+const PieceGrid T_PIECE = {{{{{false, 0, 3}, {false, 1, 3}, {false, 2, 3}, {false, 3, 3}}},
+                            {{{false, 0, 2}, {false, 1, 2}, {false, 2, 2}, {false, 3, 2}}},
+                            {{{true , 0, 1}, {true , 1, 1}, {true , 2, 1}, {false, 3, 1}}},
+                            {{{false, 0, 0}, {true , 1, 0}, {false, 2, 0}, {false, 3, 0}}}}};
 
 // Grid representation of the Z piece
-const PieceGrid Z_PIECE = {{{0,0,0,0},
-                            {0,0,0,0},
-                            {1,1,0,0},
-                            {0,1,1,0}}};
-}
+const PieceGrid Z_PIECE = {{{{{false, 0, 3}, {false, 1, 3}, {false, 2, 3}, {false, 3, 3}}},
+                            {{{false, 0, 2}, {false, 1, 2}, {false, 2, 2}, {false, 3, 2}}},
+                            {{{true , 0, 1}, {true , 1, 1}, {false, 2, 1}, {false, 3, 1}}},
+                            {{{false, 0, 0}, {true , 1, 0}, {true , 2, 0}, {false, 3, 0}}}}};
 
 #endif // TETROOSDATA_H

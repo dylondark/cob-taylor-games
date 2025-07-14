@@ -16,13 +16,14 @@
 #include "profanitychecker.h"
 #include "tetrooscontroller.h"
 #include "mazecontroller.h"
+#include "pongcontroller.h"
 #include <QScrollBar>
 #include <QShortcut>
 #include <QKeySequence>
 #include <QStackedLayout>
 #include <QQmlContext>
 #include <QQuickView>
-#include <triviacontroller.h>
+#include "triviacontroller.h"
 
 /*
     Constructor for MainWindow.
@@ -160,6 +161,7 @@ void MainWindow::initQML()
     qmlRegisterType<FeedbackController>("QMLControllers", 1, 0, "FeedbackController");
     qmlRegisterType<ProfanityChecker>("QMLControllers", 1, 0, "ProfanityChecker");
     qmlRegisterType<MazeController>("QMLControllers", 1, 0, "MazeController");
+    qmlRegisterType<PongController>("QMLControllers", 1, 0, "PongController");
     // all qml controllers will eventually be registered here
 }
 
@@ -203,14 +205,14 @@ void MainWindow::resizeEvent([[maybe_unused]] QResizeEvent* event)
     ui->background->setGeometry(0, 0, wh[0], wh[1]);
 
     // scale and reapply title image
-    ui->lblTitle->setPixmap(QPixmap(filepath + "/menufiles/title_splash.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->lblTitle->setPixmap(QPixmap(filepath + "/menufiles/title.png").scaled(ui->lblTitle->width(), ui->lblTitle->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     // apply button images
     setBtnIcon(ui->btnGame1, QString(filepath + "/menufiles/trivia.png").toStdString());// UATrivia
     setBtnIcon(ui->btnGame2, QString(filepath + "/menufiles/GuessTheLogoNEW.png").toStdString());//GuessTheLogo
-    setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/TetroosPreview.png").toStdString());//Tetroos
+    setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/Tetroos.png").toStdString());//Tetroos
     setBtnIcon(ui->btnGame4, QString(filepath + "/menufiles/HopperPreview.png").toStdString()); //ZippyHop
-    setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/PongMotionPreview.png").toStdString());//pong
+    setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/Pong.png").toStdString());//pong
     setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/Maze.png").toStdString());// maze
 
     // scale functions

@@ -4,7 +4,8 @@
 
 TEMPLATE = app
 TARGET = cob-taylor-games
-QT += widgets opengl openglwidgets core quickwidgets qml
+QT += widgets opengl openglwidgets core quickwidgets qml \
+    quick
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -25,6 +26,7 @@ HEADERS += \
     cliparser.h \
     flippedarray.h \
     mazecontroller.h \
+    pongdata.h \
     threadworker.h \
     tetroosdata.h \
     tetrooscontroller.h \
@@ -36,6 +38,7 @@ HEADERS += \
     clickdetector.h \
     triviacontroller.h \
     guessthelogocontroller.h \
+    pongcontroller.h \
     rapidcsv.h
 FORMS += mainwindow.ui
 SOURCES += \
@@ -49,9 +52,11 @@ SOURCES += \
     guessthelogocontroller.cpp \
     feedbackcontroller.cpp \
     mazecontroller.cpp \
+    utilities.cpp \
     tetrooscontroller.cpp \
     profanitychecker.cpp \
     cliparser.cpp \
+    pongcontroller.cpp \
     triviacontroller.cpp
 
 RESOURCES += \

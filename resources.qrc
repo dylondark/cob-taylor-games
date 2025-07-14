@@ -12,6 +12,7 @@
         <file>qml/MazeGame.qml</file>
         <file>qml/PreviewBase.qml</file>
         <file>qml/TetroosPieceView.qml</file>
+        <file>qml/TetroosBackgroundPiece.qml</file>
     </qresource>
     <qresource prefix="/game"/>
     <qresource prefix="/menu"/>

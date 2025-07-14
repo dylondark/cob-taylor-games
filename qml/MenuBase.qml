@@ -205,6 +205,7 @@ Item {
                         base.visible = false
                         gameBase.visible = true
                         gameBase.startGame()
+
                     }
                 }
             }
