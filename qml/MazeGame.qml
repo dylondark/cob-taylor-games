@@ -41,7 +41,7 @@ Item {
 
             MenuBase {
                 id: menuBase
-                imageSource: filepath + "/menufiles/PongMotion.png"
+                imageSource: filepath + "/menufiles/Maze.png"
             }
 
             Item {
