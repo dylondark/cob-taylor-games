@@ -247,7 +247,7 @@ void MazeController::updateGame()
             break;
         }
         case MazeAction::Maze_Wait:
-            break;
+            return;
         }
 
         QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); // begin painting a new frame (call paint()). call on main thread
