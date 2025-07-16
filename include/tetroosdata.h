@@ -21,7 +21,7 @@ enum PieceType : char {I = 'I' , J = 'J', L = 'L', O = 'O', S = 'S', T = 'T', Z 
 /*
     This enum defines all of the actions that can cause a game update. It includes all of the actions a player can make as well as the normal timer tick.
 */
-enum GameAction {NewPiece, Left, Right, Down, Rotate, Slam, Hold};
+enum GameAction {NewPiece = 0, Left = 1, Right = 2, Down = 3, Rotate = 4, Slam = 5, Hold = 6};
 
 /*
     This is the data structure that represents every individual block on the play grid.

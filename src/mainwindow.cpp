@@ -15,6 +15,7 @@
 #include "guessthelogocontroller.h"
 #include "profanitychecker.h"
 #include "tetrooscontroller.h"
+#include "mazecontroller.h"
 #include "pongcontroller.h"
 #include <QScrollBar>
 #include <QShortcut>
@@ -159,6 +160,7 @@ void MainWindow::initQML()
     qmlRegisterType<TetroosController>("QMLControllers", 1, 0, "TetroosController");
     qmlRegisterType<FeedbackController>("QMLControllers", 1, 0, "FeedbackController");
     qmlRegisterType<ProfanityChecker>("QMLControllers", 1, 0, "ProfanityChecker");
+    qmlRegisterType<MazeController>("QMLControllers", 1, 0, "MazeController");
     qmlRegisterType<PongController>("QMLControllers", 1, 0, "PongController");
     // all qml controllers will eventually be registered here
 }
@@ -211,7 +213,7 @@ void MainWindow::resizeEvent([[maybe_unused]] QResizeEvent* event)
     setBtnIcon(ui->btnGame3, QString(filepath + "/menufiles/Tetroos.png").toStdString());//Tetroos
     setBtnIcon(ui->btnGame4, QString(filepath + "/menufiles/HopperPreview.png").toStdString()); //ZippyHop
     setBtnIcon(ui->btnGame5, QString(filepath + "/menufiles/Pong.png").toStdString());//pong
-    setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/CheckersPreview.png").toStdString());//checkers
+    setBtnIcon(ui->btnGame6, QString(filepath + "/menufiles/Maze.png").toStdString());// maze
 
     // scale functions
     scaleMenu(wh[1]);
@@ -362,7 +364,7 @@ void MainWindow::on_lbGame5_pressed()
 }
 
 /*
-    Press handler for Checkers leaderboard button.
+    Press handler for Maze leaderboard button.
 */
 void MainWindow::on_lbGame6_pressed()
 {
@@ -619,9 +621,9 @@ void MainWindow::on_btnGame5_pressed()
 }
 
 /*
-    Press handler for Checkers game button.
+    Press handler for Maze game button.
 */
 void MainWindow::on_btnGame6_pressed()
 {
-    showGame(game::Checkers);
+    showGame(game::Maze);
 }

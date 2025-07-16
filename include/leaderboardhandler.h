@@ -97,7 +97,7 @@ private:
     std::string filepath = "./leaderboard/";
 
     // Names of the datafiles
-    const std::string FILENAMES[6] = {"trivia.txt", "guessthelogo.txt", "tetroos.txt", "hopper.txt", "pong.txt", "checkers.txt"};
+    const std::string FILENAMES[6] = {"trivia.txt", "guessthelogo.txt", "tetroos.txt", "hopper.txt", "pong.txt", "maze.txt"};
 
     // Generates an icon containing a number for the leaderboard images
     QIcon genNumIcon(int num);

@@ -26,8 +26,8 @@ QUrl Utilities::getGameQML(game game)
         return QUrl("qrc:/qml/qml/HopperGame.qml");
     case Pong:
         return QUrl("qrc:/qml/qml/PongGame.qml");
-    case Checkers:
-        return QUrl("qrc:/qml/qml/CheckersGame.qml");
+    case Maze:
+        return QUrl("qrc:/qml/qml/MazeGame.qml");
     default:
         Utilities::throwError(QMLNotFoundError);
     }

@@ -22,7 +22,7 @@ namespace Utilities
     Enum for selecting games.
     Named in accordance to the "official game names" from the project standards.
 */
-enum game {Trivia = 0, GuessTheLogo = 1, Tetroos = 2, Hopper = 3, Pong = 4, Checkers = 5};
+enum game {Trivia = 0, GuessTheLogo = 1, Tetroos = 2, Hopper = 3, Pong = 4, Maze = 5};
 
 enum errorMessages {FileOpenError, FileWriteError, QMLNotFoundError};
 

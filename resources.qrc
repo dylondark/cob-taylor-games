@@ -9,7 +9,7 @@
         <file>qml/TetroosGame.qml</file>
         <file>qml/HopperGame.qml</file>
         <file>qml/PongGame.qml</file>
-        <file>qml/CheckersGame.qml</file>
+        <file>qml/MazeGame.qml</file>
         <file>qml/PreviewBase.qml</file>
         <file>qml/TetroosPieceView.qml</file>
         <file>qml/TetroosBackgroundPiece.qml</file>
